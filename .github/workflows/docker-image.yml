@@ -3,7 +3,7 @@ on:
   release:
     types: [published]
 jobs:
-  build-and-push-scoretrak-web:
+  build-and-push-scoretrak-client:
     runs-on: ubuntu-latest
     permissions:
       packages: write
