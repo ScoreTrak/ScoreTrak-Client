@@ -1,0 +1,15 @@
+protoc .\scoretrakapis\pkg\proto\proto\v1\uuid.proto --js_out=import_style=commonjs,binary:.\src\grpc --grpc-web_out=import_style=typescript,mode=grpcwebtext:.\src\grpc --proto_path=.\scoretrakapis
+protoc .\scoretrakapis\pkg\proto\check\v1\check.proto --js_out=import_style=commonjs,binary:.\src\grpc --grpc-web_out=import_style=typescript,mode=grpcwebtext:.\src\grpc --proto_path=.\scoretrakapis
+protoc .\scoretrakapis\pkg\proto\property\v1\property.proto --js_out=import_style=commonjs,binary:.\src\grpc --grpc-web_out=import_style=typescript,mode=grpcwebtext:.\src\grpc --proto_path=.\scoretrakapis
+protoc .\scoretrakapis\pkg\proto\round\v1\round.proto --js_out=import_style=commonjs,binary:.\src\grpc --grpc-web_out=import_style=typescript,mode=grpcwebtext:.\src\grpc --proto_path=.\scoretrakapis
+protoc .\scoretrakapis\pkg\proto\service\v1\service.proto --js_out=import_style=commonjs,binary:.\src\grpc --grpc-web_out=import_style=typescript,mode=grpcwebtext:.\src\grpc --proto_path=.\scoretrakapis
+protoc .\scoretrakapis\pkg\proto\service_group\v1\service_group.proto --js_out=import_style=commonjs,binary:.\src\grpc --grpc-web_out=import_style=typescript,mode=grpcwebtext:.\src\grpc --proto_path=.\scoretrakapis
+protoc .\scoretrakapis\pkg\proto\host\v1\host.proto --js_out=import_style=commonjs,binary:.\src\grpc --grpc-web_out=import_style=typescript,mode=grpcwebtext:.\src\grpc --proto_path=.\scoretrakapis
+protoc .\scoretrakapis\pkg\proto\host_group\v1\host_group.proto --js_out=import_style=commonjs,binary:.\src\grpc --grpc-web_out=import_style=typescript,mode=grpcwebtext:.\src\grpc --proto_path=.\scoretrakapis
+protoc .\scoretrakapis\pkg\proto\team\v1\team.proto --js_out=import_style=commonjs,binary:.\src\grpc --grpc-web_out=import_style=typescript,mode=grpcwebtext:.\src\grpc --proto_path=.\scoretrakapis
+protoc .\scoretrakapis\pkg\proto\competition\v1\competition.proto --js_out=import_style=commonjs,binary:.\src\grpc --grpc-web_out=import_style=typescript,mode=grpcwebtext:.\src\grpc --proto_path=.\scoretrakapis
+protoc .\scoretrakapis\pkg\proto\report\v1\report.proto --js_out=import_style=commonjs,binary:.\src\grpc --grpc-web_out=import_style=typescript,mode=grpcwebtext:.\src\grpc --proto_path=.\scoretrakapis
+protoc .\scoretrakapis\pkg\proto\config\v1\config.proto --js_out=import_style=commonjs,binary:.\src\grpc --grpc-web_out=import_style=typescript,mode=grpcwebtext:.\src\grpc --proto_path=.\scoretrakapis
+protoc .\scoretrakapis\pkg\proto\user\v1\user.proto --js_out=import_style=commonjs,binary:.\src\grpc --grpc-web_out=import_style=typescript,mode=grpcwebtext:.\src\grpc --proto_path=.\scoretrakapis
+protoc .\scoretrakapis\pkg\proto\policy\v1\policy.proto --js_out=import_style=commonjs,binary:.\src\grpc --grpc-web_out=import_style=typescript,mode=grpcwebtext:.\src\grpc --proto_path=.\scoretrakapis
+protoc .\scoretrakapis\pkg\proto\auth\v1\auth.proto --js_out=import_style=commonjs,binary:.\src\grpc --grpc-web_out=import_style=typescript,mode=grpcwebtext:.\src\grpc --proto_path=.\scoretrakapis

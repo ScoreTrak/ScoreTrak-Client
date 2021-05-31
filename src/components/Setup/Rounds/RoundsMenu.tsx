@@ -4,7 +4,7 @@ import Box from "@material-ui/core/Box";
 import MaterialTable, {Column} from '@material-table/core'
 import {Severity} from "../../../types/types";
 import {CircularProgress} from "@material-ui/core";
-import {GetAllRequest, Round} from "../../../grpc/pkg/round/roundpb/round_pb";
+import {GetAllRequest, Round} from "../../../grpc/pkg/proto/round/v1/round_pb";
 
 type roundColumns = {
     id: number

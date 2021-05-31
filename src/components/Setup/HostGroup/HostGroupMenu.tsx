@@ -4,14 +4,14 @@ import Box from "@material-ui/core/Box";
 import MaterialTable, {Column} from '@material-table/core'
 import {Severity} from "../../../types/types";
 import {CircularProgress} from "@material-ui/core";
-import {UUID} from "../../../grpc/pkg/proto/utilpb/uuid_pb";
+import {UUID} from "../../../grpc/pkg/proto/proto/v1/uuid_pb";
 import {
     DeleteRequest,
     GetAllRequest,
     HostGroup,
     StoreRequest,
     UpdateRequest
-} from "../../../grpc/pkg/host_group/host_grouppb/host_group_pb";
+} from "../../../grpc/pkg/proto/host_group/v1/host_group_pb";
 import {BoolValue} from "google-protobuf/google/protobuf/wrappers_pb";
 
 export type hostGroupColumns = {

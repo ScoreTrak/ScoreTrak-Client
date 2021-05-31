@@ -17,11 +17,11 @@ import {SetupProps} from "../util/util";
 import {
     GetAllRequest as GetAllRequestServiceGroup,
     ServiceGroup
-} from "../../../grpc/pkg/service_group/service_grouppb/service_group_pb";
+} from "../../../grpc/pkg/proto/service_group/v1/service_group_pb";
 import {Severity} from "../../../types/types";
-import {GetAllRequest as GetAllRequestService, StoreRequest} from "../../../grpc/pkg/service/servicepb/service_pb";
-import {GetAllRequest as GetAllRequestHost, Host} from "../../../grpc/pkg/host/hostpb/host_pb";
-import {HostGroup} from "../../../grpc/pkg/host_group/host_grouppb/host_group_pb";
+import {GetAllRequest as GetAllRequestService, StoreRequest} from "../../../grpc/pkg/proto/service/v1/service_pb";
+import {GetAllRequest as GetAllRequestHost, Host} from "../../../grpc/pkg/proto/host/v1/host_pb";
+import {HostGroup} from "../../../grpc/pkg/proto/host_group/v1/host_group_pb";
 import {serviceColumns, serviceColumnsToService} from "./ServiceMenu";
 
 const ServiceCreate = forwardRef((props: SetupProps, ref) => {

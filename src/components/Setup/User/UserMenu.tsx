@@ -3,16 +3,16 @@ import {SetupProps} from "../util/util";
 import {Role} from "../../../grpc/token/token";
 import Box from "@material-ui/core/Box";
 import MaterialTable, {Column} from '@material-table/core'
-import {GetAllRequest as GetAllRequestTeam} from "../../../grpc/pkg/team/teampb/team_pb";
+import {GetAllRequest as GetAllRequestTeam} from "../../../grpc/pkg/proto/team/v1/team_pb";
 import {
     DeleteRequest,
     GetAllRequest as GetAllRequestUser,
     Role as ProtoRole,
     StoreRequest, UpdateRequest,
     User
-} from "../../../grpc/pkg/user/userpb/user_pb";
+} from "../../../grpc/pkg/proto/user/v1/user_pb";
 import {Severity} from "../../../types/types";
-import {UUID} from "../../../grpc/pkg/proto/utilpb/uuid_pb";
+import {UUID} from "../../../grpc/pkg/proto/proto/v1/uuid_pb";
 import {CircularProgress} from "@material-ui/core";
 
 type userColumns = {
@@ -46,17 +46,17 @@ function userColumnsToUser(userC: userColumns): User{
 }
 
 function ProtoRoleToRole (eRole : ProtoRole): Role | undefined{
-    if (eRole === ProtoRole.BLUE) return Role.Blue
-    if (eRole === ProtoRole.BLACK) return Role.Black
-    if (eRole === ProtoRole.RED) return Role.Red
+    if (eRole === ProtoRole.ROLE_BLUE) return Role.Blue
+    if (eRole === ProtoRole.ROLE_BLACK) return Role.Black
+    if (eRole === ProtoRole.ROLE_RED) return Role.Red
     return undefined
 }
 
 function RoleToProtoRole (role : Role | undefined): ProtoRole {
-    if (role === Role.Blue) return ProtoRole.BLUE
-    if (role === Role.Black) return ProtoRole.BLACK
-    if (role === Role.Red) return ProtoRole.RED
-    return ProtoRole.ROLE_NOT_SET
+    if (role === Role.Blue) return ProtoRole.ROLE_BLUE
+    if (role === Role.Black) return ProtoRole.ROLE_BLACK
+    if (role === Role.Red) return ProtoRole.ROLE_RED
+    return ProtoRole.ROLE_UNSPECIFIED
 }
 
 

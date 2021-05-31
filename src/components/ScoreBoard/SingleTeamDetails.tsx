@@ -23,22 +23,22 @@ import PauseCircleOutlineIcon from '@material-ui/icons/PauseCircleOutline';
 import {
     GetAllByServiceIDRequest as GetAllByServiceIDRequestCheck,
     GetAllByServiceIDResponse as GetAllByServiceIDResponseCheck,
-} from "../../grpc/pkg/check/checkpb/check_pb";
+} from "../../grpc/pkg/proto/check/v1/check_pb";
 import {
     GetAllByServiceIDRequest as GetAllByServiceIDRequestProperty,
     GetAllByServiceIDResponse as GetAllByServiceIDResponseProperty,
     Property,
     Status,
     UpdateRequest as UpdateRequestProperty
-} from "../../grpc/pkg/property/propertypb/property_pb";
+} from "../../grpc/pkg/proto/property/v1/property_pb";
 import {
     GetByIDRequest as GetByIDRequestHost,
     Host,
     UpdateRequest as UpdateRequestHost
-} from "../../grpc/pkg/host/hostpb/host_pb";
+} from "../../grpc/pkg/proto/host/v1/host_pb";
 
 
-import {UUID} from "../../grpc/pkg/proto/utilpb/uuid_pb";
+import {UUID} from "../../grpc/pkg/proto/proto/v1/uuid_pb";
 import {StringValue} from "google-protobuf/google/protobuf/wrappers_pb";
 
 const useStyles = makeStyles((theme) => ({
@@ -329,7 +329,7 @@ function SingleTeamDetailsAccordionDetailsBox(props: SingleTeamDetailsAccordionD
             for (const [key, property] of Object.entries(simpleService.Properties)) {
                 const obj: PropertiesData = {key, value_used: property.Value, service_id: key, value: "", editable_value: false}
                 results.getPropertiesList().forEach(res => {
-                    if (key === res.getKey() && res.getStatus() === Status.EDIT){
+                    if (key === res.getKey() && res.getStatus() === Status.STATUS_EDIT){
                         obj.value = res.getValue()?.getValue() ? res.getValue()?.getValue() : undefined
                         obj.editable_value = true
                     }

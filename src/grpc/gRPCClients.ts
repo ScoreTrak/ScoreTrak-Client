@@ -1,19 +1,19 @@
 import {token} from './token/token'
 
-import {AuthServiceClient} from "./pkg/auth/AuthServiceClientPb"
-import {CheckServiceClient} from "./pkg/check/checkpb/CheckServiceClientPb";
-import {CompetitionServiceClient} from "./pkg/competition/competitionpb/CompetitionServiceClientPb";
-import {DynamicConfigServiceClient, StaticConfigServiceClient} from "./pkg/config/configpb/ConfigServiceClientPb";
-import {HostServiceClient} from "./pkg/host/hostpb/HostServiceClientPb";
-import {HostGroupServiceClient} from "./pkg/host_group/host_grouppb/Host_groupServiceClientPb";
-import {PolicyServiceClient} from "./pkg/policy/policypb/PolicyServiceClientPb";
-import {PropertyServiceClient} from "./pkg/property/propertypb/PropertyServiceClientPb";
-import {ReportServiceClient} from "./pkg/report/reportpb/ReportServiceClientPb";
-import {RoundServiceClient} from "./pkg/round/roundpb/RoundServiceClientPb";
-import {ServiceServiceClient} from "./pkg/service/servicepb/ServiceServiceClientPb";
-import {ServiceGroupServiceClient} from "./pkg/service_group/service_grouppb/Service_groupServiceClientPb";
-import {TeamServiceClient} from "./pkg/team/teampb/TeamServiceClientPb";
-import {UserServiceClient} from "./pkg/user/userpb/UserServiceClientPb";
+import {AuthServiceClient} from "./pkg/proto/auth/v1/AuthServiceClientPb"
+import {CheckServiceClient} from "./pkg/proto/check/v1/CheckServiceClientPb";
+import {CompetitionServiceClient} from "./pkg/proto/competition/v1/CompetitionServiceClientPb";
+import {DynamicConfigServiceClient, StaticConfigServiceClient} from "./pkg/proto/config/v1/ConfigServiceClientPb";
+import {HostServiceClient} from "./pkg/proto/host/v1/HostServiceClientPb";
+import {HostGroupServiceClient} from "./pkg/proto/host_group/v1/Host_groupServiceClientPb";
+import {PolicyServiceClient} from "./pkg/proto/policy/v1/PolicyServiceClientPb";
+import {PropertyServiceClient} from "./pkg/proto/property/v1/PropertyServiceClientPb";
+import {ReportServiceClient} from "./pkg/proto/report/v1/ReportServiceClientPb";
+import {RoundServiceClient} from "./pkg/proto/round/v1/RoundServiceClientPb";
+import {ServiceServiceClient} from "./pkg/proto/service/v1/ServiceServiceClientPb";
+import {ServiceGroupServiceClient} from "./pkg/proto/service_group/v1/Service_groupServiceClientPb";
+import {TeamServiceClient} from "./pkg/proto/team/v1/TeamServiceClientPb";
+import {UserServiceClient} from "./pkg/proto/user/v1/UserServiceClientPb";
 
 const serverAddress = process.env.PUBLIC_URL
 

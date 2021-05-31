@@ -6,10 +6,10 @@ import StepButton from "@material-ui/core/StepButton";
 import {SetupProps} from "../util/util";
 import {Severity} from "../../../types/types";
 import MaterialTable, {Column} from '@material-table/core'
-import {UUID} from "../../../grpc/pkg/proto/utilpb/uuid_pb";
+import {UUID} from "../../../grpc/pkg/proto/proto/v1/uuid_pb";
 import {CircularProgress} from "@material-ui/core";
 import ServiceCreate from "./ServiceCreate";
-import {GetAllRequest as GetAllRequestHost} from "../../../grpc/pkg/host/hostpb/host_pb";
+import {GetAllRequest as GetAllRequestHost} from "../../../grpc/pkg/proto/host/v1/host_pb";
 import {
     DeleteRequest,
     GetAllRequest,
@@ -17,11 +17,11 @@ import {
     StoreRequest,
     TestServiceRequest,
     UpdateRequest
-} from "../../../grpc/pkg/service/servicepb/service_pb";
+} from "../../../grpc/pkg/proto/service/v1/service_pb";
 import {BoolValue, UInt64Value} from "google-protobuf/google/protobuf/wrappers_pb";
 import {
     GetAllRequest as GetAllRequestServiceGroup,
-} from "../../../grpc/pkg/service_group/service_grouppb/service_group_pb";
+} from "../../../grpc/pkg/proto/service_group/v1/service_group_pb";
 
 
 function getSteps() {

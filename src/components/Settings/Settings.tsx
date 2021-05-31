@@ -23,14 +23,14 @@ import InputLabel from "@material-ui/core/InputLabel";
 import Input from "@material-ui/core/Input";
 import FormHelperText from "@material-ui/core/FormHelperText";
 import {SetupProps} from "../Setup/util/util";
-import {Policy, UpdateRequest as UpdateRequestPolicy} from "../../grpc/pkg/policy/policypb/policy_pb";
+import {Policy, UpdateRequest as UpdateRequestPolicy} from "../../grpc/pkg/proto/policy/v1/policy_pb";
 import { saveAs } from 'file-saver';
 import {
     DynamicConfig,
     GetRequest,
     GetStaticConfigRequest,
     UpdateRequest as UpdateRequestDynamicConfig
-} from "../../grpc/pkg/config/configpb/config_pb";
+} from "../../grpc/pkg/proto/config/v1/config_pb";
 import {Severity} from "../../types/types";
 import {BoolValue, StringValue, UInt64Value} from "google-protobuf/google/protobuf/wrappers_pb";
 import {
@@ -38,20 +38,20 @@ import {
     DeleteCompetitionRequest,
     FetchCoreCompetitionRequest, FetchEntireCompetitionRequest, LoadCompetitionRequest,
     ResetScoresRequest
-} from "../../grpc/pkg/competition/competitionpb/competition_pb";
+} from "../../grpc/pkg/proto/competition/v1/competition_pb";
 import { TransitionProps } from '@material-ui/core/transitions';
-import {Report} from "../../grpc/pkg/report/reportpb/report_pb";
+import {Report} from "../../grpc/pkg/proto/report/v1/report_pb";
 import {Timestamp} from "google-protobuf/google/protobuf/timestamp_pb";
-import {Check} from "../../grpc/pkg/check/checkpb/check_pb";
-import {UUID} from "../../grpc/pkg/proto/utilpb/uuid_pb";
-import {Round} from "../../grpc/pkg/round/roundpb/round_pb";
-import {Team} from "../../grpc/pkg/team/teampb/team_pb";
-import {User} from "../../grpc/pkg/user/userpb/user_pb";
-import {Host} from "../../grpc/pkg/host/hostpb/host_pb";
-import {HostGroup} from "../../grpc/pkg/host_group/host_grouppb/host_group_pb";
-import {ServiceGroup} from "../../grpc/pkg/service_group/service_grouppb/service_group_pb";
-import {Service} from "../../grpc/pkg/service/servicepb/service_pb";
-import {Property} from "../../grpc/pkg/property/propertypb/property_pb";
+import {Check} from "../../grpc/pkg/proto/check/v1/check_pb";
+import {UUID} from "../../grpc/pkg/proto/proto/v1/uuid_pb";
+import {Round} from "../../grpc/pkg/proto/round/v1/round_pb";
+import {Team} from "../../grpc/pkg/proto/team/v1/team_pb";
+import {User} from "../../grpc/pkg/proto/user/v1/user_pb";
+import {Host} from "../../grpc/pkg/proto/host/v1/host_pb";
+import {HostGroup} from "../../grpc/pkg/proto/host_group/v1/host_group_pb";
+import {ServiceGroup} from "../../grpc/pkg/proto/service_group/v1/service_group_pb";
+import {Service} from "../../grpc/pkg/proto/service/v1/service_pb";
+import {Property} from "../../grpc/pkg/proto/property/v1/property_pb";
 
 const useStyles = makeStyles((theme) => ({
     root: {

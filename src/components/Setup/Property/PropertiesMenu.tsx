@@ -6,7 +6,7 @@ import StepButton from "@material-ui/core/StepButton";
 import {SetupProps} from "../util/util";
 import {Severity} from "../../../types/types";
 import MaterialTable, {Column} from '@material-table/core'
-import {UUID} from "../../../grpc/pkg/proto/utilpb/uuid_pb";
+import {UUID} from "../../../grpc/pkg/proto/proto/v1/uuid_pb";
 import {CircularProgress} from "@material-ui/core";
 import {
     DeleteRequest,
@@ -14,9 +14,9 @@ import {
     Property,
     StoreRequest,
     UpdateRequest
-} from "../../../grpc/pkg/property/propertypb/property_pb";
-import {Status as ProtoStatus} from "../../../grpc/pkg/property/propertypb/property_pb";
-import {GetAllRequest as GetAllRequestService} from "../../../grpc/pkg/service/servicepb/service_pb";
+} from "../../../grpc/pkg/proto/property/v1/property_pb";
+import {Status as ProtoStatus} from "../../../grpc/pkg/proto/property/v1/property_pb";
+import {GetAllRequest as GetAllRequestService} from "../../../grpc/pkg/proto/service/v1/service_pb";
 import PropertiesCreate from "./PropertiesCreate";
 
 
@@ -62,17 +62,17 @@ export enum Status {
 }
 
 function EnumStatusToStatus (pStatus : ProtoStatus): Status | undefined {
-    if (pStatus === ProtoStatus.VIEW) return Status.View
-    if (pStatus === ProtoStatus.EDIT) return Status.Edit
-    if (pStatus === ProtoStatus.HIDE) return Status.Hide
+    if (pStatus === ProtoStatus.STATUS_VIEW) return Status.View
+    if (pStatus === ProtoStatus.STATUS_EDIT) return Status.Edit
+    if (pStatus === ProtoStatus.STATUS_HIDE) return Status.Hide
     return undefined
 }
 
 function StatusToEnumStatus (status: Status | undefined): ProtoStatus {
-    if (status === Status.View) return ProtoStatus.VIEW
-    if (status === Status.Hide) return ProtoStatus.HIDE
-    if (status === Status.Edit) return ProtoStatus.EDIT
-    return ProtoStatus.STATUS_NOT_SET
+    if (status === Status.View) return ProtoStatus.STATUS_VIEW
+    if (status === Status.Hide) return ProtoStatus.STATUS_HIDE
+    if (status === Status.Edit) return ProtoStatus.STATUS_EDIT
+    return ProtoStatus.STATUS_UNSPECIFIED
 }
 
 export type propertyColumns = {
