@@ -15,7 +15,7 @@ import {ServiceGroupServiceClient} from "./pkg/service_group/service_grouppb/Ser
 import {TeamServiceClient} from "./pkg/team/teampb/TeamServiceClientPb";
 import {UserServiceClient} from "./pkg/user/userpb/UserServiceClientPb";
 
-const serverAddress = process.env.PUBLIC_URL
+const serverAddress = process.env.REACT_APP_SCORETRAK_SERVER_URL || process.env.PUBLIC_URL
 
 export type GRPCClients = {
     authClient: AuthServiceClient;
