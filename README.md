@@ -7,16 +7,10 @@ The react web application for ScoreTrak, a scoring engine built in go.
 Clone the repository.
 
 ```bash
-git clone https://github.com/ScoreTrak/ScoreTrak
+git clone https://github.com/ScoreTrak/client
 ```
 
 ## Usage
-
-Navigate to the web application
-
-```bash
-cd ScoreTrak/web
-```
 
 Install Dependencies
 
@@ -24,12 +18,18 @@ Install Dependencies
 npm install
 ```
 
-### Either build, test, and/or start the application
-
-Build the application
+Set Environment variables
 
 ```bash
-npm run build
+export REACT_APP_SCORETRAK_SERVER_URL=<ip_address_of_envoy_proxy>:<port>
+```
+
+### Development
+
+Start the application
+
+```bash
+npm run start
 ```
 
 Test the application
@@ -38,24 +38,17 @@ Test the application
 npm run test
 ```
 
-Start the application
+### Production
+
+Build the application
 
 ```bash
-npm run start
+npm run build
 ```
 
-## Notes
-
-1. If you are trying to install dependcies and can't with internet access, you may need to configure a proxy
+Serve generated static files
 
 ```bash
-# https://docs.npmjs.com/cli/v7/using-npm/config#https-proxy
-npm config set proxy http://<username>:<password>@<proxy-server-url>:<port>
-
-# https://docs.npmjs.com/cli/v7/using-npm/config#proxy
-npm config set https-proxy http://<username>:<password>@<proxy-server-url>:<port>
+npm install --global serve
+serve -s build
 ```
-
-Thanks to [npm proxy guide.](https://www.ngdevelop.tech/npm-proxy-setting/)
-
-2. This application templated from a react + typescript + grpc
