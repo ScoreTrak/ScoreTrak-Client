@@ -18,12 +18,6 @@ Install Dependencies
 npm install
 ```
 
-Set Environment variables
-
-```bash
-export REACT_APP_SCORETRAK_SERVER_URL=<ip_address_of_envoy_proxy>:<port>
-```
-
 ### Development
 
 Start the application
