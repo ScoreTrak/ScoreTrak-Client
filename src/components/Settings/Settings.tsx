@@ -287,6 +287,7 @@ export default function Settings(props: SetupProps & {currentPolicy: Policy.AsOb
                         h.setId(new UUID().setValue(hst.id?.value as string))
                         h.setHostGroupId(new UUID().setValue(hst.hostGroupId?.value as string))
                         h.setEditHost(new BoolValue().setValue(hst.editHost?.value as boolean))
+                        h.setAddressListRange(new StringValue().setValue(hst.addressListRange?.value as string))
                         h.setAddress(hst.address)
                         h.setTeamId(new UUID().setValue(hst.teamId?.value as string))
                         hosts.push(h)
