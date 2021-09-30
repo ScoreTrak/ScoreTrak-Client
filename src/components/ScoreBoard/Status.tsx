@@ -223,7 +223,7 @@ export default function Status(props: RanksProps) {
                                                  count={teamNames.length}
                                                  rowsPerPage={rowsPerPage}
                                                  page={rowPage}
-                                                 onChangePage={handleRowChangePage}
+                                                 onPageChange={handleRowChangePage}
                                                  onChangeRowsPerPage={handleChangeRowsPerPage}
                                 />
                                 <FormControlLabel className={classes.tableNavigator}
@@ -250,7 +250,7 @@ export default function Status(props: RanksProps) {
                                     rowsPerPage={columnsPerPage}
                                     page={columnPage}
                                     className={classes.tableNavigator}
-                                    onChangePage={handleColumnChangePage}
+                                    onPageChange={handleColumnChangePage}
                                     onChangeRowsPerPage={handleChangeColumnsPerPage}
                                 />
                                 </div>
