@@ -102,7 +102,7 @@ export default function Ranks(props: RanksProps) {
 
 
     data.sort((a, b) => (serviceSum(a) === serviceSum(b)) ? (a.teamName > b.teamName ? 1 : -1) : (serviceSum(a) > serviceSum(b) ? 1 : -1))
-    const theme = {fontSize: "0.875rem"}
+    const theme = {fontSize: 0.875}
     if (props.isDarkTheme){
         Object.assign(theme, darkTheme);
     }
@@ -154,7 +154,7 @@ export default function Ranks(props: RanksProps) {
             margin={{ top: 50, right: 60, bottom: 50, left: 60 }}
             padding={0.3}
             colors={{ scheme: props.isDarkTheme ? 'nivo' : 'dark2' }}
-            borderColor={{ from: 'color', modifiers: [ [ 'darker', '0' ] ] }}
+            borderColor={{ from: 'color', modifiers: [ [ 'darker', 0 ] ] }}
             axisTop={null}
             axisRight={null}
             layers={["grid", "axes", "bars", TotalLabels, "markers", "legends"]}
@@ -171,8 +171,6 @@ export default function Ranks(props: RanksProps) {
             labelTextColor={{ from: 'color', modifiers: [ [ 'darker', 2 ] ] }}
             legends={[]}
             animate={true}
-            motionStiffness={70}
-            motionDamping={15}
         />
     );
 }
