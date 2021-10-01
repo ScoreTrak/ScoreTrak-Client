@@ -102,7 +102,7 @@ export default function Ranks(props: RanksProps) {
 
 
     data.sort((a, b) => (serviceSum(a) === serviceSum(b)) ? (a.teamName > b.teamName ? 1 : -1) : (serviceSum(a) > serviceSum(b) ? 1 : -1))
-    const theme = {fontSize: 0.875}
+    const theme = {fontSize: 15}
     if (props.isDarkTheme){
         Object.assign(theme, darkTheme);
     }
