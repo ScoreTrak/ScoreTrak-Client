@@ -1,4 +1,4 @@
-import React, {useEffect, useRef, useState} from "react";
+import React, {Fragment, useEffect, useRef, useState} from "react";
 import Accordion from "@material-ui/core/Accordion";
 import AccordionSummary from "@material-ui/core/AccordionSummary";
 import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
@@ -11,7 +11,7 @@ import ErrorIcon from '@material-ui/icons/Error';
 import Alert from "@material-ui/lab/Alert";
 import AlertTitle from "@material-ui/lab/AlertTitle";
 import Grid from "@material-ui/core/Grid";
-import MaterialTable, {Column} from '@material-table/core'
+import MaterialTable, {Column, MTableToolbar} from '@material-table/core'
 import FormControl from "@material-ui/core/FormControl";
 import InputLabel from "@material-ui/core/InputLabel";
 import Input from "@material-ui/core/Input";
@@ -40,6 +40,8 @@ import {
 
 import {UUID} from "../../grpc/pkg/proto/proto/v1/uuid_pb";
 import {StringValue} from "google-protobuf/google/protobuf/wrappers_pb";
+import {IconButton, Tooltip} from "@material-ui/core";
+import {Replay} from "@material-ui/icons";
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -216,7 +218,9 @@ export default function SingleTeamDetails(props: CustomSingleTeamDetailsProps) {
                         }
                         simpleService.Pause = props.report.Teams[teamID].Pause || (currentHost.HostGroup !== undefined ? currentHost.HostGroup.Pause : false) || currentHost.Pause || currentHost.Services[service_id].Pause
                         return (
-                            <Accordion expanded={expanded === keyName} onChange={handleChange(keyName)} className={!simpleService.Pause ? (simpleService.Check?.Passed ? classes.customAccordionSuccessHeader : classes.customAccordionErrorHeader) : classes.customAccordionWarningHeader}>
+                            <Accordion TransitionProps={{
+                                timeout: 700
+                            }} expanded={expanded === keyName} onChange={handleChange(keyName)} className={!simpleService.Pause ? (simpleService.Check?.Passed ? classes.customAccordionSuccessHeader : classes.customAccordionErrorHeader) : classes.customAccordionWarningHeader}>
                                 <AccordionSummary
                                     expandIcon={<ExpandMoreIcon />}
                                     aria-controls={`${keyName}bh-content`}
@@ -420,49 +424,72 @@ function SingleTeamDetailsAccordionDetailsBox(props: SingleTeamDetailsAccordionD
                 </Grid>
                 <Grid item xs={6}>
                     {   PropertiesData.length !== 0 &&
-                    <MaterialTable
-                        options={{pageSizeOptions: [3, 5, 10, 20, 50, 100], pageSize: PropertiesData.length, emptyRowsWhenPaging: false}} //
-                        title="Properties"
-                        columns={columns}
-                        data={PropertiesData}
-                        cellEditable={{
-                            isCellEditable: (rowData, columnDef ) => {return rowData.editable_value},
-                            onCellEditApproved: (newValue, oldValue, rowData, columnDef) => {
-                                return new Promise((resolve, reject) => {
-                                    setTimeout(() => {
-                                        if (newValue !== "" && newValue.trim() === ""){
-                                            reject("Only empty strings are not allowed")
-                                        }
-                                        const property = new Property()
-                                        property.setKey(rowData.key)
-                                        const uuid = new UUID()
-                                        uuid.setValue(service_id)
-                                        property.setServiceId(uuid)
-                                        const stringValue = new StringValue()
-                                        stringValue.setValue(newValue)
-                                        property.setValue(stringValue)
-                                        const updatedProperty = new UpdateRequestProperty()
-                                        updatedProperty.setProperty(property)
-                                        props.gRPCClients.propertyClient.update(updatedProperty, {}).then(r => {
-                                            setPropertiesData((prevState) => {
-                                                return prevState.map(property => {
-                                                    if (property.key === rowData.key) {
-                                                        return {...rowData, value: newValue ? newValue : undefined }
-                                                    }
-                                                    return {...property}
+                        <Fragment>
+                            <MaterialTable
+                                options={{pageSizeOptions: [3, 5, 10, 20, 50, 100], pageSize: PropertiesData.length, emptyRowsWhenPaging: false}} //
+                                title="Properties"
+                                columns={columns}
+                                data={PropertiesData}
+                                cellEditable={{
+                                    isCellEditable: (rowData, columnDef ) => {return rowData.editable_value},
+                                    onCellEditApproved: (newValue, oldValue, rowData, columnDef) => {
+                                        return new Promise((resolve, reject) => {
+                                            setTimeout(() => {
+                                                if (newValue !== "" && newValue.trim() === ""){
+                                                    reject("Only empty strings are not allowed")
+                                                }
+                                                const property = new Property()
+                                                property.setKey(rowData.key)
+                                                const uuid = new UUID()
+                                                uuid.setValue(service_id)
+                                                property.setServiceId(uuid)
+                                                const stringValue = new StringValue()
+                                                stringValue.setValue(newValue)
+                                                property.setValue(stringValue)
+                                                const updatedProperty = new UpdateRequestProperty()
+                                                updatedProperty.setProperty(property)
+                                                props.gRPCClients.propertyClient.update(updatedProperty, {}).then(r => {
+                                                    setPropertiesData((prevState) => {
+                                                        return prevState.map(property => {
+                                                            if (property.key === rowData.key) {
+                                                                return {...rowData, value: newValue ? newValue : undefined }
+                                                            }
+                                                            return {...property}
+                                                        })
+                                                    });
+                                                    resolve();
+                                                }, (err: any) => {
+                                                    props.genericEnqueue(`Encountered an error while loading previous checks: ${err.message}. Error code: ${err.code}`, Severity.Error)
+                                                    reject()
                                                 })
-                                            });
-                                            resolve();
-                                        }, (err: any) => {
-                                            props.genericEnqueue(`Encountered an error while loading previous checks: ${err.message}. Error code: ${err.code}`, Severity.Error)
-                                            reject()
+                                            }, 600);
                                         })
-                                    }, 600);
-                                })
-                            }
-                        }}
-                    />
+                                    }
+                                }}
 
+                                components = {{
+                                    Toolbar: props => {
+                                        const propsCopy = { ...props };
+                                        return (
+                                            <Grid container direction="row">
+                                                <Grid item xs={1}>
+                                                    <Box pl={1} pt={1}>
+                                                        <Tooltip title="reload current values">
+                                                        <IconButton onClick={() => reloadPropertiesSetter(service_id, simpleService)} aria-label="reload properties" color="primary">
+                                                            <Replay />
+                                                        </IconButton>
+                                                        </Tooltip>
+                                                    </Box>
+                                                </Grid>
+                                                <Grid item xs={11}>
+                                                    <MTableToolbar {...propsCopy} />
+                                                </Grid>
+                                            </Grid>
+                                        );
+                                    },
+                                }}
+                            />
+                        </Fragment>
                     }
                     {
                         props.hostData && props.hostData.edit_host &&
