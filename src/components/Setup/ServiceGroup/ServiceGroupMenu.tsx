@@ -35,7 +35,7 @@ function serviceGroupToServiceGroupColumn(serviceGroup: ServiceGroup): serviceGr
 
 function serviceGroupColumnsToServiceGroup(serviceGroupC: serviceGroupColumns): ServiceGroup{
     const t = new ServiceGroup()
-    if (serviceGroupC.enabled !== undefined) t.setEnabled(new BoolValue().setValue(serviceGroupC.enabled))
+    if (serviceGroupC.enabled != null ) t.setEnabled(new BoolValue().setValue(serviceGroupC.enabled))
     if (serviceGroupC.id && serviceGroupC.id !== "") t.setId((new UUID().setValue(serviceGroupC.id)))
     t.setDisplayName(serviceGroupC.displayName)
     t.setLabel(serviceGroupC.label)

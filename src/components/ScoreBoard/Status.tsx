@@ -94,15 +94,20 @@ export default function Status(props: RanksProps) {
                                     if (sr.DisplayName){
                                         keyName = sr.DisplayName
                                     } else {
-                                        if (hst.HostGroup !== undefined){
+                                        if (hst.HostGroup != null){
                                             keyName = hst.HostGroup.Name + "-" + sr.Name
                                         } else{
                                             keyName = sr.Name
                                         }
                                     }
 
+                                    console.log(hst.HostGroup)
+
                                     data[report.Teams[team].Name][keyName] = {...sr, Address: report.Teams[team].Hosts[host].Address,
-                                        Pause: report.Teams[team].Pause || (hst.HostGroup !== undefined ? hst.HostGroup.Pause : false) || hst.Pause || sr.Pause
+                                        Pause: report.Teams[team].Pause ||
+                                            (hst.HostGroup != null ? hst.HostGroup.Pause : false)
+                                            || hst.Pause
+                                            || sr.Pause
                                     }
 
 
@@ -159,7 +164,7 @@ export default function Status(props: RanksProps) {
                                                 if (props.isDarkTheme){
                                                     if (data[name][column].Pause){
                                                         style = {backgroundColor: "#000000"}
-                                                    } else if (data[name][column].Check !== undefined && data[name][column].Check?.Passed){
+                                                    } else if (data[name][column].Check != null && data[name][column].Check?.Passed){
                                                         style =  {backgroundColor: "#259B0B"}
                                                     } else{
                                                         style = {backgroundColor: "#d20c23", color: "white"}
@@ -167,7 +172,7 @@ export default function Status(props: RanksProps) {
                                                 } else{
                                                     if (data[name][column].Pause){
                                                         style = {backgroundColor: "#000000"}
-                                                    } else if (data[name][column].Check !== undefined && data[name][column].Check?.Passed){
+                                                    } else if (data[name][column].Check != null && data[name][column].Check?.Passed){
                                                          style =  {backgroundColor: "green"}
                                                     } else{
                                                         style = {backgroundColor: "red", color: "white"}
@@ -175,7 +180,7 @@ export default function Status(props: RanksProps) {
                                                 }
                                                 const teamId = token.getCurrentTeamID()
 
-                                                if (token.isAValidToken() && teamId !== undefined && teamId in report.Teams && report.Teams[teamId].Name === name && highlightParentTeam) {
+                                                if (token.isAValidToken() && teamId != null  && teamId in report.Teams && report.Teams[teamId].Name === name && highlightParentTeam) {
                                                     style = {
                                                         ...style,
                                                         borderTop: '2px solid rgba(0, 0, 0, 1)',

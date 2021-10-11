@@ -73,11 +73,11 @@ export function teamToTeamColumn(team: Team): teamColumns{
 
 export function teamColumnsToTeam(teamC: teamColumns): Team{
     const t = new Team()
-    if (teamC.pause !== undefined) t.setPause(new BoolValue().setValue(teamC.pause))
-    if (teamC.hide !== undefined) t.setHide(new BoolValue().setValue(teamC.hide))
+    if (teamC.pause != null ) t.setPause(new BoolValue().setValue(teamC.pause))
+    if (teamC.hide != null ) t.setHide(new BoolValue().setValue(teamC.hide))
     if (teamC.id && teamC.id !== "") t.setId((new UUID().setValue(teamC.id)))
     t.setName(teamC.name)
-    if (teamC.index !== undefined) t.setIndex(new UInt64Value().setValue(teamC.index))
+    if (teamC.index != null ) t.setIndex(new UInt64Value().setValue(teamC.index))
     return t
 }
 

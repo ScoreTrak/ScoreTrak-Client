@@ -61,7 +61,7 @@ export default function Ranks(props: RanksProps) {
                                     if (sr.DisplayName){
                                         keyName = sr.DisplayName
                                     } else {
-                                        if (hst.HostGroup !== undefined){
+                                        if (hst.HostGroup != null ){
                                             keyName = hst.HostGroup.Name + "-" + sr.Name
                                         } else{
                                             keyName = sr.Name

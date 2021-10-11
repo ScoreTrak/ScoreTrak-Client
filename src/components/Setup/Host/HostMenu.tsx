@@ -94,10 +94,10 @@ export function hostColumnsToHost(hostC: hostColumns): Host{
     if (hostC.id && hostC.id !== "") u.setId((new UUID().setValue(hostC.id)))
     if (hostC.hostGroupId && hostC.hostGroupId !== "") u.setHostGroupId((new UUID().setValue(hostC.hostGroupId)))
     if (hostC.teamId && hostC.teamId !== "") u.setTeamId((new UUID().setValue(hostC.teamId)))
-    if (hostC.hide !== undefined) u.setHide(new BoolValue().setValue(hostC.hide))
-    if (hostC.pause !== undefined) u.setPause(new BoolValue().setValue(hostC.pause))
-    if (hostC.editHost !== undefined) u.setEditHost(new BoolValue().setValue(hostC.editHost))
-    if (hostC.addressListRange !== undefined) u.setAddressListRange(new StringValue().setValue(hostC.addressListRange))
+    if (hostC.hide != null ) u.setHide(new BoolValue().setValue(hostC.hide))
+    if (hostC.pause != null ) u.setPause(new BoolValue().setValue(hostC.pause))
+    if (hostC.editHost != null ) u.setEditHost(new BoolValue().setValue(hostC.editHost))
+    if (hostC.addressListRange != null ) u.setAddressListRange(new StringValue().setValue(hostC.addressListRange))
     u.setAddress(hostC.address)
     return u
 }

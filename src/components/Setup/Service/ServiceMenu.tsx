@@ -98,13 +98,13 @@ export function serviceColumnsToService(serviceC: serviceColumns): Service{
     u.setDisplayName(serviceC.displayName)
     if (serviceC.hostId && serviceC.hostId !== "") u.setHostId((new UUID().setValue(serviceC.hostId)))
     if (serviceC.serviceGroupId && serviceC.serviceGroupId !== "") u.setServiceGroupId((new UUID().setValue(serviceC.serviceGroupId)))
-    if (serviceC.pause !== undefined) u.setPause(new BoolValue().setValue(serviceC.pause))
-    if (serviceC.hide !== undefined) u.setHide(new BoolValue().setValue(serviceC.hide))
+    if (serviceC.pause != null ) u.setPause(new BoolValue().setValue(serviceC.pause))
+    if (serviceC.hide != null ) u.setHide(new BoolValue().setValue(serviceC.hide))
     u.setName(serviceC.name)
-    if (serviceC.weight !== undefined) u.setWeight(new UInt64Value().setValue(serviceC.weight))
+    if (serviceC.weight != null ) u.setWeight(new UInt64Value().setValue(serviceC.weight))
     u.setRoundUnits(serviceC.roundUnits)
-    if (serviceC.roundDelay !== undefined) u.setRoundDelay(new UInt64Value().setValue(serviceC.roundDelay))
-    if (serviceC.pointsBoost !== undefined) u.setPointsBoost(new UInt64Value().setValue(serviceC.pointsBoost))
+    if (serviceC.roundDelay != null ) u.setRoundDelay(new UInt64Value().setValue(serviceC.roundDelay))
+    if (serviceC.pointsBoost != null ) u.setPointsBoost(new UInt64Value().setValue(serviceC.pointsBoost))
     return u
 }
 

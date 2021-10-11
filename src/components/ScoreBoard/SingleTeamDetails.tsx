@@ -216,7 +216,7 @@ export default function SingleTeamDetails(props: CustomSingleTeamDetailsProps) {
                                 keyName = simpleService.Name
                             }
                         }
-                        simpleService.Pause = props.report.Teams[teamID].Pause || (currentHost.HostGroup !== undefined ? currentHost.HostGroup.Pause : false) || currentHost.Pause || currentHost.Services[service_id].Pause
+                        simpleService.Pause = props.report.Teams[teamID].Pause || (currentHost.HostGroup != null  ? currentHost.HostGroup.Pause : false) || currentHost.Pause || currentHost.Services[service_id].Pause
                         return (
                             <Accordion TransitionProps={{
                                 timeout: 700

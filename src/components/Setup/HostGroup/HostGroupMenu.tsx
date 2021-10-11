@@ -23,8 +23,8 @@ export type hostGroupColumns = {
 
 function hostGroupColumnsToHostGroup(hostGroupC: hostGroupColumns): HostGroup{
     const t = new HostGroup()
-    if (hostGroupC.pause !== undefined) t.setPause(new BoolValue().setValue(hostGroupC.pause))
-    if (hostGroupC.hide !== undefined) t.setHide(new BoolValue().setValue(hostGroupC.hide))
+    if (hostGroupC.pause != null ) t.setPause(new BoolValue().setValue(hostGroupC.pause))
+    if (hostGroupC.hide != null ) t.setHide(new BoolValue().setValue(hostGroupC.hide))
     if (hostGroupC.id && hostGroupC.id !== "") t.setId((new UUID().setValue(hostGroupC.id)))
     t.setName(hostGroupC.name)
     return t
