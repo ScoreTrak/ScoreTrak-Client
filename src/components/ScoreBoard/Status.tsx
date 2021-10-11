@@ -101,8 +101,6 @@ export default function Status(props: RanksProps) {
                                         }
                                     }
 
-                                    console.log(hst.HostGroup)
-
                                     data[report.Teams[team].Name][keyName] = {...sr, Address: report.Teams[team].Hosts[host].Address,
                                         Pause: report.Teams[team].Pause ||
                                             (hst.HostGroup != null ? hst.HostGroup.Pause : false)
