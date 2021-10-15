@@ -101,10 +101,10 @@ export function serviceColumnsToService(serviceC: serviceColumns): Service{
     if (serviceC.pause != null ) u.setPause(new BoolValue().setValue(serviceC.pause))
     if (serviceC.hide != null ) u.setHide(new BoolValue().setValue(serviceC.hide))
     u.setName(serviceC.name)
-    if (serviceC.weight != null ) u.setWeight(new UInt64Value().setValue(serviceC.weight))
+    if (serviceC.weight != null && !isNaN(serviceC.weight)) u.setWeight(new UInt64Value().setValue(serviceC.weight))
     u.setRoundUnits(serviceC.roundUnits)
-    if (serviceC.roundDelay != null ) u.setRoundDelay(new UInt64Value().setValue(serviceC.roundDelay))
-    if (serviceC.pointsBoost != null ) u.setPointsBoost(new UInt64Value().setValue(serviceC.pointsBoost))
+    if (serviceC.roundDelay != null && !isNaN(serviceC.roundDelay)) u.setRoundDelay(new UInt64Value().setValue(serviceC.roundDelay))
+    if (serviceC.pointsBoost != null && !isNaN(serviceC.pointsBoost) ) u.setPointsBoost(new UInt64Value().setValue(serviceC.pointsBoost))
     return u
 }
 

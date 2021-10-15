@@ -77,7 +77,7 @@ export function teamColumnsToTeam(teamC: teamColumns): Team{
     if (teamC.hide != null ) t.setHide(new BoolValue().setValue(teamC.hide))
     if (teamC.id && teamC.id !== "") t.setId((new UUID().setValue(teamC.id)))
     t.setName(teamC.name)
-    if (teamC.index != null ) t.setIndex(new UInt64Value().setValue(teamC.index))
+    if (teamC.index != null && !isNaN(teamC.index)) t.setIndex(new UInt64Value().setValue(teamC.index))
     return t
 }
 
