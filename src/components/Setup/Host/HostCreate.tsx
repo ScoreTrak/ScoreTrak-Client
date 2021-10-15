@@ -204,7 +204,7 @@ const HostCreate = forwardRef((props: SetupProps, ref) => {
                                                     templateModification(column.getId()?.getValue() as string, event.target.checked, "pause")
                                                 }}/>
                                             }
-                                            label="Enable Host Scoring"
+                                            label="Pause Host Scoring"
                                         />
                                         <FormControlLabel
                                             control={
