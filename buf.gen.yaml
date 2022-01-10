@@ -1,0 +1,11 @@
+version: v1
+plugins:
+  - name: js
+    out: src/lib/scoretrakapis/js
+    opt:
+      - import_style=commonjs
+  - name: grpc-web
+    out: src/lib/scoretrakapis/grpc-web
+    opt:
+      - import_style=typescript
+      - mode=grpcwebtext
