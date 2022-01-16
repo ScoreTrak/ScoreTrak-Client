@@ -12,7 +12,7 @@ import TableRow from '@material-ui/core/TableRow';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Switch from '@material-ui/core/Switch';
 import {SimpleCheck, SimpleReport, SimpleService} from "../../types/types";
-import {Policy} from "../../grpc/pkg/proto/policy/v1/policy_pb";
+import {Policy} from "../../lib/scoretrakapis/scoretrak/policy/v1/policy_pb";
 import {token} from "../../grpc/token/token";
 
 

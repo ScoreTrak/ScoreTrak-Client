@@ -5,19 +5,19 @@ import Step from "@material-ui/core/Step";
 import StepButton from "@material-ui/core/StepButton";
 import {SetupProps} from "../util/util";
 import HostCreate from "./HostCreate";
-import {UUID} from "../../../grpc/pkg/proto/proto/v1/uuid_pb";
+import {UUID} from "../../../lib/scoretrakapis/scoretrak/proto/v1/uuid_pb";
 import {BoolValue, StringValue} from "google-protobuf/google/protobuf/wrappers_pb";
 import {
     DeleteRequest,
     GetAllRequest,
     Host,
     StoreRequest, UpdateRequest
-} from "../../../grpc/pkg/proto/host/v1/host_pb";
+} from "../../../lib/scoretrakapis/scoretrak/host/v1/host_pb";
 import {Severity} from "../../../types/types";
 import MaterialTable, {Column} from '@material-table/core'
 import {CircularProgress} from "@material-ui/core";
-import {GetAllRequest as GetAllRequestHostGroup} from "../../../grpc/pkg/proto/host_group/v1/host_group_pb";
-import {GetAllRequest as GetAllRequestTeam} from "../../../grpc/pkg/proto/team/v1/team_pb";
+import {GetAllRequest as GetAllRequestHostGroup} from "../../../lib/scoretrakapis/scoretrak/host_group/v1/host_group_pb";
+import {GetAllRequest as GetAllRequestTeam} from "../../../lib/scoretrakapis/scoretrak/team/v1/team_pb";
 
 
 function getSteps() {

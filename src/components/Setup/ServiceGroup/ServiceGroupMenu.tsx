@@ -6,9 +6,9 @@ import {
     GetAllRequest, RedeployRequest,
     ServiceGroup,
     StoreRequest, UpdateRequest
-} from "../../../grpc/pkg/proto/service_group/v1/service_group_pb";
+} from "../../../lib/scoretrakapis/scoretrak/service_group/v1/service_group_pb";
 import {BoolValue} from "google-protobuf/google/protobuf/wrappers_pb";
-import {UUID} from "../../../grpc/pkg/proto/proto/v1/uuid_pb";
+import {UUID} from "../../../lib/scoretrakapis/scoretrak/proto/v1/uuid_pb";
 import MaterialTable, {Column} from '@material-table/core'
 import {Box, CircularProgress} from "@material-ui/core";
 

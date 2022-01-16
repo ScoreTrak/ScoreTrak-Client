@@ -1,19 +1,19 @@
 import {token} from './token/token'
 
-import {AuthServiceClient} from "../lib/scoretrakapis/grpc-web/scoretrak/auth/v1/AuthServiceClientPb"
-import {CheckServiceClient} from "../lib/scoretrakapis/grpc-web/scoretrak/check/v1/CheckServiceClientPb";
-import {CompetitionServiceClient} from "../lib/scoretrakapis/grpc-web/scoretrak/competition/v1/CompetitionServiceClientPb";
-import {DynamicConfigServiceClient, StaticConfigServiceClient} from "../lib/scoretrakapis/grpc-web/scoretrak/config/v1/ConfigServiceClientPb";
-import {HostServiceClient} from "../lib/scoretrakapis/grpc-web/scoretrak/host/v1/HostServiceClientPb";
-import {HostGroupServiceClient} from "../lib/scoretrakapis/grpc-web/scoretrak/host_group/v1/Host_groupServiceClientPb";
-import {PolicyServiceClient} from "../lib/scoretrakapis/grpc-web/scoretrak/policy/v1/PolicyServiceClientPb";
-import {PropertyServiceClient} from "../lib/scoretrakapis/grpc-web/scoretrak/property/v1/PropertyServiceClientPb";
-import {ReportServiceClient} from "../lib/scoretrakapis/grpc-web/scoretrak/report/v1/ReportServiceClientPb";
-import {RoundServiceClient} from "../lib/scoretrakapis/grpc-web/scoretrak/round/v1/RoundServiceClientPb";
-import {ServiceServiceClient} from "../lib/scoretrakapis/grpc-web/scoretrak/service/v1/ServiceServiceClientPb";
-import {ServiceGroupServiceClient} from "../lib/scoretrakapis/grpc-web/scoretrak/service_group/v1/Service_groupServiceClientPb";
-import {TeamServiceClient} from "../lib/scoretrakapis/grpc-web/scoretrak/team/v1/TeamServiceClientPb";
-import {UserServiceClient} from "../lib/scoretrakapis/grpc-web/scoretrak/user/v1/UserServiceClientPb";
+import {AuthServiceClient} from "../lib/scoretrakapis/scoretrak/auth/v1/AuthServiceClientPb"
+import {CheckServiceClient} from "../lib/scoretrakapis/scoretrak/check/v1/CheckServiceClientPb";
+import {CompetitionServiceClient} from "../lib/scoretrakapis/scoretrak/competition/v1/CompetitionServiceClientPb";
+import {DynamicConfigServiceClient, StaticConfigServiceClient} from "../lib/scoretrakapis/scoretrak/config/v1/ConfigServiceClientPb";
+import {HostServiceClient} from "../lib/scoretrakapis/scoretrak/host/v1/HostServiceClientPb";
+import {HostGroupServiceClient} from "../lib/scoretrakapis/scoretrak/host_group/v1/Host_groupServiceClientPb";
+import {PolicyServiceClient} from "../lib/scoretrakapis/scoretrak/policy/v1/PolicyServiceClientPb";
+import {PropertyServiceClient} from "../lib/scoretrakapis/scoretrak/property/v1/PropertyServiceClientPb";
+import {ReportServiceClient} from "../lib/scoretrakapis/scoretrak/report/v1/ReportServiceClientPb";
+import {RoundServiceClient} from "../lib/scoretrakapis/scoretrak/round/v1/RoundServiceClientPb";
+import {ServiceServiceClient} from "../lib/scoretrakapis/scoretrak/service/v1/ServiceServiceClientPb";
+import {ServiceGroupServiceClient} from "../lib/scoretrakapis/scoretrak/service_group/v1/Service_groupServiceClientPb";
+import {TeamServiceClient} from "../lib/scoretrakapis/scoretrak/team/v1/TeamServiceClientPb";
+import {UserServiceClient} from "../lib/scoretrakapis/scoretrak/user/v1/UserServiceClientPb";
 
 const serverAddress = process.env.PUBLIC_URL
 
