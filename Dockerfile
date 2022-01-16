@@ -5,6 +5,14 @@ FROM node:14 AS builder
 WORKDIR /app
 # Copy all files from current directory to working dir in image
 COPY . .
+# install buf
+RUN BIN="/usr/local/bin" && \
+    VERSION="1.0.0-rc10" && \
+    BINARY_NAME="buf" && \
+    curl -sSL \
+      "https://github.com/bufbuild/buf/releases/download/v${VERSION}/${BINARY_NAME}-$(uname -s)-$(uname -m)" \
+    -o "${BIN}/${BINARY_NAME}" && \
+    chmod +x "${BIN}/${BINARY_NAME}"
 # install node modules and build assets
 RUN yarn install && yarn build
 
