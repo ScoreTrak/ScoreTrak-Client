@@ -15,11 +15,11 @@ import {availableChecks, Checks, } from "../Service/serviceDefaultProperties"
 import Switch from "@material-ui/core/Switch";
 import Button from "@material-ui/core/Button";
 import {SetupProps} from "../util/util";
-import {GetAllRequest} from "../../../grpc/pkg/proto/service/v1/service_pb";
+import {GetAllRequest} from "../../../lib/scoretrakapis/scoretrak/service/v1/service_pb";
 import {Severity} from "../../../types/types";
 import {serviceColumns, serviceToServiceColumn} from "../Service/ServiceMenu";
 import {propertyColumns, propertyColumnsToProperty, Status} from "./PropertiesMenu";
-import {StoreRequest} from "../../../grpc/pkg/proto/property/v1/property_pb";
+import {StoreRequest} from "../../../lib/scoretrakapis/scoretrak/property/v1/property_pb";
 //Todo: If Display name missing, replace with HostGroup.Name + Service.Name equivalent
 const PropertiesCreate = forwardRef((props: SetupProps, ref) => {
     const [dt, setData] = React.useState<{loader: boolean, services: serviceColumns[]}>({loader: true, services: []})

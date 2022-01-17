@@ -12,10 +12,10 @@ import {Alert} from '@material-ui/lab';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import {useForm} from "react-hook-form";
 import {Severity} from "../../types/types";
-import {LoginRequest} from "../../grpc/pkg/proto/auth/v1/auth_pb";
+import {LoginRequest} from "../../lib/scoretrakapis/scoretrak/auth/v1/auth_pb";
 import {useHistory} from "react-router";
 import {token} from "../../grpc/token/token";
-import {AuthServiceClient} from "../../grpc/pkg/proto/auth/v1/AuthServiceClientPb";
+import {AuthServiceClient} from "../../lib/scoretrakapis/scoretrak/auth/v1/AuthServiceClientPb";
 
 
 const useStyles = makeStyles((theme) => ({

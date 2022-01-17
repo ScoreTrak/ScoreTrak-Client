@@ -39,6 +39,7 @@
   },
   "scripts": {
     "start": "react-scripts start",
+    "prebuild": "buf generate --template buf.gen.yaml 'https://github.com/scoretrak/scoretrakapis.git'",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"

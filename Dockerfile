@@ -5,6 +5,31 @@ FROM node:14 AS builder
 WORKDIR /app
 # Copy all files from current directory to working dir in image
 COPY . .
+RUN BIN="/usr/local/bin" && \
+    VERSION="3.15.8" && \
+    BINARY_NAME="protoc" && \
+    echo "${BINARY_NAME}-${VERSION}-$(uname -s)-$(uname -m).zip" && \
+    curl -LO \
+      "https://github.com/protocolbuffers/protobuf/releases/download/v${VERSION}/${BINARY_NAME}-${VERSION}-$(uname -s)-$(uname -m).zip" && \
+    unzip "${BINARY_NAME}-${VERSION}-$(uname -s)-$(uname -m).zip" -d /tmp && \
+    cp "/tmp/bin/${BINARY_NAME}" "${BIN}/${BINARY_NAME}" && \
+    chmod +x "${BIN}/${BINARY_NAME}"
+# install protoc-gen-grpc-web
+RUN BIN="/usr/local/bin" && \
+    VERSION="1.3.0" && \
+    BINARY_NAME="protoc-gen-grpc-web" && \
+    curl -sSL \
+      "https://github.com/grpc/grpc-web/releases/download/${VERSION}/${BINARY_NAME}-${VERSION}-$(uname -s)-$(uname -m)" \
+    -o "${BIN}/${BINARY_NAME}" && \
+    chmod +x "${BIN}/${BINARY_NAME}"
+# install buf
+RUN BIN="/usr/local/bin" && \
+    VERSION="1.0.0-rc10" && \
+    BINARY_NAME="buf" && \
+    curl -sSL \
+      "https://github.com/bufbuild/buf/releases/download/v${VERSION}/${BINARY_NAME}-$(uname -s)-$(uname -m)" \
+    -o "${BIN}/${BINARY_NAME}" && \
+    chmod +x "${BIN}/${BINARY_NAME}"
 # install node modules and build assets
 RUN yarn install && yarn build
 

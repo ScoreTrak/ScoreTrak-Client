@@ -23,14 +23,14 @@ import InputLabel from "@material-ui/core/InputLabel";
 import Input from "@material-ui/core/Input";
 import FormHelperText from "@material-ui/core/FormHelperText";
 import {SetupProps} from "../Setup/util/util";
-import {Policy, UpdateRequest as UpdateRequestPolicy} from "../../grpc/pkg/proto/policy/v1/policy_pb";
+import {Policy, UpdateRequest as UpdateRequestPolicy} from "../../lib/scoretrakapis/scoretrak/policy/v1/policy_pb";
 import { saveAs } from 'file-saver';
 import {
     DynamicConfig,
     GetRequest,
     GetStaticConfigRequest,
     UpdateRequest as UpdateRequestDynamicConfig
-} from "../../grpc/pkg/proto/config/v1/config_pb";
+} from "../../lib/scoretrakapis/scoretrak/config/v1/config_pb";
 import {Severity} from "../../types/types";
 import {BoolValue, StringValue, UInt64Value} from "google-protobuf/google/protobuf/wrappers_pb";
 import {
@@ -38,20 +38,20 @@ import {
     DeleteCompetitionRequest,
     FetchCoreCompetitionRequest, FetchEntireCompetitionRequest, LoadCompetitionRequest,
     ResetScoresRequest
-} from "../../grpc/pkg/proto/competition/v1/competition_pb";
+} from "../../lib/scoretrakapis/scoretrak/competition/v1/competition_pb";
 import { TransitionProps } from '@material-ui/core/transitions';
-import {Report} from "../../grpc/pkg/proto/report/v1/report_pb";
+import {Report} from "../../lib/scoretrakapis/scoretrak/report/v1/report_pb";
 import {Timestamp} from "google-protobuf/google/protobuf/timestamp_pb";
-import {Check} from "../../grpc/pkg/proto/check/v1/check_pb";
-import {UUID} from "../../grpc/pkg/proto/proto/v1/uuid_pb";
-import {Round} from "../../grpc/pkg/proto/round/v1/round_pb";
-import {Team} from "../../grpc/pkg/proto/team/v1/team_pb";
-import {User} from "../../grpc/pkg/proto/user/v1/user_pb";
-import {Host} from "../../grpc/pkg/proto/host/v1/host_pb";
-import {HostGroup} from "../../grpc/pkg/proto/host_group/v1/host_group_pb";
-import {ServiceGroup} from "../../grpc/pkg/proto/service_group/v1/service_group_pb";
-import {Service} from "../../grpc/pkg/proto/service/v1/service_pb";
-import {Property} from "../../grpc/pkg/proto/property/v1/property_pb";
+import {Check} from "../../lib/scoretrakapis/scoretrak/check/v1/check_pb";
+import {UUID} from "../../lib/scoretrakapis/scoretrak/proto/v1/uuid_pb";
+import {Round} from "../../lib/scoretrakapis/scoretrak/round/v1/round_pb";
+import {Team} from "../../lib/scoretrakapis/scoretrak/team/v1/team_pb";
+import {User} from "../../lib/scoretrakapis/scoretrak/user/v1/user_pb";
+import {Host} from "../../lib/scoretrakapis/scoretrak/host/v1/host_pb";
+import {HostGroup} from "../../lib/scoretrakapis/scoretrak/host_group/v1/host_group_pb";
+import {ServiceGroup} from "../../lib/scoretrakapis/scoretrak/service_group/v1/service_group_pb";
+import {Service} from "../../lib/scoretrakapis/scoretrak/service/v1/service_pb";
+import {Property} from "../../lib/scoretrakapis/scoretrak/property/v1/property_pb";
 
 const useStyles = makeStyles((theme) => ({
     root: {
