@@ -1,13 +1,18 @@
-# ScoreTrak Web App
+# ScoreTrak JS Mono Repo
 
-The react web application for ScoreTrak, a scoring engine built in go.
+The monorepo for ScoreTrak client packages using [pnpm](https://pnpm.io) as the package manager.
+
+### Apps and Packages
+
+- `apps/client`: the scoretrak react js client app
+- `packages/scoretrak-scoretrakapis`: the generated protobuf files for the react js client app.
 
 ## Installation
 
 Clone the repository.
 
 ```bash
-git clone https://github.com/ScoreTrak/client
+git clone https://github.com/scoretrak/client
 ```
 
 ## Usage
@@ -15,7 +20,7 @@ git clone https://github.com/ScoreTrak/client
 Install Dependencies
 
 ```bash
-npm install
+pnpm install
 ```
 
 ### Development
@@ -23,13 +28,13 @@ npm install
 Start the application
 
 ```bash
-npm run start
+pnpm run start
 ```
 
 Test the application
 
 ```bash
-npm run test
+pnpm run test
 ```
 
 ### Production
@@ -37,12 +42,23 @@ npm run test
 Build the application
 
 ```bash
-npm run build
+pnpm run build
 ```
 
 Serve generated static files
 
 ```bash
-npm install --global serve
+pnpm install --global serve
 serve -s build
 ```
+
+## Useful Links
+
+Learn more about the power of Turborepo:
+
+- [Pipelines](https://turborepo.org/docs/features/pipelines)
+- [Caching](https://turborepo.org/docs/features/caching)
+- [Remote Caching (Beta)](https://turborepo.org/docs/features/remote-caching)
+- [Scoped Tasks](https://turborepo.org/docs/features/scopes)
+- [Configuration Options](https://turborepo.org/docs/reference/configuration)
+- [CLI Usage](https://turborepo.org/docs/reference/command-line-reference)
