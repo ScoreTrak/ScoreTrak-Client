@@ -1,4 +1,4 @@
-name: Docker Image CI
+name: ScoreTrak Client Docker Image CI
 on:
   release:
     types: [published]
@@ -26,6 +26,7 @@ jobs:
       - name: Build container image
         uses: docker/build-push-action@v2
         with:
+          context: ./apps/client
           push: true
           tags: |
             ghcr.io/${{ env.IMAGE_REPOSITORY }}/scoretrak-client:${{ github.sha }}

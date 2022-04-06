@@ -1,75 +1,25 @@
 {
-  "name": "scoretrak-client",
-  "version": "0.1.0",
+  "name": "scoretrak-web-mr",
+  "version": "0.0.0",
   "private": true,
-  "dependencies": {
-    "@material-table/core": "^2.3.26",
-    "@material-ui/core": "^4.11.3",
-    "@material-ui/icons": "^4.9.1",
-    "@material-ui/lab": "^4.0.0-alpha.56",
-    "@nivo/bar": "^0.73.1",
-    "@nivo/core": "^0.73.0",
-    "@testing-library/jest-dom": "^5.11.5",
-    "@testing-library/react": "^11.1.1",
-    "@testing-library/user-event": "^12.2.0",
-    "@types/google-protobuf": "^3.7.4",
-    "@types/jest": "^26.0.15",
-    "@types/material-ui": "^0.21.8",
-    "@types/node": "^12.19.3",
-    "@types/react": "^16.9.56",
-    "@types/react-dom": "^16.9.9",
-    "@types/react-router": "^5.1.8",
-    "file-saver": "^2.0.2",
-    "google-protobuf": "^3.14.0-rc.1",
-    "grpc-web": "^1.2.1",
-    "jwt-decode": "^3.1.1",
-    "material-table": "1.67.1",
-    "notistack": "^1.0.1",
-    "npm-watch": "^0.11.0",
-    "react": "^17.0.1",
-    "react-dom": "^17.0.1",
-    "react-full-screen": "^0.3.1",
-    "react-json-view": "^1.21.3",
-    "react-router-dom": "^5.2.0",
-    "react-scripts": "4.0.0",
-    "ts-transformer-keys": "^0.4.3",
-    "typescript": "4.0.3",
-    "watch": "^1.0.2",
-    "web-vitals": "^0.2.4"
-  },
+  "workspaces": [
+    "apps/*",
+    "packages/*"
+  ],
   "scripts": {
-    "start": "react-scripts start",
-    "prebuild": "buf generate --template buf.gen.yaml 'https://github.com/scoretrak/scoretrakapis.git'",
-    "build": "react-scripts build",
-    "test": "react-scripts test",
-    "eject": "react-scripts eject"
-  },
-  "eslintConfig": {
-    "extends": [
-      "react-app",
-      "react-app/jest"
-    ],
-    "ignorePatterns": [
-      "**/*_pb.js"
-    ]
-  },
-  "browserslist": {
-    "production": [
-      ">0.2%",
-      "not dead",
-      "not op_mini all"
-    ],
-    "development": [
-      "last 1 chrome version",
-      "last 1 firefox version",
-      "last 1 safari version"
-    ]
+    "build": "turbo run build",
+    "dev": "turbo run dev --parallel",
+    "preview": "turbo run preview --parallel",
+    "lint": "turbo run lint",
+    "format": "prettier --write \"**/*.{ts,tsx,md}\""
   },
   "devDependencies": {
-    "@types/file-saver": "^2.0.1",
-    "@types/react-router-dom": "^5.1.6",
-    "@types/uuid": "^8.3.0",
-    "react-hook-form": "^6.11.0"
+    "prettier": "^2.5.1",
+    "turbo": "latest"
   },
-  "proxy": "https://engine.ubnetdef.org"
+  "engines": {
+    "npm": ">=7.0.0",
+    "node": ">=14.0.0"
+  },
+  "packageManager": "pnpm@6.26.1"
 }
