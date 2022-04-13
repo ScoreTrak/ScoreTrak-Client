@@ -69,3 +69,9 @@ export type SimpleReport = {
     Round: number,
     Teams: Record<string, SimpleTeam> ,
 }
+
+export type Sponsor = {
+    Name: string,
+    LogoURL: string,
+    Group: number,
+}
