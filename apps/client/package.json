@@ -74,5 +74,5 @@
     "@types/uuid": "^8.3.0",
     "react-hook-form": "^6.11.0"
   },
-  "proxy": "https://scoretrak.example.com:30080"
+  "proxy": "https://engine.ubnetdef.org"
 }
