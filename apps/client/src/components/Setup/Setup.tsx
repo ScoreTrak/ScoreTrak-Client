@@ -17,7 +17,7 @@ export default function Setup(props: SetupProps) {
     const classes = centerStyle();
 
     return (
-        <Box m="auto" height='85vh' width="100%" >
+        <Box m="auto" className={classes.alignItemsAndJustifyContent} height='85vh' width="100%" >
             <link
                 rel="stylesheet"
                 href="https://fonts.googleapis.com/icon?family=Material+Icons"
