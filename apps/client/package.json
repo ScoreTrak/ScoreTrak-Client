@@ -68,7 +68,7 @@
     ]
   },
   "devDependencies": {
-    "react-scripts": "5.0.0"
+    "react-scripts": "5.0.1"
   },
   "proxy": "http://scoretrak.example.com:30080"
 }
