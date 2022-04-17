@@ -8,7 +8,7 @@ import TableRow from '@mui/material/TableRow';
 import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
 import {SetupProps, parse_index} from "../util/util";
-import {StoreRequest, Team} from "../../../lib/scoretrakapis/scoretrak/team/v1/team_pb";
+import {StoreRequest, Team} from "@scoretrak/scoretrakapis/scoretrak/team/v1/team_pb";
 import {Severity} from "../../../types/types";
 import {UInt64Value} from "google-protobuf/google/protobuf/wrappers_pb";
 

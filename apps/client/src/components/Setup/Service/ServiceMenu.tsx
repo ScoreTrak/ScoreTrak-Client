@@ -6,10 +6,10 @@ import StepButton from "@mui/material/StepButton";
 import {SetupProps} from "../util/util";
 import {Severity} from "../../../types/types";
 import MaterialTable, {Column} from '@material-table/core'
-import {UUID} from "../../../lib/scoretrakapis/scoretrak/proto/v1/uuid_pb";
+import {UUID} from "@scoretrak/scoretrakapis/scoretrak/proto/v1/uuid_pb";
 import {CircularProgress} from "@mui/material";
 import ServiceCreate from "./ServiceCreate";
-import {GetAllRequest as GetAllRequestHost} from "../../../lib/scoretrakapis/scoretrak/host/v1/host_pb";
+import {GetAllRequest as GetAllRequestHost} from "@scoretrak/scoretrakapis/scoretrak/host/v1/host_pb";
 import {
     DeleteRequest,
     GetAllRequest,
@@ -17,11 +17,11 @@ import {
     StoreRequest,
     TestServiceRequest,
     UpdateRequest
-} from "../../../lib/scoretrakapis/scoretrak/service/v1/service_pb";
+} from "@scoretrak/scoretrakapis/scoretrak/service/v1/service_pb";
 import {BoolValue, UInt64Value} from "google-protobuf/google/protobuf/wrappers_pb";
 import {
     GetAllRequest as GetAllRequestServiceGroup,
-} from "../../../lib/scoretrakapis/scoretrak/service_group/v1/service_group_pb";
+} from "@scoretrak/scoretrakapis/scoretrak/service_group/v1/service_group_pb";
 
 
 function getSteps() {

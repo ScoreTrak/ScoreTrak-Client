@@ -17,11 +17,11 @@ import {SetupProps} from "../util/util";
 import {
     GetAllRequest as GetAllRequestServiceGroup,
     ServiceGroup
-} from "../../../lib/scoretrakapis/scoretrak/service_group/v1/service_group_pb";
+} from "@scoretrak/scoretrakapis/scoretrak/service_group/v1/service_group_pb";
 import {Severity} from "../../../types/types";
-import {GetAllRequest as GetAllRequestService, StoreRequest} from "../../../lib/scoretrakapis/scoretrak/service/v1/service_pb";
-import {GetAllRequest as GetAllRequestHost, Host} from "../../../lib/scoretrakapis/scoretrak/host/v1/host_pb";
-import {HostGroup} from "../../../lib/scoretrakapis/scoretrak/host_group/v1/host_group_pb";
+import {GetAllRequest as GetAllRequestService, StoreRequest} from "@scoretrak/scoretrakapis/scoretrak/service/v1/service_pb";
+import {GetAllRequest as GetAllRequestHost, Host} from "@scoretrak/scoretrakapis/scoretrak/host/v1/host_pb";
+import {HostGroup} from "@scoretrak/scoretrakapis/scoretrak/host_group/v1/host_group_pb";
 import {serviceColumns, serviceColumnsToService} from "./ServiceMenu";
 
 const ServiceCreate = forwardRef((props: SetupProps, ref) => {

@@ -15,10 +15,10 @@ import { Alert } from '@mui/material';
 import CircularProgress from '@mui/material/CircularProgress';
 import {useForm} from "react-hook-form";
 import {Severity} from "../../types/types";
-import {LoginRequest} from "../../lib/scoretrakapis/scoretrak/auth/v1/auth_pb";
+import {LoginRequest} from "@scoretrak/scoretrakapis/scoretrak/auth/v1/auth_pb";
 import {useHistory} from "react-router";
 import {token} from "../../grpc/token/token";
-import {AuthServiceClient} from "../../lib/scoretrakapis/scoretrak/auth/v1/AuthServiceClientPb";
+import {AuthServiceClient} from "@scoretrak/scoretrakapis/scoretrak/auth/v1/AuthServiceClientPb";
 import { getSponsors } from '../../lib/sponsors';
 
 

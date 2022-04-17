@@ -11,9 +11,9 @@ import {
     GetAllRequest,
     StoreRequest, UpdateRequest,
     Team
-} from "../../../lib/scoretrakapis/scoretrak/team/v1/team_pb";
+} from "@scoretrak/scoretrakapis/scoretrak/team/v1/team_pb";
 import {Severity} from "../../../types/types";
-import {UUID} from "../../../lib/scoretrakapis/scoretrak/proto/v1/uuid_pb";
+import {UUID} from "@scoretrak/scoretrakapis/scoretrak/proto/v1/uuid_pb";
 import {CircularProgress} from "@mui/material";
 import {BoolValue, UInt64Value} from "google-protobuf/google/protobuf/wrappers_pb";
 

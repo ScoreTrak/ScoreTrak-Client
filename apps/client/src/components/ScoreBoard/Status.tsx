@@ -12,7 +12,7 @@ import TableRow from '@mui/material/TableRow';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import Switch from '@mui/material/Switch';
 import {SimpleCheck, SimpleReport, SimpleService} from "../../types/types";
-import {Policy} from "../../lib/scoretrakapis/scoretrak/policy/v1/policy_pb";
+import {Policy} from "@scoretrak/scoretrakapis/scoretrak/policy/v1/policy_pb";
 import {token} from "../../grpc/token/token";
 
 

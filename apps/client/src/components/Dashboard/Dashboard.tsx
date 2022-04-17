@@ -28,7 +28,7 @@ import Button from "@mui/material/Button";
 import {Severity, ThemeState} from "../../types/types";
 import {Role, token} from "../../grpc/token/token";
 import {GRPCClients} from "../../grpc/gRPCClients";
-import {GetRequest, GetResponse, Policy} from "../../lib/scoretrakapis/scoretrak/policy/v1/policy_pb";
+import {GetRequest, GetResponse, Policy} from "@scoretrak/scoretrakapis/scoretrak/policy/v1/policy_pb";
 import Login from "../Login/Login";
 import ScoreBoard from "../ScoreBoard/ScoreBoard";
 import {useSnackbar} from 'notistack';

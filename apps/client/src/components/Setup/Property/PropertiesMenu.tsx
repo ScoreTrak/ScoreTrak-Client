@@ -6,7 +6,7 @@ import StepButton from "@mui/material/StepButton";
 import {SetupProps} from "../util/util";
 import {Severity} from "../../../types/types";
 import MaterialTable, {Column} from '@material-table/core'
-import {UUID} from "../../../lib/scoretrakapis/scoretrak/proto/v1/uuid_pb";
+import {UUID} from "@scoretrak/scoretrakapis/scoretrak/proto/v1/uuid_pb";
 import {CircularProgress} from "@mui/material";
 import {
     DeleteRequest,
@@ -14,9 +14,9 @@ import {
     Property,
     StoreRequest,
     UpdateRequest
-} from "../../../lib/scoretrakapis/scoretrak/property/v1/property_pb";
-import {Status as ProtoStatus} from "../../../lib/scoretrakapis/scoretrak/property/v1/property_pb";
-import {GetAllRequest as GetAllRequestService} from "../../../lib/scoretrakapis/scoretrak/service/v1/service_pb";
+} from "@scoretrak/scoretrakapis/scoretrak/property/v1/property_pb";
+import {Status as ProtoStatus} from "@scoretrak/scoretrakapis/scoretrak/property/v1/property_pb";
+import {GetAllRequest as GetAllRequestService} from "@scoretrak/scoretrakapis/scoretrak/service/v1/service_pb";
 import PropertiesCreate from "./PropertiesCreate";
 
 

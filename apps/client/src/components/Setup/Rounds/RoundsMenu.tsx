@@ -4,7 +4,7 @@ import Box from "@mui/material/Box";
 import MaterialTable, {Column} from '@material-table/core'
 import {Severity} from "../../../types/types";
 import {CircularProgress} from "@mui/material";
-import {GetAllRequest, Round} from "../../../lib/scoretrakapis/scoretrak/round/v1/round_pb";
+import {GetAllRequest, Round} from "@scoretrak/scoretrakapis/scoretrak/round/v1/round_pb";
 
 type roundColumns = {
     id: number

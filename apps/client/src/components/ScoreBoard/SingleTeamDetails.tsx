@@ -23,22 +23,22 @@ import PauseCircleOutlineIcon from '@mui/icons-material/PauseCircleOutline';
 import {
     GetAllByServiceIDRequest as GetAllByServiceIDRequestCheck,
     GetAllByServiceIDResponse as GetAllByServiceIDResponseCheck,
-} from "../../lib/scoretrakapis/scoretrak/check/v1/check_pb";
+} from "@scoretrak/scoretrakapis/scoretrak/check/v1/check_pb";
 import {
     GetAllByServiceIDRequest as GetAllByServiceIDRequestProperty,
     GetAllByServiceIDResponse as GetAllByServiceIDResponseProperty,
     Property,
     Status,
     UpdateRequest as UpdateRequestProperty
-} from "../../lib/scoretrakapis/scoretrak/property/v1/property_pb";
+} from "@scoretrak/scoretrakapis/scoretrak/property/v1/property_pb";
 import {
     GetByIDRequest as GetByIDRequestHost,
     Host,
     UpdateRequest as UpdateRequestHost
-} from "../../lib/scoretrakapis/scoretrak/host/v1/host_pb";
+} from "@scoretrak/scoretrakapis/scoretrak/host/v1/host_pb";
 
 
-import {UUID} from "../../lib/scoretrakapis/scoretrak/proto/v1/uuid_pb";
+import {UUID} from "@scoretrak/scoretrakapis/scoretrak/proto/v1/uuid_pb";
 import {StringValue} from "google-protobuf/google/protobuf/wrappers_pb";
 import {IconButton, Tooltip} from "@mui/material";
 import {Replay} from "@mui/icons-material";

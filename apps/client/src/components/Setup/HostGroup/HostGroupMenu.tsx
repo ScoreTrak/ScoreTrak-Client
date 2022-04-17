@@ -4,14 +4,14 @@ import Box from "@mui/material/Box";
 import MaterialTable, {Column} from '@material-table/core'
 import {Severity} from "../../../types/types";
 import {CircularProgress} from "@mui/material";
-import {UUID} from "../../../lib/scoretrakapis/scoretrak/proto/v1/uuid_pb";
+import {UUID} from "@scoretrak/scoretrakapis/scoretrak/proto/v1/uuid_pb";
 import {
     DeleteRequest,
     GetAllRequest,
     HostGroup,
     StoreRequest,
     UpdateRequest
-} from "../../../lib/scoretrakapis/scoretrak/host_group/v1/host_group_pb";
+} from "@scoretrak/scoretrakapis/scoretrak/host_group/v1/host_group_pb";
 import {BoolValue} from "google-protobuf/google/protobuf/wrappers_pb";
 
 export type hostGroupColumns = {
