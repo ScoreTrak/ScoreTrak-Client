@@ -73,5 +73,5 @@ export type SimpleReport = {
 export type Sponsor = {
     Name: string,
     LogoURL: string,
-    Group: number,
+    Group: string,
 }

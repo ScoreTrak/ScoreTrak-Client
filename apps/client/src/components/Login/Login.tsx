@@ -9,10 +9,7 @@ import Typography from '@material-ui/core/Typography';
 import {makeStyles} from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 import Grid from '@material-ui/core/Grid';
-import Box from '@material-ui/core/Box';
 import Card from '@material-ui/core/Card';
-import CardActions from '@material-ui/core/CardActions';
-import CardContent from '@material-ui/core/CardContent';
 import CardMedia from '@material-ui/core/CardMedia';
 import {Alert} from '@material-ui/lab';
 import CircularProgress from '@material-ui/core/CircularProgress';
@@ -154,20 +151,19 @@ const Login = (props: LoginProps) => {
                 {Object.keys(sponsors).map((key) => {
                     return <div>
                             <h2>{key} Sponsors</h2>
-                            <Grid container spacing={2} mt={6} justifyContent={'center'}>
+                            <Grid container spacing={2} justifyContent={'center'} component={'div'}>
                                 {sponsors[key].map((sponsor) => {
-                                    return <Grid item xs={key == "Platinum" ? 6 : 5} key={sponsor.Name}>
-                                        {key == "Platinum" ?
-                                            <Card sx={{maxWidth: 250}}>
-                                                <CardMedia component={'img'} height={140} alt={sponsor.Name}
-                                                           image={sponsor.LogoURL}/>
-                                            </Card>
-                                            :
-                                            <Card sx={{maxWidth: 200}}>
-                                                <CardMedia component={'img'} height={100} alt={sponsor.Name}
-                                                           image={sponsor.LogoURL}/>
-                                            </Card>
-                                        }
+                                    return <Grid item xs={key === "Platinum" ? 6 : 5} key={sponsor.Name}>
+                                        <Card>
+                                            {key === "Platinum" ?
+                                              <CardMedia component={'img'} height={140} alt={sponsor.Name}
+                                                         image={sponsor.LogoURL} />
+                                              :
+                                              <CardMedia component={'img'} height={100} alt={sponsor.Name}
+                                                         image={sponsor.LogoURL} />
+                                            }
+
+                                        </Card>
                                     </Grid>
                                 })}
                             </Grid>
