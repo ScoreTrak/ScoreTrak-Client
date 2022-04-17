@@ -1,6 +1,6 @@
 import React from "react";
 import {Route} from "react-router-dom";
-import Box from "@material-ui/core/Box";
+import Box from "@mui/material/Box";
 import RoundsMenu from "./Rounds/RoundsMenu";
 import UserMenu from "./User/UserMenu";
 import {SetupProps} from "./util/util";
@@ -17,7 +17,7 @@ export default function Setup(props: SetupProps) {
     const classes = centerStyle();
 
     return (
-        <Box m="auto" className={classes.alignItemsAndJustifyContent} height='85vh' width="100%" >
+        <Box m="auto" height='85vh' width="100%" >
             <link
                 rel="stylesheet"
                 href="https://fonts.googleapis.com/icon?family=Material+Icons"

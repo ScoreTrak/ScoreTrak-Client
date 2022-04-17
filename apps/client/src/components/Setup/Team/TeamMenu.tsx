@@ -1,10 +1,10 @@
 import React, {useEffect} from "react";
-import Stepper from "@material-ui/core/Stepper";
-import Step from "@material-ui/core/Step";
-import StepButton from "@material-ui/core/StepButton";
+import Stepper from "@mui/material/Stepper";
+import Step from "@mui/material/Step";
+import StepButton from "@mui/material/StepButton";
 import {SetupProps} from "../util/util";
 import TeamCreate from "./TeamCreate";
-import Box from "@material-ui/core/Box";
+import Box from "@mui/material/Box";
 import MaterialTable, {Column} from '@material-table/core'
 import {
     DeleteRequest,
@@ -14,7 +14,7 @@ import {
 } from "../../../lib/scoretrakapis/scoretrak/team/v1/team_pb";
 import {Severity} from "../../../types/types";
 import {UUID} from "../../../lib/scoretrakapis/scoretrak/proto/v1/uuid_pb";
-import {CircularProgress} from "@material-ui/core";
+import {CircularProgress} from "@mui/material";
 import {BoolValue, UInt64Value} from "google-protobuf/google/protobuf/wrappers_pb";
 
 function getSteps() {

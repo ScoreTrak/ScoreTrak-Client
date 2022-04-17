@@ -1,27 +1,27 @@
 import React, {useEffect, useState} from "react";
-import Typography from "@material-ui/core/Typography";
-import Box from '@material-ui/core/Box';
+import Typography from "@mui/material/Typography";
+import Box from '@mui/material/Box';
 import ReactJson from 'react-json-view'
-import CircularProgress from "@material-ui/core/CircularProgress";
-import { makeStyles } from '@material-ui/core/styles';
-import SaveIcon from '@material-ui/icons/Save';
-import Button from '@material-ui/core/Button';
-import CloudUploadIcon from '@material-ui/icons/CloudUpload';
-import Slide from "@material-ui/core/Slide";
-import Dialog from "@material-ui/core/Dialog";
-import DialogContent from "@material-ui/core/DialogContent";
-import DialogContentText from "@material-ui/core/DialogContentText";
-import DialogActions from "@material-ui/core/DialogActions";
-import Accordion from '@material-ui/core/Accordion';
-import AccordionDetails from '@material-ui/core/AccordionDetails';
-import AccordionSummary from '@material-ui/core/AccordionSummary';
-import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
-import Switch from "@material-ui/core/Switch";
-import FormControlLabel from "@material-ui/core/FormControlLabel";
-import FormControl from "@material-ui/core/FormControl";
-import InputLabel from "@material-ui/core/InputLabel";
-import Input from "@material-ui/core/Input";
-import FormHelperText from "@material-ui/core/FormHelperText";
+import CircularProgress from "@mui/material/CircularProgress";
+import makeStyles from '@mui/styles/makeStyles';
+import SaveIcon from '@mui/icons-material/Save';
+import Button from '@mui/material/Button';
+import CloudUploadIcon from '@mui/icons-material/CloudUpload';
+import Slide from "@mui/material/Slide";
+import Dialog from "@mui/material/Dialog";
+import DialogContent from "@mui/material/DialogContent";
+import DialogContentText from "@mui/material/DialogContentText";
+import DialogActions from "@mui/material/DialogActions";
+import Accordion from '@mui/material/Accordion';
+import AccordionDetails from '@mui/material/AccordionDetails';
+import AccordionSummary from '@mui/material/AccordionSummary';
+import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
+import Switch from "@mui/material/Switch";
+import FormControlLabel from "@mui/material/FormControlLabel";
+import FormControl from "@mui/material/FormControl";
+import InputLabel from "@mui/material/InputLabel";
+import Input from "@mui/material/Input";
+import FormHelperText from "@mui/material/FormHelperText";
 import {SetupProps} from "../Setup/util/util";
 import {Policy, UpdateRequest as UpdateRequestPolicy} from "../../lib/scoretrakapis/scoretrak/policy/v1/policy_pb";
 import { saveAs } from 'file-saver';
@@ -39,7 +39,7 @@ import {
     FetchCoreCompetitionRequest, FetchEntireCompetitionRequest, LoadCompetitionRequest,
     ResetScoresRequest
 } from "../../lib/scoretrakapis/scoretrak/competition/v1/competition_pb";
-import { TransitionProps } from '@material-ui/core/transitions';
+import { TransitionProps } from '@mui/material/transitions';
 import {Report} from "../../lib/scoretrakapis/scoretrak/report/v1/report_pb";
 import {Timestamp} from "google-protobuf/google/protobuf/timestamp_pb";
 import {Check} from "../../lib/scoretrakapis/scoretrak/check/v1/check_pb";
@@ -86,6 +86,7 @@ const useStyles = makeStyles((theme) => ({
 
 
 const Transition = React.forwardRef(function Transition(props: TransitionProps & { children?: React.ReactElement<any, any> }, ref: React.Ref<unknown>) {
+    // @ts-ignore
     return <Slide direction="up" ref={ref} {...props} />;
 });
 

@@ -1,9 +1,9 @@
 import React, {useEffect} from "react";
 import {SetupProps} from "../util/util";
-import Box from "@material-ui/core/Box";
+import Box from "@mui/material/Box";
 import MaterialTable, {Column} from '@material-table/core'
 import {Severity} from "../../../types/types";
-import {CircularProgress} from "@material-ui/core";
+import {CircularProgress} from "@mui/material";
 import {UUID} from "../../../lib/scoretrakapis/scoretrak/proto/v1/uuid_pb";
 import {
     DeleteRequest,

@@ -1,8 +1,8 @@
 import React, {useEffect} from "react";
-import Box from "@material-ui/core/Box";
-import Stepper from "@material-ui/core/Stepper";
-import Step from "@material-ui/core/Step";
-import StepButton from "@material-ui/core/StepButton";
+import Box from "@mui/material/Box";
+import Stepper from "@mui/material/Stepper";
+import Step from "@mui/material/Step";
+import StepButton from "@mui/material/StepButton";
 import {SetupProps} from "../util/util";
 import HostCreate from "./HostCreate";
 import {UUID} from "../../../lib/scoretrakapis/scoretrak/proto/v1/uuid_pb";
@@ -15,7 +15,7 @@ import {
 } from "../../../lib/scoretrakapis/scoretrak/host/v1/host_pb";
 import {Severity} from "../../../types/types";
 import MaterialTable, {Column} from '@material-table/core'
-import {CircularProgress} from "@material-ui/core";
+import {CircularProgress} from "@mui/material";
 import {GetAllRequest as GetAllRequestHostGroup} from "../../../lib/scoretrakapis/scoretrak/host_group/v1/host_group_pb";
 import {GetAllRequest as GetAllRequestTeam} from "../../../lib/scoretrakapis/scoretrak/team/v1/team_pb";
 

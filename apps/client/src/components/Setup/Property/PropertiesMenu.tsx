@@ -1,13 +1,13 @@
 import React, {useEffect} from "react";
-import Box from "@material-ui/core/Box";
-import Stepper from "@material-ui/core/Stepper";
-import Step from "@material-ui/core/Step";
-import StepButton from "@material-ui/core/StepButton";
+import Box from "@mui/material/Box";
+import Stepper from "@mui/material/Stepper";
+import Step from "@mui/material/Step";
+import StepButton from "@mui/material/StepButton";
 import {SetupProps} from "../util/util";
 import {Severity} from "../../../types/types";
 import MaterialTable, {Column} from '@material-table/core'
 import {UUID} from "../../../lib/scoretrakapis/scoretrak/proto/v1/uuid_pb";
-import {CircularProgress} from "@material-ui/core";
+import {CircularProgress} from "@mui/material";
 import {
     DeleteRequest,
     GetAllRequest,

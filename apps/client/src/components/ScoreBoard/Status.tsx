@@ -1,16 +1,16 @@
 import React, {useEffect} from 'react';
-import { makeStyles } from '@material-ui/core/styles';
-import Paper from '@material-ui/core/Paper';
-import Table from '@material-ui/core/Table';
-import TableBody from '@material-ui/core/TableBody';
-import TableFooter from '@material-ui/core/TableFooter';
-import TableCell from '@material-ui/core/TableCell';
-import TableContainer from '@material-ui/core/TableContainer';
-import TableHead from '@material-ui/core/TableHead';
-import TablePagination from '@material-ui/core/TablePagination';
-import TableRow from '@material-ui/core/TableRow';
-import FormControlLabel from '@material-ui/core/FormControlLabel';
-import Switch from '@material-ui/core/Switch';
+import makeStyles from '@mui/styles/makeStyles';
+import Paper from '@mui/material/Paper';
+import Table from '@mui/material/Table';
+import TableBody from '@mui/material/TableBody';
+import TableFooter from '@mui/material/TableFooter';
+import TableCell from '@mui/material/TableCell';
+import TableContainer from '@mui/material/TableContainer';
+import TableHead from '@mui/material/TableHead';
+import TablePagination from '@mui/material/TablePagination';
+import TableRow from '@mui/material/TableRow';
+import FormControlLabel from '@mui/material/FormControlLabel';
+import Switch from '@mui/material/Switch';
 import {SimpleCheck, SimpleReport, SimpleService} from "../../types/types";
 import {Policy} from "../../lib/scoretrakapis/scoretrak/policy/v1/policy_pb";
 import {token} from "../../grpc/token/token";
@@ -125,142 +125,142 @@ export default function Status(props: RanksProps) {
     dataKeysArray.sort()
     teamNames.sort()
     return (
-            <TableContainer>
-                <Table stickyHeader aria-label="sticky table" size={dense ? 'small' : 'medium'}>
-                    <TableHead>
-                        <TableRow>
-                            <TableCell>
-                                Team Name
-                            </TableCell>
+        <TableContainer>
+            <Table stickyHeader aria-label="sticky table" size={dense ? 'small' : 'medium'}>
+                <TableHead>
+                    <TableRow>
+                        <TableCell>
+                            Team Name
+                        </TableCell>
 
-                            {dataKeysArray.slice(columnPage * columnsPerPage, columnPage * columnsPerPage + columnsPerPage).map((column) => (
-                                <TableCell width={`${100/(dataKeysArray.slice(columnPage * columnsPerPage, columnPage * columnsPerPage + columnsPerPage).length)}%`}
-                                           align="center"
-                                    key={column}
-                                >
-                                    {column}
+                        {dataKeysArray.slice(columnPage * columnsPerPage, columnPage * columnsPerPage + columnsPerPage).map((column) => (
+                            <TableCell width={`${100/(dataKeysArray.slice(columnPage * columnsPerPage, columnPage * columnsPerPage + columnsPerPage).length)}%`}
+                                       align="center"
+                                key={column}
+                            >
+                                {column}
+                            </TableCell>
+                        ))}
+                    </TableRow>
+                </TableHead>
+
+
+                <TableBody>
+                    {teamNames.slice(rowPage * rowsPerPage, rowPage * rowsPerPage + rowsPerPage).map((name) => {
+                        return (
+                            <TableRow hover tabIndex={-1} key={name}>
+                                <TableCell style={{
+                                    'whiteSpace': 'nowrap',
+                                    'overflow': 'hidden',
+                                    'textOverflow': 'ellipsis'}}>
+                                    {name}
                                 </TableCell>
-                            ))}
-                        </TableRow>
-                    </TableHead>
-
-
-                    <TableBody>
-                        {teamNames.slice(rowPage * rowsPerPage, rowPage * rowsPerPage + rowsPerPage).map((name) => {
-                            return (
-                                <TableRow hover tabIndex={-1} key={name}>
-                                    <TableCell style={{
-                                        'whiteSpace': 'nowrap',
-                                        'overflow': 'hidden',
-                                        'textOverflow': 'ellipsis'}}>
-                                        {name}
-                                    </TableCell>
-                                    {dataKeysArray.slice(columnPage * columnsPerPage, columnPage * columnsPerPage + columnsPerPage).map((column) => (
-                                        <TableCell key={name + column} width={`${100/(dataKeysArray.slice(columnPage * columnsPerPage, columnPage * columnsPerPage + columnsPerPage).length)}%`} style={(() => {
-                                            if (data[name][column]) {
-                                                let style = {}
-                                                if (props.isDarkTheme){
-                                                    if (data[name][column].Pause){
-                                                        style = {backgroundColor: "#000000"}
-                                                    } else if (data[name][column].Check != null && data[name][column].Check?.Passed){
-                                                        style =  {backgroundColor: "#259B0B"}
-                                                    } else{
-                                                        style = {backgroundColor: "#d20c23", color: "white"}
-                                                    }
+                                {dataKeysArray.slice(columnPage * columnsPerPage, columnPage * columnsPerPage + columnsPerPage).map((column) => (
+                                    <TableCell key={name + column} width={`${100/(dataKeysArray.slice(columnPage * columnsPerPage, columnPage * columnsPerPage + columnsPerPage).length)}%`} style={(() => {
+                                        if (data[name][column]) {
+                                            let style = {}
+                                            if (props.isDarkTheme){
+                                                if (data[name][column].Pause){
+                                                    style = {backgroundColor: "#000000"}
+                                                } else if (data[name][column].Check != null && data[name][column].Check?.Passed){
+                                                    style =  {backgroundColor: "#259B0B"}
                                                 } else{
-                                                    if (data[name][column].Pause){
-                                                        style = {backgroundColor: "#000000"}
-                                                    } else if (data[name][column].Check != null && data[name][column].Check?.Passed){
-                                                         style =  {backgroundColor: "green"}
-                                                    } else{
-                                                        style = {backgroundColor: "red", color: "white"}
-                                                    }
+                                                    style = {backgroundColor: "#d20c23", color: "white"}
                                                 }
-                                                const teamId = token.getCurrentTeamID()
-
-                                                if (token.isAValidToken() && teamId != null  && teamId in report.Teams && report.Teams[teamId].Name === name && highlightParentTeam) {
-                                                    style = {
-                                                        ...style,
-                                                        borderTop: '2px solid rgba(0, 0, 0, 1)',
-                                                        borderBottom: '2px solid rgba(0, 0, 0, 1)',
-                                                        borderLeft: '1px solid rgba(0, 0, 0, 0.5)',
-                                                        borderRight: '1px solid rgba(0, 0, 0, 0.5)',
-
-                                                    }
+                                            } else{
+                                                if (data[name][column].Pause){
+                                                    style = {backgroundColor: "#000000"}
+                                                } else if (data[name][column].Check != null && data[name][column].Check?.Passed){
+                                                     style =  {backgroundColor: "green"}
                                                 } else{
-                                                    style = {...style, border: '1px solid rgba(0, 0, 0, 0.5)'}
+                                                    style = {backgroundColor: "red", color: "white"}
                                                 }
-
-                                                return style
                                             }
-                                        })()} align="center" padding="none"
-                                        >
-                                            {!hideAddresses && data[name][column] && (() => {
-                                                let msg = ""
-                                                if (data[name][column].Address) {
-                                                    msg += data[name][column].Address
-                                                    if (column in data[name] && "Properties" in data[name][column]){
-                                                        Object.keys(data[name][column].Properties).forEach(key => {
-                                                            if (key === "Port"){
-                                                                msg += ":" + data[name][column].Properties[key].Value
-                                                            }
-                                                        })
-                                                    }
-                                                }
-                                                return msg
-                                            })()}
-                                        </TableCell>
-                                    ))}
-                                </TableRow>
-                            );
-                        })}
+                                            const teamId = token.getCurrentTeamID()
 
-                    </TableBody>
-                    <TableFooter>
-                        <TableRow>
-                            <TableCell colSpan={dataKeysArray.length + 1}>
-                                <div style={{display: "flex", flexDirection: "row", justifyContent: "center", alignItems: "center"}}>
-                                <TablePagination className={classes.tableNavigator}
-                                                 rowsPerPageOptions={[1, 5, 10, 25, 100]}
-                                                 component="div"
-                                                 count={teamNames.length}
-                                                 rowsPerPage={rowsPerPage}
-                                                 page={rowPage}
-                                                 onPageChange={handleRowChangePage}
-                                                 onChangeRowsPerPage={handleChangeRowsPerPage}
-                                />
-                                <FormControlLabel className={classes.tableNavigator}
-                                                  control={<Switch checked={dense} onChange={toggleChangeDense} />}
-                                                  label="Dense padding"
-                                />
-                                { (token.isAValidToken() || props.currentPolicy.showAddresses?.value) &&
-                                <FormControlLabel className={classes.tableNavigator}
-                                                  control={<Switch checked={hideAddresses} onChange={toggleHideAddresses} />}
-                                                  label={"Hide Addresses"}
-                                />
-                                }
-                                { (token.isAValidToken()) &&
-                                <FormControlLabel className={classes.tableNavigator}
-                                                  control={<Switch checked={highlightParentTeam} onChange={toggleHighlightParentTeam} />}
-                                                  label={"Highlight Team Cells"}
-                                />
-                                }
-                                <TablePagination
-                                    labelRowsPerPage="Columns per page"
-                                    rowsPerPageOptions={[1, 5, 10, 25, 100]}
-                                    component="div"
-                                    count={dataKeysArray.length}
-                                    rowsPerPage={columnsPerPage}
-                                    page={columnPage}
-                                    className={classes.tableNavigator}
-                                    onPageChange={handleColumnChangePage}
-                                    onChangeRowsPerPage={handleChangeColumnsPerPage}
-                                />
-                                </div>
-                            </TableCell>
-                        </TableRow>
-                    </TableFooter>
-                </Table>
-            </TableContainer>
+                                            if (token.isAValidToken() && teamId != null  && teamId in report.Teams && report.Teams[teamId].Name === name && highlightParentTeam) {
+                                                style = {
+                                                    ...style,
+                                                    borderTop: '2px solid rgba(0, 0, 0, 1)',
+                                                    borderBottom: '2px solid rgba(0, 0, 0, 1)',
+                                                    borderLeft: '1px solid rgba(0, 0, 0, 0.5)',
+                                                    borderRight: '1px solid rgba(0, 0, 0, 0.5)',
+
+                                                }
+                                            } else{
+                                                style = {...style, border: '1px solid rgba(0, 0, 0, 0.5)'}
+                                            }
+
+                                            return style
+                                        }
+                                    })()} align="center" padding="none"
+                                    >
+                                        {!hideAddresses && data[name][column] && (() => {
+                                            let msg = ""
+                                            if (data[name][column].Address) {
+                                                msg += data[name][column].Address
+                                                if (column in data[name] && "Properties" in data[name][column]){
+                                                    Object.keys(data[name][column].Properties).forEach(key => {
+                                                        if (key === "Port"){
+                                                            msg += ":" + data[name][column].Properties[key].Value
+                                                        }
+                                                    })
+                                                }
+                                            }
+                                            return msg
+                                        })()}
+                                    </TableCell>
+                                ))}
+                            </TableRow>
+                        );
+                    })}
+
+                </TableBody>
+                <TableFooter>
+                    <TableRow>
+                        <TableCell colSpan={dataKeysArray.length + 1}>
+                            <div style={{display: "flex", flexDirection: "row", justifyContent: "center", alignItems: "center"}}>
+                            <TablePagination className={classes.tableNavigator}
+                                             rowsPerPageOptions={[1, 5, 10, 25, 100]}
+                                             component="div"
+                                             count={teamNames.length}
+                                             rowsPerPage={rowsPerPage}
+                                             page={rowPage}
+                                             onPageChange={handleRowChangePage}
+                                             onRowsPerPageChange={handleChangeRowsPerPage}
+                            />
+                            <FormControlLabel className={classes.tableNavigator}
+                                              control={<Switch checked={dense} onChange={toggleChangeDense} />}
+                                              label="Dense padding"
+                            />
+                            { (token.isAValidToken() || props.currentPolicy.showAddresses?.value) &&
+                            <FormControlLabel className={classes.tableNavigator}
+                                              control={<Switch checked={hideAddresses} onChange={toggleHideAddresses} />}
+                                              label={"Hide Addresses"}
+                            />
+                            }
+                            { (token.isAValidToken()) &&
+                            <FormControlLabel className={classes.tableNavigator}
+                                              control={<Switch checked={highlightParentTeam} onChange={toggleHighlightParentTeam} />}
+                                              label={"Highlight Team Cells"}
+                            />
+                            }
+                            <TablePagination
+                                labelRowsPerPage="Columns per page"
+                                rowsPerPageOptions={[1, 5, 10, 25, 100]}
+                                component="div"
+                                count={dataKeysArray.length}
+                                rowsPerPage={columnsPerPage}
+                                page={columnPage}
+                                className={classes.tableNavigator}
+                                onPageChange={handleColumnChangePage}
+                                onRowsPerPageChange={handleChangeColumnsPerPage}
+                            />
+                            </div>
+                        </TableCell>
+                    </TableRow>
+                </TableFooter>
+            </Table>
+        </TableContainer>
     );
 }

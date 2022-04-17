@@ -4,12 +4,20 @@ import './App.css';
 import {
   BrowserRouter as Router
 } from 'react-router-dom';
-import {createMuiTheme, ThemeProvider} from "@material-ui/core/styles";
-import {deepOrange, deepPurple, lightBlue, orange} from "@material-ui/core/colors";
-import CssBaseline from "@material-ui/core/CssBaseline";
+import { createTheme, ThemeProvider, Theme, StyledEngineProvider, adaptV4Theme } from "@mui/material/styles";
+import { deepOrange, deepPurple, green, lightBlue, orange, purple } from "@mui/material/colors";
+import CssBaseline from "@mui/material/CssBaseline";
 import {gRPCClients} from "./grpc/gRPCClients";
 import Dashboard from "./components/Dashboard/Dashboard";
 import {SnackbarProvider} from "notistack";
+
+
+
+declare module '@mui/styles/defaultTheme' {
+  // eslint-disable-next-line @typescript-eslint/no-empty-interface
+  interface DefaultTheme extends Theme {}
+}
+
 
 function App() {
   useEffect(() => {
@@ -22,9 +30,9 @@ function App() {
   const palletType = isDarkTheme ? "dark" : "light";
   const mainPrimaryColor = isDarkTheme ? orange[500] : lightBlue[500];
   const mainSecondaryColor = isDarkTheme ? deepOrange[900] : deepPurple[500];
-  const darkTheme = createMuiTheme({
+  const darkTheme = createTheme({
     palette: {
-      type: palletType,
+      mode: palletType,
       primary: {
         main: mainPrimaryColor
       },
@@ -36,17 +44,19 @@ function App() {
 
   return (
     <div className="App">
-      <ThemeProvider theme={darkTheme}>
-        <SnackbarProvider maxSnack={3} anchorOrigin={{
-          vertical: 'bottom',
-          horizontal: 'right',
-        }} dense preventDuplicate>
-        <CssBaseline />
-          <Router>
-            <Dashboard theme={{isDarkTheme, setIsDarkTheme}}  gRPCClients={gRPCClients} />
-          </Router>
-        </SnackbarProvider>
-      </ThemeProvider>
+      <StyledEngineProvider injectFirst>
+        <ThemeProvider theme={darkTheme}>
+          <SnackbarProvider maxSnack={3} anchorOrigin={{
+            vertical: 'bottom',
+            horizontal: 'right',
+          }} dense preventDuplicate>
+          <CssBaseline />
+            <Router>
+              <Dashboard theme={{isDarkTheme, setIsDarkTheme}}  gRPCClients={gRPCClients} />
+            </Router>
+          </SnackbarProvider>
+        </ThemeProvider>
+      </StyledEngineProvider>
     </div>
   );
 }

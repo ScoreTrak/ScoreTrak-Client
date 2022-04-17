@@ -1,15 +1,15 @@
 import React from "react";
-import ListItem from "@material-ui/core/ListItem";
-import ListItemIcon from "@material-ui/core/ListItemIcon";
-import ListItemText from "@material-ui/core/ListItemText";
-import SettingsIcon from '@material-ui/icons/Settings';
-import PersonIcon from '@material-ui/icons/Person';
-import GroupIcon from '@material-ui/icons/Group';
+import ListItem from "@mui/material/ListItem";
+import ListItemIcon from "@mui/material/ListItemIcon";
+import ListItemText from "@mui/material/ListItemText";
+import SettingsIcon from '@mui/icons-material/Settings';
+import PersonIcon from '@mui/icons-material/Person';
+import GroupIcon from '@mui/icons-material/Group';
 import { Link } from 'react-router-dom'
-import DesktopWindowsIcon from '@material-ui/icons/DesktopWindows';
-import SettingsApplicationsIcon from '@material-ui/icons/SettingsApplications';
-import TextFieldsIcon from '@material-ui/icons/TextFields';
-import FlipCameraAndroidIcon from '@material-ui/icons/FlipCameraAndroid';
+import DesktopWindowsIcon from '@mui/icons-material/DesktopWindows';
+import SettingsApplicationsIcon from '@mui/icons-material/SettingsApplications';
+import TextFieldsIcon from '@mui/icons-material/TextFields';
+import FlipCameraAndroidIcon from '@mui/icons-material/FlipCameraAndroid';
 
 export const adminListItems = (
     <div>

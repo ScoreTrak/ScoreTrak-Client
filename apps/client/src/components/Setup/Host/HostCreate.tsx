@@ -1,14 +1,14 @@
 import React, {useEffect} from 'react';
 import {forwardRef} from 'react';
-import Table from '@material-ui/core/Table';
-import TableBody from '@material-ui/core/TableBody';
-import TableCell from '@material-ui/core/TableCell';
-import TableHead from '@material-ui/core/TableHead';
-import TableRow from '@material-ui/core/TableRow';
-import TextField from "@material-ui/core/TextField";
-import Box from "@material-ui/core/Box";
-import CircularProgress from "@material-ui/core/CircularProgress";
-import Button from "@material-ui/core/Button";
+import Table from '@mui/material/Table';
+import TableBody from '@mui/material/TableBody';
+import TableCell from '@mui/material/TableCell';
+import TableHead from '@mui/material/TableHead';
+import TableRow from '@mui/material/TableRow';
+import TextField from "@mui/material/TextField";
+import Box from "@mui/material/Box";
+import CircularProgress from "@mui/material/CircularProgress";
+import Button from "@mui/material/Button";
 import {SetupProps} from "../util/util";
 import {Team} from "../../../lib/scoretrakapis/scoretrak/team/v1/team_pb";
 import {HostGroup} from "../../../lib/scoretrakapis/scoretrak/host_group/v1/host_group_pb";
@@ -18,11 +18,11 @@ import {Severity} from "../../../types/types";
 import {StoreRequest} from "../../../lib/scoretrakapis/scoretrak/host/v1/host_pb";
 import {defaultHostColumns, hostColumns, hostColumnsToHost} from "./HostMenu";
 import {teamToTeamColumn} from "../Team/TeamMenu";
-import Switch from "@material-ui/core/Switch";
-import FormControlLabel from "@material-ui/core/FormControlLabel";
-import IconButton from "@material-ui/core/IconButton";
-import DeleteIcon from '@material-ui/icons/Delete';
-import Grid from "@material-ui/core/Grid";
+import Switch from "@mui/material/Switch";
+import FormControlLabel from "@mui/material/FormControlLabel";
+import IconButton from "@mui/material/IconButton";
+import DeleteIcon from '@mui/icons-material/Delete';
+import Grid from "@mui/material/Grid";
 function setProperty<T, K extends keyof T>(obj: T, key: K, value: T[K]) {
     obj[key] = value;
 }
@@ -231,25 +231,28 @@ const HostCreate = forwardRef((props: SetupProps, ref) => {
                                         <TableRow hover role="checkbox" tabIndex={-1}>
                                             <TableCell key={row.getName()}>
                                                 {row.getName()}
-                                                <IconButton onClick={ () => {
-                                                    setData(prevState => {
-                                                        const newData = {...prevState}
-                                                        newData.teams.splice(row_idx, 1)
-                                                        return {...newData}
-                                                    })
-                                                    setRowData(prevState => {
-                                                        const newData = {...prevState}
-                                                        const toDelete: string[] = []
-                                                        Object.keys(newData).forEach(key =>{
-                                                            if (key.includes(row.getId()?.getValue() as string)){
-                                                                toDelete.push(key)
-                                                            }
+                                                <IconButton
+                                                    onClick={ () => {
+                                                        setData(prevState => {
+                                                            const newData = {...prevState}
+                                                            newData.teams.splice(row_idx, 1)
+                                                            return {...newData}
                                                         })
-                                                        toDelete.forEach(key => delete newData[key])
-                                                        return {...newData}
-                                                    })
-                                                }
-                                                } aria-label="delete">
+                                                        setRowData(prevState => {
+                                                            const newData = {...prevState}
+                                                            const toDelete: string[] = []
+                                                            Object.keys(newData).forEach(key =>{
+                                                                if (key.includes(row.getId()?.getValue() as string)){
+                                                                    toDelete.push(key)
+                                                                }
+                                                            })
+                                                            toDelete.forEach(key => delete newData[key])
+                                                            return {...newData}
+                                                        })
+                                                    }
+                                                    }
+                                                    aria-label="delete"
+                                                    size="large">
                                                     <DeleteIcon />
                                                 </IconButton>
                                             </TableCell>
@@ -314,14 +317,17 @@ const HostCreate = forwardRef((props: SetupProps, ref) => {
                                                             <Grid item xs={4}>
                                                                 {
                                                                     cell in rowsData &&
-                                                                    <IconButton onClick={ () => {
-                                                                        setRowData(prevState => {
-                                                                            const newData = {...prevState}
-                                                                            delete newData[cell]
-                                                                            return {...newData}
-                                                                        })
-                                                                    }
-                                                                    } aria-label="delete">
+                                                                    <IconButton
+                                                                        onClick={ () => {
+                                                                            setRowData(prevState => {
+                                                                                const newData = {...prevState}
+                                                                                delete newData[cell]
+                                                                                return {...newData}
+                                                                            })
+                                                                        }
+                                                                        }
+                                                                        aria-label="delete"
+                                                                        size="large">
                                                                         <DeleteIcon />
                                                                     </IconButton>
 

@@ -10,7 +10,7 @@ import {
 import {BoolValue} from "google-protobuf/google/protobuf/wrappers_pb";
 import {UUID} from "../../../lib/scoretrakapis/scoretrak/proto/v1/uuid_pb";
 import MaterialTable, {Column} from '@material-table/core'
-import {Box, CircularProgress} from "@material-ui/core";
+import {Box, CircularProgress} from "@mui/material";
 
 
 type serviceGroupColumns = {

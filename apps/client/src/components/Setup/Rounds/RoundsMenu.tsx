@@ -1,9 +1,9 @@
 import React, {useEffect} from "react";
 import {SetupProps} from "../util/util";
-import Box from "@material-ui/core/Box";
+import Box from "@mui/material/Box";
 import MaterialTable, {Column} from '@material-table/core'
 import {Severity} from "../../../types/types";
-import {CircularProgress} from "@material-ui/core";
+import {CircularProgress} from "@mui/material";
 import {GetAllRequest, Round} from "../../../lib/scoretrakapis/scoretrak/round/v1/round_pb";
 
 type roundColumns = {

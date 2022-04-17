@@ -1,7 +1,7 @@
 import React, {useEffect} from "react";
 import {SetupProps} from "../util/util";
 import {Role} from "../../../grpc/token/token";
-import Box from "@material-ui/core/Box";
+import Box from "@mui/material/Box";
 import MaterialTable, {Column} from '@material-table/core'
 import {GetAllRequest as GetAllRequestTeam} from "../../../lib/scoretrakapis/scoretrak/team/v1/team_pb";
 import {
@@ -13,7 +13,7 @@ import {
 } from "../../../lib/scoretrakapis/scoretrak/user/v1/user_pb";
 import {Severity} from "../../../types/types";
 import {UUID} from "../../../lib/scoretrakapis/scoretrak/proto/v1/uuid_pb";
-import {CircularProgress} from "@material-ui/core";
+import {CircularProgress} from "@mui/material";
 
 type userColumns = {
     id: string | undefined

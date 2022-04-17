@@ -1,25 +1,25 @@
 import React, {Fragment, useEffect, useRef, useState} from "react";
-import Accordion from "@material-ui/core/Accordion";
-import AccordionSummary from "@material-ui/core/AccordionSummary";
-import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
-import Typography from "@material-ui/core/Typography";
-import AccordionDetails from "@material-ui/core/AccordionDetails";
-import Box from "@material-ui/core/Box";
-import {makeStyles} from "@material-ui/core/styles";
-import CheckCircleOutlineIcon from '@material-ui/icons/CheckCircleOutline';
-import ErrorIcon from '@material-ui/icons/Error';
-import Alert from "@material-ui/lab/Alert";
-import AlertTitle from "@material-ui/lab/AlertTitle";
-import Grid from "@material-ui/core/Grid";
+import Accordion from "@mui/material/Accordion";
+import AccordionSummary from "@mui/material/AccordionSummary";
+import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
+import Typography from "@mui/material/Typography";
+import AccordionDetails from "@mui/material/AccordionDetails";
+import Box from "@mui/material/Box";
+import makeStyles from '@mui/styles/makeStyles';
+import CheckCircleOutlineIcon from '@mui/icons-material/CheckCircleOutline';
+import ErrorIcon from '@mui/icons-material/Error';
+import Alert from '@mui/material/Alert';
+import AlertTitle from '@mui/material/AlertTitle';
+import Grid from "@mui/material/Grid";
 import MaterialTable, {Column, MTableToolbar} from '@material-table/core'
-import FormControl from "@material-ui/core/FormControl";
-import InputLabel from "@material-ui/core/InputLabel";
-import Input from "@material-ui/core/Input";
-import FormHelperText from "@material-ui/core/FormHelperText";
-import Button from "@material-ui/core/Button";
+import FormControl from "@mui/material/FormControl";
+import InputLabel from "@mui/material/InputLabel";
+import Input from "@mui/material/Input";
+import FormHelperText from "@mui/material/FormHelperText";
+import Button from "@mui/material/Button";
 import {Severity, SimpleReport, SimpleService} from "../../types/types";
 import {GRPCClients} from "../../grpc/gRPCClients";
-import PauseCircleOutlineIcon from '@material-ui/icons/PauseCircleOutline';
+import PauseCircleOutlineIcon from '@mui/icons-material/PauseCircleOutline';
 import {
     GetAllByServiceIDRequest as GetAllByServiceIDRequestCheck,
     GetAllByServiceIDResponse as GetAllByServiceIDResponseCheck,
@@ -40,8 +40,8 @@ import {
 
 import {UUID} from "../../lib/scoretrakapis/scoretrak/proto/v1/uuid_pb";
 import {StringValue} from "google-protobuf/google/protobuf/wrappers_pb";
-import {IconButton, Tooltip} from "@material-ui/core";
-import {Replay} from "@material-ui/icons";
+import {IconButton, Tooltip} from "@mui/material";
+import {Replay} from "@mui/icons-material";
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -475,7 +475,11 @@ function SingleTeamDetailsAccordionDetailsBox(props: SingleTeamDetailsAccordionD
                                                 <Grid item xs={1}>
                                                     <Box pl={1} pt={1}>
                                                         <Tooltip title="reload current values">
-                                                        <IconButton onClick={() => reloadPropertiesSetter(service_id, simpleService)} aria-label="reload properties" color="primary">
+                                                        <IconButton
+                                                            onClick={() => reloadPropertiesSetter(service_id, simpleService)}
+                                                            aria-label="reload properties"
+                                                            color="primary"
+                                                            size="large">
                                                             <Replay />
                                                         </IconButton>
                                                         </Tooltip>
@@ -510,5 +514,5 @@ function SingleTeamDetailsAccordionDetailsBox(props: SingleTeamDetailsAccordionD
 
             </Grid>
         </Box>
-    )
+    );
 }
