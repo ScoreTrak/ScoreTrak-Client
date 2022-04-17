@@ -36,6 +36,7 @@
     "react-json-view": "^1.21.3",
     "react-router": "^5.1.8",
     "react-router-dom": "^5.2.0",
+    "react-use": "^17.3.2",
     "vite-plugin-env-compatible": "^1.1.1"
   },
   "scripts": {

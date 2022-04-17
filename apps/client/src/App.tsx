@@ -1,15 +1,17 @@
 import './App.css';
-import React, {useEffect, useState} from 'react';
+import React, { useEffect, useState } from "react";
 import './App.css';
 import {
   BrowserRouter as Router
 } from 'react-router-dom';
-import { createTheme, ThemeProvider, Theme, StyledEngineProvider, adaptV4Theme } from "@mui/material/styles";
-import { deepOrange, deepPurple, green, lightBlue, orange, purple } from "@mui/material/colors";
+import { createTheme, ThemeProvider, Theme, StyledEngineProvider } from "@mui/material/styles";
+import { deepOrange, deepPurple, lightBlue, orange } from "@mui/material/colors";
 import CssBaseline from "@mui/material/CssBaseline";
 import {gRPCClients} from "./grpc/gRPCClients";
 import Dashboard from "./components/Dashboard/Dashboard";
 import {SnackbarProvider} from "notistack";
+import { ServerHostnameProvider } from "./contexts/ServerHostnameContext";
+import { useTitle, useLocalStorage } from "react-use";
 
 
 
@@ -43,7 +45,7 @@ function App() {
   });
 
   return (
-    <div className="App">
+    <>
       <StyledEngineProvider injectFirst>
         <ThemeProvider theme={darkTheme}>
           <SnackbarProvider maxSnack={3} anchorOrigin={{
@@ -57,7 +59,7 @@ function App() {
           </SnackbarProvider>
         </ThemeProvider>
       </StyledEngineProvider>
-    </div>
+    </>
   );
 }
 

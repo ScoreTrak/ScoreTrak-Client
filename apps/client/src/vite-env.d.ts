@@ -2,7 +2,7 @@
 
 interface ImportMetaEnv {
   readonly __APP_VERSION__: string
-  readonly ST_SERVER: string
+  readonly ST_SERVER_HOSTNAME: string
   readonly ST_COMPETITION_NAME: string
   // more env variables...
 }

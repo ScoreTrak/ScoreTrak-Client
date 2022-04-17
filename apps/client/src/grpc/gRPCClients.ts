@@ -15,7 +15,7 @@ import {ServiceGroupServiceClient} from "@scoretrak/scoretrakapis/scoretrak/serv
 import {TeamServiceClient} from "@scoretrak/scoretrakapis/scoretrak/team/v1/TeamServiceClientPb";
 import {UserServiceClient} from "@scoretrak/scoretrakapis/scoretrak/user/v1/UserServiceClientPb";
 
-const serverAddress = import.meta.env.ST_SERVER
+const serverAddress = import.meta.env.ST_SERVER_HOSTNAME
 
 export type GRPCClients = {
     authClient: AuthServiceClient;
