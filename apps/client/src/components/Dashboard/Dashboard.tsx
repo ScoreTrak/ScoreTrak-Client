@@ -1,6 +1,6 @@
-import React, {useEffect, useState} from "react";
+import React, { useEffect, useState } from "react";
 import clsx from "clsx";
-import makeStyles from '@mui/styles/makeStyles';
+import makeStyles from "@mui/styles/makeStyles";
 import CssBaseline from "@mui/material/CssBaseline";
 import Switch from "@mui/material/Switch";
 import Drawer from "@mui/material/Drawer";
@@ -13,70 +13,78 @@ import IconButton from "@mui/material/IconButton";
 import Container from "@mui/material/Container";
 import MenuIcon from "@mui/icons-material/Menu";
 import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
-import {adminListItems} from "./listItems";
+import { adminListItems } from "./listItems";
 import ListItem from "@mui/material/ListItem";
 import ListItemIcon from "@mui/material/ListItemIcon";
 import ListItemText from "@mui/material/ListItemText";
-import {Link, Route, Switch as RouterSwitch, useHistory} from "react-router-dom";
-import AssignmentIndIcon from '@mui/icons-material/AssignmentInd';
-import ExitToAppIcon from '@mui/icons-material/ExitToApp';
-import {FullScreen, useFullScreenHandle} from 'react-full-screen';
+import {
+  Link,
+  Route,
+  Switch as RouterSwitch,
+  useHistory,
+} from "react-router-dom";
+import AssignmentIndIcon from "@mui/icons-material/AssignmentInd";
+import ExitToAppIcon from "@mui/icons-material/ExitToApp";
+import { FullScreen, useFullScreenHandle } from "react-full-screen";
 import BarChartIcon from "@mui/icons-material/BarChart";
 import CheckCircleIcon from "@mui/icons-material/CheckCircle";
 import DetailsIcon from "@mui/icons-material/Details";
 import Button from "@mui/material/Button";
-import {Severity, ThemeState} from "../../types/types";
-import {Role, token} from "../../grpc/token/token";
-import {GRPCClients} from "../../grpc/gRPCClients";
-import {GetRequest, GetResponse, Policy} from "@scoretrak/scoretrakapis/scoretrak/policy/v1/policy_pb";
+import { Severity, ThemeState } from "../../types/types";
+import { Role, token } from "../../grpc/token/token";
+import { GRPCClients } from "../../grpc/gRPCClients";
+import {
+  GetRequest,
+  GetResponse,
+  Policy,
+} from "@scoretrak/scoretrakapis/scoretrak/policy/v1/policy_pb";
 import Login from "../Login/Login";
 import ScoreBoard from "../ScoreBoard/ScoreBoard";
-import {useSnackbar} from 'notistack';
+import { useSnackbar } from "notistack";
 import Setup from "../Setup/Setup";
 import Settings from "../Settings/Settings";
-import { grey } from '@mui/material/colors';
-
+import { grey } from "@mui/material/colors";
 
 const drawerWidth = 260;
 
-const useStyles = makeStyles(theme => ({
+const useStyles = makeStyles((theme) => ({
   root: {
-    display: "flex"
+    display: "flex",
   },
   toolbar: {
     position: "relative",
-    paddingRight: 24
+    paddingRight: 24,
   },
   toolbarIcon: {
     display: "flex",
     alignItems: "center",
     justifyContent: "flex-end",
     padding: "0 8px",
-    ...theme.mixins.toolbar
+    ...theme.mixins.toolbar,
   },
   appBar: {
     zIndex: theme.zIndex.drawer + 1,
     transition: theme.transitions.create(["width", "margin"], {
       easing: theme.transitions.easing.sharp,
-      duration: theme.transitions.duration.leavingScreen
-    })
+      duration: theme.transitions.duration.leavingScreen,
+    }),
   },
   appBarShift: {
     marginLeft: drawerWidth,
     width: `calc(100% - ${drawerWidth}px)`,
     transition: theme.transitions.create(["width", "margin"], {
       easing: theme.transitions.easing.sharp,
-      duration: theme.transitions.duration.enteringScreen
-    })
+      duration: theme.transitions.duration.enteringScreen,
+    }),
   },
   menuButton: {
-    marginRight: 36
+    marginRight: 36,
   },
   menuButtonHidden: {
-    display: "none"
+    display: "none",
   },
   title: {
-    flexGrow: 1
+    flexGrow: 1,
   },
   drawerPaper: {
     position: "relative",
@@ -84,25 +92,25 @@ const useStyles = makeStyles(theme => ({
     width: drawerWidth,
     transition: theme.transitions.create("width", {
       easing: theme.transitions.easing.sharp,
-      duration: theme.transitions.duration.enteringScreen
-    })
+      duration: theme.transitions.duration.enteringScreen,
+    }),
   },
   drawerPaperClose: {
     overflowX: "hidden",
     transition: theme.transitions.create("width", {
       easing: theme.transitions.easing.sharp,
-      duration: theme.transitions.duration.leavingScreen
+      duration: theme.transitions.duration.leavingScreen,
     }),
     width: theme.spacing(7),
     [theme.breakpoints.up("sm")]: {
-      width: theme.spacing(9)
-    }
+      width: theme.spacing(9),
+    },
   },
   appBarSpacer: theme.mixins.toolbar,
   content: {
     flexGrow: 1,
     height: "100vh",
-    overflow: "auto"
+    overflow: "auto",
   },
   container: {
     paddingTop: theme.spacing(4),
@@ -112,59 +120,67 @@ const useStyles = makeStyles(theme => ({
     padding: theme.spacing(2),
     display: "flex",
     overflow: "auto",
-    flexDirection: "column"
+    flexDirection: "column",
   },
   fixedHeight: {
-    height: '85vh'
+    height: "85vh",
   },
   fullSizeHeight: {
-    height: '100vh'
-  }
+    height: "100vh",
+  },
 }));
 
-interface DashboardProps{
-  theme: ThemeState,
-  gRPCClients: GRPCClients
+interface DashboardProps {
+  theme: ThemeState;
+  gRPCClients: GRPCClients;
 }
 
 export default function Dashboard(props: DashboardProps) {
   const [open, setOpen] = useState<boolean>(false);
-  const [Title, setTitle] = useState<string>("ScoreBoard")
-  const setIsDarkTheme = props.theme.setIsDarkTheme
-  const isDarkTheme = props.theme.isDarkTheme
+  const [Title, setTitle] = useState<string>("ScoreBoard");
+  const setIsDarkTheme = props.theme.setIsDarkTheme;
+  const isDarkTheme = props.theme.isDarkTheme;
   const classes = useStyles();
 
   const { enqueueSnackbar, closeSnackbar } = useSnackbar();
 
-
   const handleThemeChange = () => {
-    setIsDarkTheme(prevState => {
-      if (!prevState){
-        localStorage.setItem("theme", "dark")
-      } else{
-        localStorage.setItem("theme", "light")
+    setIsDarkTheme((prevState) => {
+      if (!prevState) {
+        localStorage.setItem("theme", "dark");
+      } else {
+        localStorage.setItem("theme", "light");
       }
-      return !prevState
+      return !prevState;
     });
   };
 
-
   const action = (key: string) => (
-      <React.Fragment>
-        <Button variant="outlined" onClick={() => { closeSnackbar(key) }}>
-          Dismiss
-        </Button>
-      </React.Fragment>
+    <React.Fragment>
+      <Button
+        variant="outlined"
+        onClick={() => {
+          closeSnackbar(key);
+        }}
+      >
+        Dismiss
+      </Button>
+    </React.Fragment>
   );
 
-  const genericEnqueue = (message: string, severity: Severity, autoHideDuration: number | null | undefined = null, uniqueID?: string) => {
+  const genericEnqueue = (
+    message: string,
+    severity: Severity,
+    autoHideDuration: number | null | undefined = null,
+    uniqueID?: string
+  ) => {
     enqueueSnackbar(message, {
-        variant: severity,
-        autoHideDuration,
-        key: uniqueID,
-        action,
-    })
-  }
+      variant: severity,
+      autoHideDuration,
+      key: uniqueID,
+      action,
+    });
+  };
 
   const handleDrawerOpen = () => {
     setOpen(true);
@@ -173,44 +189,55 @@ export default function Dashboard(props: DashboardProps) {
     setOpen(false);
   };
   const logout = () => {
-    token.logout()
-    window.location.reload()
-  }
-  const handleFullScreen = useFullScreenHandle()
-  const [currentPolicy, setPolicy] = useState<Policy.AsObject | undefined>(undefined);
+    token.logout();
+    window.location.reload();
+  };
+  const handleFullScreen = useFullScreenHandle();
+  const [currentPolicy, setPolicy] = useState<Policy.AsObject | undefined>(
+    undefined
+  );
   const history = useHistory();
   useEffect(() => {
     const streamRequest = new GetRequest();
-    const stream = props.gRPCClients.policyClient.get(streamRequest, {})
-    stream.on('error', (err: any) => {
-      if (err.code === 7 || err.code === 16){
-        genericEnqueue(`You are not authorized to perform this action. Please Log in`, Severity.Error)
-        token.logout()
+    const stream = props.gRPCClients.policyClient.get(streamRequest, {});
+    stream.on("error", (err: any) => {
+      if (err.code === 7 || err.code === 16) {
+        genericEnqueue(
+          `You are not authorized to perform this action. Please Log in`,
+          Severity.Error
+        );
+        token.logout();
         history.push("/login");
-      } else{
-        genericEnqueue(`Encountered an error while fetching policy: ${err.message}. Error code: ${err.code}`, Severity.Error)
+      } else {
+        genericEnqueue(
+          `Encountered an error while fetching policy: ${err.message}. Error code: ${err.code}`,
+          Severity.Error
+        );
       }
     });
     stream.on("data", (response) => {
-      setPolicy((response as GetResponse).getPolicy()?.toObject())
+      setPolicy((response as GetResponse).getPolicy()?.toObject());
     });
     return () => stream.cancel();
   }, []);
-
 
   return (
     <div className={classes.root}>
       <CssBaseline />
       <RouterSwitch>
-        <Route exact path="/login" render={() => (
-            <Login authClient={props.gRPCClients.authClient}/>
-        )} />
-        {
-          currentPolicy && <Route path="/" render={() => (
+        <Route
+          exact
+          path="/login"
+          render={() => <Login authClient={props.gRPCClients.authClient} />}
+        />
+        {currentPolicy && (
+          <Route
+            path="/"
+            render={() => (
               <React.Fragment>
                 <AppBar
-                    position="absolute"
-                    className={clsx(classes.appBar, open && classes.appBarShift)}
+                  position="absolute"
+                  className={clsx(classes.appBar, open && classes.appBarShift)}
                 >
                   <Toolbar className={classes.toolbar}>
                     <IconButton
@@ -219,108 +246,152 @@ export default function Dashboard(props: DashboardProps) {
                       aria-label="open drawer"
                       onClick={handleDrawerOpen}
                       className={clsx(
-                          classes.menuButton,
-                          open && classes.menuButtonHidden
+                        classes.menuButton,
+                        open && classes.menuButtonHidden
                       )}
-                      size="large">
+                      size="large"
+                    >
                       <MenuIcon />
                     </IconButton>
                     <Typography
-                        component="h1"
-                        variant="h6"
-                        color="inherit"
-                        noWrap
-                        className={classes.title}
-                    >{Title}
+                      component="h1"
+                      variant="h6"
+                      color="inherit"
+                      noWrap
+                      className={classes.title}
+                    >
+                      {Title}
                     </Typography>
                   </Toolbar>
                 </AppBar>
                 <Drawer
-                    variant="permanent"
-                    classes={{
-                      paper: clsx(classes.drawerPaper, !open && classes.drawerPaperClose)
-                    }}
-                    open={open}>
+                  variant="permanent"
+                  classes={{
+                    paper: clsx(
+                      classes.drawerPaper,
+                      !open && classes.drawerPaperClose
+                    ),
+                  }}
+                  open={open}
+                >
                   <div className={classes.toolbarIcon}>
                     <IconButton onClick={handleDrawerClose} size="large">
                       <ChevronLeftIcon />
                     </IconButton>
                   </div>
-                  <Divider/>
+                  <Divider />
                   <Switch checked={isDarkTheme} onChange={handleThemeChange} />
                   <Divider />
                   <List>
                     <div>
-                      { (currentPolicy.showPoints?.value || token.getCurrentRole() === Role.Black) &&
-                      <ListItem button component={Link} to="/ranks">
-                        <ListItemIcon>
-                          <BarChartIcon/>
-                        </ListItemIcon>
-                        <ListItemText primary="Ranks" />
-                      </ListItem>
-                      }
+                      {(currentPolicy.showPoints?.value ||
+                        token.getCurrentRole() === Role.Black) && (
+                        <ListItem button component={Link} to="/ranks">
+                          <ListItemIcon>
+                            <BarChartIcon />
+                          </ListItemIcon>
+                          <ListItemText primary="Ranks" />
+                        </ListItem>
+                      )}
                       <ListItem button component={Link} to="/">
                         <ListItemIcon>
                           <CheckCircleIcon />
                         </ListItemIcon>
                         <ListItemText primary="Status" />
                       </ListItem>
-                      { (token.getCurrentRole() === Role.Red || token.getCurrentRole() === Role.Blue || token.getCurrentRole() === Role.Black) &&
-                      <ListItem button component={Link} to="/details">
-                        <ListItemIcon>
-                          <DetailsIcon />
-                        </ListItemIcon>
-                        <ListItemText primary="Details" />
-                      </ListItem>
-                      }
+                      {(token.getCurrentRole() === Role.Red ||
+                        token.getCurrentRole() === Role.Blue ||
+                        token.getCurrentRole() === Role.Black) && (
+                        <ListItem button component={Link} to="/details">
+                          <ListItemIcon>
+                            <DetailsIcon />
+                          </ListItemIcon>
+                          <ListItemText primary="Details" />
+                        </ListItem>
+                      )}
                     </div>
                   </List>
-                  {
-                    token.getCurrentRole() === Role.Black  &&
+                  {token.getCurrentRole() === Role.Black && (
                     <List>
-                      <Divider/>
+                      <Divider />
                       {adminListItems}
                     </List>
-                  }
-                  <Divider/>
-                  {
-                    !token.isAValidToken() ?
-                        <ListItem button component={Link} to="/login">
-                          <ListItemIcon>
-                            <AssignmentIndIcon />
-                          </ListItemIcon>
-                          <ListItemText primary="Sign In" />
-                        </ListItem>
-                        :
-                        <ListItem button onClick={logout}>
-                          <ListItemIcon>
-                            <ExitToAppIcon />
-                          </ListItemIcon>
-                          <ListItemText primary="Sign Out" />
-                        </ListItem>
-                  }
+                  )}
+                  <Divider />
+                  {!token.isAValidToken() ? (
+                    <ListItem button component={Link} to="/login">
+                      <ListItemIcon>
+                        <AssignmentIndIcon />
+                      </ListItemIcon>
+                      <ListItemText primary="Sign In" />
+                    </ListItem>
+                  ) : (
+                    <ListItem button onClick={logout}>
+                      <ListItemIcon>
+                        <ExitToAppIcon />
+                      </ListItemIcon>
+                      <ListItemText primary="Sign Out" />
+                    </ListItem>
+                  )}
                 </Drawer>
                 <main className={classes.content}>
                   <div className={classes.appBarSpacer} />
                   <Container maxWidth="xl" className={classes.container}>
-                        <Route exact path={["/", "/ranks", "/details"]} render={() => (
-                            <FullScreen handle={handleFullScreen}>
-                              <div style={(handleFullScreen.active && ((!isDarkTheme && { background: grey[50]}) || { background: grey.A400})) || undefined}>
-                                <ScoreBoard {...props} genericEnqueue={genericEnqueue} currentPolicy={currentPolicy} setTitle={setTitle} handleFullScreen={handleFullScreen}/>
-                              </div>
-                            </FullScreen>
-                        )} />
-                        <Route exact path="/settings" render={() => (
-                            <Settings isDarkTheme={props.theme.isDarkTheme} genericEnqueue={genericEnqueue} setTitle={setTitle}  gRPCClients={props.gRPCClients} currentPolicy={currentPolicy}/>
-                        )} />
-                        <Route path="/setup" render={() => (
-                            <Setup isDarkTheme={props.theme.isDarkTheme} genericEnqueue={genericEnqueue} setTitle={setTitle}  gRPCClients={props.gRPCClients}  />
-                        )} />
+                    <Route
+                      exact
+                      path={["/", "/ranks", "/details"]}
+                      render={() => (
+                        <FullScreen handle={handleFullScreen}>
+                          <div
+                            style={
+                              (handleFullScreen.active &&
+                                ((!isDarkTheme && { background: grey[50] }) || {
+                                  background: grey.A400,
+                                })) ||
+                              undefined
+                            }
+                          >
+                            <ScoreBoard
+                              {...props}
+                              genericEnqueue={genericEnqueue}
+                              currentPolicy={currentPolicy}
+                              setTitle={setTitle}
+                              handleFullScreen={handleFullScreen}
+                            />
+                          </div>
+                        </FullScreen>
+                      )}
+                    />
+                    <Route
+                      exact
+                      path="/settings"
+                      render={() => (
+                        <Settings
+                          isDarkTheme={props.theme.isDarkTheme}
+                          genericEnqueue={genericEnqueue}
+                          setTitle={setTitle}
+                          gRPCClients={props.gRPCClients}
+                          currentPolicy={currentPolicy}
+                        />
+                      )}
+                    />
+                    <Route
+                      path="/setup"
+                      render={() => (
+                        <Setup
+                          isDarkTheme={props.theme.isDarkTheme}
+                          genericEnqueue={genericEnqueue}
+                          setTitle={setTitle}
+                          gRPCClients={props.gRPCClients}
+                        />
+                      )}
+                    />
                   </Container>
                 </main>
               </React.Fragment>
-          )} />
-        }
+            )}
+          />
+        )}
       </RouterSwitch>
     </div>
   );

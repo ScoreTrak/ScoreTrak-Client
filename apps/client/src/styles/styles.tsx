@@ -1,9 +1,9 @@
-import makeStyles from '@mui/styles/makeStyles';
+import makeStyles from "@mui/styles/makeStyles";
 
 export const centerStyle = makeStyles((theme) => ({
-    alignItemsAndJustifyContent: {
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'center',
-    },
+  alignItemsAndJustifyContent: {
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center",
+  },
 }));

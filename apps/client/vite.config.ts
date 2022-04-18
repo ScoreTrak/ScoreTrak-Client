@@ -1,19 +1,19 @@
 import { defineConfig, loadEnv } from "vite";
-import react from "@vitejs/plugin-react"
-import reactRefresh from '@vitejs/plugin-react-refresh'
+import react from "@vitejs/plugin-react";
+import reactRefresh from "@vitejs/plugin-react-refresh";
 import envCompatible from "vite-plugin-env-compatible";
 
 // vite.config.js
 export default defineConfig(({ command, mode }) => {
-  const envPrefix = "ST_"
-  const env = loadEnv(mode, process.cwd(), envPrefix)
+  const envPrefix = "ST_";
+  const env = loadEnv(mode, process.cwd(), envPrefix);
   return {
     plugins: [react(), envCompatible()],
     envPrefix,
     server: {
       proxy: {
-        "^scoretrak..*": env['ST_SERVER_HOSTNAME']
-      }
+        "^scoretrak..*": env["ST_SERVER_HOSTNAME"],
+      },
     },
     optimizeDeps: {
       // TODO: find a plugin to automatically generate the following strings.
@@ -46,14 +46,13 @@ export default defineConfig(({ command, mode }) => {
         "@scoretrak/scoretrakapis/scoretrak/service/v1/ServiceServiceClientPb",
         "@scoretrak/scoretrakapis/scoretrak/service_group/v1/Service_groupServiceClientPb",
         "@scoretrak/scoretrakapis/scoretrak/team/v1/TeamServiceClientPb",
-        "@scoretrak/scoretrakapis/scoretrak/user/v1/UserServiceClientPb"
-      ]
+        "@scoretrak/scoretrakapis/scoretrak/user/v1/UserServiceClientPb",
+      ],
     },
-      build: {
-        commonjsOptions: {
-          include: [/scoretrak-scoretrakapis/, /node_modules/]
-        }
-      }
-    }
-  }
-)
+    build: {
+      commonjsOptions: {
+        include: [/scoretrak-scoretrakapis/, /node_modules/],
+      },
+    },
+  };
+});
