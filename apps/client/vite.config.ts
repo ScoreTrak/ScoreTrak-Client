@@ -12,7 +12,7 @@ export default defineConfig(({ command, mode }) => {
     envPrefix,
     server: {
       proxy: {
-        "^scoretrak..*": env['ST_SERVER']
+        "^scoretrak..*": env['ST_SERVER_HOSTNAME']
       }
     },
     optimizeDeps: {
