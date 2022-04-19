@@ -1,6 +1,5 @@
 import { defineConfig, loadEnv } from "vite";
 import react from "@vitejs/plugin-react";
-import reactRefresh from "@vitejs/plugin-react-refresh";
 import envCompatible from "vite-plugin-env-compatible";
 
 // vite.config.js

@@ -18,8 +18,6 @@ import CssBaseline from "@mui/material/CssBaseline";
 import { gRPCClients } from "./grpc/gRPCClients";
 import Dashboard from "./components/Dashboard/Dashboard";
 import { SnackbarProvider } from "notistack";
-import { ServerHostnameProvider } from "./contexts/ServerHostnameContext";
-import { useTitle, useLocalStorage } from "react-use";
 
 declare module "@mui/styles/defaultTheme" {
   // eslint-disable-next-line @typescript-eslint/no-empty-interface
