@@ -152,52 +152,40 @@ const Login = (props: LoginProps) => {
                 </form>
               </div>
             </Container>
-          </Grid>
-          <Grid item xs={8}>
-            <Container maxWidth={"md"}>
-              <h1>Sponsors</h1>
+                </Grid>
+                <Grid item xs={8}>
+            <Container maxWidth={'md'}>
 
-              {Object.keys(sponsors).map((key) => {
-                return (
-                  <div>
-                    <h2>{key} Sponsors</h2>
-                    <Grid
-                      container
-                      spacing={2}
-                      justifyContent={"center"}
-                      component={"div"}
-                    >
-                      {sponsors[key].map((sponsor) => {
-                        return (
-                          <Grid
-                            item
-                            xs={key === "Platinum" ? 6 : 5}
-                            key={sponsor.Name}
-                          >
-                            <Card>
-                              {key === "Platinum" ? (
-                                <CardMedia
-                                  component={"img"}
-                                  height={140}
-                                  alt={sponsor.Name}
-                                  image={sponsor.LogoURL}
-                                />
-                              ) : (
-                                <CardMedia
-                                  component={"img"}
-                                  height={100}
-                                  alt={sponsor.Name}
-                                  image={sponsor.LogoURL}
-                                />
-                              )}
-                            </Card>
-                          </Grid>
-                        );
-                      })}
-                    </Grid>
-                  </div>
-                );
-              })}
+                <h1>Partners</h1>
+
+                {Object.keys(sponsors).map((key) => {
+                    return <div>
+                            {key == "Presenting" ?
+                                <h2>Presenting Partners</h2>
+                                :
+                                <h2>Partners</h2>
+                            }
+                            <Grid container spacing={2} mt={6} justifyContent={'center'}>
+                                {sponsors[key].map((sponsor) => {
+                                    return <Grid item xs={key == "Platinum" ? 6 : 5} key={sponsor.Name}>
+                                        {key == "Platinum" ?
+                                            <Card sx={{maxWidth: 250}}>
+                                                <CardMedia component={'img'} height={140} alt={sponsor.Name}
+                                                           image={sponsor.LogoURL}/>
+                                            </Card>
+                                            :
+                                            <Card sx={{maxWidth: 200}}>
+                                                <CardMedia component={'img'} height={100} alt={sponsor.Name}
+                                                           image={sponsor.LogoURL}/>
+                                            </Card>
+                                        }
+                                    </Grid>
+                                })}
+                            </Grid>
+                        </div>
+                    })
+                }
+
             </Container>
           </Grid>
         </Grid>
@@ -206,4 +194,4 @@ const Login = (props: LoginProps) => {
   );
 };
 
-export default Login;
+export default Login
