@@ -149,11 +149,15 @@ const Login = (props: LoginProps) => {
                 <Grid item xs={8}>
             <Container maxWidth={'md'}>
 
-                <h1>Sponsors</h1>
+                <h1>Partners</h1>
 
                 {Object.keys(sponsors).map((key) => {
                     return <div>
-                            <h2>{key} Sponsors</h2>
+                            {key == "Presenting" ?
+                                <h2>Presenting Partners</h2>
+                                :
+                                <h2>Partners</h2>
+                            }
                             <Grid container spacing={2} mt={6} justifyContent={'center'}>
                                 {sponsors[key].map((sponsor) => {
                                     return <Grid item xs={key == "Platinum" ? 6 : 5} key={sponsor.Name}>
