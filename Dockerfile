@@ -1,10 +1,11 @@
-#Thanks to https://typeofnan.dev/how-to-serve-a-react-app-with-nginx-in-docker/
+# Thanks to https://typeofnan.dev/how-to-serve-a-react-app-with-nginx-in-docker/
+# Thanks to https://pnpm.io/cli/fetch#usage-scenario
 # Name the node stage "builder"
-FROM node:14 AS builder
-# Set working directory
-WORKDIR /app
-# Copy all files from current directory to working dir in image
-COPY . .
+FROM node:16 AS builder
+
+RUN curl -f https://get.pnpm.io/v6.16.js | node - add --global pnpm
+
+# Install binarys
 RUN BIN="/usr/local/bin" && \
     VERSION="3.15.8" && \
     BINARY_NAME="protoc" && \
@@ -30,8 +31,19 @@ RUN BIN="/usr/local/bin" && \
       "https://github.com/bufbuild/buf/releases/download/v${VERSION}/${BINARY_NAME}-$(uname -s)-$(uname -m)" \
     -o "${BIN}/${BINARY_NAME}" && \
     chmod +x "${BIN}/${BINARY_NAME}"
-# install node modules and build assets
-RUN yarn install && yarn build
+
+
+WORKDIR /app
+
+# Files required by pnpm install
+COPY package.json pnpm-lock.yaml ./
+
+RUN pnpm install --frozen-lockfile
+
+# Copy all files from current directory to working dir in image
+COPY . .
+
+RUN pnpm install && pnpm run build
 
 
 # nginx state for serving content
@@ -41,7 +53,7 @@ WORKDIR /usr/share/nginx/html
 # Remove default nginx static assets
 RUN rm -rf ./*
 # Copy static assets from builder stage
-COPY --from=builder /app/build .
+COPY --from=builder /app/apps/client/build .
 #redirect 404s to index
 RUN sed -i '/index  index.html index.htm;/a try_files \$uri \$uri/ /index.html;' /etc/nginx/conf.d/default.conf
 # Containers run nginx with global directives and daemon off
