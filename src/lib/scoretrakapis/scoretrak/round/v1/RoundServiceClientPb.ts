@@ -35,7 +35,7 @@ export class RoundServiceClient {
     this.options_ = options;
   }
 
-  methodInfoGetLastNonElapsingRound = new grpcWeb.MethodDescriptor(
+  methodDescriptorGetLastNonElapsingRound = new grpcWeb.MethodDescriptor(
     '/scoretrak.round.v1.RoundService/GetLastNonElapsingRound',
     grpcWeb.MethodType.UNARY,
     scoretrak_round_v1_round_pb.GetLastNonElapsingRoundRequest,
@@ -67,7 +67,7 @@ export class RoundServiceClient {
           '/scoretrak.round.v1.RoundService/GetLastNonElapsingRound',
         request,
         metadata || {},
-        this.methodInfoGetLastNonElapsingRound,
+        this.methodDescriptorGetLastNonElapsingRound,
         callback);
     }
     return this.client_.unaryCall(
@@ -75,10 +75,10 @@ export class RoundServiceClient {
       '/scoretrak.round.v1.RoundService/GetLastNonElapsingRound',
     request,
     metadata || {},
-    this.methodInfoGetLastNonElapsingRound);
+    this.methodDescriptorGetLastNonElapsingRound);
   }
 
-  methodInfoGetAll = new grpcWeb.MethodDescriptor(
+  methodDescriptorGetAll = new grpcWeb.MethodDescriptor(
     '/scoretrak.round.v1.RoundService/GetAll',
     grpcWeb.MethodType.UNARY,
     scoretrak_round_v1_round_pb.GetAllRequest,
@@ -110,7 +110,7 @@ export class RoundServiceClient {
           '/scoretrak.round.v1.RoundService/GetAll',
         request,
         metadata || {},
-        this.methodInfoGetAll,
+        this.methodDescriptorGetAll,
         callback);
     }
     return this.client_.unaryCall(
@@ -118,10 +118,10 @@ export class RoundServiceClient {
       '/scoretrak.round.v1.RoundService/GetAll',
     request,
     metadata || {},
-    this.methodInfoGetAll);
+    this.methodDescriptorGetAll);
   }
 
-  methodInfoGetByID = new grpcWeb.MethodDescriptor(
+  methodDescriptorGetByID = new grpcWeb.MethodDescriptor(
     '/scoretrak.round.v1.RoundService/GetByID',
     grpcWeb.MethodType.UNARY,
     scoretrak_round_v1_round_pb.GetByIDRequest,
@@ -153,7 +153,7 @@ export class RoundServiceClient {
           '/scoretrak.round.v1.RoundService/GetByID',
         request,
         metadata || {},
-        this.methodInfoGetByID,
+        this.methodDescriptorGetByID,
         callback);
     }
     return this.client_.unaryCall(
@@ -161,10 +161,10 @@ export class RoundServiceClient {
       '/scoretrak.round.v1.RoundService/GetByID',
     request,
     metadata || {},
-    this.methodInfoGetByID);
+    this.methodDescriptorGetByID);
   }
 
-  methodInfoGetLastRound = new grpcWeb.MethodDescriptor(
+  methodDescriptorGetLastRound = new grpcWeb.MethodDescriptor(
     '/scoretrak.round.v1.RoundService/GetLastRound',
     grpcWeb.MethodType.UNARY,
     scoretrak_round_v1_round_pb.GetLastRoundRequest,
@@ -196,7 +196,7 @@ export class RoundServiceClient {
           '/scoretrak.round.v1.RoundService/GetLastRound',
         request,
         metadata || {},
-        this.methodInfoGetLastRound,
+        this.methodDescriptorGetLastRound,
         callback);
     }
     return this.client_.unaryCall(
@@ -204,7 +204,7 @@ export class RoundServiceClient {
       '/scoretrak.round.v1.RoundService/GetLastRound',
     request,
     metadata || {},
-    this.methodInfoGetLastRound);
+    this.methodDescriptorGetLastRound);
   }
 
 }

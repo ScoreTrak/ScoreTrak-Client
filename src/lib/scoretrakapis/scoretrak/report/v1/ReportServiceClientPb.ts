@@ -35,7 +35,7 @@ export class ReportServiceClient {
     this.options_ = options;
   }
 
-  methodInfoGet = new grpcWeb.MethodDescriptor(
+  methodDescriptorGet = new grpcWeb.MethodDescriptor(
     '/scoretrak.report.v1.ReportService/Get',
     grpcWeb.MethodType.SERVER_STREAMING,
     scoretrak_report_v1_report_pb.GetRequest,
@@ -48,13 +48,13 @@ export class ReportServiceClient {
 
   get(
     request: scoretrak_report_v1_report_pb.GetRequest,
-    metadata?: grpcWeb.Metadata) {
+    metadata?: grpcWeb.Metadata): grpcWeb.ClientReadableStream<scoretrak_report_v1_report_pb.GetResponse> {
     return this.client_.serverStreaming(
       this.hostname_ +
         '/scoretrak.report.v1.ReportService/Get',
       request,
       metadata || {},
-      this.methodInfoGet);
+      this.methodDescriptorGet);
   }
 
 }

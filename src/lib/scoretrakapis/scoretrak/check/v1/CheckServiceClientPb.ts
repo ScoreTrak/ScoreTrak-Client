@@ -35,7 +35,7 @@ export class CheckServiceClient {
     this.options_ = options;
   }
 
-  methodInfoGetAllByRoundID = new grpcWeb.MethodDescriptor(
+  methodDescriptorGetAllByRoundID = new grpcWeb.MethodDescriptor(
     '/scoretrak.check.v1.CheckService/GetAllByRoundID',
     grpcWeb.MethodType.UNARY,
     scoretrak_check_v1_check_pb.GetAllByRoundIDRequest,
@@ -67,7 +67,7 @@ export class CheckServiceClient {
           '/scoretrak.check.v1.CheckService/GetAllByRoundID',
         request,
         metadata || {},
-        this.methodInfoGetAllByRoundID,
+        this.methodDescriptorGetAllByRoundID,
         callback);
     }
     return this.client_.unaryCall(
@@ -75,10 +75,10 @@ export class CheckServiceClient {
       '/scoretrak.check.v1.CheckService/GetAllByRoundID',
     request,
     metadata || {},
-    this.methodInfoGetAllByRoundID);
+    this.methodDescriptorGetAllByRoundID);
   }
 
-  methodInfoGetByRoundServiceID = new grpcWeb.MethodDescriptor(
+  methodDescriptorGetByRoundServiceID = new grpcWeb.MethodDescriptor(
     '/scoretrak.check.v1.CheckService/GetByRoundServiceID',
     grpcWeb.MethodType.UNARY,
     scoretrak_check_v1_check_pb.GetByRoundServiceIDRequest,
@@ -110,7 +110,7 @@ export class CheckServiceClient {
           '/scoretrak.check.v1.CheckService/GetByRoundServiceID',
         request,
         metadata || {},
-        this.methodInfoGetByRoundServiceID,
+        this.methodDescriptorGetByRoundServiceID,
         callback);
     }
     return this.client_.unaryCall(
@@ -118,10 +118,10 @@ export class CheckServiceClient {
       '/scoretrak.check.v1.CheckService/GetByRoundServiceID',
     request,
     metadata || {},
-    this.methodInfoGetByRoundServiceID);
+    this.methodDescriptorGetByRoundServiceID);
   }
 
-  methodInfoGetAllByServiceID = new grpcWeb.MethodDescriptor(
+  methodDescriptorGetAllByServiceID = new grpcWeb.MethodDescriptor(
     '/scoretrak.check.v1.CheckService/GetAllByServiceID',
     grpcWeb.MethodType.UNARY,
     scoretrak_check_v1_check_pb.GetAllByServiceIDRequest,
@@ -153,7 +153,7 @@ export class CheckServiceClient {
           '/scoretrak.check.v1.CheckService/GetAllByServiceID',
         request,
         metadata || {},
-        this.methodInfoGetAllByServiceID,
+        this.methodDescriptorGetAllByServiceID,
         callback);
     }
     return this.client_.unaryCall(
@@ -161,7 +161,7 @@ export class CheckServiceClient {
       '/scoretrak.check.v1.CheckService/GetAllByServiceID',
     request,
     metadata || {},
-    this.methodInfoGetAllByServiceID);
+    this.methodDescriptorGetAllByServiceID);
   }
 
 }

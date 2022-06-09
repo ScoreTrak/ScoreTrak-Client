@@ -35,7 +35,7 @@ export class HostGroupServiceClient {
     this.options_ = options;
   }
 
-  methodInfoGetAll = new grpcWeb.MethodDescriptor(
+  methodDescriptorGetAll = new grpcWeb.MethodDescriptor(
     '/scoretrak.host_group.v1.HostGroupService/GetAll',
     grpcWeb.MethodType.UNARY,
     scoretrak_host_group_v1_host_group_pb.GetAllRequest,
@@ -67,7 +67,7 @@ export class HostGroupServiceClient {
           '/scoretrak.host_group.v1.HostGroupService/GetAll',
         request,
         metadata || {},
-        this.methodInfoGetAll,
+        this.methodDescriptorGetAll,
         callback);
     }
     return this.client_.unaryCall(
@@ -75,10 +75,10 @@ export class HostGroupServiceClient {
       '/scoretrak.host_group.v1.HostGroupService/GetAll',
     request,
     metadata || {},
-    this.methodInfoGetAll);
+    this.methodDescriptorGetAll);
   }
 
-  methodInfoGetByID = new grpcWeb.MethodDescriptor(
+  methodDescriptorGetByID = new grpcWeb.MethodDescriptor(
     '/scoretrak.host_group.v1.HostGroupService/GetByID',
     grpcWeb.MethodType.UNARY,
     scoretrak_host_group_v1_host_group_pb.GetByIDRequest,
@@ -110,7 +110,7 @@ export class HostGroupServiceClient {
           '/scoretrak.host_group.v1.HostGroupService/GetByID',
         request,
         metadata || {},
-        this.methodInfoGetByID,
+        this.methodDescriptorGetByID,
         callback);
     }
     return this.client_.unaryCall(
@@ -118,10 +118,10 @@ export class HostGroupServiceClient {
       '/scoretrak.host_group.v1.HostGroupService/GetByID',
     request,
     metadata || {},
-    this.methodInfoGetByID);
+    this.methodDescriptorGetByID);
   }
 
-  methodInfoDelete = new grpcWeb.MethodDescriptor(
+  methodDescriptorDelete = new grpcWeb.MethodDescriptor(
     '/scoretrak.host_group.v1.HostGroupService/Delete',
     grpcWeb.MethodType.UNARY,
     scoretrak_host_group_v1_host_group_pb.DeleteRequest,
@@ -153,7 +153,7 @@ export class HostGroupServiceClient {
           '/scoretrak.host_group.v1.HostGroupService/Delete',
         request,
         metadata || {},
-        this.methodInfoDelete,
+        this.methodDescriptorDelete,
         callback);
     }
     return this.client_.unaryCall(
@@ -161,10 +161,10 @@ export class HostGroupServiceClient {
       '/scoretrak.host_group.v1.HostGroupService/Delete',
     request,
     metadata || {},
-    this.methodInfoDelete);
+    this.methodDescriptorDelete);
   }
 
-  methodInfoStore = new grpcWeb.MethodDescriptor(
+  methodDescriptorStore = new grpcWeb.MethodDescriptor(
     '/scoretrak.host_group.v1.HostGroupService/Store',
     grpcWeb.MethodType.UNARY,
     scoretrak_host_group_v1_host_group_pb.StoreRequest,
@@ -196,7 +196,7 @@ export class HostGroupServiceClient {
           '/scoretrak.host_group.v1.HostGroupService/Store',
         request,
         metadata || {},
-        this.methodInfoStore,
+        this.methodDescriptorStore,
         callback);
     }
     return this.client_.unaryCall(
@@ -204,10 +204,10 @@ export class HostGroupServiceClient {
       '/scoretrak.host_group.v1.HostGroupService/Store',
     request,
     metadata || {},
-    this.methodInfoStore);
+    this.methodDescriptorStore);
   }
 
-  methodInfoUpdate = new grpcWeb.MethodDescriptor(
+  methodDescriptorUpdate = new grpcWeb.MethodDescriptor(
     '/scoretrak.host_group.v1.HostGroupService/Update',
     grpcWeb.MethodType.UNARY,
     scoretrak_host_group_v1_host_group_pb.UpdateRequest,
@@ -239,7 +239,7 @@ export class HostGroupServiceClient {
           '/scoretrak.host_group.v1.HostGroupService/Update',
         request,
         metadata || {},
-        this.methodInfoUpdate,
+        this.methodDescriptorUpdate,
         callback);
     }
     return this.client_.unaryCall(
@@ -247,7 +247,7 @@ export class HostGroupServiceClient {
       '/scoretrak.host_group.v1.HostGroupService/Update',
     request,
     metadata || {},
-    this.methodInfoUpdate);
+    this.methodDescriptorUpdate);
   }
 
 }

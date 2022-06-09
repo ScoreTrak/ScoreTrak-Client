@@ -35,7 +35,7 @@ export class DynamicConfigServiceClient {
     this.options_ = options;
   }
 
-  methodInfoGet = new grpcWeb.MethodDescriptor(
+  methodDescriptorGet = new grpcWeb.MethodDescriptor(
     '/scoretrak.config.v1.DynamicConfigService/Get',
     grpcWeb.MethodType.UNARY,
     scoretrak_config_v1_config_pb.GetRequest,
@@ -67,7 +67,7 @@ export class DynamicConfigServiceClient {
           '/scoretrak.config.v1.DynamicConfigService/Get',
         request,
         metadata || {},
-        this.methodInfoGet,
+        this.methodDescriptorGet,
         callback);
     }
     return this.client_.unaryCall(
@@ -75,10 +75,10 @@ export class DynamicConfigServiceClient {
       '/scoretrak.config.v1.DynamicConfigService/Get',
     request,
     metadata || {},
-    this.methodInfoGet);
+    this.methodDescriptorGet);
   }
 
-  methodInfoUpdate = new grpcWeb.MethodDescriptor(
+  methodDescriptorUpdate = new grpcWeb.MethodDescriptor(
     '/scoretrak.config.v1.DynamicConfigService/Update',
     grpcWeb.MethodType.UNARY,
     scoretrak_config_v1_config_pb.UpdateRequest,
@@ -110,7 +110,7 @@ export class DynamicConfigServiceClient {
           '/scoretrak.config.v1.DynamicConfigService/Update',
         request,
         metadata || {},
-        this.methodInfoUpdate,
+        this.methodDescriptorUpdate,
         callback);
     }
     return this.client_.unaryCall(
@@ -118,7 +118,7 @@ export class DynamicConfigServiceClient {
       '/scoretrak.config.v1.DynamicConfigService/Update',
     request,
     metadata || {},
-    this.methodInfoUpdate);
+    this.methodDescriptorUpdate);
   }
 
 }
@@ -142,7 +142,7 @@ export class StaticConfigServiceClient {
     this.options_ = options;
   }
 
-  methodInfoGet = new grpcWeb.MethodDescriptor(
+  methodDescriptorGet = new grpcWeb.MethodDescriptor(
     '/scoretrak.config.v1.StaticConfigService/Get',
     grpcWeb.MethodType.UNARY,
     scoretrak_config_v1_config_pb.GetStaticConfigRequest,
@@ -174,7 +174,7 @@ export class StaticConfigServiceClient {
           '/scoretrak.config.v1.StaticConfigService/Get',
         request,
         metadata || {},
-        this.methodInfoGet,
+        this.methodDescriptorGet,
         callback);
     }
     return this.client_.unaryCall(
@@ -182,7 +182,7 @@ export class StaticConfigServiceClient {
       '/scoretrak.config.v1.StaticConfigService/Get',
     request,
     metadata || {},
-    this.methodInfoGet);
+    this.methodDescriptorGet);
   }
 
 }

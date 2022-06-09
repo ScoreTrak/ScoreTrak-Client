@@ -35,7 +35,7 @@ export class PropertyServiceClient {
     this.options_ = options;
   }
 
-  methodInfoGetAll = new grpcWeb.MethodDescriptor(
+  methodDescriptorGetAll = new grpcWeb.MethodDescriptor(
     '/scoretrak.property.v1.PropertyService/GetAll',
     grpcWeb.MethodType.UNARY,
     scoretrak_property_v1_property_pb.GetAllRequest,
@@ -67,7 +67,7 @@ export class PropertyServiceClient {
           '/scoretrak.property.v1.PropertyService/GetAll',
         request,
         metadata || {},
-        this.methodInfoGetAll,
+        this.methodDescriptorGetAll,
         callback);
     }
     return this.client_.unaryCall(
@@ -75,10 +75,10 @@ export class PropertyServiceClient {
       '/scoretrak.property.v1.PropertyService/GetAll',
     request,
     metadata || {},
-    this.methodInfoGetAll);
+    this.methodDescriptorGetAll);
   }
 
-  methodInfoDelete = new grpcWeb.MethodDescriptor(
+  methodDescriptorDelete = new grpcWeb.MethodDescriptor(
     '/scoretrak.property.v1.PropertyService/Delete',
     grpcWeb.MethodType.UNARY,
     scoretrak_property_v1_property_pb.DeleteRequest,
@@ -110,7 +110,7 @@ export class PropertyServiceClient {
           '/scoretrak.property.v1.PropertyService/Delete',
         request,
         metadata || {},
-        this.methodInfoDelete,
+        this.methodDescriptorDelete,
         callback);
     }
     return this.client_.unaryCall(
@@ -118,10 +118,10 @@ export class PropertyServiceClient {
       '/scoretrak.property.v1.PropertyService/Delete',
     request,
     metadata || {},
-    this.methodInfoDelete);
+    this.methodDescriptorDelete);
   }
 
-  methodInfoStore = new grpcWeb.MethodDescriptor(
+  methodDescriptorStore = new grpcWeb.MethodDescriptor(
     '/scoretrak.property.v1.PropertyService/Store',
     grpcWeb.MethodType.UNARY,
     scoretrak_property_v1_property_pb.StoreRequest,
@@ -153,7 +153,7 @@ export class PropertyServiceClient {
           '/scoretrak.property.v1.PropertyService/Store',
         request,
         metadata || {},
-        this.methodInfoStore,
+        this.methodDescriptorStore,
         callback);
     }
     return this.client_.unaryCall(
@@ -161,10 +161,10 @@ export class PropertyServiceClient {
       '/scoretrak.property.v1.PropertyService/Store',
     request,
     metadata || {},
-    this.methodInfoStore);
+    this.methodDescriptorStore);
   }
 
-  methodInfoUpdate = new grpcWeb.MethodDescriptor(
+  methodDescriptorUpdate = new grpcWeb.MethodDescriptor(
     '/scoretrak.property.v1.PropertyService/Update',
     grpcWeb.MethodType.UNARY,
     scoretrak_property_v1_property_pb.UpdateRequest,
@@ -196,7 +196,7 @@ export class PropertyServiceClient {
           '/scoretrak.property.v1.PropertyService/Update',
         request,
         metadata || {},
-        this.methodInfoUpdate,
+        this.methodDescriptorUpdate,
         callback);
     }
     return this.client_.unaryCall(
@@ -204,10 +204,10 @@ export class PropertyServiceClient {
       '/scoretrak.property.v1.PropertyService/Update',
     request,
     metadata || {},
-    this.methodInfoUpdate);
+    this.methodDescriptorUpdate);
   }
 
-  methodInfoGetByServiceIDKey = new grpcWeb.MethodDescriptor(
+  methodDescriptorGetByServiceIDKey = new grpcWeb.MethodDescriptor(
     '/scoretrak.property.v1.PropertyService/GetByServiceIDKey',
     grpcWeb.MethodType.UNARY,
     scoretrak_property_v1_property_pb.GetByServiceIDKeyRequest,
@@ -239,7 +239,7 @@ export class PropertyServiceClient {
           '/scoretrak.property.v1.PropertyService/GetByServiceIDKey',
         request,
         metadata || {},
-        this.methodInfoGetByServiceIDKey,
+        this.methodDescriptorGetByServiceIDKey,
         callback);
     }
     return this.client_.unaryCall(
@@ -247,10 +247,10 @@ export class PropertyServiceClient {
       '/scoretrak.property.v1.PropertyService/GetByServiceIDKey',
     request,
     metadata || {},
-    this.methodInfoGetByServiceIDKey);
+    this.methodDescriptorGetByServiceIDKey);
   }
 
-  methodInfoGetAllByServiceID = new grpcWeb.MethodDescriptor(
+  methodDescriptorGetAllByServiceID = new grpcWeb.MethodDescriptor(
     '/scoretrak.property.v1.PropertyService/GetAllByServiceID',
     grpcWeb.MethodType.UNARY,
     scoretrak_property_v1_property_pb.GetAllByServiceIDRequest,
@@ -282,7 +282,7 @@ export class PropertyServiceClient {
           '/scoretrak.property.v1.PropertyService/GetAllByServiceID',
         request,
         metadata || {},
-        this.methodInfoGetAllByServiceID,
+        this.methodDescriptorGetAllByServiceID,
         callback);
     }
     return this.client_.unaryCall(
@@ -290,7 +290,7 @@ export class PropertyServiceClient {
       '/scoretrak.property.v1.PropertyService/GetAllByServiceID',
     request,
     metadata || {},
-    this.methodInfoGetAllByServiceID);
+    this.methodDescriptorGetAllByServiceID);
   }
 
 }

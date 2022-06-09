@@ -35,7 +35,7 @@ export class ServiceGroupServiceClient {
     this.options_ = options;
   }
 
-  methodInfoGetAll = new grpcWeb.MethodDescriptor(
+  methodDescriptorGetAll = new grpcWeb.MethodDescriptor(
     '/scoretrak.service_group.v1.ServiceGroupService/GetAll',
     grpcWeb.MethodType.UNARY,
     scoretrak_service_group_v1_service_group_pb.GetAllRequest,
@@ -67,7 +67,7 @@ export class ServiceGroupServiceClient {
           '/scoretrak.service_group.v1.ServiceGroupService/GetAll',
         request,
         metadata || {},
-        this.methodInfoGetAll,
+        this.methodDescriptorGetAll,
         callback);
     }
     return this.client_.unaryCall(
@@ -75,10 +75,10 @@ export class ServiceGroupServiceClient {
       '/scoretrak.service_group.v1.ServiceGroupService/GetAll',
     request,
     metadata || {},
-    this.methodInfoGetAll);
+    this.methodDescriptorGetAll);
   }
 
-  methodInfoGetByID = new grpcWeb.MethodDescriptor(
+  methodDescriptorGetByID = new grpcWeb.MethodDescriptor(
     '/scoretrak.service_group.v1.ServiceGroupService/GetByID',
     grpcWeb.MethodType.UNARY,
     scoretrak_service_group_v1_service_group_pb.GetByIDRequest,
@@ -110,7 +110,7 @@ export class ServiceGroupServiceClient {
           '/scoretrak.service_group.v1.ServiceGroupService/GetByID',
         request,
         metadata || {},
-        this.methodInfoGetByID,
+        this.methodDescriptorGetByID,
         callback);
     }
     return this.client_.unaryCall(
@@ -118,10 +118,10 @@ export class ServiceGroupServiceClient {
       '/scoretrak.service_group.v1.ServiceGroupService/GetByID',
     request,
     metadata || {},
-    this.methodInfoGetByID);
+    this.methodDescriptorGetByID);
   }
 
-  methodInfoDelete = new grpcWeb.MethodDescriptor(
+  methodDescriptorDelete = new grpcWeb.MethodDescriptor(
     '/scoretrak.service_group.v1.ServiceGroupService/Delete',
     grpcWeb.MethodType.UNARY,
     scoretrak_service_group_v1_service_group_pb.DeleteRequest,
@@ -153,7 +153,7 @@ export class ServiceGroupServiceClient {
           '/scoretrak.service_group.v1.ServiceGroupService/Delete',
         request,
         metadata || {},
-        this.methodInfoDelete,
+        this.methodDescriptorDelete,
         callback);
     }
     return this.client_.unaryCall(
@@ -161,10 +161,10 @@ export class ServiceGroupServiceClient {
       '/scoretrak.service_group.v1.ServiceGroupService/Delete',
     request,
     metadata || {},
-    this.methodInfoDelete);
+    this.methodDescriptorDelete);
   }
 
-  methodInfoStore = new grpcWeb.MethodDescriptor(
+  methodDescriptorStore = new grpcWeb.MethodDescriptor(
     '/scoretrak.service_group.v1.ServiceGroupService/Store',
     grpcWeb.MethodType.UNARY,
     scoretrak_service_group_v1_service_group_pb.StoreRequest,
@@ -196,7 +196,7 @@ export class ServiceGroupServiceClient {
           '/scoretrak.service_group.v1.ServiceGroupService/Store',
         request,
         metadata || {},
-        this.methodInfoStore,
+        this.methodDescriptorStore,
         callback);
     }
     return this.client_.unaryCall(
@@ -204,10 +204,10 @@ export class ServiceGroupServiceClient {
       '/scoretrak.service_group.v1.ServiceGroupService/Store',
     request,
     metadata || {},
-    this.methodInfoStore);
+    this.methodDescriptorStore);
   }
 
-  methodInfoUpdate = new grpcWeb.MethodDescriptor(
+  methodDescriptorUpdate = new grpcWeb.MethodDescriptor(
     '/scoretrak.service_group.v1.ServiceGroupService/Update',
     grpcWeb.MethodType.UNARY,
     scoretrak_service_group_v1_service_group_pb.UpdateRequest,
@@ -239,7 +239,7 @@ export class ServiceGroupServiceClient {
           '/scoretrak.service_group.v1.ServiceGroupService/Update',
         request,
         metadata || {},
-        this.methodInfoUpdate,
+        this.methodDescriptorUpdate,
         callback);
     }
     return this.client_.unaryCall(
@@ -247,10 +247,10 @@ export class ServiceGroupServiceClient {
       '/scoretrak.service_group.v1.ServiceGroupService/Update',
     request,
     metadata || {},
-    this.methodInfoUpdate);
+    this.methodDescriptorUpdate);
   }
 
-  methodInfoRedeploy = new grpcWeb.MethodDescriptor(
+  methodDescriptorRedeploy = new grpcWeb.MethodDescriptor(
     '/scoretrak.service_group.v1.ServiceGroupService/Redeploy',
     grpcWeb.MethodType.UNARY,
     scoretrak_service_group_v1_service_group_pb.RedeployRequest,
@@ -282,7 +282,7 @@ export class ServiceGroupServiceClient {
           '/scoretrak.service_group.v1.ServiceGroupService/Redeploy',
         request,
         metadata || {},
-        this.methodInfoRedeploy,
+        this.methodDescriptorRedeploy,
         callback);
     }
     return this.client_.unaryCall(
@@ -290,7 +290,7 @@ export class ServiceGroupServiceClient {
       '/scoretrak.service_group.v1.ServiceGroupService/Redeploy',
     request,
     metadata || {},
-    this.methodInfoRedeploy);
+    this.methodDescriptorRedeploy);
   }
 
 }
