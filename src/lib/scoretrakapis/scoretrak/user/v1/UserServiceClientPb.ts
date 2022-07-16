@@ -35,7 +35,7 @@ export class UserServiceClient {
     this.options_ = options;
   }
 
-  methodInfoGetAll = new grpcWeb.MethodDescriptor(
+  methodDescriptorGetAll = new grpcWeb.MethodDescriptor(
     '/scoretrak.user.v1.UserService/GetAll',
     grpcWeb.MethodType.UNARY,
     scoretrak_user_v1_user_pb.GetAllRequest,
@@ -67,7 +67,7 @@ export class UserServiceClient {
           '/scoretrak.user.v1.UserService/GetAll',
         request,
         metadata || {},
-        this.methodInfoGetAll,
+        this.methodDescriptorGetAll,
         callback);
     }
     return this.client_.unaryCall(
@@ -75,10 +75,10 @@ export class UserServiceClient {
       '/scoretrak.user.v1.UserService/GetAll',
     request,
     metadata || {},
-    this.methodInfoGetAll);
+    this.methodDescriptorGetAll);
   }
 
-  methodInfoGetByID = new grpcWeb.MethodDescriptor(
+  methodDescriptorGetByID = new grpcWeb.MethodDescriptor(
     '/scoretrak.user.v1.UserService/GetByID',
     grpcWeb.MethodType.UNARY,
     scoretrak_user_v1_user_pb.GetByIDRequest,
@@ -110,7 +110,7 @@ export class UserServiceClient {
           '/scoretrak.user.v1.UserService/GetByID',
         request,
         metadata || {},
-        this.methodInfoGetByID,
+        this.methodDescriptorGetByID,
         callback);
     }
     return this.client_.unaryCall(
@@ -118,10 +118,10 @@ export class UserServiceClient {
       '/scoretrak.user.v1.UserService/GetByID',
     request,
     metadata || {},
-    this.methodInfoGetByID);
+    this.methodDescriptorGetByID);
   }
 
-  methodInfoDelete = new grpcWeb.MethodDescriptor(
+  methodDescriptorDelete = new grpcWeb.MethodDescriptor(
     '/scoretrak.user.v1.UserService/Delete',
     grpcWeb.MethodType.UNARY,
     scoretrak_user_v1_user_pb.DeleteRequest,
@@ -153,7 +153,7 @@ export class UserServiceClient {
           '/scoretrak.user.v1.UserService/Delete',
         request,
         metadata || {},
-        this.methodInfoDelete,
+        this.methodDescriptorDelete,
         callback);
     }
     return this.client_.unaryCall(
@@ -161,10 +161,10 @@ export class UserServiceClient {
       '/scoretrak.user.v1.UserService/Delete',
     request,
     metadata || {},
-    this.methodInfoDelete);
+    this.methodDescriptorDelete);
   }
 
-  methodInfoStore = new grpcWeb.MethodDescriptor(
+  methodDescriptorStore = new grpcWeb.MethodDescriptor(
     '/scoretrak.user.v1.UserService/Store',
     grpcWeb.MethodType.UNARY,
     scoretrak_user_v1_user_pb.StoreRequest,
@@ -196,7 +196,7 @@ export class UserServiceClient {
           '/scoretrak.user.v1.UserService/Store',
         request,
         metadata || {},
-        this.methodInfoStore,
+        this.methodDescriptorStore,
         callback);
     }
     return this.client_.unaryCall(
@@ -204,10 +204,10 @@ export class UserServiceClient {
       '/scoretrak.user.v1.UserService/Store',
     request,
     metadata || {},
-    this.methodInfoStore);
+    this.methodDescriptorStore);
   }
 
-  methodInfoUpdate = new grpcWeb.MethodDescriptor(
+  methodDescriptorUpdate = new grpcWeb.MethodDescriptor(
     '/scoretrak.user.v1.UserService/Update',
     grpcWeb.MethodType.UNARY,
     scoretrak_user_v1_user_pb.UpdateRequest,
@@ -239,7 +239,7 @@ export class UserServiceClient {
           '/scoretrak.user.v1.UserService/Update',
         request,
         metadata || {},
-        this.methodInfoUpdate,
+        this.methodDescriptorUpdate,
         callback);
     }
     return this.client_.unaryCall(
@@ -247,10 +247,10 @@ export class UserServiceClient {
       '/scoretrak.user.v1.UserService/Update',
     request,
     metadata || {},
-    this.methodInfoUpdate);
+    this.methodDescriptorUpdate);
   }
 
-  methodInfoGetByUsername = new grpcWeb.MethodDescriptor(
+  methodDescriptorGetByUsername = new grpcWeb.MethodDescriptor(
     '/scoretrak.user.v1.UserService/GetByUsername',
     grpcWeb.MethodType.UNARY,
     scoretrak_user_v1_user_pb.GetByUsernameRequest,
@@ -282,7 +282,7 @@ export class UserServiceClient {
           '/scoretrak.user.v1.UserService/GetByUsername',
         request,
         metadata || {},
-        this.methodInfoGetByUsername,
+        this.methodDescriptorGetByUsername,
         callback);
     }
     return this.client_.unaryCall(
@@ -290,7 +290,7 @@ export class UserServiceClient {
       '/scoretrak.user.v1.UserService/GetByUsername',
     request,
     metadata || {},
-    this.methodInfoGetByUsername);
+    this.methodDescriptorGetByUsername);
   }
 
 }

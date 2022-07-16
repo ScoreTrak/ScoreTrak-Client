@@ -35,7 +35,7 @@ export class PolicyServiceClient {
     this.options_ = options;
   }
 
-  methodInfoGet = new grpcWeb.MethodDescriptor(
+  methodDescriptorGet = new grpcWeb.MethodDescriptor(
     '/scoretrak.policy.v1.PolicyService/Get',
     grpcWeb.MethodType.SERVER_STREAMING,
     scoretrak_policy_v1_policy_pb.GetRequest,
@@ -48,16 +48,16 @@ export class PolicyServiceClient {
 
   get(
     request: scoretrak_policy_v1_policy_pb.GetRequest,
-    metadata?: grpcWeb.Metadata) {
+    metadata?: grpcWeb.Metadata): grpcWeb.ClientReadableStream<scoretrak_policy_v1_policy_pb.GetResponse> {
     return this.client_.serverStreaming(
       this.hostname_ +
         '/scoretrak.policy.v1.PolicyService/Get',
       request,
       metadata || {},
-      this.methodInfoGet);
+      this.methodDescriptorGet);
   }
 
-  methodInfoUpdate = new grpcWeb.MethodDescriptor(
+  methodDescriptorUpdate = new grpcWeb.MethodDescriptor(
     '/scoretrak.policy.v1.PolicyService/Update',
     grpcWeb.MethodType.UNARY,
     scoretrak_policy_v1_policy_pb.UpdateRequest,
@@ -89,7 +89,7 @@ export class PolicyServiceClient {
           '/scoretrak.policy.v1.PolicyService/Update',
         request,
         metadata || {},
-        this.methodInfoUpdate,
+        this.methodDescriptorUpdate,
         callback);
     }
     return this.client_.unaryCall(
@@ -97,7 +97,7 @@ export class PolicyServiceClient {
       '/scoretrak.policy.v1.PolicyService/Update',
     request,
     metadata || {},
-    this.methodInfoUpdate);
+    this.methodDescriptorUpdate);
   }
 
 }

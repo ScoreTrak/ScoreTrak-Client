@@ -35,7 +35,7 @@ export class CompetitionServiceClient {
     this.options_ = options;
   }
 
-  methodInfoLoadCompetition = new grpcWeb.MethodDescriptor(
+  methodDescriptorLoadCompetition = new grpcWeb.MethodDescriptor(
     '/scoretrak.competition.v1.CompetitionService/LoadCompetition',
     grpcWeb.MethodType.UNARY,
     scoretrak_competition_v1_competition_pb.LoadCompetitionRequest,
@@ -67,7 +67,7 @@ export class CompetitionServiceClient {
           '/scoretrak.competition.v1.CompetitionService/LoadCompetition',
         request,
         metadata || {},
-        this.methodInfoLoadCompetition,
+        this.methodDescriptorLoadCompetition,
         callback);
     }
     return this.client_.unaryCall(
@@ -75,10 +75,10 @@ export class CompetitionServiceClient {
       '/scoretrak.competition.v1.CompetitionService/LoadCompetition',
     request,
     metadata || {},
-    this.methodInfoLoadCompetition);
+    this.methodDescriptorLoadCompetition);
   }
 
-  methodInfoFetchCoreCompetition = new grpcWeb.MethodDescriptor(
+  methodDescriptorFetchCoreCompetition = new grpcWeb.MethodDescriptor(
     '/scoretrak.competition.v1.CompetitionService/FetchCoreCompetition',
     grpcWeb.MethodType.UNARY,
     scoretrak_competition_v1_competition_pb.FetchCoreCompetitionRequest,
@@ -110,7 +110,7 @@ export class CompetitionServiceClient {
           '/scoretrak.competition.v1.CompetitionService/FetchCoreCompetition',
         request,
         metadata || {},
-        this.methodInfoFetchCoreCompetition,
+        this.methodDescriptorFetchCoreCompetition,
         callback);
     }
     return this.client_.unaryCall(
@@ -118,10 +118,10 @@ export class CompetitionServiceClient {
       '/scoretrak.competition.v1.CompetitionService/FetchCoreCompetition',
     request,
     metadata || {},
-    this.methodInfoFetchCoreCompetition);
+    this.methodDescriptorFetchCoreCompetition);
   }
 
-  methodInfoFetchEntireCompetition = new grpcWeb.MethodDescriptor(
+  methodDescriptorFetchEntireCompetition = new grpcWeb.MethodDescriptor(
     '/scoretrak.competition.v1.CompetitionService/FetchEntireCompetition',
     grpcWeb.MethodType.UNARY,
     scoretrak_competition_v1_competition_pb.FetchEntireCompetitionRequest,
@@ -153,7 +153,7 @@ export class CompetitionServiceClient {
           '/scoretrak.competition.v1.CompetitionService/FetchEntireCompetition',
         request,
         metadata || {},
-        this.methodInfoFetchEntireCompetition,
+        this.methodDescriptorFetchEntireCompetition,
         callback);
     }
     return this.client_.unaryCall(
@@ -161,10 +161,10 @@ export class CompetitionServiceClient {
       '/scoretrak.competition.v1.CompetitionService/FetchEntireCompetition',
     request,
     metadata || {},
-    this.methodInfoFetchEntireCompetition);
+    this.methodDescriptorFetchEntireCompetition);
   }
 
-  methodInfoResetScores = new grpcWeb.MethodDescriptor(
+  methodDescriptorResetScores = new grpcWeb.MethodDescriptor(
     '/scoretrak.competition.v1.CompetitionService/ResetScores',
     grpcWeb.MethodType.UNARY,
     scoretrak_competition_v1_competition_pb.ResetScoresRequest,
@@ -196,7 +196,7 @@ export class CompetitionServiceClient {
           '/scoretrak.competition.v1.CompetitionService/ResetScores',
         request,
         metadata || {},
-        this.methodInfoResetScores,
+        this.methodDescriptorResetScores,
         callback);
     }
     return this.client_.unaryCall(
@@ -204,10 +204,10 @@ export class CompetitionServiceClient {
       '/scoretrak.competition.v1.CompetitionService/ResetScores',
     request,
     metadata || {},
-    this.methodInfoResetScores);
+    this.methodDescriptorResetScores);
   }
 
-  methodInfoDeleteCompetition = new grpcWeb.MethodDescriptor(
+  methodDescriptorDeleteCompetition = new grpcWeb.MethodDescriptor(
     '/scoretrak.competition.v1.CompetitionService/DeleteCompetition',
     grpcWeb.MethodType.UNARY,
     scoretrak_competition_v1_competition_pb.DeleteCompetitionRequest,
@@ -239,7 +239,7 @@ export class CompetitionServiceClient {
           '/scoretrak.competition.v1.CompetitionService/DeleteCompetition',
         request,
         metadata || {},
-        this.methodInfoDeleteCompetition,
+        this.methodDescriptorDeleteCompetition,
         callback);
     }
     return this.client_.unaryCall(
@@ -247,7 +247,7 @@ export class CompetitionServiceClient {
       '/scoretrak.competition.v1.CompetitionService/DeleteCompetition',
     request,
     metadata || {},
-    this.methodInfoDeleteCompetition);
+    this.methodDescriptorDeleteCompetition);
   }
 
 }

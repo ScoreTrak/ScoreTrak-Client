@@ -35,7 +35,7 @@ export class AuthServiceClient {
     this.options_ = options;
   }
 
-  methodInfoLogin = new grpcWeb.MethodDescriptor(
+  methodDescriptorLogin = new grpcWeb.MethodDescriptor(
     '/scoretrak.auth.v1.AuthService/Login',
     grpcWeb.MethodType.UNARY,
     scoretrak_auth_v1_auth_pb.LoginRequest,
@@ -67,7 +67,7 @@ export class AuthServiceClient {
           '/scoretrak.auth.v1.AuthService/Login',
         request,
         metadata || {},
-        this.methodInfoLogin,
+        this.methodDescriptorLogin,
         callback);
     }
     return this.client_.unaryCall(
@@ -75,7 +75,7 @@ export class AuthServiceClient {
       '/scoretrak.auth.v1.AuthService/Login',
     request,
     metadata || {},
-    this.methodInfoLogin);
+    this.methodDescriptorLogin);
   }
 
 }

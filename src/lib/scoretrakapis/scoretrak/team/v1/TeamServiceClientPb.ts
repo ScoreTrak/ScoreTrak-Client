@@ -35,7 +35,7 @@ export class TeamServiceClient {
     this.options_ = options;
   }
 
-  methodInfoGetAll = new grpcWeb.MethodDescriptor(
+  methodDescriptorGetAll = new grpcWeb.MethodDescriptor(
     '/scoretrak.team.v1.TeamService/GetAll',
     grpcWeb.MethodType.UNARY,
     scoretrak_team_v1_team_pb.GetAllRequest,
@@ -67,7 +67,7 @@ export class TeamServiceClient {
           '/scoretrak.team.v1.TeamService/GetAll',
         request,
         metadata || {},
-        this.methodInfoGetAll,
+        this.methodDescriptorGetAll,
         callback);
     }
     return this.client_.unaryCall(
@@ -75,10 +75,10 @@ export class TeamServiceClient {
       '/scoretrak.team.v1.TeamService/GetAll',
     request,
     metadata || {},
-    this.methodInfoGetAll);
+    this.methodDescriptorGetAll);
   }
 
-  methodInfoGetByID = new grpcWeb.MethodDescriptor(
+  methodDescriptorGetByID = new grpcWeb.MethodDescriptor(
     '/scoretrak.team.v1.TeamService/GetByID',
     grpcWeb.MethodType.UNARY,
     scoretrak_team_v1_team_pb.GetByIDRequest,
@@ -110,7 +110,7 @@ export class TeamServiceClient {
           '/scoretrak.team.v1.TeamService/GetByID',
         request,
         metadata || {},
-        this.methodInfoGetByID,
+        this.methodDescriptorGetByID,
         callback);
     }
     return this.client_.unaryCall(
@@ -118,10 +118,10 @@ export class TeamServiceClient {
       '/scoretrak.team.v1.TeamService/GetByID',
     request,
     metadata || {},
-    this.methodInfoGetByID);
+    this.methodDescriptorGetByID);
   }
 
-  methodInfoDelete = new grpcWeb.MethodDescriptor(
+  methodDescriptorDelete = new grpcWeb.MethodDescriptor(
     '/scoretrak.team.v1.TeamService/Delete',
     grpcWeb.MethodType.UNARY,
     scoretrak_team_v1_team_pb.DeleteRequest,
@@ -153,7 +153,7 @@ export class TeamServiceClient {
           '/scoretrak.team.v1.TeamService/Delete',
         request,
         metadata || {},
-        this.methodInfoDelete,
+        this.methodDescriptorDelete,
         callback);
     }
     return this.client_.unaryCall(
@@ -161,10 +161,10 @@ export class TeamServiceClient {
       '/scoretrak.team.v1.TeamService/Delete',
     request,
     metadata || {},
-    this.methodInfoDelete);
+    this.methodDescriptorDelete);
   }
 
-  methodInfoStore = new grpcWeb.MethodDescriptor(
+  methodDescriptorStore = new grpcWeb.MethodDescriptor(
     '/scoretrak.team.v1.TeamService/Store',
     grpcWeb.MethodType.UNARY,
     scoretrak_team_v1_team_pb.StoreRequest,
@@ -196,7 +196,7 @@ export class TeamServiceClient {
           '/scoretrak.team.v1.TeamService/Store',
         request,
         metadata || {},
-        this.methodInfoStore,
+        this.methodDescriptorStore,
         callback);
     }
     return this.client_.unaryCall(
@@ -204,10 +204,10 @@ export class TeamServiceClient {
       '/scoretrak.team.v1.TeamService/Store',
     request,
     metadata || {},
-    this.methodInfoStore);
+    this.methodDescriptorStore);
   }
 
-  methodInfoUpdate = new grpcWeb.MethodDescriptor(
+  methodDescriptorUpdate = new grpcWeb.MethodDescriptor(
     '/scoretrak.team.v1.TeamService/Update',
     grpcWeb.MethodType.UNARY,
     scoretrak_team_v1_team_pb.UpdateRequest,
@@ -239,7 +239,7 @@ export class TeamServiceClient {
           '/scoretrak.team.v1.TeamService/Update',
         request,
         metadata || {},
-        this.methodInfoUpdate,
+        this.methodDescriptorUpdate,
         callback);
     }
     return this.client_.unaryCall(
@@ -247,7 +247,7 @@ export class TeamServiceClient {
       '/scoretrak.team.v1.TeamService/Update',
     request,
     metadata || {},
-    this.methodInfoUpdate);
+    this.methodDescriptorUpdate);
   }
 
 }
