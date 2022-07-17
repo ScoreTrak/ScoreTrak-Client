@@ -10,6 +10,7 @@
     "@nivo/bar": "^0.79.1",
     "@nivo/core": "^0.79.0",
     "@nivo/tooltip": "0.79.0",
+    "@testing-library/dom": ">=7.21.4",
     "@testing-library/jest-dom": "^5.16.4",
     "@testing-library/react": "^12.1.5",
     "@testing-library/user-event": "^14.2.5",
