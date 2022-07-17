@@ -433,7 +433,7 @@ function SingleTeamDetailsAccordionDetailsBox(props: SingleTeamDetailsAccordionD
                                 cellEditable={{
                                     isCellEditable: (rowData, columnDef ) => {return rowData.editable_value},
                                     onCellEditApproved: (newValue, oldValue, rowData, columnDef) => {
-                                        return new Promise((resolve, reject) => {
+                                        return new Promise<void>((resolve, reject) => {
                                             setTimeout(() => {
                                                 if (newValue !== "" && newValue.trim() === ""){
                                                     reject("Only empty strings are not allowed")

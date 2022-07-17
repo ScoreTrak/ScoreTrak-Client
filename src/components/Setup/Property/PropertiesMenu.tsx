@@ -158,7 +158,7 @@ function PropertyMenuTable(props: SetupProps) {
                         options={{pageSizeOptions: [5, 10, 20, 50, 100, 500, 1000], pageSize: 20, emptyRowsWhenPaging: false}}
                         editable={{
                             onRowAdd: (newData) =>
-                                new Promise((resolve, reject) => {
+                                new Promise<void>((resolve, reject) => {
                                     setTimeout(() => {
                                         const storeRequest = new StoreRequest()
                                         const u = propertyColumnsToProperty(newData)
@@ -177,7 +177,7 @@ function PropertyMenuTable(props: SetupProps) {
                                     }, 600);
                                 }),
                             onRowUpdate: (newData, oldData) =>
-                                new Promise((resolve, reject) => {
+                                new Promise<void>((resolve, reject) => {
                                     setTimeout(() => {
                                         if (oldData){
                                             const updateRequest = new UpdateRequest()
@@ -198,7 +198,7 @@ function PropertyMenuTable(props: SetupProps) {
                                     }, 600);
                                 }),
                             onRowDelete: (oldData) =>
-                                new Promise((resolve, reject) => {
+                                new Promise<void>((resolve, reject) => {
                                     setTimeout(() => {
                                         const deleteRequest = new DeleteRequest()
                                         deleteRequest.setKey(oldData.key)
