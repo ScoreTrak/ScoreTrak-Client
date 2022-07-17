@@ -1,6 +1,6 @@
 #Thanks to https://typeofnan.dev/how-to-serve-a-react-app-with-nginx-in-docker/
 # Name the node stage "builder"
-FROM node:14 AS builder
+FROM node:16 AS builder
 # Set working directory
 WORKDIR /app
 # Copy all files from current directory to working dir in image
