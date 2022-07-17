@@ -77,7 +77,7 @@ export default function HostGroupsMenu(props: SetupProps) {
 
                         editable={{
                             onRowAdd: (newData) =>
-                                new Promise((resolve, reject) => {
+                                new Promise<void>((resolve, reject) => {
                                     setTimeout(() => {
                                         const storeRequest = new StoreRequest()
                                         const u = hostGroupColumnsToHostGroup(newData)
@@ -97,7 +97,7 @@ export default function HostGroupsMenu(props: SetupProps) {
                                     }, 600);
                                 }),
                             onRowUpdate: (newData, oldData) =>
-                                new Promise((resolve, reject) => {
+                                new Promise<void>((resolve, reject) => {
                                     setTimeout(() => {
                                         if (oldData){
                                             const updateRequest = new UpdateRequest()
@@ -118,7 +118,7 @@ export default function HostGroupsMenu(props: SetupProps) {
                                     }, 600);
                                 }),
                             onRowDelete: (oldData) =>
-                                new Promise((resolve, reject) => {
+                                new Promise<void>((resolve, reject) => {
                                     setTimeout(() => {
                                         const deleteRequest = new DeleteRequest()
                                         deleteRequest.setId((new UUID().setValue(oldData.id as string)))
