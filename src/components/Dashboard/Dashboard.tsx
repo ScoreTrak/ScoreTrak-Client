@@ -28,13 +28,13 @@ import Button from "@material-ui/core/Button";
 import {Severity, ThemeState} from "../../types/types";
 import {Role, token} from "../../grpc/token/token";
 import {GRPCClients} from "../../grpc/gRPCClients";
-import {GetRequest, GetResponse, Policy} from "../../lib/scoretrakapis/scoretrak/policy/v1/policy_pb";
 import Login from "../Login/Login";
 import ScoreBoard from "../ScoreBoard/ScoreBoard";
 import grey from "@material-ui/core/colors/grey";
 import {useSnackbar} from 'notistack';
 import Setup from "../Setup/Setup";
 import Settings from "../Settings/Settings";
+import {usePolicy} from "../../contexts/PolicyContext";
 
 
 const drawerWidth = 260;
@@ -128,6 +128,7 @@ interface DashboardProps{
 }
 
 export default function Dashboard(props: DashboardProps) {
+  const policy = usePolicy()
   const [open, setOpen] = useState<boolean>(false);
   const [Title, setTitle] = useState<string>("ScoreBoard")
   const setIsDarkTheme = props.theme.setIsDarkTheme
@@ -177,26 +178,6 @@ export default function Dashboard(props: DashboardProps) {
     window.location.reload()
   }
   const handleFullScreen = useFullScreenHandle()
-  const [currentPolicy, setPolicy] = useState<Policy.AsObject | undefined>(undefined);
-  const history = useHistory();
-  useEffect(() => {
-    const streamRequest = new GetRequest();
-    const stream = props.gRPCClients.policyClient.get(streamRequest, {})
-    stream.on('error', (err: any) => {
-      if (err.code === 7 || err.code === 16){
-        genericEnqueue(`You are not authorized to perform this action. Please Log in`, Severity.Error)
-        token.logout()
-        history.push("/login");
-      } else{
-        genericEnqueue(`Encountered an error while fetching policy: ${err.message}. Error code: ${err.code}`, Severity.Error)
-      }
-    });
-    stream.on("data", (response) => {
-      setPolicy((response as GetResponse).getPolicy()?.toObject())
-    });
-    return () => stream.cancel();
-  }, []);
-
 
   return (
       <div className={classes.root}>
@@ -206,7 +187,7 @@ export default function Dashboard(props: DashboardProps) {
               <Login authClient={props.gRPCClients.authClient}/>
           )} />
           {
-            currentPolicy && <Route path="/" render={() => (
+            policy && <Route path="/" render={() => (
                 <React.Fragment>
                   <AppBar
                       position="absolute"
@@ -251,7 +232,7 @@ export default function Dashboard(props: DashboardProps) {
                     <Divider />
                     <List>
                       <div>
-                        { (currentPolicy.showPoints?.value || token.getCurrentRole() === Role.Black) &&
+                        { (policy.showPoints?.value || token.getCurrentRole() === Role.Black) &&
                         <ListItem button component={Link} to="/ranks">
                           <ListItemIcon>
                             <BarChartIcon/>
@@ -306,12 +287,12 @@ export default function Dashboard(props: DashboardProps) {
                           <Route exact path={["/", "/ranks", "/details"]} render={() => (
                               <FullScreen handle={handleFullScreen}>
                                 <div style={(handleFullScreen.active && ((!isDarkTheme && { background: grey[50]}) || { background: grey.A400})) || undefined}>
-                                  <ScoreBoard {...props} genericEnqueue={genericEnqueue} currentPolicy={currentPolicy} setTitle={setTitle} handleFullScreen={handleFullScreen}/>
+                                  <ScoreBoard {...props} genericEnqueue={genericEnqueue} setTitle={setTitle} handleFullScreen={handleFullScreen}/>
                                 </div>
                               </FullScreen>
                           )} />
                           <Route exact path="/settings" render={() => (
-                              <Settings isDarkTheme={props.theme.isDarkTheme} genericEnqueue={genericEnqueue} setTitle={setTitle}  gRPCClients={props.gRPCClients} currentPolicy={currentPolicy}/>
+                              <Settings isDarkTheme={props.theme.isDarkTheme} genericEnqueue={genericEnqueue} setTitle={setTitle}  gRPCClients={props.gRPCClients} />
                           )} />
                           <Route path="/setup" render={() => (
                               <Setup isDarkTheme={props.theme.isDarkTheme} genericEnqueue={genericEnqueue} setTitle={setTitle}  gRPCClients={props.gRPCClients}  />

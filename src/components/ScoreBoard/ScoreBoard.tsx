@@ -10,13 +10,13 @@ import Button from '@material-ui/core/Button';
 import FullscreenExitIcon from '@material-ui/icons/FullscreenExit';
 import {makeStyles} from "@material-ui/core/styles";
 import {GRPCClients} from "../../grpc/gRPCClients";
-import {Policy} from "../../lib/scoretrakapis/scoretrak/policy/v1/policy_pb";
 import {ThemeState, SimpleReport, Severity} from "../../types/types";
 import {FullScreenHandle} from "react-full-screen";
 import {GetRequest, GetResponse} from "../../lib/scoretrakapis/scoretrak/report/v1/report_pb";
 import {Role, token} from "../../grpc/token/token";
 import clsx from "clsx";
 import Ranks from "./Ranks";
+import {usePolicy} from "../../contexts/PolicyContext";
 
 const useStyles = makeStyles((theme) => ({
     hidden: { opacity: 0.1, transition: "opacity 0.2s linear"},
@@ -37,7 +37,6 @@ const useStyles = makeStyles((theme) => ({
 
 type ScoreBoardProps = {
     gRPCClients: GRPCClients,
-    currentPolicy: Policy.AsObject,
     theme: ThemeState,
     setTitle: React.Dispatch<React.SetStateAction<string>>;
     handleFullScreen: FullScreenHandle
@@ -46,6 +45,7 @@ type ScoreBoardProps = {
 
 
 export default function ScoreBoard(props : ScoreBoardProps) {
+    const policy = usePolicy()
     const [report, setReport] = useState<SimpleReport | undefined>(undefined);
     const [visible, setFade] = React.useState<boolean>(false);
     const classes = useStyles();
@@ -87,13 +87,13 @@ export default function ScoreBoard(props : ScoreBoardProps) {
             <Box className={classes.alignItemsAndJustifyContent} height="100%" width="100%"  >
                 { report && report.Round !== 0 ?
                     <Box m="auto" style={{height: handleFullScreen.active ? '100vh' : '85vh', width: '100%'}}>
-                        { (props.currentPolicy.showPoints?.value || token.getCurrentRole() === Role.Black) &&
+                        { policy && (policy.showPoints?.value || token.getCurrentRole() === Role.Black) &&
                         <Route exact path='/ranks' render={() => (
                             <Ranks isDarkTheme={props.theme.isDarkTheme} report={report}/>
                         )}/>
                         }
                         <Route exact path='/' render={() => (
-                            <Status currentPolicy={props.currentPolicy} isDarkTheme={props.theme.isDarkTheme} report={report}/>
+                            <Status isDarkTheme={props.theme.isDarkTheme} report={report}/>
                         )} />
                         <Route exact path='/details' render={() => (
                             <Details isDarkTheme={props.theme.isDarkTheme} report={report} gRPCClients={props.gRPCClients} genericEnqueue={props.genericEnqueue}/>
