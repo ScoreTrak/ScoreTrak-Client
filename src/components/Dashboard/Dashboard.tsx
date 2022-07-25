@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from "react";
+import React, {useState} from "react";
 import clsx from "clsx";
 import {makeStyles} from "@material-ui/core/styles";
 import CssBaseline from "@material-ui/core/CssBaseline";
@@ -17,7 +17,7 @@ import {adminListItems} from "./listItems";
 import ListItem from "@material-ui/core/ListItem";
 import ListItemIcon from "@material-ui/core/ListItemIcon";
 import ListItemText from "@material-ui/core/ListItemText";
-import {Link, Route, Switch as RouterSwitch, useHistory} from "react-router-dom";
+import {Link, Route, Switch as RouterSwitch} from "react-router-dom";
 import AssignmentIndIcon from '@material-ui/icons/AssignmentInd';
 import ExitToAppIcon from '@material-ui/icons/ExitToApp';
 import {FullScreen, useFullScreenHandle} from 'react-full-screen';
@@ -25,7 +25,7 @@ import BarChartIcon from "@material-ui/icons/BarChart";
 import CheckCircleIcon from "@material-ui/icons/CheckCircle";
 import DetailsIcon from "@material-ui/icons/Details";
 import Button from "@material-ui/core/Button";
-import {Severity, ThemeState} from "../../types/types";
+import {Severity} from "../../types/types";
 import {Role, token} from "../../grpc/token/token";
 import {GRPCClients} from "../../grpc/gRPCClients";
 import Login from "../Login/Login";
@@ -35,6 +35,9 @@ import {useSnackbar} from 'notistack';
 import Setup from "../Setup/Setup";
 import Settings from "../Settings/Settings";
 import {usePolicy} from "../../contexts/PolicyContext";
+import {useTheme} from "@material-ui/core";
+import {Brightness4, Brightness7} from "@material-ui/icons";
+import {usePaletteType} from "../../contexts/PaletteTypeContext";
 
 
 const drawerWidth = 260;
@@ -123,7 +126,6 @@ const useStyles = makeStyles(theme => ({
 }));
 
 interface DashboardProps{
-  theme: ThemeState,
   gRPCClients: GRPCClients
 }
 
@@ -131,24 +133,11 @@ export default function Dashboard(props: DashboardProps) {
   const policy = usePolicy()
   const [open, setOpen] = useState<boolean>(false);
   const [Title, setTitle] = useState<string>("ScoreBoard")
-  const setIsDarkTheme = props.theme.setIsDarkTheme
-  const isDarkTheme = props.theme.isDarkTheme
+  const theme = useTheme()
+  const {togglePaletteType} = usePaletteType()
   const classes = useStyles();
 
   const { enqueueSnackbar, closeSnackbar } = useSnackbar();
-
-
-  const handleThemeChange = () => {
-    setIsDarkTheme(prevState => {
-      if (!prevState){
-        localStorage.setItem("theme", "dark")
-      } else{
-        localStorage.setItem("theme", "light")
-      }
-      return !prevState
-    });
-  };
-
 
   const action = (key: string) => (
       <React.Fragment>
@@ -228,7 +217,14 @@ export default function Dashboard(props: DashboardProps) {
                       </IconButton>
                     </div>
                     <Divider/>
-                    <Switch checked={isDarkTheme} onChange={handleThemeChange} />
+                    <IconButton onClick={togglePaletteType}>
+                      { theme.palette.type !== "light" ?
+                          <Brightness7 />
+                          :
+                          <Brightness4 />
+                      }
+                    </IconButton>
+                    <Switch checked={theme.palette.type === "dark"} onChange={togglePaletteType} />
                     <Divider />
                     <List>
                       <div>
@@ -286,16 +282,16 @@ export default function Dashboard(props: DashboardProps) {
                     <Container maxWidth="xl" className={classes.container}>
                           <Route exact path={["/", "/ranks", "/details"]} render={() => (
                               <FullScreen handle={handleFullScreen}>
-                                <div style={(handleFullScreen.active && ((!isDarkTheme && { background: grey[50]}) || { background: grey.A400})) || undefined}>
+                                <div style={(handleFullScreen.active && ((theme.palette.type == "light" && { background: grey[50]}) || { background: grey.A400})) || undefined}>
                                   <ScoreBoard {...props} genericEnqueue={genericEnqueue} setTitle={setTitle} handleFullScreen={handleFullScreen}/>
                                 </div>
                               </FullScreen>
                           )} />
                           <Route exact path="/settings" render={() => (
-                              <Settings isDarkTheme={props.theme.isDarkTheme} genericEnqueue={genericEnqueue} setTitle={setTitle}  gRPCClients={props.gRPCClients} />
+                              <Settings genericEnqueue={genericEnqueue} setTitle={setTitle}  gRPCClients={props.gRPCClients} />
                           )} />
                           <Route path="/setup" render={() => (
-                              <Setup isDarkTheme={props.theme.isDarkTheme} genericEnqueue={genericEnqueue} setTitle={setTitle}  gRPCClients={props.gRPCClients}  />
+                              <Setup genericEnqueue={genericEnqueue} setTitle={setTitle}  gRPCClients={props.gRPCClients}  />
                           )} />
                     </Container>
                   </main>

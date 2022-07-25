@@ -45,7 +45,6 @@ function parse_index(rng: string){
 
 type SetupProps = {
     gRPCClients: GRPCClients
-    isDarkTheme: boolean
     setTitle: React.Dispatch<React.SetStateAction<string>>;
     genericEnqueue: Function
 }

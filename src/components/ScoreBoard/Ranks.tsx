@@ -2,8 +2,9 @@ import { ResponsiveBar } from '@nivo/bar'
 
 import React, {useEffect} from "react";
 import {SimpleReport} from "../../types/types";
+import {useTheme} from "@material-ui/core";
 
-const darkTheme = {
+const barDarkTheme = {
     axis: {
         fontSize: "14px",
         tickColor: "#eee",
@@ -35,11 +36,11 @@ const darkTheme = {
 
 type RanksProps = {
     report: SimpleReport
-    isDarkTheme: boolean
 }
 
 
 export default function Ranks(props: RanksProps) {
+    const theme = useTheme()
     const report = props.report
     const data: Record<string, number | string> [] = []
     const dataKeys = new Set<string>();
@@ -102,9 +103,9 @@ export default function Ranks(props: RanksProps) {
 
 
     data.sort((a, b) => (serviceSum(a) === serviceSum(b)) ? (a.teamName > b.teamName ? 1 : -1) : (serviceSum(a) > serviceSum(b) ? 1 : -1))
-    const theme = {fontSize: 15}
-    if (props.isDarkTheme){
-        Object.assign(theme, darkTheme);
+    const barTheme = {fontSize: 15}
+    if (theme.palette.type == "dark"){
+        Object.assign(barTheme, barDarkTheme);
     }
 
     // @ts-ignore
@@ -134,7 +135,7 @@ export default function Ranks(props: RanksProps) {
                         alignmentBaseline="central"
                         // add any style to the label here
                         style={{
-                            fill: props.isDarkTheme ? "rgb(222,255,255)" : "rgb(51,51,51)"
+                            fill: theme.palette.type == "dark" ? "rgb(222,255,255)" : "rgb(51,51,51)"
                         }}
                     >
                         {total}
@@ -147,13 +148,13 @@ export default function Ranks(props: RanksProps) {
     return (
         // @ts-ignore
         <ResponsiveBar
-            theme={theme}
+            theme={barTheme}
             data={data}
             keys={Array.from(dataKeys)}
             indexBy="teamName"
             margin={{ top: 50, right: 60, bottom: 50, left: 60 }}
             padding={0.3}
-            colors={{ scheme: props.isDarkTheme ? 'nivo' : 'dark2' }}
+            colors={{ scheme: theme.palette.type == "dark" ? 'nivo' : 'dark2' }}
             borderColor={{ from: 'color', modifiers: [ [ 'darker', 0 ] ] }}
             axisTop={null}
             axisRight={null}

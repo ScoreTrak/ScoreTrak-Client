@@ -1,54 +1,55 @@
 
 import './App.css';
-import React, {useEffect, useState} from 'react';
+import React, {useMemo} from 'react';
 import './App.css';
 import {
   BrowserRouter as Router
 } from 'react-router-dom';
-import {createMuiTheme, ThemeProvider} from "@material-ui/core/styles";
+import {ThemeProvider} from "@material-ui/core/styles";
 import {deepOrange, deepPurple, lightBlue, orange} from "@material-ui/core/colors";
 import CssBaseline from "@material-ui/core/CssBaseline";
 import {gRPCClients} from "./grpc/gRPCClients";
 import Dashboard from "./components/Dashboard/Dashboard";
 import {SnackbarProvider} from "notistack";
 import {PolicyProvider} from "./contexts/PolicyContext";
+import {createTheme} from "@material-ui/core";
+import {useTitle} from "react-use";
+import {usePaletteType} from "./contexts/PaletteTypeContext";
+
 
 function App() {
-  useEffect(() => {
-    document.title = "ScoreTrak"
-  }, []);
-  if (localStorage.getItem("theme") !== "light"){
-    localStorage.setItem("theme", "dark")
-  }
-  const [isDarkTheme, setIsDarkTheme] = useState<boolean>(localStorage.getItem("theme") === "dark");
-  const palletType = isDarkTheme ? "dark" : "light";
-  const mainPrimaryColor = isDarkTheme ? orange[500] : lightBlue[500];
-  const mainSecondaryColor = isDarkTheme ? deepOrange[900] : deepPurple[500];
-  const darkTheme = createMuiTheme({
-    palette: {
-      type: palletType,
-      primary: {
-        main: mainPrimaryColor
-      },
-      secondary: {
-        main: mainSecondaryColor
-      }
-    }
-  });
+  useTitle("ScoreTrak")
+  const {paletteType} = usePaletteType()
+
+  const theme = useMemo(
+      () =>
+          createTheme({
+            palette: {
+              type: paletteType,
+              primary: {
+                main: paletteType === "light" ? lightBlue[500] : orange[500]
+              },
+              secondary: {
+                main: paletteType === "light" ? deepPurple[500] : deepOrange[500]
+              }
+            },
+          }),
+      [paletteType],
+  );
 
   return (
     <div className="App">
-      <ThemeProvider theme={darkTheme}>
+      <ThemeProvider theme={theme}>
+        <CssBaseline />
         <SnackbarProvider maxSnack={3} anchorOrigin={{
           vertical: 'bottom',
           horizontal: 'right',
         }} dense preventDuplicate>
-        <CssBaseline />
-            <Router>
-              <PolicyProvider>
-                <Dashboard theme={{isDarkTheme, setIsDarkTheme}}  gRPCClients={gRPCClients} />
-              </PolicyProvider>
-            </Router>
+          <Router>
+            <PolicyProvider>
+              <Dashboard gRPCClients={gRPCClients} />
+            </PolicyProvider>
+          </Router>
         </SnackbarProvider>
       </ThemeProvider>
     </div>

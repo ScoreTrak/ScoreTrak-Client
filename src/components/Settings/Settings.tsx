@@ -53,6 +53,8 @@ import {ServiceGroup} from "../../lib/scoretrakapis/scoretrak/service_group/v1/s
 import {Service} from "../../lib/scoretrakapis/scoretrak/service/v1/service_pb";
 import {Property} from "../../lib/scoretrakapis/scoretrak/property/v1/property_pb";
 import {usePolicy} from "../../contexts/PolicyContext";
+import {useTheme} from "@material-ui/core";
+import {useTitle} from "react-use";
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -92,10 +94,10 @@ const Transition = React.forwardRef(function Transition(props: TransitionProps &
 
 
 export default function Settings(props: SetupProps ) {
+    useTitle('Settings')
     const policy = usePolicy()
+    const theme = useTheme()
     const classes = useStyles();
-    const setTitle = props.setTitle
-    setTitle("Settings")
     const [dt, setData] = useState<{loader: boolean, dynamicConfig: undefined | DynamicConfig, staticConfig: object}>({
         loader: true, dynamicConfig: undefined,
         staticConfig: {}
@@ -492,7 +494,7 @@ export default function Settings(props: SetupProps ) {
                         </AccordionSummary>
                         <AccordionDetails>
                             <Box component="span" display="block" p={1} m={1} bgcolor="background.paper">
-                                <ReactJson src={dt.staticConfig} style={{backgroundColor: "inherit"}} onDelete={false} onEdit={false} displayDataTypes={false} displayObjectSize={false} theme={props.isDarkTheme ? "monokai" : "bright:inverted"}/>
+                                <ReactJson src={dt.staticConfig} style={{backgroundColor: "inherit"}} onDelete={false} onEdit={false} displayDataTypes={false} displayObjectSize={false} theme={theme.palette.type == "dark" ? "monokai" : "bright:inverted"}/>
                             </Box>
                         </AccordionDetails>
                     </Accordion>
