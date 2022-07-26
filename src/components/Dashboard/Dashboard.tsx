@@ -217,6 +217,7 @@ export default function Dashboard(props: DashboardProps) {
                       </IconButton>
                     </div>
                     <Divider/>
+                    {/* Alternative dark mode switcher. Commenting off for later use.
                     <IconButton onClick={togglePaletteType}>
                       { theme.palette.type !== "light" ?
                           <Brightness7 />
@@ -224,6 +225,7 @@ export default function Dashboard(props: DashboardProps) {
                           <Brightness4 />
                       }
                     </IconButton>
+                    */}
                     <Switch checked={theme.palette.type === "dark"} onChange={togglePaletteType} />
                     <Divider />
                     <List>
