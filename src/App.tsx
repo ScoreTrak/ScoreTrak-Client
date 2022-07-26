@@ -11,6 +11,7 @@ import CssBaseline from "@material-ui/core/CssBaseline";
 import {gRPCClients} from "./grpc/gRPCClients";
 import Dashboard from "./components/Dashboard/Dashboard";
 import {SnackbarProvider} from "notistack";
+import {PolicyProvider} from "./contexts/PolicyContext";
 
 function App() {
   useEffect(() => {
@@ -43,9 +44,11 @@ function App() {
           horizontal: 'right',
         }} dense preventDuplicate>
         <CssBaseline />
-          <Router>
-            <Dashboard theme={{isDarkTheme, setIsDarkTheme}}  gRPCClients={gRPCClients} />
-          </Router>
+            <Router>
+              <PolicyProvider>
+                <Dashboard theme={{isDarkTheme, setIsDarkTheme}}  gRPCClients={gRPCClients} />
+              </PolicyProvider>
+            </Router>
         </SnackbarProvider>
       </ThemeProvider>
     </div>

@@ -1,6 +1,5 @@
 import React, {useEffect} from 'react';
 import { makeStyles } from '@material-ui/core/styles';
-import Paper from '@material-ui/core/Paper';
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
 import TableFooter from '@material-ui/core/TableFooter';
@@ -11,9 +10,9 @@ import TablePagination from '@material-ui/core/TablePagination';
 import TableRow from '@material-ui/core/TableRow';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Switch from '@material-ui/core/Switch';
-import {SimpleCheck, SimpleReport, SimpleService} from "../../types/types";
-import {Policy} from "../../lib/scoretrakapis/scoretrak/policy/v1/policy_pb";
+import {SimpleReport, SimpleService} from "../../types/types";
 import {token} from "../../grpc/token/token";
+import {usePolicy} from "../../contexts/PolicyContext";
 
 
 const useStyles = makeStyles({
@@ -30,13 +29,13 @@ const useStyles = makeStyles({
 type RanksProps = {
     report: SimpleReport
     isDarkTheme: boolean
-    currentPolicy: Policy.AsObject,
 }
 
 export default function Status(props: RanksProps) {
     useEffect(() => {
         document.title = "Status"
     }, []);
+    const policy = usePolicy()
     const classes = useStyles();
     const [rowPage, setRowPage] = React.useState<number>(0);
     const [rowsPerPage, setRowsPerPage] = React.useState<number>(25);
@@ -233,7 +232,7 @@ export default function Status(props: RanksProps) {
                                                   control={<Switch checked={dense} onChange={toggleChangeDense} />}
                                                   label="Dense padding"
                                 />
-                                { (token.isAValidToken() || props.currentPolicy.showAddresses?.value) &&
+                                { policy && (token.isAValidToken() || policy.showAddresses?.value) &&
                                 <FormControlLabel className={classes.tableNavigator}
                                                   control={<Switch checked={hideAddresses} onChange={toggleHideAddresses} />}
                                                   label={"Hide Addresses"}

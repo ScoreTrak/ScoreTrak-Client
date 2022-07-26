@@ -52,6 +52,7 @@ import {HostGroup} from "../../lib/scoretrakapis/scoretrak/host_group/v1/host_gr
 import {ServiceGroup} from "../../lib/scoretrakapis/scoretrak/service_group/v1/service_group_pb";
 import {Service} from "../../lib/scoretrakapis/scoretrak/service/v1/service_pb";
 import {Property} from "../../lib/scoretrakapis/scoretrak/property/v1/property_pb";
+import {usePolicy} from "../../contexts/PolicyContext";
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -90,7 +91,8 @@ const Transition = React.forwardRef(function Transition(props: TransitionProps &
 });
 
 
-export default function Settings(props: SetupProps & {currentPolicy: Policy.AsObject}) {
+export default function Settings(props: SetupProps ) {
+    const policy = usePolicy()
     const classes = useStyles();
     const setTitle = props.setTitle
     setTitle("Settings")
@@ -409,65 +411,73 @@ export default function Settings(props: SetupProps & {currentPolicy: Policy.AsOb
                         </AccordionDetails>
                     </Accordion>
 
-                    <Accordion expanded={expanded === 'panelPolicy'} onChange={handleChange('panelPolicy')}>
-                        <AccordionSummary
-                            expandIcon={<ExpandMoreIcon />}
-                            aria-controls="panelPolicybh-content"
-                            id="panelPolicybh-header"
-                        >
-                            <Typography className={classes.heading}>Policy</Typography>
-                            <Typography className={classes.secondaryHeading}>Configure policies for allowing/disallowing resources</Typography>
+                    { policy &&
+                        <Accordion expanded={expanded === 'panelPolicy'} onChange={handleChange('panelPolicy')}>
+                            <AccordionSummary
+                                expandIcon={<ExpandMoreIcon/>}
+                                aria-controls="panelPolicybh-content"
+                                id="panelPolicybh-header"
+                            >
+                                <Typography className={classes.heading}>Policy</Typography>
+                                <Typography className={classes.secondaryHeading}>Configure policies for
+                                    allowing/disallowing resources</Typography>
 
-                        </AccordionSummary>
-                        <AccordionDetails>
-                            <Box p={1} m={1} bgcolor="background.paper">
-                            <FormControlLabel
-                                control={
-                                    <Switch checked={props.currentPolicy.allowUnauthenticatedUsers?.value} onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
-                                        handleSetPolicy(new Policy().setAllowUnauthenticatedUsers(new BoolValue().setValue(e.target.checked)))
-                                    }} value="allow_unauthenticated_users" />
-                                }
-                                label="Allow unauthenticated users to see scoreboard"
-                            />
-                            <br />
-                            <FormControlLabel
-                                control={
-                                    <Switch checked={props.currentPolicy.allowChangingUsernamesAndPasswords?.value} onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
-                                        handleSetPolicy(new Policy().setAllowChangingUsernamesAndPasswords(new BoolValue().setValue(e.target.checked)))
-                                    }} value="allow_changing_usernames_and_passwords" />
-                                }
-                                label="Allow users to change usernames and passwords"
-                            />
-                                <br />
-                            <FormControlLabel
-                                control={
-                                    <Switch checked={props.currentPolicy.showPoints?.value} onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
-                                        handleSetPolicy(new Policy().setShowPoints(new BoolValue().setValue(e.target.checked)))
-                                    }} value="allow_to_see_points" />
-                                }
-                                label="Allow users to see other teams' points"
-                            />
-                                <br />
-                            <FormControlLabel
-                                control={
-                                    <Switch checked={props.currentPolicy.showAddresses?.value} onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
-                                        handleSetPolicy(new Policy().setShowAddresses(new BoolValue().setValue(e.target.checked)))
-                                    }} value="show_addresses" />
-                                }
-                                label="Allow users to see other teams' addresses"
-                            />
-                                <br />
-                            <FormControlLabel
-                                control={
-                                    <Switch checked={props.currentPolicy.allowRedTeamLaunchingServiceTestsManually?.value} onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
-                                        handleSetPolicy(new Policy().setAllowRedTeamLaunchingServiceTestsManually(new BoolValue().setValue(e.target.checked)))
-                                    }} value="allow_red_team_launching_service_tests_manually" />
-                                }
-                                label="Allow Red Team to manually launch service tests(Only applies to a parrent team)"
-                            />
-                            </Box>
-                        </AccordionDetails>
-                    </Accordion>
+                            </AccordionSummary>
+                            <AccordionDetails>
+                                <Box p={1} m={1} bgcolor="background.paper">
+                                    <FormControlLabel
+                                        control={
+                                            <Switch checked={policy.allowUnauthenticatedUsers?.value}
+                                                    onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
+                                                        handleSetPolicy(new Policy().setAllowUnauthenticatedUsers(new BoolValue().setValue(e.target.checked)))
+                                                    }} value="allow_unauthenticated_users"/>
+                                        }
+                                        label="Allow unauthenticated users to see scoreboard"
+                                    />
+                                    <br/>
+                                    <FormControlLabel
+                                        control={
+                                            <Switch checked={policy.allowChangingUsernamesAndPasswords?.value}
+                                                    onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
+                                                        handleSetPolicy(new Policy().setAllowChangingUsernamesAndPasswords(new BoolValue().setValue(e.target.checked)))
+                                                    }} value="allow_changing_usernames_and_passwords"/>
+                                        }
+                                        label="Allow users to change usernames and passwords"
+                                    />
+                                    <br/>
+                                    <FormControlLabel
+                                        control={
+                                            <Switch checked={policy.showPoints?.value}
+                                                    onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
+                                                        handleSetPolicy(new Policy().setShowPoints(new BoolValue().setValue(e.target.checked)))
+                                                    }} value="allow_to_see_points"/>
+                                        }
+                                        label="Allow users to see other teams' points"
+                                    />
+                                    <br/>
+                                    <FormControlLabel
+                                        control={
+                                            <Switch checked={policy.showAddresses?.value}
+                                                    onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
+                                                        handleSetPolicy(new Policy().setShowAddresses(new BoolValue().setValue(e.target.checked)))
+                                                    }} value="show_addresses"/>
+                                        }
+                                        label="Allow users to see other teams' addresses"
+                                    />
+                                    <br/>
+                                    <FormControlLabel
+                                        control={
+                                            <Switch checked={policy.allowRedTeamLaunchingServiceTestsManually?.value}
+                                                    onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
+                                                        handleSetPolicy(new Policy().setAllowRedTeamLaunchingServiceTestsManually(new BoolValue().setValue(e.target.checked)))
+                                                    }} value="allow_red_team_launching_service_tests_manually"/>
+                                        }
+                                        label="Allow Red Team to manually launch service tests(Only applies to a parrent team)"
+                                    />
+                                </Box>
+                            </AccordionDetails>
+                        </Accordion>
+                    }
 
                     <Accordion expanded={expanded === 'panelStaticConfig'} onChange={handleChange('panelStaticConfig')}>
                         <AccordionSummary
