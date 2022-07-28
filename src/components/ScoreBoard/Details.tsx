@@ -18,8 +18,7 @@ import {Role, token} from "../../grpc/token/token";
 import {GRPCClients} from "../../grpc/gRPCClients";
 
 type DetailsProps = {
-    report: SimpleReport
-    isDarkTheme: boolean
+    report: SimpleReport,
     gRPCClients: GRPCClients,
     genericEnqueue: Function
 }

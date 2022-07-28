@@ -13,6 +13,7 @@ import Switch from '@material-ui/core/Switch';
 import {SimpleReport, SimpleService} from "../../types/types";
 import {token} from "../../grpc/token/token";
 import {usePolicy} from "../../contexts/PolicyContext";
+import {useTheme} from "@material-ui/core";
 
 
 const useStyles = makeStyles({
@@ -28,7 +29,6 @@ const useStyles = makeStyles({
 
 type RanksProps = {
     report: SimpleReport
-    isDarkTheme: boolean
 }
 
 export default function Status(props: RanksProps) {
@@ -36,6 +36,7 @@ export default function Status(props: RanksProps) {
         document.title = "Status"
     }, []);
     const policy = usePolicy()
+    const theme = useTheme()
     const classes = useStyles();
     const [rowPage, setRowPage] = React.useState<number>(0);
     const [rowsPerPage, setRowsPerPage] = React.useState<number>(25);
@@ -158,7 +159,7 @@ export default function Status(props: RanksProps) {
                                         <TableCell key={name + column} width={`${100/(dataKeysArray.slice(columnPage * columnsPerPage, columnPage * columnsPerPage + columnsPerPage).length)}%`} style={(() => {
                                             if (data[name][column]) {
                                                 let style = {}
-                                                if (props.isDarkTheme){
+                                                if (theme.palette.type == "dark"){
                                                     if (data[name][column].Pause){
                                                         style = {backgroundColor: "#000000"}
                                                     } else if (data[name][column].Check != null && data[name][column].Check?.Passed){

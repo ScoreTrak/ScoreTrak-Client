@@ -10,7 +10,7 @@ import Button from '@material-ui/core/Button';
 import FullscreenExitIcon from '@material-ui/icons/FullscreenExit';
 import {makeStyles} from "@material-ui/core/styles";
 import {GRPCClients} from "../../grpc/gRPCClients";
-import {ThemeState, SimpleReport, Severity} from "../../types/types";
+import {SimpleReport, Severity} from "../../types/types";
 import {FullScreenHandle} from "react-full-screen";
 import {GetRequest, GetResponse} from "../../lib/scoretrakapis/scoretrak/report/v1/report_pb";
 import {Role, token} from "../../grpc/token/token";
@@ -37,7 +37,6 @@ const useStyles = makeStyles((theme) => ({
 
 type ScoreBoardProps = {
     gRPCClients: GRPCClients,
-    theme: ThemeState,
     setTitle: React.Dispatch<React.SetStateAction<string>>;
     handleFullScreen: FullScreenHandle
     genericEnqueue: Function
@@ -89,14 +88,14 @@ export default function ScoreBoard(props : ScoreBoardProps) {
                     <Box m="auto" style={{height: handleFullScreen.active ? '100vh' : '85vh', width: '100%'}}>
                         { policy && (policy.showPoints?.value || token.getCurrentRole() === Role.Black) &&
                         <Route exact path='/ranks' render={() => (
-                            <Ranks isDarkTheme={props.theme.isDarkTheme} report={report}/>
+                            <Ranks report={report}/>
                         )}/>
                         }
                         <Route exact path='/' render={() => (
-                            <Status isDarkTheme={props.theme.isDarkTheme} report={report}/>
+                            <Status report={report}/>
                         )} />
                         <Route exact path='/details' render={() => (
-                            <Details isDarkTheme={props.theme.isDarkTheme} report={report} gRPCClients={props.gRPCClients} genericEnqueue={props.genericEnqueue}/>
+                            <Details report={report} gRPCClients={props.gRPCClients} genericEnqueue={props.genericEnqueue}/>
                         )} />
                     </Box>
 

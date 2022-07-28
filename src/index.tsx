@@ -3,10 +3,13 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
+import {PaletteTypeContextProvider} from "./contexts/PaletteTypeContext";
 
 ReactDOM.render(
   <React.StrictMode>
-    <App />
+      <PaletteTypeContextProvider> {/* TODO: Move PaletteTypeContextProvider outside of index.tsx when possible */}
+        <App />
+      </PaletteTypeContextProvider>
   </React.StrictMode>,
   document.getElementById('root')
 );
