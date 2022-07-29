@@ -42,6 +42,8 @@ import {UUID} from "../../lib/scoretrakapis/scoretrak/proto/v1/uuid_pb";
 import {StringValue} from "google-protobuf/google/protobuf/wrappers_pb";
 import {IconButton, Tooltip} from "@material-ui/core";
 import {Replay} from "@material-ui/icons";
+import {useSnackbar} from "notistack";
+import {SnackbarDismissButton} from "../SnackbarDismissButton";
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -112,8 +114,7 @@ const useStyles = makeStyles((theme) => ({
 type CustomSingleTeamDetailsProps = {
     teamID: string,
     report: SimpleReport,
-    gRPCClients: GRPCClients,
-    genericEnqueue: Function
+    gRPCClients: GRPCClients
 }
 
 type SingleCheckDetails = {
@@ -256,7 +257,6 @@ type SingleTeamDetailsAccordionDetailsBoxProps = {
     report: SimpleReport
     setHostData: React.Dispatch<React.SetStateAction<HostData | undefined>>
     hostData: HostData | undefined
-    genericEnqueue: Function
 }
 
 type HostData = {
@@ -274,6 +274,8 @@ type PropertiesData = {
 }
 
 function SingleTeamDetailsAccordionDetailsBox(props: SingleTeamDetailsAccordionDetailsBoxProps) {
+    const { enqueueSnackbar } = useSnackbar()
+
     const simpleService = props.simpleService
     const PropertiesData = props.PropertiesData
     const classes = useStyles();
@@ -342,7 +344,7 @@ function SingleTeamDetailsAccordionDetailsBox(props: SingleTeamDetailsAccordionD
             }
             setPropertiesData(d)
         }, (err: any) => {
-            props.genericEnqueue(`Encountered an error while loading properties for service ${service_id}: ${err.message}. Error code: ${err.code}`, Severity.Error)
+            enqueueSnackbar(`Encountered an error while loading properties for service ${service_id}: ${err.message}. Error code: ${err.code}`, { variant: Severity.Error, action: SnackbarDismissButton })
         })
     }
 
@@ -360,7 +362,7 @@ function SingleTeamDetailsAccordionDetailsBox(props: SingleTeamDetailsAccordionD
             props.setHostData({edit_host: true, address})
             reloadHostSetter(hstID)
         }, (err: any) => {
-            props.genericEnqueue(`Failed to update host details ${hstID}: ${err.message}. Error code: ${err.code}`, Severity.Error)
+            enqueueSnackbar(`Failed to update host details ${hstID}: ${err.message}. Error code: ${err.code}`, { variant: Severity.Error, action: SnackbarDismissButton })
         })
     }
 
@@ -371,7 +373,7 @@ function SingleTeamDetailsAccordionDetailsBox(props: SingleTeamDetailsAccordionD
             }
             props.setHostData({address: results.getHost()?.getAddress() as string, edit_host: results.getHost()?.getEditHost()?.getValue() as boolean})
         }, (err: any) => {
-            props.genericEnqueue(`Encountered an error while loading host ${host_id}: ${err.message}. Error code: ${err.code}`, Severity.Error)
+            enqueueSnackbar(`Encountered an error while loading host ${host_id}: ${err.message}. Error code: ${err.code}`, { variant: Severity.Error, action: SnackbarDismissButton })
         })
     }
 
@@ -386,7 +388,7 @@ function SingleTeamDetailsAccordionDetailsBox(props: SingleTeamDetailsAccordionD
                 })
                 setHistory(prevState => {return {...prevState, [service_id]: d }})
             }, (err: any) => {
-                    props.genericEnqueue(`Encountered an error while loading previous checks: ${err.message}. Error code: ${err.code}`, Severity.Error)
+                    enqueueSnackbar(`Encountered an error while loading previous checks: ${err.message}. Error code: ${err.code}`, { variant: Severity.Error, action: SnackbarDismissButton })
                 }
             )
         }
@@ -459,7 +461,7 @@ function SingleTeamDetailsAccordionDetailsBox(props: SingleTeamDetailsAccordionD
                                                     });
                                                     resolve();
                                                 }, (err: any) => {
-                                                    props.genericEnqueue(`Encountered an error while loading previous checks: ${err.message}. Error code: ${err.code}`, Severity.Error)
+                                                    enqueueSnackbar(`Encountered an error while loading previous checks: ${err.message}. Error code: ${err.code}`, { variant: Severity.Error, action: SnackbarDismissButton })
                                                     reject()
                                                 })
                                             }, 600);

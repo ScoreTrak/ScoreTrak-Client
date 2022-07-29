@@ -11,6 +11,8 @@ import {BoolValue} from "google-protobuf/google/protobuf/wrappers_pb";
 import {UUID} from "../../../lib/scoretrakapis/scoretrak/proto/v1/uuid_pb";
 import MaterialTable, {Column} from '@material-table/core'
 import {Box, CircularProgress} from "@material-ui/core";
+import {useSnackbar} from "notistack";
+import {SnackbarDismissButton} from "../../SnackbarDismissButton";
 
 
 type serviceGroupColumns = {
@@ -48,6 +50,7 @@ function serviceGroupColumnsToServiceGroup(serviceGroupC: serviceGroupColumns): 
 export function ServiceGroupsMenu(props: SetupProps) {
     const title = "Service Group"
     props.setTitle(title)
+    const { enqueueSnackbar } = useSnackbar()
     const columns: Array<Column<serviceGroupColumns>> =
         [
             { title: 'ID (optional)', field: 'id', editable: 'onAdd'},
@@ -68,7 +71,7 @@ export function ServiceGroupsMenu(props: SetupProps) {
         props.gRPCClients.serviceGroupClient.getAll(new GetAllRequest(), {}).then(serviceGroupResponse => {
             setState(prevState => {return{...prevState, data: serviceGroupResponse.getServiceGroupsList().map((service): serviceGroupColumns => {
                     return serviceGroupToServiceGroupColumn(service)}), loader: false}})}, (err: any) => {
-            props.genericEnqueue(`Encountered an error while retrieving Service Groups: ${err.message}. Error code: ${err.code}`, Severity.Error)
+            enqueueSnackbar(`Encountered an error while retrieving Service Groups: ${err.message}. Error code: ${err.code}`, { variant: Severity.Error, action: SnackbarDismissButton })
         })
     }
     useEffect(() => {
@@ -86,9 +89,9 @@ export function ServiceGroupsMenu(props: SetupProps) {
                                 icon: "replay", tooltip: 'redeploy workers',
                                 onClick: (event, rowData) => {
                                     return props.gRPCClients.serviceGroupClient.redeploy(new RedeployRequest().setId(new UUID().setValue((rowData as serviceGroupColumns).id as string)), {}).then(() => {
-                                        props.genericEnqueue("Workers were deployed! Please make sure they are in a healthy state before enabling the service group.", Severity.Success)
+                                        enqueueSnackbar("Workers were deployed! Please make sure they are in a healthy state before enabling the service group.", { variant: Severity.Success })
                                     }, (err: any) => {
-                                        props.genericEnqueue(`Unable to redeploy service group workers: ${err.message}. Error code: ${err.code}`, Severity.Error)
+                                        enqueueSnackbar(`Unable to redeploy service group workers: ${err.message}. Error code: ${err.code}`, { variant: Severity.Error, action: SnackbarDismissButton })
                                     })
                             }}
                         ]}
@@ -111,7 +114,7 @@ export function ServiceGroupsMenu(props: SetupProps) {
                                             });
                                             resolve();
                                         }, (err: any) => {
-                                            props.genericEnqueue(`Unable to store service group: ${err.message}. Error code: ${err.code}`, Severity.Error)
+                                            enqueueSnackbar(`Unable to store service group: ${err.message}. Error code: ${err.code}`, { variant: Severity.Error, action: SnackbarDismissButton })
                                             reject()
                                         })
                                     }, 600);
@@ -131,7 +134,7 @@ export function ServiceGroupsMenu(props: SetupProps) {
                                                 });
                                                 resolve();
                                             }, (err: any) => {
-                                                props.genericEnqueue(`Unable to update service group: ${err.message}. Error code: ${err.code}`, Severity.Error)
+                                                enqueueSnackbar(`Unable to update service group: ${err.message}. Error code: ${err.code}`, { variant: Severity.Error, action: SnackbarDismissButton })
                                                 reject()
                                             })
                                         }
@@ -150,7 +153,7 @@ export function ServiceGroupsMenu(props: SetupProps) {
                                             });
                                             resolve();
                                         }, (err: any) => {
-                                            props.genericEnqueue(`Unable to delete Service Group: ${err.message}. Error code: ${err.code}`, Severity.Error)
+                                            enqueueSnackbar(`Unable to delete service group: ${err.message}. Error code: ${err.code}`, { variant: Severity.Error, action: SnackbarDismissButton })
                                             reject()
                                         })
                                     }, 600);

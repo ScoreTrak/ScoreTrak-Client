@@ -22,6 +22,8 @@ import {BoolValue, UInt64Value} from "google-protobuf/google/protobuf/wrappers_p
 import {
     GetAllRequest as GetAllRequestServiceGroup,
 } from "../../../lib/scoretrakapis/scoretrak/service_group/v1/service_group_pb";
+import {useSnackbar} from "notistack";
+import {SnackbarDismissButton} from "../../SnackbarDismissButton";
 
 
 function getSteps() {
@@ -111,6 +113,7 @@ export function serviceColumnsToService(serviceC: serviceColumns): Service{
 function ServiceMenuTable(props: SetupProps) {
     const title = "Services"
     props.setTitle(title)
+    const {enqueueSnackbar} = useSnackbar()
     const columns : Array<Column<serviceColumns>> =
         [
             { title: 'ID (optional)', field: 'id', editable: 'onAdd'},
@@ -154,7 +157,7 @@ function ServiceMenuTable(props: SetupProps) {
                 return{...prevState, columns, loaderHost: false
                 }})
         }, (err: any) => {
-            props.genericEnqueue(`Encountered an error while retrieving parent Teams: ${err.message}. Error code: ${err.code}`, Severity.Error)
+            enqueueSnackbar(`Encountered an error while retrieving parent Teams: ${err.message}. Error code: ${err.code}`, { variant: Severity.Error, action: SnackbarDismissButton })
         })
 
         props.gRPCClients.serviceGroupClient.getAll(new GetAllRequestServiceGroup(), {}).then(serviceGroupRequest => {
@@ -171,12 +174,12 @@ function ServiceMenuTable(props: SetupProps) {
                 }
                 return{...prevState, columns, loaderServiceGroup: false}})
         }, (err: any) => {
-            props.genericEnqueue(`Encountered an error while retrieving parent Teams: ${err.message}. Error code: ${err.code}`, Severity.Error)
+            enqueueSnackbar(`Encountered an error while retrieving parent Teams: ${err.message}. Error code: ${err.code}`, { variant: Severity.Error, action: SnackbarDismissButton })
         })
         props.gRPCClients.serviceClient.getAll(new GetAllRequest(), {}).then(servicesResponse => {
             setState(prevState => {return{...prevState, data: servicesResponse.getServicesList().map((service): serviceColumns => {
                     return serviceToServiceColumn(service)}), loaderService: false}})}, (err: any) => {
-            props.genericEnqueue(`Encountered an error while retrieving Services: ${err.message}. Error code: ${err.code}`, Severity.Error)
+            enqueueSnackbar(`Encountered an error while retrieving Services: ${err.message}. Error code: ${err.code}`, { variant: Severity.Error, action: SnackbarDismissButton })
         })
     }
     useEffect(() => {
@@ -193,12 +196,12 @@ function ServiceMenuTable(props: SetupProps) {
                             {icon: "flash_on", tooltip: 'test service', onClick: (event, rowData) => {
                                 return props.gRPCClients.serviceClient.testService(new TestServiceRequest().setId(new UUID().setValue((rowData as serviceColumns).id as string)), {}).then((response) => { // ToDo: Implement Deadline
                                     if (response.getCheck()?.getPassed()?.getValue()){
-                                        props.genericEnqueue(`Check Passed. Log: ${response.getCheck()?.getLog()}.`, Severity.Success)
+                                        enqueueSnackbar(`Check Passed. Log: ${response.getCheck()?.getLog()}.`, { variant: Severity.Success })
                                     } else {
-                                        props.genericEnqueue(`Check Failed. Log: ${response.getCheck()?.getLog()}. Err: ${response.getCheck()?.getErr()}.`, Severity.Warning)
+                                        enqueueSnackbar(`Check Failed. Log: ${response.getCheck()?.getLog()}. Err: ${response.getCheck()?.getErr()}.`, { variant: Severity.Warning })
                                     }
                                 }, (err: any) => {
-                                    props.genericEnqueue(`Failed to dispatch a check: ${err.message}. Error code: ${err.code}`, Severity.Error)
+                                    enqueueSnackbar(`Failed to dispatch a check: ${err.message}. Error code: ${err.code}`, { variant: Severity.Error, action: SnackbarDismissButton })
                                 })
                             }}
                         ]}
@@ -222,7 +225,7 @@ function ServiceMenuTable(props: SetupProps) {
                                             });
                                             resolve();
                                         }, (err: any) => {
-                                            props.genericEnqueue(`Unable to store service: ${err.message}. Error code: ${err.code}`, Severity.Error)
+                                            enqueueSnackbar(`Unable to store service: ${err.message}. Error code: ${err.code}`, { variant: Severity.Error, action: SnackbarDismissButton })
                                             reject()
                                         })
                                     }, 600);
@@ -242,7 +245,7 @@ function ServiceMenuTable(props: SetupProps) {
                                                 });
                                                 resolve();
                                             }, (err: any) => {
-                                                props.genericEnqueue(`Unable to update service: ${err.message}. Error code: ${err.code}`, Severity.Error)
+                                                enqueueSnackbar(`Unable to update service: ${err.message}. Error code: ${err.code}`, { variant: Severity.Error, action: SnackbarDismissButton })
                                                 reject()
                                             })
                                         }
@@ -261,7 +264,7 @@ function ServiceMenuTable(props: SetupProps) {
                                             });
                                             resolve();
                                         }, (err: any) => {
-                                            props.genericEnqueue(`Unable to delete service: ${err.message}. Error code: ${err.code}`, Severity.Error)
+                                            enqueueSnackbar(`Unable to delete service: ${err.message}. Error code: ${err.code}`, { variant: Severity.Error, action: SnackbarDismissButton })
                                             reject()
                                         })
                                     }, 600);

@@ -137,25 +137,6 @@ export default function Dashboard(props: DashboardProps) {
   const {togglePaletteType} = usePaletteType()
   const classes = useStyles();
 
-  const { enqueueSnackbar, closeSnackbar } = useSnackbar();
-
-  const action = (key: string) => (
-      <React.Fragment>
-        <Button variant="outlined" onClick={() => { closeSnackbar(key) }}>
-          Dismiss
-        </Button>
-      </React.Fragment>
-  );
-
-  const genericEnqueue = (message: string, severity: Severity, autoHideDuration: number | null | undefined = null, uniqueID?: string) => {
-    enqueueSnackbar(message, {
-        variant: severity,
-        autoHideDuration,
-        key: uniqueID,
-        action,
-    })
-  }
-
   const handleDrawerOpen = () => {
     setOpen(true);
   };
@@ -285,15 +266,15 @@ export default function Dashboard(props: DashboardProps) {
                           <Route exact path={["/", "/ranks", "/details"]} render={() => (
                               <FullScreen handle={handleFullScreen}>
                                 <div style={(handleFullScreen.active && ((theme.palette.type == "light" && { background: grey[50]}) || { background: grey.A400})) || undefined}>
-                                  <ScoreBoard {...props} genericEnqueue={genericEnqueue} setTitle={setTitle} handleFullScreen={handleFullScreen}/>
+                                  <ScoreBoard {...props} setTitle={setTitle} handleFullScreen={handleFullScreen}/>
                                 </div>
                               </FullScreen>
                           )} />
                           <Route exact path="/settings" render={() => (
-                              <Settings genericEnqueue={genericEnqueue} setTitle={setTitle}  gRPCClients={props.gRPCClients} />
+                              <Settings setTitle={setTitle}  gRPCClients={props.gRPCClients} />
                           )} />
                           <Route path="/setup" render={() => (
-                              <Setup genericEnqueue={genericEnqueue} setTitle={setTitle}  gRPCClients={props.gRPCClients}  />
+                              <Setup setTitle={setTitle}  gRPCClients={props.gRPCClients}  />
                           )} />
                     </Container>
                   </main>

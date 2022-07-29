@@ -18,6 +18,8 @@ import MaterialTable, {Column} from '@material-table/core'
 import {CircularProgress} from "@material-ui/core";
 import {GetAllRequest as GetAllRequestHostGroup} from "../../../lib/scoretrakapis/scoretrak/host_group/v1/host_group_pb";
 import {GetAllRequest as GetAllRequestTeam} from "../../../lib/scoretrakapis/scoretrak/team/v1/team_pb";
+import {useSnackbar} from "notistack";
+import {SnackbarDismissButton} from "../../SnackbarDismissButton";
 
 
 function getSteps() {
@@ -105,6 +107,7 @@ export function hostColumnsToHost(hostC: hostColumns): Host{
 function HostMenuTable(props: SetupProps) {
     const title =  "Hosts"
     props.setTitle(title)
+    const {enqueueSnackbar} = useSnackbar()
     const columns:Array<Column<hostColumns>> =
         [
             { title: 'ID (optional)', field: 'id', editable: 'onAdd'},
@@ -142,7 +145,7 @@ function HostMenuTable(props: SetupProps) {
                 return{...prevState, columns, loaderHostGroup: false
                 }})
         }, (err: any) => {
-            props.genericEnqueue(`Encountered an error while retrieving parent Host Groups: ${err.message}. Error code: ${err.code}`, Severity.Error)
+            enqueueSnackbar(`Encountered an error while retrieving parent Host Groups: ${err.message}. Error code: ${err.code}`, { variant: Severity.Error, action: SnackbarDismissButton })
         })
 
         props.gRPCClients.teamClient.getAll(new GetAllRequestTeam(), {}).then(teamResponse => {
@@ -159,12 +162,12 @@ function HostMenuTable(props: SetupProps) {
                 }
                 return{...prevState, columns, loaderTeam: false}})
         }, (err: any) => {
-            props.genericEnqueue(`Encountered an error while retrieving parent Teams: ${err.message}. Error code: ${err.code}`, Severity.Error)
+            enqueueSnackbar(`Encountered an error while retrieving parent Teams: ${err.message}. Error code: ${err.code}`, { variant: Severity.Error, action: SnackbarDismissButton })
         })
         props.gRPCClients.hostClient.getAll(new GetAllRequest(), {}).then(hostsResponse => {
             setState(prevState => {return{...prevState, data: hostsResponse.getHostsList().map((host): hostColumns => {
                     return hostToHostColumn(host)}), loader: false, loaderHost: false}})}, (err: any) => {
-            props.genericEnqueue(`Encountered an error while retrieving Hosts: ${err.message}. Error code: ${err.code}`, Severity.Error)
+            enqueueSnackbar(`Encountered an error while retrieving Hosts: ${err.message}. Error code: ${err.code}`, { variant: Severity.Error, action: SnackbarDismissButton })
         })
     }
     useEffect(() => {
@@ -196,7 +199,7 @@ function HostMenuTable(props: SetupProps) {
                                             });
                                             resolve();
                                         }, (err: any) => {
-                                            props.genericEnqueue(`Unable to store Host: ${err.message}. Error code: ${err.code}`, Severity.Error)
+                                            enqueueSnackbar(`Unable to store Host: ${err.message}. Error code: ${err.code}`, { variant: Severity.Error, action: SnackbarDismissButton })
                                             reject()
                                         })
                                     }, 600);
@@ -216,7 +219,7 @@ function HostMenuTable(props: SetupProps) {
                                                 });
                                                 resolve();
                                             }, (err: any) => {
-                                                props.genericEnqueue(`Unable to update hosts: ${err.message}. Error code: ${err.code}`, Severity.Error)
+                                                enqueueSnackbar(`Unable to update Host: ${err.message}. Error code: ${err.code}`, { variant: Severity.Error, action: SnackbarDismissButton })
                                                 reject()
                                             })
                                         }
@@ -235,7 +238,7 @@ function HostMenuTable(props: SetupProps) {
                                             });
                                             resolve();
                                         }, (err: any) => {
-                                            props.genericEnqueue(`Unable to delete host: ${err.message}. Error code: ${err.code}`, Severity.Error)
+                                            enqueueSnackbar(`Unable to delete Host: ${err.message}. Error code: ${err.code}`, { variant: Severity.Error, action: SnackbarDismissButton })
                                             reject()
                                         })
                                     }, 600);

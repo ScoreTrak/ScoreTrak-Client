@@ -55,6 +55,8 @@ import {Property} from "../../lib/scoretrakapis/scoretrak/property/v1/property_p
 import {usePolicy} from "../../contexts/PolicyContext";
 import {useTheme} from "@material-ui/core";
 import {useTitle} from "react-use";
+import {useSnackbar} from "notistack";
+import {SnackbarDismissButton} from "../SnackbarDismissButton";
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -97,6 +99,7 @@ export default function Settings(props: SetupProps ) {
     useTitle('Settings')
     const policy = usePolicy()
     const theme = useTheme()
+    const {enqueueSnackbar} = useSnackbar()
     const classes = useStyles();
     const [dt, setData] = useState<{loader: boolean, dynamicConfig: undefined | DynamicConfig, staticConfig: object}>({
         loader: true, dynamicConfig: undefined,
@@ -132,13 +135,13 @@ export default function Settings(props: SetupProps ) {
         props.gRPCClients.staticConfigClient.get(new GetStaticConfigRequest(), {}).then(response => {
             setData(prevState => {return{ ...prevState, staticConfig: JSON.parse(response.getStaticConfig())}})
         }, (err: any) => {
-            props.genericEnqueue(`Failed to fetch static config: ${err.message}. Error code: ${err.code}`, Severity.Error)
+            enqueueSnackbar(`Failed to fetch static config: ${err.message}. Error code: ${err.code}`, { variant: Severity.Error, action: SnackbarDismissButton })
         })
 
         props.gRPCClients.dynamicConfigClient.get(new GetRequest(), {}).then(response => {
             setData(prevState => {return{ ...prevState, dynamicConfig: response.getDynamicConfig(), loader: false }})
         }, (err: any) => {
-            props.genericEnqueue(`Failed to fetch dynamic config: ${err.message}. Error code: ${err.code}`, Severity.Error)
+            enqueueSnackbar(`Failed to fetch dynamic config: ${err.message}. Error code: ${err.code}`, { variant: Severity.Error, action: SnackbarDismissButton })
         })
     }
     useEffect(() => {
@@ -153,7 +156,7 @@ export default function Settings(props: SetupProps ) {
                 newDN?.setEnabled(boolVal)
                 return{...prevState, dynamicConfig: newDN}})
         }, (err: any) => {
-            props.genericEnqueue(`Failed to enable competition: ${err.message}. Error code: ${err.code}`, Severity.Error)
+            enqueueSnackbar(`Failed to enable competition: ${err.message}. Error code: ${err.code}`, { variant: Severity.Error, action: SnackbarDismissButton })
         })
     }
 
@@ -166,13 +169,13 @@ export default function Settings(props: SetupProps ) {
                 newDN?.setRoundDuration(val)
                 return{...prevState, dynamicConfig: newDN}})
         }, (err: any) => {
-            props.genericEnqueue(`Failed to enable competition: ${err.message}. Error code: ${err.code}`, Severity.Error)
+            enqueueSnackbar(`Failed to enable competition: ${err.message}. Error code: ${err.code}`, { variant: Severity.Error, action: SnackbarDismissButton })
         })
     }
 
     const handleSetPolicy = (policy: Policy) => {
         props.gRPCClients.policyClient.update(new UpdateRequestPolicy().setPolicy(policy), {}).then(resp => {}, (err: any) => {
-            props.genericEnqueue(`Failed to update policy: ${err.message}. Error code: ${err.code}`, Severity.Error)
+            enqueueSnackbar(`Failed to update policy: ${err.message}. Error code: ${err.code}`, { variant: Severity.Error, action: SnackbarDismissButton })
         })
     }
 
@@ -332,15 +335,15 @@ export default function Settings(props: SetupProps ) {
                     comp.setPropertiesList(properties)
                 }
                 props.gRPCClients.competitionClient.loadCompetition(new LoadCompetitionRequest().setCompetition(comp), {}).then(resp => {
-                    props.genericEnqueue("Success!", Severity.Success)
+                    enqueueSnackbar("Success!", { variant: Severity.Success })
                 }, (err: any) => {
-                    props.genericEnqueue(`Failed to upload competition: ${err.message}. Error code: ${err.code}`, Severity.Error)
+                    enqueueSnackbar(`Failed to upload competition: ${err.message}. Error code: ${err.code}`, { variant: Severity.Error, action: SnackbarDismissButton })
                 })
 
 
             }
             reader.onerror = function (evt) {
-                props.genericEnqueue(`Failed to open the file`, Severity.Error)
+                enqueueSnackbar(`Failed to open the file`, { variant: Severity.Error, action: SnackbarDismissButton })
             }
         }
         handleClose()
@@ -348,18 +351,18 @@ export default function Settings(props: SetupProps ) {
 
     const handleResetCompetition = () => {
         props.gRPCClients.competitionClient.resetScores(new ResetScoresRequest(), {}).then(resp => {
-            props.genericEnqueue("Successfully reset all of the scores!", Severity.Success)
+            enqueueSnackbar("Successfully reset all of the scores!", { variant: Severity.Success })
         }, (err: any) => {
-            props.genericEnqueue(`Failed to reset scores: ${err.message}. Error code: ${err.code}`, Severity.Error)
+            enqueueSnackbar(`Failed to reset scores: ${err.message}. Error code: ${err.code}`, { variant: Severity.Error, action: SnackbarDismissButton })
         })
         handleClose()
     }
 
     const handleDeleteCompetition = () => {
         props.gRPCClients.competitionClient.deleteCompetition(new DeleteCompetitionRequest(), {}).then(resp => {
-            props.genericEnqueue("Successfully deleted all competition data!", Severity.Success)
+            enqueueSnackbar("Successfully deleted all competition data!", { variant: Severity.Success })
         }, (err: any) => {
-            props.genericEnqueue(`Failed to delete competition data: ${err.message}. Error code: ${err.code}`, Severity.Error)
+            enqueueSnackbar(`Failed to delete competition data: ${err.message}. Error code: ${err.code}`, { variant: Severity.Error, action: SnackbarDismissButton })
         })
         handleClose()
     }
@@ -520,7 +523,7 @@ export default function Settings(props: SetupProps ) {
                                         props.gRPCClients.competitionClient.fetchCoreCompetition(new FetchCoreCompetitionRequest(), {}).then(resp => {
                                         saveJSONtoFile(resp.getCompetition()?.toObject(), "core-competition.json")
                                     }, (err: any) => {
-                                        props.genericEnqueue(`Failed to fetch competition: ${err.message}. Error code: ${err.code}`, Severity.Error)
+                                        enqueueSnackbar(`Failed to fetch competition: ${err.message}. Error code: ${err.code}`, { variant: Severity.Error, action: SnackbarDismissButton })
                                     })}}
                                 >
                                     Export Core Competition
@@ -579,7 +582,7 @@ export default function Settings(props: SetupProps ) {
                                     onClick={() => {props.gRPCClients.competitionClient.fetchEntireCompetition(new FetchEntireCompetitionRequest(), {}).then(resp => {
                                         saveJSONtoFile(resp.getCompetition()?.toObject(), "entire-competition.json")
                                     }, (err: any) => {
-                                        props.genericEnqueue(`Failed to fetch competition: ${err.message}. Error code: ${err.code}`, Severity.Error)
+                                        enqueueSnackbar(`Failed to fetch competition: ${err.message}. Error code: ${err.code}`, { variant: Severity.Error, action: SnackbarDismissButton })
                                     })}}
                                 >
                                     Export Entire Competition

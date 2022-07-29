@@ -14,6 +14,8 @@ import {
 import {Severity} from "../../../types/types";
 import {UUID} from "../../../lib/scoretrakapis/scoretrak/proto/v1/uuid_pb";
 import {CircularProgress} from "@material-ui/core";
+import {useSnackbar} from "notistack";
+import {SnackbarDismissButton} from "../../SnackbarDismissButton";
 
 type userColumns = {
     id: string | undefined
@@ -63,6 +65,7 @@ function RoleToProtoRole (role : Role | undefined): ProtoRole {
 export default function UserMenu(props: SetupProps) {
     const title = "Users"
     props.setTitle(title)
+    const { enqueueSnackbar } = useSnackbar()
     const columns :Array<Column<userColumns>> =
         [
             { title: 'ID (optional)', field: 'id', editable: 'onAdd' as const},
@@ -95,12 +98,12 @@ export default function UserMenu(props: SetupProps) {
                 return{...prevState, columns, loaderHost: false
             }})
         }, (err: any) => {
-            props.genericEnqueue(`Encountered an error while retrieving parent Teams: ${err.message}. Error code: ${err.code}`, Severity.Error)
+            enqueueSnackbar(`Encountered an error while retrieving parent Teams: ${err.message}. Error code: ${err.code}`, { variant: Severity.Error, action: SnackbarDismissButton })
         })
         props.gRPCClients.userClient.getAll(new GetAllRequestUser(), {}).then(usersResponse => {
             setState(prevState => {return{...prevState, data: usersResponse.getUsersList().map((user): userColumns => {
                 return userToUserColumn(user)}), loaderUser: false}})}, (err: any) => {
-            props.genericEnqueue(`Encountered an error while retrieving Users: ${err.message}. Error code: ${err.code}`, Severity.Error)
+            enqueueSnackbar(`Encountered an error while retrieving Users: ${err.message}. Error code: ${err.code}`, { variant: Severity.Error, action: SnackbarDismissButton })
         })
     }
     useEffect(() => {
@@ -133,7 +136,7 @@ export default function UserMenu(props: SetupProps) {
                                             });
                                             resolve();
                                         }, (err: any) => {
-                                            props.genericEnqueue(`Unable to store user: ${err.message}. Error code: ${err.code}`, Severity.Error)
+                                            enqueueSnackbar(`Unable to store user: ${err.message}. Error code: ${err.code}`, { variant: Severity.Error, action: SnackbarDismissButton })
                                             reject()
                                         })
                                     }, 600);
@@ -153,7 +156,7 @@ export default function UserMenu(props: SetupProps) {
                                                 });
                                                 resolve();
                                             }, (err: any) => {
-                                                props.genericEnqueue(`Unable to update user: ${err.message}. Error code: ${err.code}`, Severity.Error)
+                                                enqueueSnackbar(`Unable to update user: ${err.message}. Error code: ${err.code}`, { variant: Severity.Error, action: SnackbarDismissButton })
                                                 reject()
                                             })
                                         }
@@ -172,7 +175,7 @@ export default function UserMenu(props: SetupProps) {
                                             });
                                             resolve();
                                         }, (err: any) => {
-                                            props.genericEnqueue(`Unable to delete user: ${err.message}. Error code: ${err.code}`, Severity.Error)
+                                            enqueueSnackbar(`Unable to delete user: ${err.message}. Error code: ${err.code}`, { variant: Severity.Error, action: SnackbarDismissButton })
                                             reject()
                                         })
                                     }, 600);

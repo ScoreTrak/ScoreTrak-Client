@@ -20,8 +20,12 @@ import {Severity} from "../../../types/types";
 import {serviceColumns, serviceToServiceColumn} from "../Service/ServiceMenu";
 import {propertyColumns, propertyColumnsToProperty, Status} from "./PropertiesMenu";
 import {StoreRequest} from "../../../lib/scoretrakapis/scoretrak/property/v1/property_pb";
+import {useSnackbar} from "notistack";
+import {SnackbarDismissButton} from "../../SnackbarDismissButton";
+
 //Todo: If Display name missing, replace with HostGroup.Name + Service.Name equivalent
 const PropertiesCreate = forwardRef((props: SetupProps, ref) => {
+    const {enqueueSnackbar} = useSnackbar()
     const [dt, setData] = React.useState<{loader: boolean, services: serviceColumns[]}>({loader: true, services: []})
     type RowType = Record<string, any> // Todo: Implement more specific types
     const [rowsData, setRowData] = React.useState<RowType>({});
@@ -56,7 +60,7 @@ const PropertiesCreate = forwardRef((props: SetupProps, ref) => {
             setData({loader: false, services: serviceCols})
             setRowData({...rowdt})
         }, (err: any) => {
-            props.genericEnqueue(`Encountered an error while retrieving parent Service: ${err.message}. Error code: ${err.code}`, Severity.Error)
+            enqueueSnackbar(`Encountered an error while retrieving parent Service: ${err.message}. Error code: ${err.code}`, { variant: Severity.Error, action: SnackbarDismissButton })
         })
     }, []);
 
@@ -91,10 +95,10 @@ const PropertiesCreate = forwardRef((props: SetupProps, ref) => {
                 storeRequest.addProperties(propertyColumnsToProperty(property))
             })
             props.gRPCClients.propertyClient.store(storeRequest, {}).then(() => {
-                    props.genericEnqueue("Success!", Severity.Success, 3000)
+                    enqueueSnackbar("Success!", { variant: Severity.Success, autoHideDuration: 3000 , action: SnackbarDismissButton })
                 },
                 (err: any) => {
-                    props.genericEnqueue(`Failed to save properties: ${err.message}. Error code: ${err.code}`, Severity.Error)
+                    enqueueSnackbar(`Failed to save properties: ${err.message}. Error code: ${err.code}`, { variant: Severity.Error, action: SnackbarDismissButton })
                 })
     }
 

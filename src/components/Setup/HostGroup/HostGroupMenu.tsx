@@ -13,6 +13,8 @@ import {
     UpdateRequest
 } from "../../../lib/scoretrakapis/scoretrak/host_group/v1/host_group_pb";
 import {BoolValue} from "google-protobuf/google/protobuf/wrappers_pb";
+import {useSnackbar} from "notistack";
+import {SnackbarDismissButton} from "../../SnackbarDismissButton";
 
 export type hostGroupColumns = {
     id: string | undefined
@@ -44,6 +46,7 @@ function hostGroupToHostGroupColumns(hostGroup: HostGroup): hostGroupColumns{
 export default function HostGroupsMenu(props: SetupProps) {
     const title = "Host Groups"
     props.setTitle(title)
+    const {enqueueSnackbar} = useSnackbar()
     const columns :Array<Column<hostGroupColumns>> =
         [
             { title: 'ID (optional)', field: 'id', editable: 'onAdd'},
@@ -62,7 +65,7 @@ export default function HostGroupsMenu(props: SetupProps) {
         props.gRPCClients.hostGroupClient.getAll(new GetAllRequest(), {}).then(hostGroupsResponse => {
             setState(prevState => {return{...prevState, data: hostGroupsResponse.getHostGroupsList().map((hostGroup): hostGroupColumns => {
                     return hostGroupToHostGroupColumns(hostGroup)}), loader: false}})}, (err: any) => {
-            props.genericEnqueue(`Encountered an error while retrieving Host Groups: ${err.message}. Error code: ${err.code}`, Severity.Error)
+            enqueueSnackbar(`Encountered an error while retrieving Host Groups: ${err.message}. Error code: ${err.code}`, { variant: Severity.Error, action: SnackbarDismissButton })
         })
     }
     useEffect(() => {
@@ -91,7 +94,7 @@ export default function HostGroupsMenu(props: SetupProps) {
                                             });
                                             resolve();
                                         }, (err: any) => {
-                                            props.genericEnqueue(`Unable to store hostGroup: ${err.message}. Error code: ${err.code}`, Severity.Error)
+                                            enqueueSnackbar(`Unable to store hostGroup: ${err.message}. Error code: ${err.code}`, { variant: Severity.Error, action: SnackbarDismissButton })
                                             reject()
                                         })
                                     }, 600);
@@ -111,7 +114,7 @@ export default function HostGroupsMenu(props: SetupProps) {
                                                 });
                                                 resolve();
                                             }, (err: any) => {
-                                                props.genericEnqueue(`Unable to update hostGroup: ${err.message}. Error code: ${err.code}`, Severity.Error)
+                                                enqueueSnackbar(`Unable to update hostGroup: ${err.message}. Error code: ${err.code}`, { variant: Severity.Error, action: SnackbarDismissButton })
                                                 reject()
                                             })
                                         }
@@ -130,7 +133,7 @@ export default function HostGroupsMenu(props: SetupProps) {
                                             });
                                             resolve();
                                         }, (err: any) => {
-                                            props.genericEnqueue(`Unable to delete hostGroup: ${err.message}. Error code: ${err.code}`, Severity.Error)
+                                            enqueueSnackbar(`Unable to delete hostGroup: ${err.message}. Error code: ${err.code}`, { variant: Severity.Error, action: SnackbarDismissButton })
                                             reject()
                                         })
                                     }, 600);

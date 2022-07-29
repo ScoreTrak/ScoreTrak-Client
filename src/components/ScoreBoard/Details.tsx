@@ -19,8 +19,7 @@ import {GRPCClients} from "../../grpc/gRPCClients";
 
 type DetailsProps = {
     report: SimpleReport,
-    gRPCClients: GRPCClients,
-    genericEnqueue: Function
+    gRPCClients: GRPCClients
 }
 
 type Row = {team_id: string, team_name: string}
@@ -87,7 +86,6 @@ type CustomRowProps = {
     row: Row,
     report: SimpleReport,
     gRPCClients: GRPCClients
-    genericEnqueue: Function
 }
 
 function CustomRow(props: CustomRowProps) {
