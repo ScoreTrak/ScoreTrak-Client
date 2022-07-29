@@ -11,9 +11,11 @@ import {SetupProps, parse_index} from "../util/util";
 import {StoreRequest, Team} from "../../../lib/scoretrakapis/scoretrak/team/v1/team_pb";
 import {Severity} from "../../../types/types";
 import {UInt64Value} from "google-protobuf/google/protobuf/wrappers_pb";
+import {useSnackbar} from "notistack";
 
 
 const TeamCreate = forwardRef((props: SetupProps, ref) => {
+    const { enqueueSnackbar } = useSnackbar()
     const [rows, setRows] = React.useState<{name: JSX.Element, index: number}[]>([]);
 
     const columns = [
@@ -42,9 +44,9 @@ const TeamCreate = forwardRef((props: SetupProps, ref) => {
                 storeRequest.addTeams(new Team().setIndex(new UInt64Value().setValue(team.index)).setName(team.name), 0)
             })
             props.gRPCClients.teamClient.store(storeRequest, {}).then(result => {
-                props.genericEnqueue(`Teams Created!`, Severity.Success)
+                enqueueSnackbar(`Teams Created!`, { variant: Severity.Success })
             }, (err: any) => {
-                props.genericEnqueue(`Unable to store teams: ${err.message}. Error code: ${err.code}`, Severity.Error)
+                enqueueSnackbar(`Unable to store teams: ${err.message}. Error code: ${err.code}`, { variant: Severity.Error, action: SnackbarDismissButton })
           })
         }
 

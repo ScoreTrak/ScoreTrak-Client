@@ -16,6 +16,8 @@ import {Severity} from "../../../types/types";
 import {UUID} from "../../../lib/scoretrakapis/scoretrak/proto/v1/uuid_pb";
 import {CircularProgress} from "@material-ui/core";
 import {BoolValue, UInt64Value} from "google-protobuf/google/protobuf/wrappers_pb";
+import {useSnackbar} from "notistack";
+import {SnackbarDismissButton} from "../../SnackbarDismissButton";
 
 function getSteps() {
     return ['Regular View', 'Quick Create'];
@@ -85,6 +87,7 @@ export function teamColumnsToTeam(teamC: teamColumns): Team{
 function TeamMenuTable(props: SetupProps) {
     const title = "Teams"
     props.setTitle(title)
+    const { enqueueSnackbar } = useSnackbar()
     const columns :Array<Column<teamColumns>> =
         [
             { title: 'ID (optional)', field: 'id', editable: 'onAdd'},
@@ -104,7 +107,7 @@ function TeamMenuTable(props: SetupProps) {
         props.gRPCClients.teamClient.getAll(new GetAllRequest(), {}).then(teamsResponse => {
             setState(prevState => {return{...prevState, data: teamsResponse.getTeamsList().map((team): teamColumns => {
                 return teamToTeamColumn(team)}), loader: false}})}, (err: any) => {
-            props.genericEnqueue(`Encountered an error while retrieving Teams: ${err.message}. Error code: ${err.code}`, Severity.Error)
+            enqueueSnackbar(`Encountered an error while retrieving Teams: ${err.message}. Error code: ${err.code}`, { variant: Severity.Error, action: SnackbarDismissButton })
         })
     }
     useEffect(() => {
@@ -136,7 +139,7 @@ function TeamMenuTable(props: SetupProps) {
                                             });
                                             resolve();
                                         }, (err: any) => {
-                                            props.genericEnqueue(`Unable to store team: ${err.message}. Error code: ${err.code}`, Severity.Error)
+                                            enqueueSnackbar(`Unable to store team: ${err.message}. Error code: ${err.code}`, { variant: Severity.Error, action: SnackbarDismissButton })
                                             reject()
                                         })
                                     }, 600);
@@ -156,7 +159,7 @@ function TeamMenuTable(props: SetupProps) {
                                                 });
                                                 resolve();
                                             }, (err: any) => {
-                                                props.genericEnqueue(`Unable to update team: ${err.message}. Error code: ${err.code}`, Severity.Error)
+                                                enqueueSnackbar(`Unable to update team: ${err.message}. Error code: ${err.code}`, { variant: Severity.Error, action: SnackbarDismissButton })
                                                 reject()
                                             })
                                         }
@@ -175,7 +178,7 @@ function TeamMenuTable(props: SetupProps) {
                                             });
                                             resolve();
                                         }, (err: any) => {
-                                            props.genericEnqueue(`Unable to delete team: ${err.message}. Error code: ${err.code}`, Severity.Error)
+                                            enqueueSnackbar(`Unable to delete team: ${err.message}. Error code: ${err.code}`, { variant: Severity.Error, action: SnackbarDismissButton })
                                             reject()
                                         })
                                     }, 600);

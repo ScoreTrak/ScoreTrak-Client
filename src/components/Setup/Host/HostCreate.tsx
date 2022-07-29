@@ -23,6 +23,8 @@ import FormControlLabel from "@material-ui/core/FormControlLabel";
 import IconButton from "@material-ui/core/IconButton";
 import DeleteIcon from '@material-ui/icons/Delete';
 import Grid from "@material-ui/core/Grid";
+import {useSnackbar} from "notistack";
+import {SnackbarDismissButton} from "../../SnackbarDismissButton";
 function setProperty<T, K extends keyof T>(obj: T, key: K, value: T[K]) {
     obj[key] = value;
 }
@@ -37,7 +39,7 @@ type templateState = {
     edit_hostTemplate: boolean
 }
 const HostCreate = forwardRef((props: SetupProps, ref) => {
-
+    const {enqueueSnackbar} = useSnackbar()
     const [dt, setData] = React.useState<{loaderTeam: boolean, loaderHostGroup: boolean, teams: Team[], hostGroups:  HostGroup [], hostGroupsTemplateState:  templateState []}>({loaderTeam: true, loaderHostGroup: true, teams: [], hostGroups: [], hostGroupsTemplateState: []})
     const [rowsData, setRowData] = React.useState<Record<string, hostColumns>>({});
     useEffect(() => {
@@ -54,7 +56,7 @@ const HostCreate = forwardRef((props: SetupProps, ref) => {
                     }
                 })}})
         }, (err: any) => {
-            props.genericEnqueue(`Encountered an error while retrieving Teams: ${err.message}. Error code: ${err.code}`, Severity.Error)
+            enqueueSnackbar(`Encountered an error while retrieving Teams: ${err.message}. Error code: ${err.code}`, { variant: Severity.Error, action: SnackbarDismissButton })
         })
         props.gRPCClients.hostGroupClient.getAll(new GetAllRequestHostGroup(), {}).then(respHostGroup => {
             setData(prevState => {
@@ -64,7 +66,7 @@ const HostCreate = forwardRef((props: SetupProps, ref) => {
                 })
                 return {...prevState, hostGroups: respHostGroup.getHostGroupsList(), hostGroupsTemplateState, loaderHostGroup: false}})
         }, (err: any) => {
-            props.genericEnqueue(`Encountered an error while retrieving Host Groups: ${err.message}. Error code: ${err.code}`, Severity.Error)
+            enqueueSnackbar(`Encountered an error while retrieving Host Groups: ${err.message}. Error code: ${err.code}`, { variant: Severity.Error, action: SnackbarDismissButton })
         })
     }, []);
 
@@ -116,7 +118,7 @@ const HostCreate = forwardRef((props: SetupProps, ref) => {
                                 if (t in tmColumn){
                                     templateCopy = templateCopy.replace(`{${t}}`, String(getKeyValue(tmColumn, t)))
                                 } else{
-                                    props.genericEnqueue(`Entered templated value does not exist. Supported values from parent Team object: ${Object.keys(tmColumn).toString()}`, Severity.Warning)
+                                    enqueueSnackbar(`Entered templated value does not exist. Supported values from parent Team object: ${Object.keys(tmColumn).toString()}`, { variant: Severity.Warning, action: SnackbarDismissButton })
                                     return {...prevState}
                                 }
                             })
@@ -144,13 +146,13 @@ const HostCreate = forwardRef((props: SetupProps, ref) => {
 
         })
         if (elements_skipped){
-            props.genericEnqueue("Elements with empty Address filed were skipped", Severity.Warning)
+            enqueueSnackbar("Elements with empty Address filed were skipped", { variant: Severity.Warning })
         }
 
         props.gRPCClients.hostClient.store(storeRequest, {}).then(r => {
-            props.genericEnqueue("Success!", Severity.Success, 3000)
+            enqueueSnackbar("Success!", { variant: Severity.Success, autoHideDuration: 3000 })
         }, (err: any) => {
-            props.genericEnqueue(`Encountered an error while Storing Hosts: ${err.message}. Error code: ${err.code}`, Severity.Error)
+            enqueueSnackbar(`Encountered an error while Storing Hosts: ${err.message}. Error code: ${err.code}`, { variant: Severity.Error, action: SnackbarDismissButton })
         })
     }
 

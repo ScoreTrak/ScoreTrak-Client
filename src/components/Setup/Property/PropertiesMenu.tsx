@@ -18,6 +18,8 @@ import {
 import {Status as ProtoStatus} from "../../../lib/scoretrakapis/scoretrak/property/v1/property_pb";
 import {GetAllRequest as GetAllRequestService} from "../../../lib/scoretrakapis/scoretrak/service/v1/service_pb";
 import PropertiesCreate from "./PropertiesCreate";
+import {useSnackbar} from "notistack";
+import {SnackbarDismissButton} from "../../SnackbarDismissButton";
 
 
 function getSteps() {
@@ -103,6 +105,7 @@ export function propertyColumnsToProperty(propertyC: propertyColumns): Property{
 function PropertyMenuTable(props: SetupProps) {
     const title = "Properties"
     props.setTitle(title)
+    const { enqueueSnackbar } = useSnackbar()
     const columns:Array<Column<propertyColumns>> =
         [
             { title: 'Key', field: 'key', editable: 'onAdd'},
@@ -134,13 +137,13 @@ function PropertyMenuTable(props: SetupProps) {
                 return{...prevState, columns, loaderService: false
                 }})
         }, (err: any) => {
-            props.genericEnqueue(`Encountered an error while retrieving parent Teams: ${err.message}. Error code: ${err.code}`, Severity.Error)
+            enqueueSnackbar(`Encountered an error while retrieving parent Teams: ${err.message}. Error code: ${err.code}`, { variant: Severity.Error, action: SnackbarDismissButton })
         })
 
         props.gRPCClients.propertyClient.getAll(new GetAllRequest(), {}).then(propertiesResponse => {
             setState(prevState => {return{...prevState, data: propertiesResponse.getPropertiesList().map((property): propertyColumns => {
                     return propertyToPropertyColumn(property)}), loaderProperty: false}})}, (err: any) => {
-            props.genericEnqueue(`Encountered an error while retrieving Properties: ${err.message}. Error code: ${err.code}`, Severity.Error)
+            enqueueSnackbar(`Encountered an error while retrieving Properties: ${err.message}. Error code: ${err.code}`, { variant: Severity.Error, action: SnackbarDismissButton })
         })
     }
     useEffect(() => {
@@ -171,7 +174,7 @@ function PropertyMenuTable(props: SetupProps) {
                                             });
                                             resolve();
                                         }, (err: any) => {
-                                            props.genericEnqueue(`Unable to store property: ${err.message}. Error code: ${err.code}`, Severity.Error)
+                                            enqueueSnackbar(`Unable to store property: ${err.message}. Error code: ${err.code}`, { variant: Severity.Error, action: SnackbarDismissButton })
                                             reject()
                                         })
                                     }, 600);
@@ -191,7 +194,7 @@ function PropertyMenuTable(props: SetupProps) {
                                                 });
                                                 resolve();
                                             }, (err: any) => {
-                                                props.genericEnqueue(`Unable to update property: ${err.message}. Error code: ${err.code}`, Severity.Error)
+                                                enqueueSnackbar(`Unable to update property: ${err.message}. Error code: ${err.code}`, { variant: Severity.Error, action: SnackbarDismissButton })
                                                 reject()
                                             })
                                         }
@@ -212,7 +215,7 @@ function PropertyMenuTable(props: SetupProps) {
                                             });
                                             resolve();
                                         }, (err: any) => {
-                                            props.genericEnqueue(`Unable to delete property: ${err.message}. Error code: ${err.code}`, Severity.Error)
+                                            enqueueSnackbar(`Unable to delete property: ${err.message}. Error code: ${err.code}`, { variant: Severity.Error, action: SnackbarDismissButton })
                                             reject()
                                         })
                                     }, 600);

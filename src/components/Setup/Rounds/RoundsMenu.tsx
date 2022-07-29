@@ -5,6 +5,8 @@ import MaterialTable, {Column} from '@material-table/core'
 import {Severity} from "../../../types/types";
 import {CircularProgress} from "@material-ui/core";
 import {GetAllRequest, Round} from "../../../lib/scoretrakapis/scoretrak/round/v1/round_pb";
+import {useSnackbar} from "notistack";
+import {SnackbarDismissButton} from "../../SnackbarDismissButton";
 
 type roundColumns = {
     id: number
@@ -27,6 +29,7 @@ function roundToRoundColumn(round: Round): roundColumns{
 export default function RoundMenu(props: SetupProps) {
     const title = "Rounds"
     props.setTitle(title)
+    const {enqueueSnackbar} = useSnackbar()
     const columns :Array<Column<roundColumns>>  =
         [
             { title: 'ID (optional)', field: 'id', editable: 'onAdd'},
@@ -46,7 +49,7 @@ export default function RoundMenu(props: SetupProps) {
         props.gRPCClients.roundClient.getAll(new GetAllRequest(), {}).then(roundsResponse => {
             setState(prevState => {return{...prevState, data: roundsResponse.getRoundsList().map((round): roundColumns => {
                     return roundToRoundColumn(round)}), loader: false}})}, (err: any) => {
-            props.genericEnqueue(`Encountered an error while retrieving Rounds: ${err.message}. Error code: ${err.code}`, Severity.Error)
+            enqueueSnackbar(`Encountered an error while retrieving Rounds: ${err.message}. Error code: ${err.code}`, { variant: Severity.Error, action: SnackbarDismissButton })
         })
     }
     useEffect(() => {

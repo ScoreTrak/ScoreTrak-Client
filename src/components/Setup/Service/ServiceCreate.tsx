@@ -23,11 +23,14 @@ import {GetAllRequest as GetAllRequestService, StoreRequest} from "../../../lib/
 import {GetAllRequest as GetAllRequestHost, Host} from "../../../lib/scoretrakapis/scoretrak/host/v1/host_pb";
 import {HostGroup} from "../../../lib/scoretrakapis/scoretrak/host_group/v1/host_group_pb";
 import {serviceColumns, serviceColumnsToService} from "./ServiceMenu";
+import {useSnackbar} from "notistack";
+import {SnackbarDismissButton} from "../../SnackbarDismissButton";
 
 const ServiceCreate = forwardRef((props: SetupProps, ref) => {
     const [dt, setData] = React.useState<{loaderHost: boolean, loaderHostGroup: boolean, hosts: Host[], hostGroups: HostGroup[], serviceGroups: ServiceGroup[]}>({loaderHost: true, loaderHostGroup: true, hosts: [], hostGroups: [], serviceGroups: []})
     const [counter, setCounter] = React.useState<Record<string, number>>({})
     const [rowsData, setRowData] = React.useState<Record<string, Record <number, serviceColumns> >>({});
+    const {enqueueSnackbar} = useSnackbar()
 
     const columns = [
         { id: 'name', label: 'Name of the Check(Ex: PING, SSH)'},
@@ -57,7 +60,7 @@ const ServiceCreate = forwardRef((props: SetupProps, ref) => {
         props.gRPCClients.serviceGroupClient.getAll(new GetAllRequestService(), {}).then(respServiceGrp => {
             setData(prevState => {return {...prevState, loader: false, serviceGroups: respServiceGrp.getServiceGroupsList()}})
         }, (err: any) => {
-            props.genericEnqueue(`Encountered an error while retrieving Service Groups: ${err.message}. Error code: ${err.code}`, Severity.Error)
+            enqueueSnackbar(`Encountered an error while retrieving Service Groups: ${err.message}. Error code: ${err.code}`, { variant: Severity.Error, action: SnackbarDismissButton})
         })
         props.gRPCClients.hostGroupClient.getAll(new GetAllRequestServiceGroup(), {}).then(respHostGroup => {
                 const counter: Record<string, number> = {}
@@ -71,7 +74,7 @@ const ServiceCreate = forwardRef((props: SetupProps, ref) => {
                 setData(prevState => {return {...prevState, loaderHostGroup: false, hostGroups: respHostGroup.getHostGroupsList()}})
 
             }, (err: any) => {
-                props.genericEnqueue(`Encountered an error while retrieving Host Groups: ${err.message}. Error code: ${err.code}`, Severity.Error)
+                enqueueSnackbar(`Encountered an error while retrieving Host Groups: ${err.message}. Error code: ${err.code}`, { variant: Severity.Error, action: SnackbarDismissButton })
             }
         )
 
@@ -80,7 +83,7 @@ const ServiceCreate = forwardRef((props: SetupProps, ref) => {
 
 
         }, (err: any) => {
-            props.genericEnqueue(`Encountered an error while retrieving Host: ${err.message}. Error code: ${err.code}`, Severity.Error)
+            enqueueSnackbar(`Encountered an error while retrieving Host: ${err.message}. Error code: ${err.code}`, { variant: Severity.Error, action: SnackbarDismissButton })
         })
 
         }, []);
@@ -121,9 +124,9 @@ const ServiceCreate = forwardRef((props: SetupProps, ref) => {
             })
 
             props.gRPCClients.serviceClient.store(storeRequest, {}).then(r => {
-               props.genericEnqueue("Success!", Severity.Success, 3000)
+                enqueueSnackbar("Success!", { variant: Severity.Success, autoHideDuration: 3000 })
             }, (err: any) => {
-                props.genericEnqueue(`Failed to save services: ${err.message}. Error code: ${err.code}`, Severity.Error)
+                enqueueSnackbar(`Failed to save services: ${err.message}. Error code: ${err.code}`, { variant: Severity.Error, action: SnackbarDismissButton })
             })
     }
 

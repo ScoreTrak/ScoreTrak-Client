@@ -17,6 +17,8 @@ import {Role, token} from "../../grpc/token/token";
 import clsx from "clsx";
 import Ranks from "./Ranks";
 import {usePolicy} from "../../contexts/PolicyContext";
+import {useSnackbar} from "notistack";
+import {SnackbarDismissButton} from "../SnackbarDismissButton";
 
 const useStyles = makeStyles((theme) => ({
     hidden: { opacity: 0.1, transition: "opacity 0.2s linear"},
@@ -39,12 +41,12 @@ type ScoreBoardProps = {
     gRPCClients: GRPCClients,
     setTitle: React.Dispatch<React.SetStateAction<string>>;
     handleFullScreen: FullScreenHandle
-    genericEnqueue: Function
 }
 
 
 export default function ScoreBoard(props : ScoreBoardProps) {
     const policy = usePolicy()
+    const { enqueueSnackbar } = useSnackbar()
     const [report, setReport] = useState<SimpleReport | undefined>(undefined);
     const [visible, setFade] = React.useState<boolean>(false);
     const classes = useStyles();
@@ -66,7 +68,7 @@ export default function ScoreBoard(props : ScoreBoardProps) {
                 token.logout()
                 history.push("/login");
             } else{
-                props.genericEnqueue(`Encountered an error while fetching report: ${err.message}. Error code: ${err.code}`, Severity.Error)
+                enqueueSnackbar(`Encountered an error while fetching report: ${err.message}. Error code: ${err.code}`, { variant: Severity.Error, action: SnackbarDismissButton })
             }
         });
         stream.on("data", (response) => {
@@ -95,7 +97,7 @@ export default function ScoreBoard(props : ScoreBoardProps) {
                             <Status report={report}/>
                         )} />
                         <Route exact path='/details' render={() => (
-                            <Details report={report} gRPCClients={props.gRPCClients} genericEnqueue={props.genericEnqueue}/>
+                            <Details report={report} gRPCClients={props.gRPCClients} />
                         )} />
                     </Box>
 
