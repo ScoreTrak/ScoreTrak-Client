@@ -12,6 +12,7 @@ import {StoreRequest, Team} from "../../../lib/scoretrakapis/scoretrak/team/v1/t
 import {Severity} from "../../../types/types";
 import {UInt64Value} from "google-protobuf/google/protobuf/wrappers_pb";
 import {useSnackbar} from "notistack";
+import {SnackbarDismissButton} from "../../SnackbarDismissButton";
 
 
 const TeamCreate = forwardRef((props: SetupProps, ref) => {
