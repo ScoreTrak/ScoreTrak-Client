@@ -1,4 +1,4 @@
-import React, {createContext, useContext} from "react";
+import {createContext, useContext} from "react";
 import {useLocalStorage} from "react-use";
 import {PaletteType} from "@material-ui/core";
 

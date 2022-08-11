@@ -1,21 +1,33 @@
 
 import './App.css';
-import React, {useMemo} from 'react';
+import {useMemo} from 'react';
 import './App.css';
-import {
-  BrowserRouter as Router
-} from 'react-router-dom';
-import {ThemeProvider} from "@material-ui/core/styles";
+import {makeStyles, Theme, ThemeProvider} from "@material-ui/core/styles";
 import {deepOrange, deepPurple, lightBlue, orange} from "@material-ui/core/colors";
 import CssBaseline from "@material-ui/core/CssBaseline";
-import {gRPCClients} from "./grpc/gRPCClients";
-import Dashboard from "./components/Dashboard/Dashboard";
 import {SnackbarProvider} from "notistack";
 import {PolicyProvider} from "./contexts/PolicyContext";
 import {createTheme} from "@material-ui/core";
 import {useTitle} from "react-use";
 import {usePaletteType} from "./contexts/PaletteTypeContext";
-
+import {Route, Routes} from "react-router-dom";
+import {TitleContextProvider} from "./contexts/BannerTitleContext";
+import DefaultLayout from "./layouts/DefaultLayout";
+import AuthLayout from "./layouts/AuthLayout";
+import SignIn from "./routes/auth/sign_in";
+import Settings from "./routes/settings";
+import Logs from "./routes/logs";
+import {ReportProvider} from "./contexts/ReportContext";
+import Ranks from "./routes/scoreboard/ranks";
+import Details from "./routes/scoreboard/details";
+import Hosts from "./routes/settings/hosts";
+import Users from "./routes/settings/users";
+import Teams from "./routes/settings/teams";
+import Services from "./routes/settings/services";
+import ServiceGroups from "./routes/settings/service_groups";
+import Properties from "./routes/settings/properties";
+import HostGroups from "./routes/settings/host_groups";
+import Scoreboard from "./routes/scoreboard";
 
 function App() {
   useTitle("ScoreTrak")
@@ -38,21 +50,44 @@ function App() {
   );
 
   return (
-    <div className="App">
       <ThemeProvider theme={theme}>
-        <CssBaseline />
-        <SnackbarProvider maxSnack={3} anchorOrigin={{
-          vertical: 'bottom',
-          horizontal: 'right',
-        }} dense preventDuplicate>
-          <Router>
-            <PolicyProvider>
-              <Dashboard gRPCClients={gRPCClients} />
-            </PolicyProvider>
-          </Router>
-        </SnackbarProvider>
+          <CssBaseline />
+          <SnackbarProvider maxSnack={3} anchorOrigin={{
+              vertical: 'bottom',
+              horizontal: 'right',
+          }} dense preventDuplicate>
+              <PolicyProvider>
+                  <ReportProvider>
+                      <TitleContextProvider>
+                          <Routes>
+                              <Route path={"/"} element={<DefaultLayout />}>
+                                  <Route index element={<Scoreboard />} />
+                                  <Route path={"logs"} element={<Logs />} />
+                              </Route>
+                              <Route path={"scoreboard"} element={<DefaultLayout />}>
+                                  <Route index element={<Scoreboard />} />
+                                  <Route path={"ranks"} element={<Ranks />} />
+                                  <Route path={"details"} element={<Details />} />
+                              </Route>
+                              <Route path={"auth"} element={<AuthLayout />}>
+                                  <Route path={"sign_in"} element={<SignIn />} />
+                              </Route>
+                              <Route path={"settings"} element={<DefaultLayout />}>
+                                  <Route index element={<Settings />} />
+                                  <Route path={"hosts"} element={<Hosts />} />
+                                  <Route path={"host_groups"} element={<HostGroups />} />
+                                  <Route path={"properties"} element={<Properties />} />
+                                  <Route path={"service_groups"} element={<ServiceGroups />} />
+                                  <Route path={"services"} element={<Services />} />
+                                  <Route path={"teams"} element={<Teams />} />
+                                  <Route path={"users"} element={<Users />} />
+                              </Route>
+                          </Routes>
+                      </TitleContextProvider>
+                  </ReportProvider>
+              </PolicyProvider>
+          </SnackbarProvider>
       </ThemeProvider>
-    </div>
   );
 }
 

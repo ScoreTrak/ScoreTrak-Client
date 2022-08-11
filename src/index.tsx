@@ -4,12 +4,15 @@ import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 import {PaletteTypeContextProvider} from "./contexts/PaletteTypeContext";
+import {BrowserRouter} from "react-router-dom";
 
 ReactDOM.render(
   <React.StrictMode>
-      <PaletteTypeContextProvider> {/* TODO: Move PaletteTypeContextProvider outside of index.tsx when possible */}
-        <App />
-      </PaletteTypeContextProvider>
+      <BrowserRouter>
+          <PaletteTypeContextProvider> {/* TODO: Move PaletteTypeContextProvider outside of index.tsx when possible */}
+            <App />
+          </PaletteTypeContextProvider>
+      </BrowserRouter>
   </React.StrictMode>,
   document.getElementById('root')
 );

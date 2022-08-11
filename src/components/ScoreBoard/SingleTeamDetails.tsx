@@ -1,4 +1,4 @@
-import React, {Fragment, useEffect, useRef, useState} from "react";
+import {Fragment, useEffect, useRef, useState} from "react";
 import Accordion from "@material-ui/core/Accordion";
 import AccordionSummary from "@material-ui/core/AccordionSummary";
 import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
@@ -17,8 +17,9 @@ import InputLabel from "@material-ui/core/InputLabel";
 import Input from "@material-ui/core/Input";
 import FormHelperText from "@material-ui/core/FormHelperText";
 import Button from "@material-ui/core/Button";
-import {Severity, SimpleReport, SimpleService} from "../../types/types";
-import {GRPCClients} from "../../grpc/gRPCClients";
+import {Severity} from "../../types/types";
+import {Report as SimpleReport, Service as SimpleService} from "../../types/report";
+import {gRPCClients} from "../../grpc/gRPCClients";
 import PauseCircleOutlineIcon from '@material-ui/icons/PauseCircleOutline';
 import {
     GetAllByServiceIDRequest as GetAllByServiceIDRequestCheck,
@@ -44,6 +45,7 @@ import {IconButton, Tooltip} from "@material-ui/core";
 import {Replay} from "@material-ui/icons";
 import {useSnackbar} from "notistack";
 import {SnackbarDismissButton} from "../SnackbarDismissButton";
+import {useReport} from "../../contexts/ReportContext";
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -113,8 +115,6 @@ const useStyles = makeStyles((theme) => ({
 
 type CustomSingleTeamDetailsProps = {
     teamID: string,
-    report: SimpleReport,
-    gRPCClients: GRPCClients
 }
 
 type SingleCheckDetails = {
@@ -129,6 +129,7 @@ type SingleCheckDetails = {
 
 export default function SingleTeamDetails(props: CustomSingleTeamDetailsProps) {
     const classes = useStyles();
+    const report = useReport()
     const [PropertiesData, setPropertiesData] = useState<PropertiesData[]>([]);
     const [hostData, setHostData] = useState<HostData | undefined>(undefined);
     const [expanded, setExpanded] = useState<boolean | string>(false);
@@ -143,14 +144,17 @@ export default function SingleTeamDetails(props: CustomSingleTeamDetailsProps) {
             setExpanded(panel);
         }
     };
-    function usePreviousDT(value: SimpleReport) {
+    function usePreviousDT(value: SimpleReport | undefined) {
         const ref = useRef<SimpleReport>();
         useEffect(() => {
-            ref.current = value;
+            if (value) {
+                ref.current = value;
+            }
         });
         return ref.current;
     }
-    const prevDT = usePreviousDT({...props.report});
+    const prevDT = usePreviousDT(report);
+    const teamID = props.teamID
 
     useEffect(() => {
         if (prevDT){
@@ -174,37 +178,38 @@ export default function SingleTeamDetails(props: CustomSingleTeamDetailsProps) {
                             ]
                         }
                     } else {
-                        Object.keys(props.report.Teams[teamID].Hosts).forEach((host) => {
-                            const currentHost = props.report.Teams[teamID].Hosts[host]
-                            Object.keys(currentHost.Services).forEach((service_id) => {
-                                if (cached_service_id === service_id){
-                                    nextState[service_id] = [
-                                        {
-                                        service_id,
-                                        host_id: host,
-                                        pause: prevDT.Teams[teamID].Hosts[host].Services[service_id].Pause,
-                                        passed: prevDT.Teams[teamID].Hosts[host].Services[service_id].Check?.Passed,
-                                        err: prevDT.Teams[teamID].Hosts[host].Services[service_id].Check?.Err,
-                                        log: prevDT.Teams[teamID].Hosts[host].Services[service_id].Check?.Log,
-                                        round_id: prevDT.Round,
-                                        }
-                                    ]
-                                }
+                        if (report) {
+                            Object.keys(report.Teams[teamID].Hosts).forEach((host) => {
+                                const currentHost = report.Teams[teamID].Hosts[host]
+                                Object.keys(currentHost.Services).forEach((service_id) => {
+                                    if (cached_service_id === service_id){
+                                        nextState[service_id] = [
+                                            {
+                                            service_id,
+                                            host_id: host,
+                                            pause: prevDT.Teams[teamID].Hosts[host].Services[service_id].Pause,
+                                            passed: prevDT.Teams[teamID].Hosts[host].Services[service_id].Check?.Passed,
+                                            err: prevDT.Teams[teamID].Hosts[host].Services[service_id].Check?.Err,
+                                            log: prevDT.Teams[teamID].Hosts[host].Services[service_id].Check?.Log,
+                                            round_id: prevDT.Round,
+                                            }
+                                        ]
+                                    }
+                                })
                             })
-                        })
+                        }
                     }
                 })
                 return nextState
             })
         }
-    }, [props.report]);
+    }, [report, prevDT, teamID]);
 // TODO: REFACTOR the above
 
-    const teamID = props.teamID
     return (
             <Box height="100%" width="100%" >
-                {Object.keys(props.report.Teams[teamID].Hosts).map((host) => {
-                    const currentHost = props.report.Teams[teamID].Hosts[host]
+                {report && Object.keys(report.Teams[teamID].Hosts).map((host) => {
+                    const currentHost = report.Teams[teamID].Hosts[host]
                     return Object.keys(currentHost.Services).map((service_id) => {
                         const simpleService = currentHost.Services[service_id]
                         let keyName
@@ -217,7 +222,7 @@ export default function SingleTeamDetails(props: CustomSingleTeamDetailsProps) {
                                 keyName = simpleService.Name
                             }
                         }
-                        simpleService.Pause = props.report.Teams[teamID].Pause || (currentHost.HostGroup != null  ? currentHost.HostGroup.Pause : false) || currentHost.Pause || currentHost.Services[service_id].Pause
+                        simpleService.Pause = report.Teams[teamID].Pause || (currentHost.HostGroup != null  ? currentHost.HostGroup.Pause : false) || currentHost.Pause || currentHost.Services[service_id].Pause
                         return (
                             <Accordion TransitionProps={{
                                 timeout: 700
@@ -233,7 +238,7 @@ export default function SingleTeamDetails(props: CustomSingleTeamDetailsProps) {
                                 </AccordionSummary>
                                 <AccordionDetails>
                                     {expanded === keyName &&
-                                        <SingleTeamDetailsAccordionDetailsBox {...props} history={history} prevDT={prevDT} setHistory={setHistory} host_id={host} service_id={service_id} simpleService={simpleService} setHostData={setHostData} hostData={hostData} PropertiesData={PropertiesData} setPropertiesData={setPropertiesData} />
+                                        <SingleTeamDetailsAccordionDetailsBox {...props} history={history} setHistory={setHistory} host_id={host} service_id={service_id} simpleService={simpleService} setHostData={setHostData} hostData={hostData} PropertiesData={PropertiesData} setPropertiesData={setPropertiesData} />
                                     }
                                 </AccordionDetails>
                             </Accordion>
@@ -248,13 +253,10 @@ type SingleTeamDetailsAccordionDetailsBoxProps = {
     simpleService: SimpleService
     PropertiesData: PropertiesData[]
     setPropertiesData: React.Dispatch<React.SetStateAction<PropertiesData[]>>;
-    gRPCClients: GRPCClients,
     service_id: string
     history: Record<string, SingleCheckDetails[]>
     setHistory: React.Dispatch<React.SetStateAction<Record<string, SingleCheckDetails[]>>>;
     host_id: string
-    prevDT: SimpleReport | undefined
-    report: SimpleReport
     setHostData: React.Dispatch<React.SetStateAction<HostData | undefined>>
     hostData: HostData | undefined
 }
@@ -275,6 +277,7 @@ type PropertiesData = {
 
 function SingleTeamDetailsAccordionDetailsBox(props: SingleTeamDetailsAccordionDetailsBoxProps) {
     const { enqueueSnackbar } = useSnackbar()
+    const report = useReport()
 
     const simpleService = props.simpleService
     const PropertiesData = props.PropertiesData
@@ -309,7 +312,7 @@ function SingleTeamDetailsAccordionDetailsBox(props: SingleTeamDetailsAccordionD
         const uuid = new UUID()
         uuid.setValue(service)
         checksRequest.setServiceId(uuid)
-        return props.gRPCClients.checkClient.getAllByServiceID(checksRequest, {})
+        return gRPCClients.checkClient.getAllByServiceID(checksRequest, {})
     }
 
 
@@ -318,7 +321,7 @@ function SingleTeamDetailsAccordionDetailsBox(props: SingleTeamDetailsAccordionD
         const uuid = new UUID()
         uuid.setValue(service)
         propertiesRequest.setServiceId(uuid)
-        return props.gRPCClients.propertyClient.getAllByServiceID(propertiesRequest, {})
+        return gRPCClients.propertyClient.getAllByServiceID(propertiesRequest, {})
     }
 
     async function reloadHost(hostID: string) {
@@ -326,7 +329,7 @@ function SingleTeamDetailsAccordionDetailsBox(props: SingleTeamDetailsAccordionD
         const uuid = new UUID()
         uuid.setValue(hostID)
         hostsRequest.setId(uuid)
-        return props.gRPCClients.hostClient.getByID(hostsRequest, {})
+        return gRPCClients.hostClient.getByID(hostsRequest, {})
     }
 
     function reloadPropertiesSetter(service_id: string, simpleService: SimpleService) {
@@ -358,7 +361,7 @@ function SingleTeamDetailsAccordionDetailsBox(props: SingleTeamDetailsAccordionD
         host.setId(uuid)
         host.setAddress(address)
         hostsRequest.setHost(host)
-        props.gRPCClients.hostClient.update(hostsRequest, {}).then(r => {
+        gRPCClients.hostClient.update(hostsRequest, {}).then(r => {
             props.setHostData({edit_host: true, address})
             reloadHostSetter(hstID)
         }, (err: any) => {
@@ -382,7 +385,7 @@ function SingleTeamDetailsAccordionDetailsBox(props: SingleTeamDetailsAccordionD
             reloadPreviousChecks(service_id).then(results => {
                 const d: SingleCheckDetails[] = []
                 results.getChecksList().forEach(res => {
-                    if (res.getRoundId().valueOf() < props.report.Round){
+                    if (report && res.getRoundId().valueOf() < report.Round){
                         d.push({service_id, round_id: res.getRoundId().valueOf(), passed: res.getPassed()?.getValue() as boolean, log: res.getLog(), err: res.getErr(), host_id, pause: false})
                     }
                 })
@@ -394,7 +397,7 @@ function SingleTeamDetailsAccordionDetailsBox(props: SingleTeamDetailsAccordionD
         }
         reloadHostSetter(host_id)
         reloadPropertiesSetter(service_id, simpleService)
-    }, []);
+    });
 
     return (
         <Box width="100%" bgcolor="background.paper" textAlign="left">
@@ -450,7 +453,7 @@ function SingleTeamDetailsAccordionDetailsBox(props: SingleTeamDetailsAccordionD
                                                 property.setValue(stringValue)
                                                 const updatedProperty = new UpdateRequestProperty()
                                                 updatedProperty.setProperty(property)
-                                                props.gRPCClients.propertyClient.update(updatedProperty, {}).then(r => {
+                                                gRPCClients.propertyClient.update(updatedProperty, {}).then(r => {
                                                     setPropertiesData((prevState) => {
                                                         return prevState.map(property => {
                                                             if (property.key === rowData.key) {
