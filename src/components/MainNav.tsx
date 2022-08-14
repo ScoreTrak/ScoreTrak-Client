@@ -78,23 +78,11 @@ export function MainNav() {
                     {/*    <MenuIcon />*/}
                     {/*</IconButton>*/}
                     <Typography
-                        component={RouterLink}
                         variant="h6"
                         color="inherit"
-                        to={"/"}
-                        noWrap
                         className={classes.title}
                     >
-                        ScoreTrak
-                    </Typography>
-                    <Typography
-                        component="h1"
-                        variant="h6"
-                        color="inherit"
-                        noWrap
-                        className={classes.title}
-                    >
-                        {report?.Round === 0 ? "Competition has not yet started!" : bannerTitle}
+                        {report?.Round === 0 ? "Competition has not yet started!" : `Round: ${report?.Round}`}
                     </Typography>
                     {
                         <>

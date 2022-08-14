@@ -1,7 +1,7 @@
 import {useTitle} from "react-use";
 import {usePolicy} from "../../contexts/PolicyContext";
 import {useReport} from "../../contexts/ReportContext";
-import {useTheme} from "@material-ui/core";
+import {CircularProgress, Typography, useTheme} from "@material-ui/core";
 import React, {useState} from "react";
 import {Service} from "../../types/report";
 import TableContainer from "@material-ui/core/TableContainer";
@@ -122,154 +122,177 @@ export default function Scoreboard() {
 
     return (
         <>
-        <TableContainer>
-            <Table stickyHeader aria-label="sticky table" size={dense ? 'small' : 'medium'}>
-                <TableHead>
-                    <TableRow>
-                        <TableCell>
-                            Team Name
-                        </TableCell>
-
-                        {dataKeysArray.slice(columnPage * columnsPerPage, columnPage * columnsPerPage + columnsPerPage).map((column) => (
-                            <TableCell
-                                width={`${100 / (dataKeysArray.slice(columnPage * columnsPerPage, columnPage * columnsPerPage + columnsPerPage).length)}%`}
-                                align="center"
-                                key={column}
-                            >
-                                {column}
-                            </TableCell>
-                        ))}
-                    </TableRow>
-                </TableHead>
-
-
-                <TableBody>
-                    {teamNames.slice(rowPage * rowsPerPage, rowPage * rowsPerPage + rowsPerPage).map((name) => {
-                        return (
-                            <TableRow hover tabIndex={-1} key={name}>
-                                <TableCell style={{
-                                    'whiteSpace': 'nowrap',
-                                    'overflow': 'hidden',
-                                    'textOverflow': 'ellipsis'
-                                }}>
-                                    {name}
+            {report && report.Round !== 0 ?
+                <TableContainer>
+                    <Table stickyHeader aria-label="sticky table" size={dense ? 'small' : 'medium'}>
+                        <TableHead>
+                            <TableRow>
+                                <TableCell>
+                                    Team Name
                                 </TableCell>
+
                                 {dataKeysArray.slice(columnPage * columnsPerPage, columnPage * columnsPerPage + columnsPerPage).map((column) => (
-                                    <TableCell key={name + column}
-                                               width={`${100 / (dataKeysArray.slice(columnPage * columnsPerPage, columnPage * columnsPerPage + columnsPerPage).length)}%`}
-                                               style={(() => {
-                                                   if (data[name][column]) {
-                                                       let style = {}
-                                                       if (theme.palette.type === "dark") {
-                                                           if (data[name][column].Pause) {
-                                                               style = {backgroundColor: "#000000"}
-                                                           } else if (data[name][column].Check != null && data[name][column].Check?.Passed) {
-                                                               style = {backgroundColor: "#259B0B"}
-                                                           } else {
-                                                               style = {backgroundColor: "#d20c23", color: "white"}
-                                                           }
-                                                       } else {
-                                                           if (data[name][column].Pause) {
-                                                               style = {backgroundColor: "#000000"}
-                                                           } else if (data[name][column].Check != null && data[name][column].Check?.Passed) {
-                                                               style = {backgroundColor: "green"}
-                                                           } else {
-                                                               style = {backgroundColor: "red", color: "white"}
-                                                           }
-                                                       }
-                                                       const teamId = token.getCurrentTeamID()
-
-                                                       if (report && token.isAValidToken() && teamId != null && teamId in report.Teams && report.Teams[teamId].Name === name && highlightParentTeam) {
-                                                           style = {
-                                                               ...style,
-                                                               borderTop: '2px solid rgba(0, 0, 0, 1)',
-                                                               borderBottom: '2px solid rgba(0, 0, 0, 1)',
-                                                               borderLeft: '1px solid rgba(0, 0, 0, 0.5)',
-                                                               borderRight: '1px solid rgba(0, 0, 0, 0.5)',
-
-                                                           }
-                                                       } else {
-                                                           style = {...style, border: '1px solid rgba(0, 0, 0, 0.5)'}
-                                                       }
-
-                                                       return style
-                                                   }
-                                               })()} align="center" padding="none"
+                                    <TableCell
+                                        width={`${100 / (dataKeysArray.slice(columnPage * columnsPerPage, columnPage * columnsPerPage + columnsPerPage).length)}%`}
+                                        align="center"
+                                        key={column}
                                     >
-                                        {!hideAddresses && data[name][column] && (() => {
-                                            let msg = ""
-                                            if (data[name][column].Address) {
-                                                msg += data[name][column].Address
-                                                if (column in data[name] && "Properties" in data[name][column]) {
-                                                    Object.keys(data[name][column].Properties).forEach(key => {
-                                                        if (key === "Port") {
-                                                            msg += ":" + data[name][column].Properties[key].Value
-                                                        }
-                                                    })
-                                                }
-                                            }
-                                            return msg
-                                        })()}
+                                        {column}
                                     </TableCell>
                                 ))}
                             </TableRow>
-                        );
-                    })}
+                        </TableHead>
 
-                </TableBody>
-                <TableFooter>
-                    <TableRow>
-                        <TableCell colSpan={dataKeysArray.length + 1}>
-                            <div style={{
-                                display: "flex",
-                                flexDirection: "row",
-                                justifyContent: "center",
-                                alignItems: "center"
-                            }}>
-                                <TablePagination className={classes.tableNavigator}
-                                                 rowsPerPageOptions={[1, 5, 10, 25, 100]}
-                                                 component="div"
-                                                 count={teamNames.length}
-                                                 rowsPerPage={rowsPerPage}
-                                                 page={rowPage}
-                                                 onPageChange={handleRowChangePage}
-                                                 onRowsPerPageChange={handleChangeRowsPerPage}
-                                />
-                                <FormControlLabel className={classes.tableNavigator}
-                                                  control={<Switch checked={dense} onChange={toggleChangeDense}/>}
-                                                  label="Dense padding"
-                                />
-                                {policy && (token.isAValidToken() || policy.showAddresses?.value) &&
-                                    <FormControlLabel className={classes.tableNavigator}
-                                                      control={<Switch checked={hideAddresses}
-                                                                       onChange={toggleHideAddresses}/>}
-                                                      label={"Hide Addresses"}
-                                    />
-                                }
-                                {(token.isAValidToken()) &&
-                                    <FormControlLabel className={classes.tableNavigator}
-                                                      control={<Switch checked={highlightParentTeam}
-                                                                       onChange={toggleHighlightParentTeam}/>}
-                                                      label={"Highlight Team Cells"}
-                                    />
-                                }
-                                <TablePagination
-                                    labelRowsPerPage="Columns per page"
-                                    rowsPerPageOptions={[1, 5, 10, 25, 100]}
-                                    component="div"
-                                    count={dataKeysArray.length}
-                                    rowsPerPage={columnsPerPage}
-                                    page={columnPage}
-                                    className={classes.tableNavigator}
-                                    onPageChange={handleColumnChangePage}
-                                    onRowsPerPageChange={handleChangeColumnsPerPage}
-                                />
-                            </div>
-                        </TableCell>
-                    </TableRow>
-                </TableFooter>
-            </Table>
-        </TableContainer>
+
+                        <TableBody>
+                            {teamNames.slice(rowPage * rowsPerPage, rowPage * rowsPerPage + rowsPerPage).map((name) => {
+                                return (
+                                    <TableRow hover tabIndex={-1} key={name}>
+                                        <TableCell style={{
+                                            'whiteSpace': 'nowrap',
+                                            'overflow': 'hidden',
+                                            'textOverflow': 'ellipsis'
+                                        }}>
+                                            {name}
+                                        </TableCell>
+                                        {dataKeysArray.slice(columnPage * columnsPerPage, columnPage * columnsPerPage + columnsPerPage).map((column) => (
+                                            <TableCell key={name + column}
+                                                       width={`${100 / (dataKeysArray.slice(columnPage * columnsPerPage, columnPage * columnsPerPage + columnsPerPage).length)}%`}
+                                                       style={(() => {
+                                                           if (data[name][column]) {
+                                                               let style = {}
+                                                               if (theme.palette.type === "dark") {
+                                                                   if (data[name][column].Pause) {
+                                                                       style = {backgroundColor: "#000000"}
+                                                                   } else if (data[name][column].Check != null && data[name][column].Check?.Passed) {
+                                                                       style = {backgroundColor: "#259B0B"}
+                                                                   } else {
+                                                                       style = {
+                                                                           backgroundColor: "#d20c23",
+                                                                           color: "white"
+                                                                       }
+                                                                   }
+                                                               } else {
+                                                                   if (data[name][column].Pause) {
+                                                                       style = {backgroundColor: "#000000"}
+                                                                   } else if (data[name][column].Check != null && data[name][column].Check?.Passed) {
+                                                                       style = {backgroundColor: "green"}
+                                                                   } else {
+                                                                       style = {backgroundColor: "red", color: "white"}
+                                                                   }
+                                                               }
+                                                               const teamId = token.getCurrentTeamID()
+
+                                                               if (report && token.isAValidToken() && teamId != null && teamId in report.Teams && report.Teams[teamId].Name === name && highlightParentTeam) {
+                                                                   style = {
+                                                                       ...style,
+                                                                       borderTop: '2px solid rgba(0, 0, 0, 1)',
+                                                                       borderBottom: '2px solid rgba(0, 0, 0, 1)',
+                                                                       borderLeft: '1px solid rgba(0, 0, 0, 0.5)',
+                                                                       borderRight: '1px solid rgba(0, 0, 0, 0.5)',
+
+                                                                   }
+                                                               } else {
+                                                                   style = {
+                                                                       ...style,
+                                                                       border: '1px solid rgba(0, 0, 0, 0.5)'
+                                                                   }
+                                                               }
+
+                                                               return style
+                                                           }
+                                                       })()} align="center" padding="none"
+                                            >
+                                                {!hideAddresses && data[name][column] && (() => {
+                                                    let msg = ""
+                                                    if (data[name][column].Address) {
+                                                        msg += data[name][column].Address
+                                                        if (column in data[name] && "Properties" in data[name][column]) {
+                                                            Object.keys(data[name][column].Properties).forEach(key => {
+                                                                if (key === "Port") {
+                                                                    msg += ":" + data[name][column].Properties[key].Value
+                                                                }
+                                                            })
+                                                        }
+                                                    }
+                                                    return msg
+                                                })()}
+                                            </TableCell>
+                                        ))}
+                                    </TableRow>
+                                );
+                            })}
+
+                        </TableBody>
+                        <TableFooter>
+                            <TableRow>
+                                <TableCell colSpan={dataKeysArray.length + 1}>
+                                    <div style={{
+                                        display: "flex",
+                                        flexDirection: "row",
+                                        justifyContent: "center",
+                                        alignItems: "center"
+                                    }}>
+                                        <TablePagination className={classes.tableNavigator}
+                                                         rowsPerPageOptions={[1, 5, 10, 25, 100]}
+                                                         component="div"
+                                                         count={teamNames.length}
+                                                         rowsPerPage={rowsPerPage}
+                                                         page={rowPage}
+                                                         onPageChange={handleRowChangePage}
+                                                         onRowsPerPageChange={handleChangeRowsPerPage}
+                                        />
+                                        <FormControlLabel className={classes.tableNavigator}
+                                                          control={<Switch checked={dense}
+                                                                           onChange={toggleChangeDense}/>}
+                                                          label="Dense padding"
+                                        />
+                                        {policy && (token.isAValidToken() || policy.showAddresses?.value) &&
+                                            <FormControlLabel className={classes.tableNavigator}
+                                                              control={<Switch checked={hideAddresses}
+                                                                               onChange={toggleHideAddresses}/>}
+                                                              label={"Hide Addresses"}
+                                            />
+                                        }
+                                        {(token.isAValidToken()) &&
+                                            <FormControlLabel className={classes.tableNavigator}
+                                                              control={<Switch checked={highlightParentTeam}
+                                                                               onChange={toggleHighlightParentTeam}/>}
+                                                              label={"Highlight Team Cells"}
+                                            />
+                                        }
+                                        <TablePagination
+                                            labelRowsPerPage="Columns per page"
+                                            rowsPerPageOptions={[1, 5, 10, 25, 100]}
+                                            component="div"
+                                            count={dataKeysArray.length}
+                                            rowsPerPage={columnsPerPage}
+                                            page={columnPage}
+                                            className={classes.tableNavigator}
+                                            onPageChange={handleColumnChangePage}
+                                            onRowsPerPageChange={handleChangeColumnsPerPage}
+                                        />
+                                    </div>
+                                </TableCell>
+                            </TableRow>
+                        </TableFooter>
+                    </Table>
+                </TableContainer>
+                :
+                <div>
+                <CircularProgress  />
+
+                {
+                    report?.Round === 0 &&
+
+                    <div>
+                    <Typography>Competition have not started yet!</Typography>
+                    <Typography>This window will automatically reload once the first round is scored.</Typography>
+                    </div>
+                }
+                </div>
+            }
+
         </>
     );
 }
