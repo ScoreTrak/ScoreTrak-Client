@@ -9,7 +9,7 @@
   "linterOptions": {
     "exclude": [
       "",
-      "./src/grpc/pkg/**/*.ts"
+      "./src/lib/scoretrakapis/**/*.ts"
     ]
   }
 }
