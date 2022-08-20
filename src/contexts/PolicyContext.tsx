@@ -1,5 +1,5 @@
 import {createContext, useContext, useEffect, useState} from "react";
-import {GetRequest, Policy} from "../lib/scoretrakapis/scoretrak/policy/v1/policy_pb";
+import {GetRequest, GetResponse, Policy} from "../lib/scoretrakapis/scoretrak/policy/v1/policy_pb";
 import {gRPCClients} from "../grpc/gRPCClients";
 import grpcWeb from "grpc-web"
 import {useSnackbar} from "notistack";
@@ -34,7 +34,7 @@ export function PolicyProvider({ children }) {
             }
         })
 
-        stream.on("data", (response) => {
+        stream.on("data", (response: GetResponse) => {
             if (response.hasPolicy()) {
                 setPolicy(response.getPolicy()!.toObject())
             }
