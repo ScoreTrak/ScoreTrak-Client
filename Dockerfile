@@ -30,8 +30,10 @@ RUN BIN="/usr/local/bin" && \
       "https://github.com/bufbuild/buf/releases/download/v${VERSION}/${BINARY_NAME}-$(uname -s)-$(uname -m)" \
     -o "${BIN}/${BINARY_NAME}" && \
     chmod +x "${BIN}/${BINARY_NAME}"
-# install node modules and build assets
-RUN npm install && npm run build
+# Only install production packages
+RUN npm install
+# Build app
+RUN npm run build
 
 
 # nginx state for serving content
