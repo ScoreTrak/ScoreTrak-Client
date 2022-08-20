@@ -25,14 +25,6 @@ export function ReportProvider({ children }) {
     useEffect(() => {
         const streamRequest = new GetRequest();
         const stream = gRPCClients.reportClient.get(streamRequest, {})
-        stream.on('error', (err) => {
-            if (err.code === 7 || err.code === 16){
-                token.logout()
-                navigate("/auth/sign_in");
-            } else{
-                enqueueSnackbar(`Encountered an error while fetching report: ${err.message}. Error code: ${err.code}`, { variant: Severity.Error, action: SnackbarDismissButton })
-            }
-        })
 
         stream.on("data", (response) => {
             const cache = (response as GetResponse).getReport()?.getCache()
@@ -42,6 +34,16 @@ export function ReportProvider({ children }) {
                 setBannerTitle(`Round: ${report.Round}`)
             }
         })
+
+        stream.on('error', (err) => {
+            if (err.code === 7 || err.code === 16){
+                token.logout()
+                navigate("/auth/sign_in");
+            } else{
+                enqueueSnackbar(`Encountered an error while fetching report: ${err.message}. Error code: ${err.code}`, { variant: Severity.Error, action: SnackbarDismissButton })
+            }
+        })
+
 
         return () => stream.cancel()
     }, [])
