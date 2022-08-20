@@ -15,7 +15,7 @@ git clone https://github.com/ScoreTrak/client
 Install Dependencies
 
 ```bash
-yarn install
+npm install
 ```
 
 ### Development
@@ -23,13 +23,13 @@ yarn install
 Start the application
 
 ```bash
-yarn run start
+npm run start
 ```
 
 Test the application
 
 ```bash
-yarn run test
+npm run test
 ```
 
 ### Production
@@ -37,12 +37,12 @@ yarn run test
 Build the application
 
 ```bash
-yarn run build
+npm run build
 ```
 
 Serve generated static files
 
 ```bash
-yarn install --global serve
+npm install --global serve
 serve -s build
 ```

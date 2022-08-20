@@ -31,7 +31,7 @@ RUN BIN="/usr/local/bin" && \
     -o "${BIN}/${BINARY_NAME}" && \
     chmod +x "${BIN}/${BINARY_NAME}"
 # install node modules and build assets
-RUN yarn install && yarn build
+RUN npm install && npm build
 
 
 # nginx state for serving content
