@@ -78,6 +78,8 @@ export function MainNav() {
                     {/*    <MenuIcon />*/}
                     {/*</IconButton>*/}
                     <Typography
+                        component={RouterLink}
+                        to={"/"}
                         variant="h6"
                         color="inherit"
                         className={classes.title}

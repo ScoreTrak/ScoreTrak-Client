@@ -23,12 +23,13 @@ import {HostGroup} from "../../../lib/scoretrakapis/scoretrak/host_group/v1/host
 import {useSnackbar} from "notistack";
 import {SnackbarDismissButton} from "../../SnackbarDismissButton";
 import {gRPCClients} from "../../../grpc/gRPCClients";
-import {serviceColumns, serviceColumnsToService} from "../../MaterialTables/ServiceMaterialTable";
+import {IServiceToService} from "../../../lib/material-table/services";
+import {IService} from "../../../types/material_table";
 
 const ServiceCreate = () => {
     const [dt, setData] = useState<{loaderHost: boolean, loaderHostGroup: boolean, hosts: Host[], hostGroups: HostGroup[], serviceGroups: ServiceGroup[]}>({loaderHost: true, loaderHostGroup: true, hosts: [], hostGroups: [], serviceGroups: []})
     const [counter, setCounter] = useState<Record<string, number>>({})
-    const [rowsData, setRowData] = useState<Record<string, Record <number, serviceColumns> >>({});
+    const [rowsData, setRowData] = useState<Record<string, Record <number, IService> >>({});
     const {enqueueSnackbar} = useSnackbar()
 
     const columns = [
@@ -41,7 +42,7 @@ const ServiceCreate = () => {
         { id: 'serviceGroupId', label: 'Service Group'}
     ];
 
-    const defaultVals: serviceColumns = {
+    const defaultVals: IService = {
         name: '',
         displayName: '',
         weight: 1,
@@ -63,7 +64,7 @@ const ServiceCreate = () => {
         })
         gRPCClients.hostGroupClient.getAll(new GetAllRequestServiceGroup(), {}).then(respHostGroup => {
                 const counter: Record<string, number> = {}
-                const rowdt: Record<string, serviceColumns[]> = {}
+                const rowdt: Record<string, IService[]> = {}
                 respHostGroup.getHostGroupsList().forEach(hstGrp => {
                     counter[hstGrp.getId()?.getValue() as string] = 0
                     rowdt[hstGrp.getId()?.getValue() as string] = []
@@ -90,7 +91,7 @@ const ServiceCreate = () => {
     const setNumberOfServices = (hostGroupID: string, value: number) => {
         if (value >= 0){
             setRowData(prevState => {
-                const newRowData: serviceColumns[] = []
+                const newRowData: IService[] = []
                 for (let i = 1; i <= value; i++){
                     if (i in prevState[hostGroupID]){
                         newRowData[i] = prevState[hostGroupID][i]
@@ -105,7 +106,7 @@ const ServiceCreate = () => {
     }
 
     function submit() {
-            const services: serviceColumns[] = []
+            const services: IService[] = []
             Object.keys(rowsData).forEach(hostGroupID => {
                 Object.keys(rowsData[hostGroupID]).forEach(idx => {
                     dt.hosts.forEach(host => {
@@ -119,7 +120,7 @@ const ServiceCreate = () => {
             const storeRequest = new StoreRequest()
 
             services.forEach(servVals => {
-                storeRequest.addServices(serviceColumnsToService(servVals))
+                storeRequest.addServices(IServiceToService(servVals))
             })
 
             gRPCClients.serviceClient.store(storeRequest, {}).then(_ => {
@@ -213,7 +214,7 @@ const ServiceCreate = () => {
                                                              {
                                                                  (column.id !== 'serviceGroupId' && column.id !== 'name') &&
                                                                      <TextField id={`${table.getId()?.getValue()}_${i}_${column.id}`}
-                                                                                type={(column.id === 'weight' || column.id === 'pointsBoost' || column.id === 'roundUnits' || column.id === 'roundDelay') ? 'number' : undefined } value={rowsData[table.getId()?.getValue() as string] && rowsData[table.getId()?.getValue() as string][i] && rowsData[table.getId()?.getValue() as string][i][column.id as keyof serviceColumns]}
+                                                                                type={(column.id === 'weight' || column.id === 'pointsBoost' || column.id === 'roundUnits' || column.id === 'roundDelay') ? 'number' : undefined } value={rowsData[table.getId()?.getValue() as string] && rowsData[table.getId()?.getValue() as string][i] && rowsData[table.getId()?.getValue() as string][i][column.id as keyof IService]}
                                                                                 onChange={((event: React.ChangeEvent<HTMLInputElement>) => {
                                                                              let val: number | string = event.target.value
                                                                              if ((column.id === 'weight' || column.id === 'pointsBoost' || column.id === 'roundUnits' || column.id === 'roundDelay')){

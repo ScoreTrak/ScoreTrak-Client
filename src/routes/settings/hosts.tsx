@@ -1,17 +1,13 @@
 import HostMenu from "../../components/SettingMenus/HostMenu";
-import {Breadcrumbs, Link, Typography} from "@material-ui/core";
-import {useNavigate} from "react-router-dom";
+import Box from "@material-ui/core/Box";
+import Typography from "@material-ui/core/Typography";
 
 export default function Hosts() {
-    const navigate = useNavigate()
     return (
         <>
-            <Breadcrumbs aria-label="breadcrumb">
-                <Link color="inherit" href="/settings" onClick={() => navigate("/settings")}>
-                    Settings
-                </Link>
-                <Typography color="textPrimary">Hosts</Typography>
-            </Breadcrumbs>
+            <Box m={2}>
+                <Typography color="textPrimary" variant={"h3"}>Hosts</Typography>
+            </Box>
             <HostMenu />
         </>
     )

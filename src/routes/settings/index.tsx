@@ -3,7 +3,7 @@ import {forwardRef, useEffect, useState} from "react";
 import {TransitionProps} from "@material-ui/core/transitions";
 import Slide from "@material-ui/core/Slide";
 import {usePolicy} from "../../contexts/PolicyContext";
-import {Container, useTheme} from "@material-ui/core";
+import {useTheme} from "@material-ui/core";
 import {useSnackbar} from "notistack";
 import {
     DynamicConfig,
@@ -141,7 +141,7 @@ export default function Settings() {
     }
     useEffect(() => {
         loadAll()
-    }, []);
+    }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
     const handleSetEnabled = (e: React.ChangeEvent<HTMLInputElement>) => {
         const boolVal = new BoolValue().setValue(e.target.checked)
@@ -370,8 +370,6 @@ export default function Settings() {
     }
 
     return (
-        <Container maxWidth={"xl"}>
-
         <Box marginTop={3} textAlign="left">
             <Box m={2}>
                 <Typography color="textPrimary" variant={"h3"}>Settings</Typography>
@@ -671,6 +669,5 @@ export default function Settings() {
             }
 
         </Box>
-        </Container>
     )
 }

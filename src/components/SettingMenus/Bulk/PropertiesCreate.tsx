@@ -19,13 +19,14 @@ import {StoreRequest} from "../../../lib/scoretrakapis/scoretrak/property/v1/pro
 import {useSnackbar} from "notistack";
 import {SnackbarDismissButton} from "../../SnackbarDismissButton";
 import {gRPCClients} from "../../../grpc/gRPCClients";
-import {propertyColumns, propertyColumnsToProperty, Status} from "../../MaterialTables/PropertyMaterialTable";
-import {serviceColumns, serviceToServiceColumn} from "../../MaterialTables/ServiceMaterialTable";
+import {serviceToIService} from "../../../lib/material-table/services";
+import {IProperty, IService, IPropertyStatus} from "../../../types/material_table";
+import {IPropertyToProperty} from "../../../lib/material-table/properties";
 
 //Todo: If Display name missing, replace with HostGroup.Name + Service.Name equivalent
 const PropertiesCreate = () => {
     const {enqueueSnackbar} = useSnackbar()
-    const [dt, setData] = useState<{loader: boolean, services: serviceColumns[]}>({loader: true, services: []})
+    const [dt, setData] = useState<{loader: boolean, services: IService[]}>({loader: true, services: []})
     type RowType = Record<string, any> // Todo: Implement more specific types
     const [rowsData, setRowData] = useState<RowType>({});
 
@@ -43,17 +44,17 @@ const PropertiesCreate = () => {
                              rowdt[serv.getDisplayName()][key] = {
                                 ...Checks[serv.getName() as availableChecks][key],
                                 value: 'defaultValue' in Checks[serv.getName() as availableChecks][key] ? Checks[serv.getName() as availableChecks][key].defaultValue as string : '',
-                                status: Checks[serv.getName() as availableChecks][key].defaultStatus ? Checks[serv.getName() as availableChecks][key].defaultStatus : Status.View,
+                                status: Checks[serv.getName() as availableChecks][key].defaultStatus ? Checks[serv.getName() as availableChecks][key].defaultStatus : IPropertyStatus.View,
                             }
                         })
                     }
                 }
             })
 
-            const serviceCols: serviceColumns[] = []
+            const serviceCols: IService[] = []
 
             respService.getServicesList().forEach(serv => {
-                serviceCols.push(serviceToServiceColumn(serv))
+                serviceCols.push(serviceToIService(serv))
             })
 
             setData({loader: false, services: serviceCols})
@@ -61,7 +62,7 @@ const PropertiesCreate = () => {
         }, (err: any) => {
             enqueueSnackbar(`Encountered an error while retrieving parent Service: ${err.message}. Error code: ${err.code}`, { variant: Severity.Error, action: SnackbarDismissButton })
         })
-    }, []);
+    }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
 
     const processProperties = (displayName: string, enable: boolean) => {
@@ -69,7 +70,7 @@ const PropertiesCreate = () => {
     }
 
     function submit() {
-            const properties: propertyColumns[] = []
+            const properties: IProperty[] = []
             Object.keys(rowsData).forEach((DisplayName) => {
                 if (rowsData[DisplayName].enableProcessingProperty){
                     dt.services.forEach(service => {
@@ -91,7 +92,7 @@ const PropertiesCreate = () => {
 
             const storeRequest = new StoreRequest()
             properties.forEach(property => {
-                storeRequest.addProperties(propertyColumnsToProperty(property))
+                storeRequest.addProperties(IPropertyToProperty(property))
             })
             gRPCClients.propertyClient.store(storeRequest, {}).then(() => {
                     enqueueSnackbar("Success!", { variant: Severity.Success, autoHideDuration: 3000 , action: SnackbarDismissButton })

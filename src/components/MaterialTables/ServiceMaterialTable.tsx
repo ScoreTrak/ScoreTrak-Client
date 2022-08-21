@@ -1,76 +1,43 @@
 import {useSnackbar} from "notistack";
 import MaterialTable, {Column} from "@material-table/core";
 import {useEffect, useState} from "react";
-import {GetAllRequest as GetAllRequestHost} from "../../lib/scoretrakapis/scoretrak/host/v1/host_pb";
 import {Severity} from "../../types/types";
 import {SnackbarDismissButton} from "../SnackbarDismissButton";
 import {
-    GetAllRequest as GetAllRequestServiceGroup
-} from "../../lib/scoretrakapis/scoretrak/service_group/v1/service_group_pb";
-import {
     DeleteRequest,
-    GetAllRequest, Service,
     StoreRequest,
     TestServiceRequest,
     UpdateRequest
 } from "../../lib/scoretrakapis/scoretrak/service/v1/service_pb";
-import Box from "@material-ui/core/Box";
 import {UUID} from "../../lib/scoretrakapis/scoretrak/proto/v1/uuid_pb";
 import {CircularProgress} from "@material-ui/core";
 import {gRPCClients} from "../../grpc/gRPCClients";
-import {BoolValue, UInt64Value} from "google-protobuf/google/protobuf/wrappers_pb";
+import {IService} from "../../types/material_table";
+import {useHostsQuery} from "../../lib/queries/hosts";
+import {useServiceGroupsQuery} from "../../lib/queries/service-groups";
+import {
+    useAddServiceMutation,
+    useDeleteServiceMutation,
+    useServicesQuery,
+    useUpdateServiceMutation
+} from "../../lib/queries/services";
+import grpcWeb from "grpc-web";
+import {IServiceToService, serviceToIService} from "../../lib/material-table/services";
 
-
-export type serviceColumns = {
-    id: string | undefined,
-    name: string,
-    displayName: string,
-    roundUnits: number,
-    roundDelay: number | undefined,
-    pointsBoost: number | undefined
-    serviceGroupId: string | undefined
-    hostId: string | undefined
-    weight: number | undefined
-    pause: boolean | undefined
-    hide: boolean | undefined
-}
-
-export function serviceToServiceColumn(service: Service): serviceColumns{
-    return {
-        displayName: service.getDisplayName(),
-        pause: service.getPause()?.getValue(),
-        hide: service.getHide()?.getValue(),
-        hostId: service.getHostId()?.getValue(),
-        id: service.getId()?.getValue(),
-        name: service.getName(),
-        pointsBoost: service.getPointsBoost()?.getValue(),
-        roundDelay: service.getRoundDelay()?.getValue(),
-        roundUnits: service.getRoundUnits(),
-        serviceGroupId: service.getServiceGroupId()?.getValue(),
-        weight: service.getWeight()?.getValue()
-    }
-}
-
-export function serviceColumnsToService(serviceC: serviceColumns): Service{
-    const u = new Service()
-    if (serviceC.id && serviceC.id !== "") u.setId((new UUID().setValue(serviceC.id)))
-    u.setDisplayName(serviceC.displayName)
-    if (serviceC.hostId && serviceC.hostId !== "") u.setHostId((new UUID().setValue(serviceC.hostId)))
-    if (serviceC.serviceGroupId && serviceC.serviceGroupId !== "") u.setServiceGroupId((new UUID().setValue(serviceC.serviceGroupId)))
-    if (serviceC.pause != null ) u.setPause(new BoolValue().setValue(serviceC.pause))
-    if (serviceC.hide != null ) u.setHide(new BoolValue().setValue(serviceC.hide))
-    u.setName(serviceC.name)
-    if (serviceC.weight != null && !isNaN(serviceC.weight)) u.setWeight(new UInt64Value().setValue(serviceC.weight))
-    u.setRoundUnits(serviceC.roundUnits)
-    if (serviceC.roundDelay != null && !isNaN(serviceC.roundDelay)) u.setRoundDelay(new UInt64Value().setValue(serviceC.roundDelay))
-    if (serviceC.pointsBoost != null && !isNaN(serviceC.pointsBoost) ) u.setPointsBoost(new UInt64Value().setValue(serviceC.pointsBoost))
-    return u
-}
 
 export function ServiceMaterialTable() {
     const title = "Services"
     const {enqueueSnackbar} = useSnackbar()
-    const columns: Array<Column<serviceColumns>> =
+
+    const { data: servicesData, isLoading: servicesIsLoading, isSuccess: servicesIsSuccess } = useServicesQuery()
+    const { data: serviceGroupsData, isLoading: serviceGroupsIsLoading, isSuccess: serviceGroupsIsSuccess } = useServiceGroupsQuery()
+    const { data: hostsData, isLoading: hostsIsLoading, isSuccess: hostsIsSuccess } = useHostsQuery()
+
+    const addService = useAddServiceMutation()
+    const updateService = useUpdateServiceMutation()
+    const deleteService = useDeleteServiceMutation()
+
+    const [columns, setColumns] = useState<Column<IService>[]>(
         [
             {title: 'ID (optional)', field: 'id', editable: 'onAdd'},
             {
@@ -89,90 +56,63 @@ export function ServiceMaterialTable() {
             {title: 'Host ID', field: 'hostId'},
             {title: 'Round Units(Frequency)', field: 'roundUnits', type: 'numeric', initialEditValue: 1},
             {title: 'Round Delay(Shift in frequency)', field: 'roundDelay', type: 'numeric', initialEditValue: 0},
-        ]
-    const [state, setState] = useState<{ columns: any[], loaderServiceGroup: boolean, loaderService: boolean, loaderHost: boolean, data: serviceColumns[] }>({
-        columns,
-        loaderService: true,
-        loaderServiceGroup: true,
-        loaderHost: true,
-        data: []
-    });
-
-    function reloadSetter() {
-
-        gRPCClients.hostClient.getAll(new GetAllRequestHost(), {}).then(hostsResponse => {
-            const lookup: Record<string, string> = {}
-            for (let i = 0; i < hostsResponse.getHostsList().length; i++) {
-                lookup[hostsResponse.getHostsList()[i].getId()?.getValue() as string] = `${hostsResponse.getHostsList()[i].getAddress()} (ID:${hostsResponse.getHostsList()[i].getId()?.getValue() as string})`
-            }
-            setState(prevState => {
-                const columns = prevState.columns
-                for (let i = 0; i < columns.length; i++) {
-                    if (columns[i].field === "hostId") {
-                        columns[i].lookup = lookup
-                    }
-                }
-                return {
-                    ...prevState, columns, loaderHost: false
-                }
-            })
-        }, (err: any) => {
-            enqueueSnackbar(`Encountered an error while retrieving parent Teams: ${err.message}. Error code: ${err.code}`, {
-                variant: Severity.Error,
-                action: SnackbarDismissButton
-            })
-        })
-
-        gRPCClients.serviceGroupClient.getAll(new GetAllRequestServiceGroup(), {}).then(serviceGroupRequest => {
-            const lookup: Record<string, string> = {}
-            for (let i = 0; i < serviceGroupRequest.getServiceGroupsList().length; i++) {
-                lookup[serviceGroupRequest.getServiceGroupsList()[i].getId()?.getValue() as string] = `${serviceGroupRequest.getServiceGroupsList()[i].getName()} (ID:${serviceGroupRequest.getServiceGroupsList()[i].getId()?.getValue() as string})`
-            }
-            setState(prevState => {
-                const columns = prevState.columns
-                for (let i = 0; i < columns.length; i++) {
-                    if (columns[i].field === "serviceGroupId") {
-                        columns[i].lookup = lookup
-                    }
-                }
-                return {...prevState, columns, loaderServiceGroup: false}
-            })
-        }, (err: any) => {
-            enqueueSnackbar(`Encountered an error while retrieving parent Teams: ${err.message}. Error code: ${err.code}`, {
-                variant: Severity.Error,
-                action: SnackbarDismissButton
-            })
-        })
-        gRPCClients.serviceClient.getAll(new GetAllRequest(), {}).then(servicesResponse => {
-            setState(prevState => {
-                return {
-                    ...prevState, data: servicesResponse.getServicesList().map((service): serviceColumns => {
-                        return serviceToServiceColumn(service)
-                    }), loaderService: false
-                }
-            })
-        }, (err: any) => {
-            enqueueSnackbar(`Encountered an error while retrieving Services: ${err.message}. Error code: ${err.code}`, {
-                variant: Severity.Error,
-                action: SnackbarDismissButton
-            })
-        })
-    }
+        ])
 
     useEffect(() => {
-        reloadSetter()
-    }, []);
+        if (serviceGroupsData) {
+            const lookup: Record<string, string> = {}
+
+            for (let i = 0; i < serviceGroupsData.length; i++) {
+                const serviceGroup = serviceGroupsData[i]
+                lookup[serviceGroup.getId()?.getValue() as string] = `${serviceGroup.getName()} (ID: ${serviceGroup.getId()?.getValue() as string}`
+            }
+
+            setColumns(prevState => {
+                for (let i = 0; i < prevState.length; i++) {
+                    const column = prevState[i]
+                    if (column.title == "Service Group ID") {
+                        column.lookup = lookup
+                    }
+                }
+
+                return prevState
+            })
+        }
+
+    }, [serviceGroupsData])
+
+    useEffect(() => {
+        if (hostsData) {
+            const lookup: Record<string, string> = {}
+
+            for (let i = 0; i < hostsData.length; i++) {
+                const host = hostsData[i]
+                lookup[host.getId()?.getValue() as string] = `${host.getAddress()} (ID: ${host.getId()?.getValue() as string}`
+            }
+
+            setColumns(prevState => {
+                for (let i = 0; i < prevState.length; i++) {
+                    const column = prevState[i]
+                    if (column.title == "Host ID") {
+                        column.lookup = lookup
+                    }
+                }
+
+                return prevState
+            })
+        }
+
+    }, [hostsData])
 
     return (
         <>
-            {!state.loaderHost && !state.loaderService && !state.loaderServiceGroup ?
-                <Box height="100%" width="100%">
+            {!servicesIsLoading && servicesIsSuccess ?
                     <MaterialTable
                         title={title}
                         actions={[
                             {
                                 icon: "flash_on", tooltip: 'test service', onClick: (event, rowData) => {
-                                    return gRPCClients.serviceClient.testService(new TestServiceRequest().setId(new UUID().setValue((rowData as serviceColumns).id as string)), {}).then((response) => { // ToDo: Implement Deadline
+                                    return gRPCClients.serviceClient.testService(new TestServiceRequest().setId(new UUID().setValue((rowData as IService).id as string)), {}).then((response) => { // ToDo: Implement Deadline
                                         if (response.getCheck()?.getPassed()?.getValue()) {
                                             enqueueSnackbar(`Check Passed. Log: ${response.getCheck()?.getLog()}.`, {variant: Severity.Success})
                                         } else {
@@ -187,8 +127,8 @@ export function ServiceMaterialTable() {
                                 }
                             }
                         ]}
-                        columns={state.columns}
-                        data={state.data}
+                        columns={columns}
+                        data={servicesData.map(serviceToIService)}
                         options={{
                             pageSizeOptions: [5, 10, 20, 50, 100, 500, 1000],
                             pageSize: 20,
@@ -199,24 +139,19 @@ export function ServiceMaterialTable() {
                                 new Promise<void>((resolve, reject) => {
                                     setTimeout(() => {
                                         const storeRequest = new StoreRequest()
-                                        const u = serviceColumnsToService(newData)
-
+                                        const u = IServiceToService(newData)
                                         storeRequest.addServices(u, 0)
-                                        gRPCClients.serviceClient.store(storeRequest, {}).then(result => {
-                                            u.setId(result.getIdsList()[0])
-                                            setState((prevState) => {
-                                                const data = [...prevState.data];
-                                                data.push(serviceToServiceColumn(u));
-                                                return {...prevState, data};
-                                            });
-                                            resolve();
-                                        }, (err: any) => {
-                                            enqueueSnackbar(`Unable to store service: ${err.message}. Error code: ${err.code}`, {
-                                                variant: Severity.Error,
-                                                action: SnackbarDismissButton
-                                            })
-                                            reject()
+
+                                        addService.mutate(storeRequest, {
+                                            onError: (error) => {
+                                                enqueueSnackbar(`Unable to store service: ${(error as grpcWeb.RpcError).message}. Error code: ${(error as grpcWeb.RpcError).code}`, {
+                                                    variant: Severity.Error,
+                                                    action: SnackbarDismissButton
+                                                })
+                                                reject()
+                                            }
                                         })
+                                        resolve()
                                     }, 600);
                                 }),
                             onRowUpdate: (newData, oldData) =>
@@ -224,22 +159,19 @@ export function ServiceMaterialTable() {
                                     setTimeout(() => {
                                         if (oldData) {
                                             const updateRequest = new UpdateRequest()
-                                            const u = serviceColumnsToService(newData)
+                                            const u = IServiceToService(newData)
                                             updateRequest.setService(u)
-                                            gRPCClients.serviceClient.update(updateRequest, {}).then(result => {
-                                                setState((prevState) => {
-                                                    const data = [...prevState.data];
-                                                    data[data.indexOf(oldData)] = newData;
-                                                    return {...prevState, data};
-                                                });
-                                                resolve();
-                                            }, (err: any) => {
-                                                enqueueSnackbar(`Unable to update service: ${err.message}. Error code: ${err.code}`, {
-                                                    variant: Severity.Error,
-                                                    action: SnackbarDismissButton
-                                                })
-                                                reject()
+
+                                            updateService.mutate(updateRequest, {
+                                                onError: (error) => {
+                                                    enqueueSnackbar(`Unable to update service: ${(error as grpcWeb.RpcError).message}. Error code: ${(error as grpcWeb.RpcError).code}`, {
+                                                        variant: Severity.Error,
+                                                        action: SnackbarDismissButton
+                                                    })
+                                                    reject()
+                                                }
                                             })
+                                            resolve()
                                         }
                                     }, 600);
                                 }),
@@ -248,29 +180,23 @@ export function ServiceMaterialTable() {
                                     setTimeout(() => {
                                         const deleteRequest = new DeleteRequest()
                                         deleteRequest.setId((new UUID().setValue(oldData.id as string)))
-                                        gRPCClients.serviceClient.delete(deleteRequest, {}).then(result => {
-                                            setState((prevState) => {
-                                                const data = [...prevState.data];
-                                                data.splice(data.indexOf(oldData), 1);
-                                                return {...prevState, data};
-                                            });
-                                            resolve();
-                                        }, (err: any) => {
-                                            enqueueSnackbar(`Unable to delete service: ${err.message}. Error code: ${err.code}`, {
-                                                variant: Severity.Error,
-                                                action: SnackbarDismissButton
-                                            })
-                                            reject()
+
+                                        deleteService.mutate(deleteRequest, {
+                                            onError: (error) => {
+                                                enqueueSnackbar(`Unable to delete service: ${(error as grpcWeb.RpcError).message}. Error code: ${(error as grpcWeb.RpcError).code}`, {
+                                                    variant: Severity.Error,
+                                                    action: SnackbarDismissButton
+                                                })
+                                                reject()
+                                            }
                                         })
+                                        resolve()
                                     }, 600);
                                 }),
                         }}
                     />
-                </Box>
                 :
-                <Box height="100%" width="100%" m="auto">
                     <CircularProgress/>
-                </Box>
             }
         </>
     );

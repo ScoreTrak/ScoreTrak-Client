@@ -21,9 +21,10 @@ import DeleteIcon from '@material-ui/icons/Delete';
 import Grid from "@material-ui/core/Grid";
 import {useSnackbar} from "notistack";
 import {SnackbarDismissButton} from "../../SnackbarDismissButton";
-import {defaultHostColumns, hostColumns, hostColumnsToHost} from "../../MaterialTables/HostMaterialTable";
 import {gRPCClients} from "../../../grpc/gRPCClients";
-import {teamToTeamColumn} from "../../MaterialTables/TeamMaterialTable";
+import {IHost} from "../../../types/material_table";
+import {defaultIHost, IHostToHost} from "../../../lib/material-table/hosts";
+import {teamToITeam} from "../../../lib/material-table/teams";
 function setProperty<T, K extends keyof T>(obj: T, key: K, value: T[K]) {
     obj[key] = value;
 }
@@ -40,7 +41,7 @@ type templateState = {
 const HostCreate = () => {
     const {enqueueSnackbar} = useSnackbar()
     const [dt, setData] = useState<{loaderTeam: boolean, loaderHostGroup: boolean, teams: Team[], hostGroups:  HostGroup [], hostGroupsTemplateState:  templateState []}>({loaderTeam: true, loaderHostGroup: true, teams: [], hostGroups: [], hostGroupsTemplateState: []})
-    const [rowsData, setRowData] = useState<Record<string, hostColumns>>({});
+    const [rowsData, setRowData] = useState<Record<string, IHost>>({});
     useEffect(() => {
         gRPCClients.teamClient.getAll(new GetAllRequestTeam(), {}).then(respTeam => {
             setData(prevState => {return {...prevState, loaderTeam: false, teams: respTeam.getTeamsList().sort((a, b) => {
@@ -61,7 +62,7 @@ const HostCreate = () => {
             setData(prevState => {
                 const hostGroupsTemplateState:  templateState[] = []
                 respHostGroup.getHostGroupsList().forEach(_ => {
-                    hostGroupsTemplateState.push({edit_hostTemplate: !!defaultHostColumns().editHost, pauseTemplate: !!defaultHostColumns().pause, hideTemplate: !!defaultHostColumns().hide})
+                    hostGroupsTemplateState.push({edit_hostTemplate: !!defaultIHost().editHost, pauseTemplate: !!defaultIHost().pause, hideTemplate: !!defaultIHost().hide})
                 })
                 return {...prevState, hostGroups: respHostGroup.getHostGroupsList(), hostGroupsTemplateState, loaderHostGroup: false}})
         }, (err: any) => {
@@ -70,12 +71,12 @@ const HostCreate = () => {
     }, []);
 
 
-    const modifyRowDataProperty = (val : valueof<hostColumns>, hostGroup: HostGroup, team: Team, hostKey: keyof hostColumns) => {
+    const modifyRowDataProperty = (val : valueof<IHost>, hostGroup: HostGroup, team: Team, hostKey: keyof IHost) => {
         setRowData(prevState => {
             const newState = {...prevState}
             const cell = `${team.getId()?.getValue()}_${hostGroup.getId()?.getValue()}`
             if (!(cell in newState)){
-                newState[cell] = defaultHostColumns()
+                newState[cell] = defaultIHost()
                 newState[cell].teamId = team.getId()?.getValue()
                 newState[cell].hostGroupId = hostGroup.getId()?.getValue()
             }
@@ -85,7 +86,7 @@ const HostCreate = () => {
     }
 
 
-    const templateModification = (hostGroupId: string, template: valueof<hostColumns>, hostProperty: keyof hostColumns) => {
+    const templateModification = (hostGroupId: string, template: valueof<IHost>, hostProperty: keyof IHost) => {
         const matched_index: string[] = []
         if (typeof template == "string")
         {
@@ -105,11 +106,11 @@ const HostCreate = () => {
                     if (dt.teams[i].getIndex()?.getValue()) {
                         const cell = `${dt.teams[i].getId()?.getValue()}_${hostGroupId}`
                         if (!(cell in newState)){
-                            newState[cell] = defaultHostColumns()
+                            newState[cell] = defaultIHost()
                             newState[cell].teamId = dt.teams[i].getId()?.getValue()
                             newState[cell].hostGroupId = hostGroupId
                         }
-                        const tmColumn = teamToTeamColumn(dt.teams[i])
+                        const tmColumn = teamToITeam(dt.teams[i])
                         setProperty(newState[cell], hostProperty, template)
                         if (typeof template == "string" && matched_index.length !== 0){
                             let templateCopy = template
@@ -138,7 +139,7 @@ const HostCreate = () => {
         Object.keys(rowsData).forEach(teamHostGrpId => {
             if (rowsData[teamHostGrpId].address !== "")
             {
-                storeRequest.addHosts(hostColumnsToHost(rowsData[teamHostGrpId]))
+                storeRequest.addHosts(IHostToHost(rowsData[teamHostGrpId]))
             } else {
                 elements_skipped = true
             }
@@ -275,7 +276,7 @@ const HostCreate = () => {
                                                                     control={
                                                                         <Switch id={`id_${column.getId()?.getValue()}_enable`}
                                                                                 checked={rowsData[cell] ? rowsData[cell].hide :
-                                                                                    defaultHostColumns().hide}
+                                                                                    defaultIHost().hide}
                                                                                 onChange={(event => {
                                                                                     const val = event.target.checked
                                                                                     modifyRowDataProperty(val, column, row, "hide")
@@ -288,7 +289,7 @@ const HostCreate = () => {
                                                                     control={
                                                                         <Switch id={`id_${column.getId()?.getValue()}_enable`}
                                                                                 checked={rowsData[cell] ? rowsData[cell].pause :
-                                                                                    defaultHostColumns().pause}
+                                                                                    defaultIHost().pause}
                                                                                 onChange={(event => {
                                                                                     const val = event.target.checked
                                                                                     modifyRowDataProperty(val, column, row, "pause")
@@ -302,7 +303,7 @@ const HostCreate = () => {
                                                                     control={
                                                                         <Switch id={`id_${column.getId()?.getValue()}_edit_host`}
                                                                                 checked={rowsData[cell] ? rowsData[cell].editHost :
-                                                                                    defaultHostColumns().editHost}
+                                                                                    defaultIHost().editHost}
                                                                                 onChange={(event => {
                                                                                     const val = event.target.checked
                                                                                     modifyRowDataProperty(val, column, row, "editHost")

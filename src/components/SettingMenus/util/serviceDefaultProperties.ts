@@ -1,14 +1,14 @@
-import {Status} from "../../MaterialTables/PropertyMaterialTable";
+import {IPropertyStatus} from "../../../types/material_table";
 
 export type availableChecks = 'WINRM' | 'SSH' | 'SMB' | 'PING' | 'LDAP' | 'IMAP' | 'HTTP' | 'DNS' | 'FTP' | 'SQL' | 'CalDav'
-export type PropertyType = Record<string, { name: string, type: 'field' | 'select', defaultStatus?: Status, defaultValue?: string, options?: string[]}>
+export type PropertyType = Record<string, { name: string, type: 'field' | 'select', defaultStatus?: IPropertyStatus, defaultValue?: string, options?: string[]}>
 export type ChecksType = Record<availableChecks, PropertyType>
 
 
 export const Checks: ChecksType = {
     WINRM: {
         Username: {name: 'Username', type: 'field', },
-        Password: {name: 'Password', type: 'field',  defaultStatus: Status.Edit},
+        Password: {name: 'Password', type: 'field',  defaultStatus: IPropertyStatus.Edit},
         Port: {name: 'Port', type: 'field', defaultValue: '5985'},
         Command: {name: 'Command', type: 'field', defaultValue: 'whoami' },
         ExpectedOutput: {name: 'Expected Output', type: 'field', },
@@ -18,7 +18,7 @@ export const Checks: ChecksType = {
 
     SSH: {
         Username: {name: 'Username', type: 'field', },
-        Password: {name: 'Password', type: 'field',  defaultStatus: Status.Edit},
+        Password: {name: 'Password', type: 'field',  defaultStatus: IPropertyStatus.Edit},
         Port: {name: 'Port', type: 'field', defaultValue: '22'},
         Command: {name: 'Command', type: 'field', defaultValue: 'whoami'},
         ExpectedOutput: {name: 'Expected Output', type: 'field', },
@@ -26,7 +26,7 @@ export const Checks: ChecksType = {
 
     SMB: {
         Username: {name: 'Username', type: 'field', },
-        Password: {name: 'Password', type: 'field',  defaultStatus: Status.Edit},
+        Password: {name: 'Password', type: 'field',  defaultStatus: IPropertyStatus.Edit},
         Domain: {name: 'Domain', type: 'field', },
         Port: {name: 'Port', type: 'field', defaultValue: '445'},
         TransportProtocol: {name: 'Transport Protocol', type: 'field', defaultValue: 'tcp'},
@@ -44,7 +44,7 @@ export const Checks: ChecksType = {
 
     LDAP: {
         Username: {name: 'Username', type: 'field', },
-        Password: {name: 'Password', type: 'field',  defaultStatus: Status.Edit},
+        Password: {name: 'Password', type: 'field',  defaultStatus: IPropertyStatus.Edit},
         Domain: {name: 'Domain', type: 'field', },
         Port: {name: 'Port', type: 'field', defaultValue: '389'},
         TransportProtocol: {name: 'Transport Protocol', type: 'field', defaultValue: 'tcp'},
@@ -56,7 +56,7 @@ export const Checks: ChecksType = {
 
     IMAP: {
         Username: {name: 'Username', type: 'field', },
-        Password: {name: 'Password', type: 'field',  defaultStatus: Status.Edit},
+        Password: {name: 'Password', type: 'field',  defaultStatus: IPropertyStatus.Edit},
         Port: {name: 'Port', type: 'field', defaultValue: '143'},
         Scheme: {name: 'Scheme', type: 'select', defaultValue: 'imap', options: ["imap", "tls"]},
     },
@@ -71,7 +71,7 @@ export const Checks: ChecksType = {
 
     FTP: {
         Username: {name: 'Username', type: 'field', },
-        Password: {name: 'Password', type: 'field',  defaultStatus: Status.Edit},
+        Password: {name: 'Password', type: 'field',  defaultStatus: IPropertyStatus.Edit},
         Port: {name: 'Port', type: 'field', defaultValue: '21'},
         Text: {name: 'Text', type: 'field', },
         ReadFilename: {name: 'Read File Name', type: 'field', },
@@ -86,7 +86,7 @@ export const Checks: ChecksType = {
 
     SQL: {
         Username: {name: 'Username', type: 'field'},
-        Password: {name: 'Password', type: 'field',  defaultStatus: Status.Edit},
+        Password: {name: 'Password', type: 'field',  defaultStatus: IPropertyStatus.Edit},
         Port: {name: 'Port', type: 'field', defaultValue: '3306'},
         DBType: {name: 'Database Type', type: 'select', options: ["mysql", "postgres"]},
         DBName: {name: 'Database Name', type: 'field'},
@@ -97,7 +97,7 @@ export const Checks: ChecksType = {
 
     CalDav: {
         Username: {name: 'Username', type: 'field'},
-        Password: {name: 'Password', type: 'field',  defaultStatus: Status.Edit},
+        Password: {name: 'Password', type: 'field',  defaultStatus: IPropertyStatus.Edit},
         Port: {name: 'Port', type: 'field', defaultValue: '80'},
         ExpectedOutput: {name: 'Expected Output', type: 'field', },
         Scheme: {name: 'Scheme', type: 'select', defaultValue: 'http', options: ["http", "https"]},

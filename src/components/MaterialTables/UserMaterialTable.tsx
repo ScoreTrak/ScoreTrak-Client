@@ -16,6 +16,11 @@ import {CircularProgress} from "@material-ui/core";
 import {useSnackbar} from "notistack";
 import {SnackbarDismissButton} from "../SnackbarDismissButton";
 import {gRPCClients} from "../../grpc/gRPCClients";
+import {IHost, IUser} from "../../types/material_table";
+import {useAddUserMutation, useDeleteUserMutation, useUpdateUserMutation, useUsersQuery} from "../../lib/queries/users";
+import {useTeamsQuery} from "../../lib/queries/teams";
+import {IUserToUser, userToIUser} from "../../lib/material-table/users";
+import grpcWeb from "grpc-web";
 
 type userColumns = {
     id: string | undefined
@@ -65,7 +70,15 @@ function RoleToProtoRole (role : Role | undefined): ProtoRole {
 export default function UserMaterialTable() {
     const title = "Users"
     const { enqueueSnackbar } = useSnackbar()
-    const columns :Array<Column<userColumns>> =
+
+    const { data: usersData, isLoading: usersIsLoading, isSuccess: usersIsSuccess } = useUsersQuery()
+    const { data: teamsData, isLoading: teamsIsLoading, isSuccess: teamsIsSuccess } = useTeamsQuery()
+
+    const addUser = useAddUserMutation()
+    const updateUser = useUpdateUserMutation()
+    const deleteUser = useDeleteUserMutation()
+
+    const [columns, setColumns] = useState<Column<IUser>[]>(
         [
             { title: 'ID (optional)', field: 'id', editable: 'onAdd' as const},
             { title: 'Username', field: 'username' },
@@ -73,50 +86,38 @@ export default function UserMaterialTable() {
             { title: 'Password Hash', field: 'passwordHash', editable: 'never' as const},
             { title: 'Team ID', field: 'teamId' },
             { title: 'Role', field: 'role', lookup: { [Role.Black]: Role.Black, [Role.Blue]: Role.Blue, [Role.Red]: Role.Red }},
-        ]
-    const [state, setState] = useState<{columns: any[], loaderHost: boolean, loaderUser: boolean, data: userColumns[]}>({
-        columns,
-        loaderHost: true,
-        loaderUser: true,
-        data: []
-    });
+        ])
 
-    function reloadSetter() {
-        const lookup: Record<string, string> = {}
-        gRPCClients.teamClient.getAll(new GetAllRequestTeam(), {}).then(teamsResponse => {
-            for (let i = 0; i < teamsResponse.getTeamsList().length; i++){
-                lookup[teamsResponse.getTeamsList()[i].getId()?.getValue() as string] = `${teamsResponse.getTeamsList()[i].getName()} (ID:${teamsResponse.getTeamsList()[i].getId()?.getValue() as string})`
+    useEffect(() => {
+        if (teamsData) {
+            const lookup: Record<string, string> = {}
+
+            for (let i = 0; i < teamsData.length; i++) {
+                const team = teamsData[i]
+                lookup[team.getId()?.getValue() as string] = `${team.getName()} (ID: ${team.getId()?.getValue() as string}`
             }
-            setState(prevState => {
-                const columns = prevState.columns
-                for (let i = 0; i < columns.length; i++){
-                    if (columns[i].field === "teamId"){
-                        columns[i].lookup = lookup
+
+            setColumns(prevState => {
+                for (let i = 0; i < prevState.length; i++) {
+                    const column = prevState[i]
+                    if (column.title == "Team ID") {
+                        column.lookup = lookup
                     }
                 }
-                return{...prevState, columns, loaderHost: false
-            }})
-        }, (err: any) => {
-            enqueueSnackbar(`Encountered an error while retrieving parent Teams: ${err.message}. Error code: ${err.code}`, { variant: Severity.Error, action: SnackbarDismissButton })
-        })
-        gRPCClients.userClient.getAll(new GetAllRequestUser(), {}).then(usersResponse => {
-            setState(prevState => {return{...prevState, data: usersResponse.getUsersList().map((user): userColumns => {
-                return userToUserColumn(user)}), loaderUser: false}})}, (err: any) => {
-            enqueueSnackbar(`Encountered an error while retrieving Users: ${err.message}. Error code: ${err.code}`, { variant: Severity.Error, action: SnackbarDismissButton })
-        })
-    }
-    useEffect(() => {
-        reloadSetter()
-    }, []);
+
+                return prevState
+            })
+        }
+
+    }, [teamsData])
 
     return (
         <>
-            {!state.loaderUser && !state.loaderHost ?
-                <Box height="100%" width="100%" >
+            {!usersIsLoading && usersIsSuccess ?
                     <MaterialTable
                         title={title}
-                        columns={state.columns}
-                        data={state.data}
+                        columns={columns}
+                        data={usersData.map(userToIUser)}
                         options={{pageSizeOptions: [5, 10, 20, 50, 100, 500, 1000], pageSize: 20, emptyRowsWhenPaging: false}}
                         editable={{
                             onRowAdd: (newData) =>
@@ -124,20 +125,16 @@ export default function UserMaterialTable() {
                                     setTimeout(() => {
                                         const storeRequest = new StoreRequest()
                                         // https://github.com/protocolbuffers/protobuf/issues/1591
-                                        const u = userColumnsToUser(newData)
+                                        const u = IUserToUser(newData)
                                         storeRequest.addUsers(u, 0)
-                                        gRPCClients.userClient.store(storeRequest, {}).then(result => {
-                                            u.setId(result.getIdsList()[0])
-                                            setState((prevState) => {
-                                                const data = [...prevState.data];
-                                                data.push(userToUserColumn(u));
-                                                return { ...prevState, data };
-                                            });
-                                            resolve();
-                                        }, (err: any) => {
-                                            enqueueSnackbar(`Unable to store user: ${err.message}. Error code: ${err.code}`, { variant: Severity.Error, action: SnackbarDismissButton })
-                                            reject()
+
+                                        addUser.mutate(storeRequest, {
+                                            onError: (error) => {
+                                                enqueueSnackbar(`Unable to store user: ${(error as grpcWeb.RpcError).message}. Error code: ${(error as grpcWeb.RpcError).code}`, { variant: Severity.Error, action: SnackbarDismissButton })
+                                                reject()
+                                            }
                                         })
+                                        resolve()
                                     }, 600);
                                 }),
                             onRowUpdate: (newData, oldData) =>
@@ -145,18 +142,14 @@ export default function UserMaterialTable() {
                                     setTimeout(() => {
                                         if (oldData){
                                             const updateRequest = new UpdateRequest()
-                                            const u = userColumnsToUser(newData)
+                                            const u = IUserToUser(newData)
                                             updateRequest.setUser(u)
-                                            gRPCClients.userClient.update(updateRequest, {}).then(result => {
-                                                setState((prevState) => {
-                                                    const data = [...prevState.data];
-                                                    data[data.indexOf(oldData)] = newData;
-                                                    return { ...prevState, data };
-                                                });
-                                                resolve();
-                                            }, (err: any) => {
-                                                enqueueSnackbar(`Unable to update user: ${err.message}. Error code: ${err.code}`, { variant: Severity.Error, action: SnackbarDismissButton })
-                                                reject()
+
+                                            updateUser.mutate(updateRequest, {
+                                                onError: (error) => {
+                                                    enqueueSnackbar(`Unable to update user: ${(error as grpcWeb.RpcError).message}. Error code: ${(error as grpcWeb.RpcError).code}`, { variant: Severity.Error, action: SnackbarDismissButton })
+                                                    reject()
+                                                }
                                             })
                                         }
                                     }, 600);
@@ -166,26 +159,19 @@ export default function UserMaterialTable() {
                                     setTimeout(() => {
                                         const deleteRequest = new DeleteRequest()
                                         deleteRequest.setId((new UUID().setValue(oldData.id as string)))
-                                        gRPCClients.userClient.delete(deleteRequest, {}).then(result => {
-                                            setState((prevState) => {
-                                                const data = [...prevState.data];
-                                                data.splice(data.indexOf(oldData), 1);
-                                                return { ...prevState, data };
-                                            });
-                                            resolve();
-                                        }, (err: any) => {
-                                            enqueueSnackbar(`Unable to delete user: ${err.message}. Error code: ${err.code}`, { variant: Severity.Error, action: SnackbarDismissButton })
-                                            reject()
+
+                                        deleteUser.mutate(deleteRequest, {
+                                            onError: (error) => {
+                                                enqueueSnackbar(`Unable to delete user: ${(error as grpcWeb.RpcError).message}. Error code: ${(error as grpcWeb.RpcError).code}`, { variant: Severity.Error, action: SnackbarDismissButton })
+                                                reject()
+                                            }
                                         })
                                     }, 600);
                                 }),
                         }}
                     />
-                </Box>
                 :
-                <Box height="100%" width="100%" m="auto">
                     <CircularProgress  />
-                </Box>
             }
         </>
     );
