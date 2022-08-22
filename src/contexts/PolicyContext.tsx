@@ -36,7 +36,7 @@ export function PolicyProvider({ children }) {
             if (err.code === 7 || err.code === 16){
                 enqueueSnackbar(`You are not authorized to perform this action. Please Log in`, { variant: Severity.Error, action: SnackbarDismissButton } )
                 token.logout()
-                navigate("/login");
+                navigate("/auth/login");
             } else {
                 enqueueSnackbar(`Encountered an error while fetching policy: ${err.message}. Error code: ${err.code}`, { variant: Severity.Error, action: SnackbarDismissButton })
             }
