@@ -30,7 +30,7 @@ export function CustomRow(props: CustomRowProps) {
   const classes = useRowStyles();
   return (
     <>
-      <TableRow className={classes.root}>
+      <TableRow key={row.team_id} className={classes.root}>
         <TableCell>
           <IconButton
             aria-label="expand row"

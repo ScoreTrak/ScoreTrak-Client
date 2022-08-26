@@ -256,9 +256,6 @@ export default function SingleTeamDetails(props: CustomSingleTeamDetailsProps) {
               currentHost.Services[service_id].Pause;
             return (
               <Accordion
-                TransitionProps={{
-                  timeout: 700,
-                }}
                 expanded={expanded === keyName}
                 onChange={handleChange(keyName)}
                 className={
@@ -268,6 +265,7 @@ export default function SingleTeamDetails(props: CustomSingleTeamDetailsProps) {
                       : classes.customAccordionErrorHeader
                     : classes.customAccordionWarningHeader
                 }
+                key={service_id}
               >
                 <AccordionSummary
                   expandIcon={<ExpandMoreIcon />}
