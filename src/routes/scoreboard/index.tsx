@@ -138,7 +138,9 @@ export default function Scoreboard() {
   const dataKeysArray = Array.from(dataKeys);
   const teamNames = Array.from(teamNamesSet);
   dataKeysArray.sort();
-  teamNames.sort();
+
+  const collator = new Intl.Collator([], {numeric: true});
+  teamNames.sort((a, b) => collator.compare(a, b));
 
   return (
     <>
