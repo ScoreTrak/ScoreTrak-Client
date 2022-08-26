@@ -6,28 +6,27 @@
 
 // GENERATED CODE -- DO NOT EDIT!
 
-
 /* eslint-disable */
 // @ts-nocheck
 
+import * as grpcWeb from "grpc-web";
 
-import * as grpcWeb from 'grpc-web';
-
-import * as scoretrak_service_v1_service_pb from '../../../scoretrak/service/v1/service_pb';
-
+import * as scoretrak_service_v1_service_pb from "../../../scoretrak/service/v1/service_pb";
 
 export class ServiceServiceClient {
   client_: grpcWeb.AbstractClientBase;
   hostname_: string;
-  credentials_: null | { [index: string]: string; };
-  options_: null | { [index: string]: any; };
+  credentials_: null | { [index: string]: string };
+  options_: null | { [index: string]: any };
 
-  constructor (hostname: string,
-               credentials?: null | { [index: string]: string; },
-               options?: null | { [index: string]: any; }) {
+  constructor(
+    hostname: string,
+    credentials?: null | { [index: string]: string },
+    options?: null | { [index: string]: any }
+  ) {
     if (!options) options = {};
     if (!credentials) credentials = {};
-    options['format'] = 'text';
+    options["format"] = "text";
 
     this.client_ = new grpcWeb.GrpcWebClientBase(options);
     this.hostname_ = hostname;
@@ -36,7 +35,7 @@ export class ServiceServiceClient {
   }
 
   methodDescriptorGetAll = new grpcWeb.MethodDescriptor(
-    '/scoretrak.service.v1.ServiceService/GetAll',
+    "/scoretrak.service.v1.ServiceService/GetAll",
     grpcWeb.MethodType.UNARY,
     scoretrak_service_v1_service_pb.GetAllRequest,
     scoretrak_service_v1_service_pb.GetAllResponse,
@@ -48,38 +47,45 @@ export class ServiceServiceClient {
 
   getAll(
     request: scoretrak_service_v1_service_pb.GetAllRequest,
-    metadata: grpcWeb.Metadata | null): Promise<scoretrak_service_v1_service_pb.GetAllResponse>;
+    metadata: grpcWeb.Metadata | null
+  ): Promise<scoretrak_service_v1_service_pb.GetAllResponse>;
 
   getAll(
     request: scoretrak_service_v1_service_pb.GetAllRequest,
     metadata: grpcWeb.Metadata | null,
-    callback: (err: grpcWeb.RpcError,
-               response: scoretrak_service_v1_service_pb.GetAllResponse) => void): grpcWeb.ClientReadableStream<scoretrak_service_v1_service_pb.GetAllResponse>;
+    callback: (
+      err: grpcWeb.RpcError,
+      response: scoretrak_service_v1_service_pb.GetAllResponse
+    ) => void
+  ): grpcWeb.ClientReadableStream<scoretrak_service_v1_service_pb.GetAllResponse>;
 
   getAll(
     request: scoretrak_service_v1_service_pb.GetAllRequest,
     metadata: grpcWeb.Metadata | null,
-    callback?: (err: grpcWeb.RpcError,
-               response: scoretrak_service_v1_service_pb.GetAllResponse) => void) {
+    callback?: (
+      err: grpcWeb.RpcError,
+      response: scoretrak_service_v1_service_pb.GetAllResponse
+    ) => void
+  ) {
     if (callback !== undefined) {
       return this.client_.rpcCall(
-        this.hostname_ +
-          '/scoretrak.service.v1.ServiceService/GetAll',
+        this.hostname_ + "/scoretrak.service.v1.ServiceService/GetAll",
         request,
         metadata || {},
         this.methodDescriptorGetAll,
-        callback);
+        callback
+      );
     }
     return this.client_.unaryCall(
-    this.hostname_ +
-      '/scoretrak.service.v1.ServiceService/GetAll',
-    request,
-    metadata || {},
-    this.methodDescriptorGetAll);
+      this.hostname_ + "/scoretrak.service.v1.ServiceService/GetAll",
+      request,
+      metadata || {},
+      this.methodDescriptorGetAll
+    );
   }
 
   methodDescriptorGetByID = new grpcWeb.MethodDescriptor(
-    '/scoretrak.service.v1.ServiceService/GetByID',
+    "/scoretrak.service.v1.ServiceService/GetByID",
     grpcWeb.MethodType.UNARY,
     scoretrak_service_v1_service_pb.GetByIDRequest,
     scoretrak_service_v1_service_pb.GetByIDResponse,
@@ -91,38 +97,45 @@ export class ServiceServiceClient {
 
   getByID(
     request: scoretrak_service_v1_service_pb.GetByIDRequest,
-    metadata: grpcWeb.Metadata | null): Promise<scoretrak_service_v1_service_pb.GetByIDResponse>;
+    metadata: grpcWeb.Metadata | null
+  ): Promise<scoretrak_service_v1_service_pb.GetByIDResponse>;
 
   getByID(
     request: scoretrak_service_v1_service_pb.GetByIDRequest,
     metadata: grpcWeb.Metadata | null,
-    callback: (err: grpcWeb.RpcError,
-               response: scoretrak_service_v1_service_pb.GetByIDResponse) => void): grpcWeb.ClientReadableStream<scoretrak_service_v1_service_pb.GetByIDResponse>;
+    callback: (
+      err: grpcWeb.RpcError,
+      response: scoretrak_service_v1_service_pb.GetByIDResponse
+    ) => void
+  ): grpcWeb.ClientReadableStream<scoretrak_service_v1_service_pb.GetByIDResponse>;
 
   getByID(
     request: scoretrak_service_v1_service_pb.GetByIDRequest,
     metadata: grpcWeb.Metadata | null,
-    callback?: (err: grpcWeb.RpcError,
-               response: scoretrak_service_v1_service_pb.GetByIDResponse) => void) {
+    callback?: (
+      err: grpcWeb.RpcError,
+      response: scoretrak_service_v1_service_pb.GetByIDResponse
+    ) => void
+  ) {
     if (callback !== undefined) {
       return this.client_.rpcCall(
-        this.hostname_ +
-          '/scoretrak.service.v1.ServiceService/GetByID',
+        this.hostname_ + "/scoretrak.service.v1.ServiceService/GetByID",
         request,
         metadata || {},
         this.methodDescriptorGetByID,
-        callback);
+        callback
+      );
     }
     return this.client_.unaryCall(
-    this.hostname_ +
-      '/scoretrak.service.v1.ServiceService/GetByID',
-    request,
-    metadata || {},
-    this.methodDescriptorGetByID);
+      this.hostname_ + "/scoretrak.service.v1.ServiceService/GetByID",
+      request,
+      metadata || {},
+      this.methodDescriptorGetByID
+    );
   }
 
   methodDescriptorDelete = new grpcWeb.MethodDescriptor(
-    '/scoretrak.service.v1.ServiceService/Delete',
+    "/scoretrak.service.v1.ServiceService/Delete",
     grpcWeb.MethodType.UNARY,
     scoretrak_service_v1_service_pb.DeleteRequest,
     scoretrak_service_v1_service_pb.DeleteResponse,
@@ -134,38 +147,45 @@ export class ServiceServiceClient {
 
   delete(
     request: scoretrak_service_v1_service_pb.DeleteRequest,
-    metadata: grpcWeb.Metadata | null): Promise<scoretrak_service_v1_service_pb.DeleteResponse>;
+    metadata: grpcWeb.Metadata | null
+  ): Promise<scoretrak_service_v1_service_pb.DeleteResponse>;
 
   delete(
     request: scoretrak_service_v1_service_pb.DeleteRequest,
     metadata: grpcWeb.Metadata | null,
-    callback: (err: grpcWeb.RpcError,
-               response: scoretrak_service_v1_service_pb.DeleteResponse) => void): grpcWeb.ClientReadableStream<scoretrak_service_v1_service_pb.DeleteResponse>;
+    callback: (
+      err: grpcWeb.RpcError,
+      response: scoretrak_service_v1_service_pb.DeleteResponse
+    ) => void
+  ): grpcWeb.ClientReadableStream<scoretrak_service_v1_service_pb.DeleteResponse>;
 
   delete(
     request: scoretrak_service_v1_service_pb.DeleteRequest,
     metadata: grpcWeb.Metadata | null,
-    callback?: (err: grpcWeb.RpcError,
-               response: scoretrak_service_v1_service_pb.DeleteResponse) => void) {
+    callback?: (
+      err: grpcWeb.RpcError,
+      response: scoretrak_service_v1_service_pb.DeleteResponse
+    ) => void
+  ) {
     if (callback !== undefined) {
       return this.client_.rpcCall(
-        this.hostname_ +
-          '/scoretrak.service.v1.ServiceService/Delete',
+        this.hostname_ + "/scoretrak.service.v1.ServiceService/Delete",
         request,
         metadata || {},
         this.methodDescriptorDelete,
-        callback);
+        callback
+      );
     }
     return this.client_.unaryCall(
-    this.hostname_ +
-      '/scoretrak.service.v1.ServiceService/Delete',
-    request,
-    metadata || {},
-    this.methodDescriptorDelete);
+      this.hostname_ + "/scoretrak.service.v1.ServiceService/Delete",
+      request,
+      metadata || {},
+      this.methodDescriptorDelete
+    );
   }
 
   methodDescriptorStore = new grpcWeb.MethodDescriptor(
-    '/scoretrak.service.v1.ServiceService/Store',
+    "/scoretrak.service.v1.ServiceService/Store",
     grpcWeb.MethodType.UNARY,
     scoretrak_service_v1_service_pb.StoreRequest,
     scoretrak_service_v1_service_pb.StoreResponse,
@@ -177,38 +197,45 @@ export class ServiceServiceClient {
 
   store(
     request: scoretrak_service_v1_service_pb.StoreRequest,
-    metadata: grpcWeb.Metadata | null): Promise<scoretrak_service_v1_service_pb.StoreResponse>;
+    metadata: grpcWeb.Metadata | null
+  ): Promise<scoretrak_service_v1_service_pb.StoreResponse>;
 
   store(
     request: scoretrak_service_v1_service_pb.StoreRequest,
     metadata: grpcWeb.Metadata | null,
-    callback: (err: grpcWeb.RpcError,
-               response: scoretrak_service_v1_service_pb.StoreResponse) => void): grpcWeb.ClientReadableStream<scoretrak_service_v1_service_pb.StoreResponse>;
+    callback: (
+      err: grpcWeb.RpcError,
+      response: scoretrak_service_v1_service_pb.StoreResponse
+    ) => void
+  ): grpcWeb.ClientReadableStream<scoretrak_service_v1_service_pb.StoreResponse>;
 
   store(
     request: scoretrak_service_v1_service_pb.StoreRequest,
     metadata: grpcWeb.Metadata | null,
-    callback?: (err: grpcWeb.RpcError,
-               response: scoretrak_service_v1_service_pb.StoreResponse) => void) {
+    callback?: (
+      err: grpcWeb.RpcError,
+      response: scoretrak_service_v1_service_pb.StoreResponse
+    ) => void
+  ) {
     if (callback !== undefined) {
       return this.client_.rpcCall(
-        this.hostname_ +
-          '/scoretrak.service.v1.ServiceService/Store',
+        this.hostname_ + "/scoretrak.service.v1.ServiceService/Store",
         request,
         metadata || {},
         this.methodDescriptorStore,
-        callback);
+        callback
+      );
     }
     return this.client_.unaryCall(
-    this.hostname_ +
-      '/scoretrak.service.v1.ServiceService/Store',
-    request,
-    metadata || {},
-    this.methodDescriptorStore);
+      this.hostname_ + "/scoretrak.service.v1.ServiceService/Store",
+      request,
+      metadata || {},
+      this.methodDescriptorStore
+    );
   }
 
   methodDescriptorUpdate = new grpcWeb.MethodDescriptor(
-    '/scoretrak.service.v1.ServiceService/Update',
+    "/scoretrak.service.v1.ServiceService/Update",
     grpcWeb.MethodType.UNARY,
     scoretrak_service_v1_service_pb.UpdateRequest,
     scoretrak_service_v1_service_pb.UpdateResponse,
@@ -220,38 +247,45 @@ export class ServiceServiceClient {
 
   update(
     request: scoretrak_service_v1_service_pb.UpdateRequest,
-    metadata: grpcWeb.Metadata | null): Promise<scoretrak_service_v1_service_pb.UpdateResponse>;
+    metadata: grpcWeb.Metadata | null
+  ): Promise<scoretrak_service_v1_service_pb.UpdateResponse>;
 
   update(
     request: scoretrak_service_v1_service_pb.UpdateRequest,
     metadata: grpcWeb.Metadata | null,
-    callback: (err: grpcWeb.RpcError,
-               response: scoretrak_service_v1_service_pb.UpdateResponse) => void): grpcWeb.ClientReadableStream<scoretrak_service_v1_service_pb.UpdateResponse>;
+    callback: (
+      err: grpcWeb.RpcError,
+      response: scoretrak_service_v1_service_pb.UpdateResponse
+    ) => void
+  ): grpcWeb.ClientReadableStream<scoretrak_service_v1_service_pb.UpdateResponse>;
 
   update(
     request: scoretrak_service_v1_service_pb.UpdateRequest,
     metadata: grpcWeb.Metadata | null,
-    callback?: (err: grpcWeb.RpcError,
-               response: scoretrak_service_v1_service_pb.UpdateResponse) => void) {
+    callback?: (
+      err: grpcWeb.RpcError,
+      response: scoretrak_service_v1_service_pb.UpdateResponse
+    ) => void
+  ) {
     if (callback !== undefined) {
       return this.client_.rpcCall(
-        this.hostname_ +
-          '/scoretrak.service.v1.ServiceService/Update',
+        this.hostname_ + "/scoretrak.service.v1.ServiceService/Update",
         request,
         metadata || {},
         this.methodDescriptorUpdate,
-        callback);
+        callback
+      );
     }
     return this.client_.unaryCall(
-    this.hostname_ +
-      '/scoretrak.service.v1.ServiceService/Update',
-    request,
-    metadata || {},
-    this.methodDescriptorUpdate);
+      this.hostname_ + "/scoretrak.service.v1.ServiceService/Update",
+      request,
+      metadata || {},
+      this.methodDescriptorUpdate
+    );
   }
 
   methodDescriptorTestService = new grpcWeb.MethodDescriptor(
-    '/scoretrak.service.v1.ServiceService/TestService',
+    "/scoretrak.service.v1.ServiceService/TestService",
     grpcWeb.MethodType.UNARY,
     scoretrak_service_v1_service_pb.TestServiceRequest,
     scoretrak_service_v1_service_pb.TestServiceResponse,
@@ -263,35 +297,40 @@ export class ServiceServiceClient {
 
   testService(
     request: scoretrak_service_v1_service_pb.TestServiceRequest,
-    metadata: grpcWeb.Metadata | null): Promise<scoretrak_service_v1_service_pb.TestServiceResponse>;
+    metadata: grpcWeb.Metadata | null
+  ): Promise<scoretrak_service_v1_service_pb.TestServiceResponse>;
 
   testService(
     request: scoretrak_service_v1_service_pb.TestServiceRequest,
     metadata: grpcWeb.Metadata | null,
-    callback: (err: grpcWeb.RpcError,
-               response: scoretrak_service_v1_service_pb.TestServiceResponse) => void): grpcWeb.ClientReadableStream<scoretrak_service_v1_service_pb.TestServiceResponse>;
+    callback: (
+      err: grpcWeb.RpcError,
+      response: scoretrak_service_v1_service_pb.TestServiceResponse
+    ) => void
+  ): grpcWeb.ClientReadableStream<scoretrak_service_v1_service_pb.TestServiceResponse>;
 
   testService(
     request: scoretrak_service_v1_service_pb.TestServiceRequest,
     metadata: grpcWeb.Metadata | null,
-    callback?: (err: grpcWeb.RpcError,
-               response: scoretrak_service_v1_service_pb.TestServiceResponse) => void) {
+    callback?: (
+      err: grpcWeb.RpcError,
+      response: scoretrak_service_v1_service_pb.TestServiceResponse
+    ) => void
+  ) {
     if (callback !== undefined) {
       return this.client_.rpcCall(
-        this.hostname_ +
-          '/scoretrak.service.v1.ServiceService/TestService',
+        this.hostname_ + "/scoretrak.service.v1.ServiceService/TestService",
         request,
         metadata || {},
         this.methodDescriptorTestService,
-        callback);
+        callback
+      );
     }
     return this.client_.unaryCall(
-    this.hostname_ +
-      '/scoretrak.service.v1.ServiceService/TestService',
-    request,
-    metadata || {},
-    this.methodDescriptorTestService);
+      this.hostname_ + "/scoretrak.service.v1.ServiceService/TestService",
+      request,
+      metadata || {},
+      this.methodDescriptorTestService
+    );
   }
-
 }
-

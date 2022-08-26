@@ -6,28 +6,27 @@
 
 // GENERATED CODE -- DO NOT EDIT!
 
-
 /* eslint-disable */
 // @ts-nocheck
 
+import * as grpcWeb from "grpc-web";
 
-import * as grpcWeb from 'grpc-web';
-
-import * as scoretrak_check_v1_check_pb from '../../../scoretrak/check/v1/check_pb';
-
+import * as scoretrak_check_v1_check_pb from "../../../scoretrak/check/v1/check_pb";
 
 export class CheckServiceClient {
   client_: grpcWeb.AbstractClientBase;
   hostname_: string;
-  credentials_: null | { [index: string]: string; };
-  options_: null | { [index: string]: any; };
+  credentials_: null | { [index: string]: string };
+  options_: null | { [index: string]: any };
 
-  constructor (hostname: string,
-               credentials?: null | { [index: string]: string; },
-               options?: null | { [index: string]: any; }) {
+  constructor(
+    hostname: string,
+    credentials?: null | { [index: string]: string },
+    options?: null | { [index: string]: any }
+  ) {
     if (!options) options = {};
     if (!credentials) credentials = {};
-    options['format'] = 'text';
+    options["format"] = "text";
 
     this.client_ = new grpcWeb.GrpcWebClientBase(options);
     this.hostname_ = hostname;
@@ -36,7 +35,7 @@ export class CheckServiceClient {
   }
 
   methodDescriptorGetAllByRoundID = new grpcWeb.MethodDescriptor(
-    '/scoretrak.check.v1.CheckService/GetAllByRoundID',
+    "/scoretrak.check.v1.CheckService/GetAllByRoundID",
     grpcWeb.MethodType.UNARY,
     scoretrak_check_v1_check_pb.GetAllByRoundIDRequest,
     scoretrak_check_v1_check_pb.GetAllByRoundIDResponse,
@@ -48,38 +47,45 @@ export class CheckServiceClient {
 
   getAllByRoundID(
     request: scoretrak_check_v1_check_pb.GetAllByRoundIDRequest,
-    metadata: grpcWeb.Metadata | null): Promise<scoretrak_check_v1_check_pb.GetAllByRoundIDResponse>;
+    metadata: grpcWeb.Metadata | null
+  ): Promise<scoretrak_check_v1_check_pb.GetAllByRoundIDResponse>;
 
   getAllByRoundID(
     request: scoretrak_check_v1_check_pb.GetAllByRoundIDRequest,
     metadata: grpcWeb.Metadata | null,
-    callback: (err: grpcWeb.RpcError,
-               response: scoretrak_check_v1_check_pb.GetAllByRoundIDResponse) => void): grpcWeb.ClientReadableStream<scoretrak_check_v1_check_pb.GetAllByRoundIDResponse>;
+    callback: (
+      err: grpcWeb.RpcError,
+      response: scoretrak_check_v1_check_pb.GetAllByRoundIDResponse
+    ) => void
+  ): grpcWeb.ClientReadableStream<scoretrak_check_v1_check_pb.GetAllByRoundIDResponse>;
 
   getAllByRoundID(
     request: scoretrak_check_v1_check_pb.GetAllByRoundIDRequest,
     metadata: grpcWeb.Metadata | null,
-    callback?: (err: grpcWeb.RpcError,
-               response: scoretrak_check_v1_check_pb.GetAllByRoundIDResponse) => void) {
+    callback?: (
+      err: grpcWeb.RpcError,
+      response: scoretrak_check_v1_check_pb.GetAllByRoundIDResponse
+    ) => void
+  ) {
     if (callback !== undefined) {
       return this.client_.rpcCall(
-        this.hostname_ +
-          '/scoretrak.check.v1.CheckService/GetAllByRoundID',
+        this.hostname_ + "/scoretrak.check.v1.CheckService/GetAllByRoundID",
         request,
         metadata || {},
         this.methodDescriptorGetAllByRoundID,
-        callback);
+        callback
+      );
     }
     return this.client_.unaryCall(
-    this.hostname_ +
-      '/scoretrak.check.v1.CheckService/GetAllByRoundID',
-    request,
-    metadata || {},
-    this.methodDescriptorGetAllByRoundID);
+      this.hostname_ + "/scoretrak.check.v1.CheckService/GetAllByRoundID",
+      request,
+      metadata || {},
+      this.methodDescriptorGetAllByRoundID
+    );
   }
 
   methodDescriptorGetByRoundServiceID = new grpcWeb.MethodDescriptor(
-    '/scoretrak.check.v1.CheckService/GetByRoundServiceID',
+    "/scoretrak.check.v1.CheckService/GetByRoundServiceID",
     grpcWeb.MethodType.UNARY,
     scoretrak_check_v1_check_pb.GetByRoundServiceIDRequest,
     scoretrak_check_v1_check_pb.GetByRoundServiceIDResponse,
@@ -91,38 +97,45 @@ export class CheckServiceClient {
 
   getByRoundServiceID(
     request: scoretrak_check_v1_check_pb.GetByRoundServiceIDRequest,
-    metadata: grpcWeb.Metadata | null): Promise<scoretrak_check_v1_check_pb.GetByRoundServiceIDResponse>;
+    metadata: grpcWeb.Metadata | null
+  ): Promise<scoretrak_check_v1_check_pb.GetByRoundServiceIDResponse>;
 
   getByRoundServiceID(
     request: scoretrak_check_v1_check_pb.GetByRoundServiceIDRequest,
     metadata: grpcWeb.Metadata | null,
-    callback: (err: grpcWeb.RpcError,
-               response: scoretrak_check_v1_check_pb.GetByRoundServiceIDResponse) => void): grpcWeb.ClientReadableStream<scoretrak_check_v1_check_pb.GetByRoundServiceIDResponse>;
+    callback: (
+      err: grpcWeb.RpcError,
+      response: scoretrak_check_v1_check_pb.GetByRoundServiceIDResponse
+    ) => void
+  ): grpcWeb.ClientReadableStream<scoretrak_check_v1_check_pb.GetByRoundServiceIDResponse>;
 
   getByRoundServiceID(
     request: scoretrak_check_v1_check_pb.GetByRoundServiceIDRequest,
     metadata: grpcWeb.Metadata | null,
-    callback?: (err: grpcWeb.RpcError,
-               response: scoretrak_check_v1_check_pb.GetByRoundServiceIDResponse) => void) {
+    callback?: (
+      err: grpcWeb.RpcError,
+      response: scoretrak_check_v1_check_pb.GetByRoundServiceIDResponse
+    ) => void
+  ) {
     if (callback !== undefined) {
       return this.client_.rpcCall(
-        this.hostname_ +
-          '/scoretrak.check.v1.CheckService/GetByRoundServiceID',
+        this.hostname_ + "/scoretrak.check.v1.CheckService/GetByRoundServiceID",
         request,
         metadata || {},
         this.methodDescriptorGetByRoundServiceID,
-        callback);
+        callback
+      );
     }
     return this.client_.unaryCall(
-    this.hostname_ +
-      '/scoretrak.check.v1.CheckService/GetByRoundServiceID',
-    request,
-    metadata || {},
-    this.methodDescriptorGetByRoundServiceID);
+      this.hostname_ + "/scoretrak.check.v1.CheckService/GetByRoundServiceID",
+      request,
+      metadata || {},
+      this.methodDescriptorGetByRoundServiceID
+    );
   }
 
   methodDescriptorGetAllByServiceID = new grpcWeb.MethodDescriptor(
-    '/scoretrak.check.v1.CheckService/GetAllByServiceID',
+    "/scoretrak.check.v1.CheckService/GetAllByServiceID",
     grpcWeb.MethodType.UNARY,
     scoretrak_check_v1_check_pb.GetAllByServiceIDRequest,
     scoretrak_check_v1_check_pb.GetAllByServiceIDResponse,
@@ -134,35 +147,40 @@ export class CheckServiceClient {
 
   getAllByServiceID(
     request: scoretrak_check_v1_check_pb.GetAllByServiceIDRequest,
-    metadata: grpcWeb.Metadata | null): Promise<scoretrak_check_v1_check_pb.GetAllByServiceIDResponse>;
+    metadata: grpcWeb.Metadata | null
+  ): Promise<scoretrak_check_v1_check_pb.GetAllByServiceIDResponse>;
 
   getAllByServiceID(
     request: scoretrak_check_v1_check_pb.GetAllByServiceIDRequest,
     metadata: grpcWeb.Metadata | null,
-    callback: (err: grpcWeb.RpcError,
-               response: scoretrak_check_v1_check_pb.GetAllByServiceIDResponse) => void): grpcWeb.ClientReadableStream<scoretrak_check_v1_check_pb.GetAllByServiceIDResponse>;
+    callback: (
+      err: grpcWeb.RpcError,
+      response: scoretrak_check_v1_check_pb.GetAllByServiceIDResponse
+    ) => void
+  ): grpcWeb.ClientReadableStream<scoretrak_check_v1_check_pb.GetAllByServiceIDResponse>;
 
   getAllByServiceID(
     request: scoretrak_check_v1_check_pb.GetAllByServiceIDRequest,
     metadata: grpcWeb.Metadata | null,
-    callback?: (err: grpcWeb.RpcError,
-               response: scoretrak_check_v1_check_pb.GetAllByServiceIDResponse) => void) {
+    callback?: (
+      err: grpcWeb.RpcError,
+      response: scoretrak_check_v1_check_pb.GetAllByServiceIDResponse
+    ) => void
+  ) {
     if (callback !== undefined) {
       return this.client_.rpcCall(
-        this.hostname_ +
-          '/scoretrak.check.v1.CheckService/GetAllByServiceID',
+        this.hostname_ + "/scoretrak.check.v1.CheckService/GetAllByServiceID",
         request,
         metadata || {},
         this.methodDescriptorGetAllByServiceID,
-        callback);
+        callback
+      );
     }
     return this.client_.unaryCall(
-    this.hostname_ +
-      '/scoretrak.check.v1.CheckService/GetAllByServiceID',
-    request,
-    metadata || {},
-    this.methodDescriptorGetAllByServiceID);
+      this.hostname_ + "/scoretrak.check.v1.CheckService/GetAllByServiceID",
+      request,
+      metadata || {},
+      this.methodDescriptorGetAllByServiceID
+    );
   }
-
 }
-

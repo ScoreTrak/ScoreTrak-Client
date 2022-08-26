@@ -6,28 +6,27 @@
 
 // GENERATED CODE -- DO NOT EDIT!
 
-
 /* eslint-disable */
 // @ts-nocheck
 
+import * as grpcWeb from "grpc-web";
 
-import * as grpcWeb from 'grpc-web';
-
-import * as scoretrak_round_v1_round_pb from '../../../scoretrak/round/v1/round_pb';
-
+import * as scoretrak_round_v1_round_pb from "../../../scoretrak/round/v1/round_pb";
 
 export class RoundServiceClient {
   client_: grpcWeb.AbstractClientBase;
   hostname_: string;
-  credentials_: null | { [index: string]: string; };
-  options_: null | { [index: string]: any; };
+  credentials_: null | { [index: string]: string };
+  options_: null | { [index: string]: any };
 
-  constructor (hostname: string,
-               credentials?: null | { [index: string]: string; },
-               options?: null | { [index: string]: any; }) {
+  constructor(
+    hostname: string,
+    credentials?: null | { [index: string]: string },
+    options?: null | { [index: string]: any }
+  ) {
     if (!options) options = {};
     if (!credentials) credentials = {};
-    options['format'] = 'text';
+    options["format"] = "text";
 
     this.client_ = new grpcWeb.GrpcWebClientBase(options);
     this.hostname_ = hostname;
@@ -36,7 +35,7 @@ export class RoundServiceClient {
   }
 
   methodDescriptorGetLastNonElapsingRound = new grpcWeb.MethodDescriptor(
-    '/scoretrak.round.v1.RoundService/GetLastNonElapsingRound',
+    "/scoretrak.round.v1.RoundService/GetLastNonElapsingRound",
     grpcWeb.MethodType.UNARY,
     scoretrak_round_v1_round_pb.GetLastNonElapsingRoundRequest,
     scoretrak_round_v1_round_pb.GetLastNonElapsingRoundResponse,
@@ -48,38 +47,47 @@ export class RoundServiceClient {
 
   getLastNonElapsingRound(
     request: scoretrak_round_v1_round_pb.GetLastNonElapsingRoundRequest,
-    metadata: grpcWeb.Metadata | null): Promise<scoretrak_round_v1_round_pb.GetLastNonElapsingRoundResponse>;
+    metadata: grpcWeb.Metadata | null
+  ): Promise<scoretrak_round_v1_round_pb.GetLastNonElapsingRoundResponse>;
 
   getLastNonElapsingRound(
     request: scoretrak_round_v1_round_pb.GetLastNonElapsingRoundRequest,
     metadata: grpcWeb.Metadata | null,
-    callback: (err: grpcWeb.RpcError,
-               response: scoretrak_round_v1_round_pb.GetLastNonElapsingRoundResponse) => void): grpcWeb.ClientReadableStream<scoretrak_round_v1_round_pb.GetLastNonElapsingRoundResponse>;
+    callback: (
+      err: grpcWeb.RpcError,
+      response: scoretrak_round_v1_round_pb.GetLastNonElapsingRoundResponse
+    ) => void
+  ): grpcWeb.ClientReadableStream<scoretrak_round_v1_round_pb.GetLastNonElapsingRoundResponse>;
 
   getLastNonElapsingRound(
     request: scoretrak_round_v1_round_pb.GetLastNonElapsingRoundRequest,
     metadata: grpcWeb.Metadata | null,
-    callback?: (err: grpcWeb.RpcError,
-               response: scoretrak_round_v1_round_pb.GetLastNonElapsingRoundResponse) => void) {
+    callback?: (
+      err: grpcWeb.RpcError,
+      response: scoretrak_round_v1_round_pb.GetLastNonElapsingRoundResponse
+    ) => void
+  ) {
     if (callback !== undefined) {
       return this.client_.rpcCall(
         this.hostname_ +
-          '/scoretrak.round.v1.RoundService/GetLastNonElapsingRound',
+          "/scoretrak.round.v1.RoundService/GetLastNonElapsingRound",
         request,
         metadata || {},
         this.methodDescriptorGetLastNonElapsingRound,
-        callback);
+        callback
+      );
     }
     return this.client_.unaryCall(
-    this.hostname_ +
-      '/scoretrak.round.v1.RoundService/GetLastNonElapsingRound',
-    request,
-    metadata || {},
-    this.methodDescriptorGetLastNonElapsingRound);
+      this.hostname_ +
+        "/scoretrak.round.v1.RoundService/GetLastNonElapsingRound",
+      request,
+      metadata || {},
+      this.methodDescriptorGetLastNonElapsingRound
+    );
   }
 
   methodDescriptorGetAll = new grpcWeb.MethodDescriptor(
-    '/scoretrak.round.v1.RoundService/GetAll',
+    "/scoretrak.round.v1.RoundService/GetAll",
     grpcWeb.MethodType.UNARY,
     scoretrak_round_v1_round_pb.GetAllRequest,
     scoretrak_round_v1_round_pb.GetAllResponse,
@@ -91,38 +99,45 @@ export class RoundServiceClient {
 
   getAll(
     request: scoretrak_round_v1_round_pb.GetAllRequest,
-    metadata: grpcWeb.Metadata | null): Promise<scoretrak_round_v1_round_pb.GetAllResponse>;
+    metadata: grpcWeb.Metadata | null
+  ): Promise<scoretrak_round_v1_round_pb.GetAllResponse>;
 
   getAll(
     request: scoretrak_round_v1_round_pb.GetAllRequest,
     metadata: grpcWeb.Metadata | null,
-    callback: (err: grpcWeb.RpcError,
-               response: scoretrak_round_v1_round_pb.GetAllResponse) => void): grpcWeb.ClientReadableStream<scoretrak_round_v1_round_pb.GetAllResponse>;
+    callback: (
+      err: grpcWeb.RpcError,
+      response: scoretrak_round_v1_round_pb.GetAllResponse
+    ) => void
+  ): grpcWeb.ClientReadableStream<scoretrak_round_v1_round_pb.GetAllResponse>;
 
   getAll(
     request: scoretrak_round_v1_round_pb.GetAllRequest,
     metadata: grpcWeb.Metadata | null,
-    callback?: (err: grpcWeb.RpcError,
-               response: scoretrak_round_v1_round_pb.GetAllResponse) => void) {
+    callback?: (
+      err: grpcWeb.RpcError,
+      response: scoretrak_round_v1_round_pb.GetAllResponse
+    ) => void
+  ) {
     if (callback !== undefined) {
       return this.client_.rpcCall(
-        this.hostname_ +
-          '/scoretrak.round.v1.RoundService/GetAll',
+        this.hostname_ + "/scoretrak.round.v1.RoundService/GetAll",
         request,
         metadata || {},
         this.methodDescriptorGetAll,
-        callback);
+        callback
+      );
     }
     return this.client_.unaryCall(
-    this.hostname_ +
-      '/scoretrak.round.v1.RoundService/GetAll',
-    request,
-    metadata || {},
-    this.methodDescriptorGetAll);
+      this.hostname_ + "/scoretrak.round.v1.RoundService/GetAll",
+      request,
+      metadata || {},
+      this.methodDescriptorGetAll
+    );
   }
 
   methodDescriptorGetByID = new grpcWeb.MethodDescriptor(
-    '/scoretrak.round.v1.RoundService/GetByID',
+    "/scoretrak.round.v1.RoundService/GetByID",
     grpcWeb.MethodType.UNARY,
     scoretrak_round_v1_round_pb.GetByIDRequest,
     scoretrak_round_v1_round_pb.GetByIDResponse,
@@ -134,38 +149,45 @@ export class RoundServiceClient {
 
   getByID(
     request: scoretrak_round_v1_round_pb.GetByIDRequest,
-    metadata: grpcWeb.Metadata | null): Promise<scoretrak_round_v1_round_pb.GetByIDResponse>;
+    metadata: grpcWeb.Metadata | null
+  ): Promise<scoretrak_round_v1_round_pb.GetByIDResponse>;
 
   getByID(
     request: scoretrak_round_v1_round_pb.GetByIDRequest,
     metadata: grpcWeb.Metadata | null,
-    callback: (err: grpcWeb.RpcError,
-               response: scoretrak_round_v1_round_pb.GetByIDResponse) => void): grpcWeb.ClientReadableStream<scoretrak_round_v1_round_pb.GetByIDResponse>;
+    callback: (
+      err: grpcWeb.RpcError,
+      response: scoretrak_round_v1_round_pb.GetByIDResponse
+    ) => void
+  ): grpcWeb.ClientReadableStream<scoretrak_round_v1_round_pb.GetByIDResponse>;
 
   getByID(
     request: scoretrak_round_v1_round_pb.GetByIDRequest,
     metadata: grpcWeb.Metadata | null,
-    callback?: (err: grpcWeb.RpcError,
-               response: scoretrak_round_v1_round_pb.GetByIDResponse) => void) {
+    callback?: (
+      err: grpcWeb.RpcError,
+      response: scoretrak_round_v1_round_pb.GetByIDResponse
+    ) => void
+  ) {
     if (callback !== undefined) {
       return this.client_.rpcCall(
-        this.hostname_ +
-          '/scoretrak.round.v1.RoundService/GetByID',
+        this.hostname_ + "/scoretrak.round.v1.RoundService/GetByID",
         request,
         metadata || {},
         this.methodDescriptorGetByID,
-        callback);
+        callback
+      );
     }
     return this.client_.unaryCall(
-    this.hostname_ +
-      '/scoretrak.round.v1.RoundService/GetByID',
-    request,
-    metadata || {},
-    this.methodDescriptorGetByID);
+      this.hostname_ + "/scoretrak.round.v1.RoundService/GetByID",
+      request,
+      metadata || {},
+      this.methodDescriptorGetByID
+    );
   }
 
   methodDescriptorGetLastRound = new grpcWeb.MethodDescriptor(
-    '/scoretrak.round.v1.RoundService/GetLastRound',
+    "/scoretrak.round.v1.RoundService/GetLastRound",
     grpcWeb.MethodType.UNARY,
     scoretrak_round_v1_round_pb.GetLastRoundRequest,
     scoretrak_round_v1_round_pb.GetLastRoundResponse,
@@ -177,35 +199,40 @@ export class RoundServiceClient {
 
   getLastRound(
     request: scoretrak_round_v1_round_pb.GetLastRoundRequest,
-    metadata: grpcWeb.Metadata | null): Promise<scoretrak_round_v1_round_pb.GetLastRoundResponse>;
+    metadata: grpcWeb.Metadata | null
+  ): Promise<scoretrak_round_v1_round_pb.GetLastRoundResponse>;
 
   getLastRound(
     request: scoretrak_round_v1_round_pb.GetLastRoundRequest,
     metadata: grpcWeb.Metadata | null,
-    callback: (err: grpcWeb.RpcError,
-               response: scoretrak_round_v1_round_pb.GetLastRoundResponse) => void): grpcWeb.ClientReadableStream<scoretrak_round_v1_round_pb.GetLastRoundResponse>;
+    callback: (
+      err: grpcWeb.RpcError,
+      response: scoretrak_round_v1_round_pb.GetLastRoundResponse
+    ) => void
+  ): grpcWeb.ClientReadableStream<scoretrak_round_v1_round_pb.GetLastRoundResponse>;
 
   getLastRound(
     request: scoretrak_round_v1_round_pb.GetLastRoundRequest,
     metadata: grpcWeb.Metadata | null,
-    callback?: (err: grpcWeb.RpcError,
-               response: scoretrak_round_v1_round_pb.GetLastRoundResponse) => void) {
+    callback?: (
+      err: grpcWeb.RpcError,
+      response: scoretrak_round_v1_round_pb.GetLastRoundResponse
+    ) => void
+  ) {
     if (callback !== undefined) {
       return this.client_.rpcCall(
-        this.hostname_ +
-          '/scoretrak.round.v1.RoundService/GetLastRound',
+        this.hostname_ + "/scoretrak.round.v1.RoundService/GetLastRound",
         request,
         metadata || {},
         this.methodDescriptorGetLastRound,
-        callback);
+        callback
+      );
     }
     return this.client_.unaryCall(
-    this.hostname_ +
-      '/scoretrak.round.v1.RoundService/GetLastRound',
-    request,
-    metadata || {},
-    this.methodDescriptorGetLastRound);
+      this.hostname_ + "/scoretrak.round.v1.RoundService/GetLastRound",
+      request,
+      metadata || {},
+      this.methodDescriptorGetLastRound
+    );
   }
-
 }
-

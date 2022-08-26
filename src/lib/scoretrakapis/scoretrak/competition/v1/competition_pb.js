@@ -11,51 +11,99 @@
 /* eslint-disable */
 // @ts-nocheck
 
-var jspb = require('google-protobuf');
+var jspb = require("google-protobuf");
 var goog = jspb;
-var global = (function() {
-  if (this) { return this; }
-  if (typeof window !== 'undefined') { return window; }
-  if (typeof global !== 'undefined') { return global; }
-  if (typeof self !== 'undefined') { return self; }
-  return Function('return this')();
-}.call(null));
+var global = function () {
+  if (this) {
+    return this;
+  }
+  if (typeof window !== "undefined") {
+    return window;
+  }
+  if (typeof global !== "undefined") {
+    return global;
+  }
+  if (typeof self !== "undefined") {
+    return self;
+  }
+  return Function("return this")();
+}.call(null);
 
-var scoretrak_config_v1_config_pb = require('../../../scoretrak/config/v1/config_pb.js');
+var scoretrak_config_v1_config_pb = require("../../../scoretrak/config/v1/config_pb.js");
 goog.object.extend(proto, scoretrak_config_v1_config_pb);
-var scoretrak_report_v1_report_pb = require('../../../scoretrak/report/v1/report_pb.js');
+var scoretrak_report_v1_report_pb = require("../../../scoretrak/report/v1/report_pb.js");
 goog.object.extend(proto, scoretrak_report_v1_report_pb);
-var scoretrak_host_group_v1_host_group_pb = require('../../../scoretrak/host_group/v1/host_group_pb.js');
+var scoretrak_host_group_v1_host_group_pb = require("../../../scoretrak/host_group/v1/host_group_pb.js");
 goog.object.extend(proto, scoretrak_host_group_v1_host_group_pb);
-var scoretrak_host_v1_host_pb = require('../../../scoretrak/host/v1/host_pb.js');
+var scoretrak_host_v1_host_pb = require("../../../scoretrak/host/v1/host_pb.js");
 goog.object.extend(proto, scoretrak_host_v1_host_pb);
-var scoretrak_team_v1_team_pb = require('../../../scoretrak/team/v1/team_pb.js');
+var scoretrak_team_v1_team_pb = require("../../../scoretrak/team/v1/team_pb.js");
 goog.object.extend(proto, scoretrak_team_v1_team_pb);
-var scoretrak_service_v1_service_pb = require('../../../scoretrak/service/v1/service_pb.js');
+var scoretrak_service_v1_service_pb = require("../../../scoretrak/service/v1/service_pb.js");
 goog.object.extend(proto, scoretrak_service_v1_service_pb);
-var scoretrak_service_group_v1_service_group_pb = require('../../../scoretrak/service_group/v1/service_group_pb.js');
+var scoretrak_service_group_v1_service_group_pb = require("../../../scoretrak/service_group/v1/service_group_pb.js");
 goog.object.extend(proto, scoretrak_service_group_v1_service_group_pb);
-var scoretrak_round_v1_round_pb = require('../../../scoretrak/round/v1/round_pb.js');
+var scoretrak_round_v1_round_pb = require("../../../scoretrak/round/v1/round_pb.js");
 goog.object.extend(proto, scoretrak_round_v1_round_pb);
-var scoretrak_property_v1_property_pb = require('../../../scoretrak/property/v1/property_pb.js');
+var scoretrak_property_v1_property_pb = require("../../../scoretrak/property/v1/property_pb.js");
 goog.object.extend(proto, scoretrak_property_v1_property_pb);
-var scoretrak_check_v1_check_pb = require('../../../scoretrak/check/v1/check_pb.js');
+var scoretrak_check_v1_check_pb = require("../../../scoretrak/check/v1/check_pb.js");
 goog.object.extend(proto, scoretrak_check_v1_check_pb);
-var scoretrak_user_v1_user_pb = require('../../../scoretrak/user/v1/user_pb.js');
+var scoretrak_user_v1_user_pb = require("../../../scoretrak/user/v1/user_pb.js");
 goog.object.extend(proto, scoretrak_user_v1_user_pb);
-var scoretrak_policy_v1_policy_pb = require('../../../scoretrak/policy/v1/policy_pb.js');
+var scoretrak_policy_v1_policy_pb = require("../../../scoretrak/policy/v1/policy_pb.js");
 goog.object.extend(proto, scoretrak_policy_v1_policy_pb);
-goog.exportSymbol('proto.scoretrak.competition.v1.Competition', null, global);
-goog.exportSymbol('proto.scoretrak.competition.v1.DeleteCompetitionRequest', null, global);
-goog.exportSymbol('proto.scoretrak.competition.v1.DeleteCompetitionResponse', null, global);
-goog.exportSymbol('proto.scoretrak.competition.v1.FetchCoreCompetitionRequest', null, global);
-goog.exportSymbol('proto.scoretrak.competition.v1.FetchCoreCompetitionResponse', null, global);
-goog.exportSymbol('proto.scoretrak.competition.v1.FetchEntireCompetitionRequest', null, global);
-goog.exportSymbol('proto.scoretrak.competition.v1.FetchEntireCompetitionResponse', null, global);
-goog.exportSymbol('proto.scoretrak.competition.v1.LoadCompetitionRequest', null, global);
-goog.exportSymbol('proto.scoretrak.competition.v1.LoadCompetitionResponse', null, global);
-goog.exportSymbol('proto.scoretrak.competition.v1.ResetScoresRequest', null, global);
-goog.exportSymbol('proto.scoretrak.competition.v1.ResetScoresResponse', null, global);
+goog.exportSymbol("proto.scoretrak.competition.v1.Competition", null, global);
+goog.exportSymbol(
+  "proto.scoretrak.competition.v1.DeleteCompetitionRequest",
+  null,
+  global
+);
+goog.exportSymbol(
+  "proto.scoretrak.competition.v1.DeleteCompetitionResponse",
+  null,
+  global
+);
+goog.exportSymbol(
+  "proto.scoretrak.competition.v1.FetchCoreCompetitionRequest",
+  null,
+  global
+);
+goog.exportSymbol(
+  "proto.scoretrak.competition.v1.FetchCoreCompetitionResponse",
+  null,
+  global
+);
+goog.exportSymbol(
+  "proto.scoretrak.competition.v1.FetchEntireCompetitionRequest",
+  null,
+  global
+);
+goog.exportSymbol(
+  "proto.scoretrak.competition.v1.FetchEntireCompetitionResponse",
+  null,
+  global
+);
+goog.exportSymbol(
+  "proto.scoretrak.competition.v1.LoadCompetitionRequest",
+  null,
+  global
+);
+goog.exportSymbol(
+  "proto.scoretrak.competition.v1.LoadCompetitionResponse",
+  null,
+  global
+);
+goog.exportSymbol(
+  "proto.scoretrak.competition.v1.ResetScoresRequest",
+  null,
+  global
+);
+goog.exportSymbol(
+  "proto.scoretrak.competition.v1.ResetScoresResponse",
+  null,
+  global
+);
 /**
  * Generated by JsPbCodeGenerator.
  * @param {Array=} opt_data Optional initial data array, typically from a
@@ -66,8 +114,15 @@ goog.exportSymbol('proto.scoretrak.competition.v1.ResetScoresResponse', null, gl
  * @extends {jspb.Message}
  * @constructor
  */
-proto.scoretrak.competition.v1.Competition = function(opt_data) {
-  jspb.Message.initialize(this, opt_data, 0, -1, proto.scoretrak.competition.v1.Competition.repeatedFields_, null);
+proto.scoretrak.competition.v1.Competition = function (opt_data) {
+  jspb.Message.initialize(
+    this,
+    opt_data,
+    0,
+    -1,
+    proto.scoretrak.competition.v1.Competition.repeatedFields_,
+    null
+  );
 };
 goog.inherits(proto.scoretrak.competition.v1.Competition, jspb.Message);
 if (goog.DEBUG && !COMPILED) {
@@ -75,7 +130,8 @@ if (goog.DEBUG && !COMPILED) {
    * @public
    * @override
    */
-  proto.scoretrak.competition.v1.Competition.displayName = 'proto.scoretrak.competition.v1.Competition';
+  proto.scoretrak.competition.v1.Competition.displayName =
+    "proto.scoretrak.competition.v1.Competition";
 }
 /**
  * Generated by JsPbCodeGenerator.
@@ -87,16 +143,20 @@ if (goog.DEBUG && !COMPILED) {
  * @extends {jspb.Message}
  * @constructor
  */
-proto.scoretrak.competition.v1.LoadCompetitionRequest = function(opt_data) {
+proto.scoretrak.competition.v1.LoadCompetitionRequest = function (opt_data) {
   jspb.Message.initialize(this, opt_data, 0, -1, null, null);
 };
-goog.inherits(proto.scoretrak.competition.v1.LoadCompetitionRequest, jspb.Message);
+goog.inherits(
+  proto.scoretrak.competition.v1.LoadCompetitionRequest,
+  jspb.Message
+);
 if (goog.DEBUG && !COMPILED) {
   /**
    * @public
    * @override
    */
-  proto.scoretrak.competition.v1.LoadCompetitionRequest.displayName = 'proto.scoretrak.competition.v1.LoadCompetitionRequest';
+  proto.scoretrak.competition.v1.LoadCompetitionRequest.displayName =
+    "proto.scoretrak.competition.v1.LoadCompetitionRequest";
 }
 /**
  * Generated by JsPbCodeGenerator.
@@ -108,16 +168,20 @@ if (goog.DEBUG && !COMPILED) {
  * @extends {jspb.Message}
  * @constructor
  */
-proto.scoretrak.competition.v1.LoadCompetitionResponse = function(opt_data) {
+proto.scoretrak.competition.v1.LoadCompetitionResponse = function (opt_data) {
   jspb.Message.initialize(this, opt_data, 0, -1, null, null);
 };
-goog.inherits(proto.scoretrak.competition.v1.LoadCompetitionResponse, jspb.Message);
+goog.inherits(
+  proto.scoretrak.competition.v1.LoadCompetitionResponse,
+  jspb.Message
+);
 if (goog.DEBUG && !COMPILED) {
   /**
    * @public
    * @override
    */
-  proto.scoretrak.competition.v1.LoadCompetitionResponse.displayName = 'proto.scoretrak.competition.v1.LoadCompetitionResponse';
+  proto.scoretrak.competition.v1.LoadCompetitionResponse.displayName =
+    "proto.scoretrak.competition.v1.LoadCompetitionResponse";
 }
 /**
  * Generated by JsPbCodeGenerator.
@@ -129,16 +193,22 @@ if (goog.DEBUG && !COMPILED) {
  * @extends {jspb.Message}
  * @constructor
  */
-proto.scoretrak.competition.v1.FetchCoreCompetitionRequest = function(opt_data) {
+proto.scoretrak.competition.v1.FetchCoreCompetitionRequest = function (
+  opt_data
+) {
   jspb.Message.initialize(this, opt_data, 0, -1, null, null);
 };
-goog.inherits(proto.scoretrak.competition.v1.FetchCoreCompetitionRequest, jspb.Message);
+goog.inherits(
+  proto.scoretrak.competition.v1.FetchCoreCompetitionRequest,
+  jspb.Message
+);
 if (goog.DEBUG && !COMPILED) {
   /**
    * @public
    * @override
    */
-  proto.scoretrak.competition.v1.FetchCoreCompetitionRequest.displayName = 'proto.scoretrak.competition.v1.FetchCoreCompetitionRequest';
+  proto.scoretrak.competition.v1.FetchCoreCompetitionRequest.displayName =
+    "proto.scoretrak.competition.v1.FetchCoreCompetitionRequest";
 }
 /**
  * Generated by JsPbCodeGenerator.
@@ -150,16 +220,22 @@ if (goog.DEBUG && !COMPILED) {
  * @extends {jspb.Message}
  * @constructor
  */
-proto.scoretrak.competition.v1.FetchCoreCompetitionResponse = function(opt_data) {
+proto.scoretrak.competition.v1.FetchCoreCompetitionResponse = function (
+  opt_data
+) {
   jspb.Message.initialize(this, opt_data, 0, -1, null, null);
 };
-goog.inherits(proto.scoretrak.competition.v1.FetchCoreCompetitionResponse, jspb.Message);
+goog.inherits(
+  proto.scoretrak.competition.v1.FetchCoreCompetitionResponse,
+  jspb.Message
+);
 if (goog.DEBUG && !COMPILED) {
   /**
    * @public
    * @override
    */
-  proto.scoretrak.competition.v1.FetchCoreCompetitionResponse.displayName = 'proto.scoretrak.competition.v1.FetchCoreCompetitionResponse';
+  proto.scoretrak.competition.v1.FetchCoreCompetitionResponse.displayName =
+    "proto.scoretrak.competition.v1.FetchCoreCompetitionResponse";
 }
 /**
  * Generated by JsPbCodeGenerator.
@@ -171,16 +247,22 @@ if (goog.DEBUG && !COMPILED) {
  * @extends {jspb.Message}
  * @constructor
  */
-proto.scoretrak.competition.v1.FetchEntireCompetitionRequest = function(opt_data) {
+proto.scoretrak.competition.v1.FetchEntireCompetitionRequest = function (
+  opt_data
+) {
   jspb.Message.initialize(this, opt_data, 0, -1, null, null);
 };
-goog.inherits(proto.scoretrak.competition.v1.FetchEntireCompetitionRequest, jspb.Message);
+goog.inherits(
+  proto.scoretrak.competition.v1.FetchEntireCompetitionRequest,
+  jspb.Message
+);
 if (goog.DEBUG && !COMPILED) {
   /**
    * @public
    * @override
    */
-  proto.scoretrak.competition.v1.FetchEntireCompetitionRequest.displayName = 'proto.scoretrak.competition.v1.FetchEntireCompetitionRequest';
+  proto.scoretrak.competition.v1.FetchEntireCompetitionRequest.displayName =
+    "proto.scoretrak.competition.v1.FetchEntireCompetitionRequest";
 }
 /**
  * Generated by JsPbCodeGenerator.
@@ -192,16 +274,22 @@ if (goog.DEBUG && !COMPILED) {
  * @extends {jspb.Message}
  * @constructor
  */
-proto.scoretrak.competition.v1.FetchEntireCompetitionResponse = function(opt_data) {
+proto.scoretrak.competition.v1.FetchEntireCompetitionResponse = function (
+  opt_data
+) {
   jspb.Message.initialize(this, opt_data, 0, -1, null, null);
 };
-goog.inherits(proto.scoretrak.competition.v1.FetchEntireCompetitionResponse, jspb.Message);
+goog.inherits(
+  proto.scoretrak.competition.v1.FetchEntireCompetitionResponse,
+  jspb.Message
+);
 if (goog.DEBUG && !COMPILED) {
   /**
    * @public
    * @override
    */
-  proto.scoretrak.competition.v1.FetchEntireCompetitionResponse.displayName = 'proto.scoretrak.competition.v1.FetchEntireCompetitionResponse';
+  proto.scoretrak.competition.v1.FetchEntireCompetitionResponse.displayName =
+    "proto.scoretrak.competition.v1.FetchEntireCompetitionResponse";
 }
 /**
  * Generated by JsPbCodeGenerator.
@@ -213,7 +301,7 @@ if (goog.DEBUG && !COMPILED) {
  * @extends {jspb.Message}
  * @constructor
  */
-proto.scoretrak.competition.v1.ResetScoresRequest = function(opt_data) {
+proto.scoretrak.competition.v1.ResetScoresRequest = function (opt_data) {
   jspb.Message.initialize(this, opt_data, 0, -1, null, null);
 };
 goog.inherits(proto.scoretrak.competition.v1.ResetScoresRequest, jspb.Message);
@@ -222,7 +310,8 @@ if (goog.DEBUG && !COMPILED) {
    * @public
    * @override
    */
-  proto.scoretrak.competition.v1.ResetScoresRequest.displayName = 'proto.scoretrak.competition.v1.ResetScoresRequest';
+  proto.scoretrak.competition.v1.ResetScoresRequest.displayName =
+    "proto.scoretrak.competition.v1.ResetScoresRequest";
 }
 /**
  * Generated by JsPbCodeGenerator.
@@ -234,7 +323,7 @@ if (goog.DEBUG && !COMPILED) {
  * @extends {jspb.Message}
  * @constructor
  */
-proto.scoretrak.competition.v1.ResetScoresResponse = function(opt_data) {
+proto.scoretrak.competition.v1.ResetScoresResponse = function (opt_data) {
   jspb.Message.initialize(this, opt_data, 0, -1, null, null);
 };
 goog.inherits(proto.scoretrak.competition.v1.ResetScoresResponse, jspb.Message);
@@ -243,7 +332,8 @@ if (goog.DEBUG && !COMPILED) {
    * @public
    * @override
    */
-  proto.scoretrak.competition.v1.ResetScoresResponse.displayName = 'proto.scoretrak.competition.v1.ResetScoresResponse';
+  proto.scoretrak.competition.v1.ResetScoresResponse.displayName =
+    "proto.scoretrak.competition.v1.ResetScoresResponse";
 }
 /**
  * Generated by JsPbCodeGenerator.
@@ -255,16 +345,20 @@ if (goog.DEBUG && !COMPILED) {
  * @extends {jspb.Message}
  * @constructor
  */
-proto.scoretrak.competition.v1.DeleteCompetitionRequest = function(opt_data) {
+proto.scoretrak.competition.v1.DeleteCompetitionRequest = function (opt_data) {
   jspb.Message.initialize(this, opt_data, 0, -1, null, null);
 };
-goog.inherits(proto.scoretrak.competition.v1.DeleteCompetitionRequest, jspb.Message);
+goog.inherits(
+  proto.scoretrak.competition.v1.DeleteCompetitionRequest,
+  jspb.Message
+);
 if (goog.DEBUG && !COMPILED) {
   /**
    * @public
    * @override
    */
-  proto.scoretrak.competition.v1.DeleteCompetitionRequest.displayName = 'proto.scoretrak.competition.v1.DeleteCompetitionRequest';
+  proto.scoretrak.competition.v1.DeleteCompetitionRequest.displayName =
+    "proto.scoretrak.competition.v1.DeleteCompetitionRequest";
 }
 /**
  * Generated by JsPbCodeGenerator.
@@ -276,16 +370,20 @@ if (goog.DEBUG && !COMPILED) {
  * @extends {jspb.Message}
  * @constructor
  */
-proto.scoretrak.competition.v1.DeleteCompetitionResponse = function(opt_data) {
+proto.scoretrak.competition.v1.DeleteCompetitionResponse = function (opt_data) {
   jspb.Message.initialize(this, opt_data, 0, -1, null, null);
 };
-goog.inherits(proto.scoretrak.competition.v1.DeleteCompetitionResponse, jspb.Message);
+goog.inherits(
+  proto.scoretrak.competition.v1.DeleteCompetitionResponse,
+  jspb.Message
+);
 if (goog.DEBUG && !COMPILED) {
   /**
    * @public
    * @override
    */
-  proto.scoretrak.competition.v1.DeleteCompetitionResponse.displayName = 'proto.scoretrak.competition.v1.DeleteCompetitionResponse';
+  proto.scoretrak.competition.v1.DeleteCompetitionResponse.displayName =
+    "proto.scoretrak.competition.v1.DeleteCompetitionResponse";
 }
 
 /**
@@ -293,81 +391,128 @@ if (goog.DEBUG && !COMPILED) {
  * @private {!Array<number>}
  * @const
  */
-proto.scoretrak.competition.v1.Competition.repeatedFields_ = [3,4,5,6,7,8,9,10,11];
-
-
+proto.scoretrak.competition.v1.Competition.repeatedFields_ = [
+  3, 4, 5, 6, 7, 8, 9, 10, 11,
+];
 
 if (jspb.Message.GENERATE_TO_OBJECT) {
-/**
- * Creates an object representation of this proto.
- * Field names that are reserved in JavaScript and will be renamed to pb_name.
- * Optional fields that are not set will be set to undefined.
- * To access a reserved field use, foo.pb_<name>, eg, foo.pb_default.
- * For the list of reserved names please see:
- *     net/proto2/compiler/js/internal/generator.cc#kKeyword.
- * @param {boolean=} opt_includeInstance Deprecated. whether to include the
- *     JSPB instance for transitional soy proto support:
- *     http://goto/soy-param-migration
- * @return {!Object}
- */
-proto.scoretrak.competition.v1.Competition.prototype.toObject = function(opt_includeInstance) {
-  return proto.scoretrak.competition.v1.Competition.toObject(opt_includeInstance, this);
-};
-
-
-/**
- * Static version of the {@see toObject} method.
- * @param {boolean|undefined} includeInstance Deprecated. Whether to include
- *     the JSPB instance for transitional soy proto support:
- *     http://goto/soy-param-migration
- * @param {!proto.scoretrak.competition.v1.Competition} msg The msg instance to transform.
- * @return {!Object}
- * @suppress {unusedLocalVariables} f is only used for nested messages
- */
-proto.scoretrak.competition.v1.Competition.toObject = function(includeInstance, msg) {
-  var f, obj = {
-    dynamicConfig: (f = msg.getDynamicConfig()) && scoretrak_config_v1_config_pb.DynamicConfig.toObject(includeInstance, f),
-    report: (f = msg.getReport()) && scoretrak_report_v1_report_pb.Report.toObject(includeInstance, f),
-    hostGroupsList: jspb.Message.toObjectList(msg.getHostGroupsList(),
-    scoretrak_host_group_v1_host_group_pb.HostGroup.toObject, includeInstance),
-    hostsList: jspb.Message.toObjectList(msg.getHostsList(),
-    scoretrak_host_v1_host_pb.Host.toObject, includeInstance),
-    teamsList: jspb.Message.toObjectList(msg.getTeamsList(),
-    scoretrak_team_v1_team_pb.Team.toObject, includeInstance),
-    servicesList: jspb.Message.toObjectList(msg.getServicesList(),
-    scoretrak_service_v1_service_pb.Service.toObject, includeInstance),
-    serviceGroupsList: jspb.Message.toObjectList(msg.getServiceGroupsList(),
-    scoretrak_service_group_v1_service_group_pb.ServiceGroup.toObject, includeInstance),
-    roundsList: jspb.Message.toObjectList(msg.getRoundsList(),
-    scoretrak_round_v1_round_pb.Round.toObject, includeInstance),
-    propertiesList: jspb.Message.toObjectList(msg.getPropertiesList(),
-    scoretrak_property_v1_property_pb.Property.toObject, includeInstance),
-    checksList: jspb.Message.toObjectList(msg.getChecksList(),
-    scoretrak_check_v1_check_pb.Check.toObject, includeInstance),
-    usersList: jspb.Message.toObjectList(msg.getUsersList(),
-    scoretrak_user_v1_user_pb.User.toObject, includeInstance),
-    policy: (f = msg.getPolicy()) && scoretrak_policy_v1_policy_pb.Policy.toObject(includeInstance, f)
+  /**
+   * Creates an object representation of this proto.
+   * Field names that are reserved in JavaScript and will be renamed to pb_name.
+   * Optional fields that are not set will be set to undefined.
+   * To access a reserved field use, foo.pb_<name>, eg, foo.pb_default.
+   * For the list of reserved names please see:
+   *     net/proto2/compiler/js/internal/generator.cc#kKeyword.
+   * @param {boolean=} opt_includeInstance Deprecated. whether to include the
+   *     JSPB instance for transitional soy proto support:
+   *     http://goto/soy-param-migration
+   * @return {!Object}
+   */
+  proto.scoretrak.competition.v1.Competition.prototype.toObject = function (
+    opt_includeInstance
+  ) {
+    return proto.scoretrak.competition.v1.Competition.toObject(
+      opt_includeInstance,
+      this
+    );
   };
 
-  if (includeInstance) {
-    obj.$jspbMessageInstance = msg;
-  }
-  return obj;
-};
-}
+  /**
+   * Static version of the {@see toObject} method.
+   * @param {boolean|undefined} includeInstance Deprecated. Whether to include
+   *     the JSPB instance for transitional soy proto support:
+   *     http://goto/soy-param-migration
+   * @param {!proto.scoretrak.competition.v1.Competition} msg The msg instance to transform.
+   * @return {!Object}
+   * @suppress {unusedLocalVariables} f is only used for nested messages
+   */
+  proto.scoretrak.competition.v1.Competition.toObject = function (
+    includeInstance,
+    msg
+  ) {
+    var f,
+      obj = {
+        dynamicConfig:
+          (f = msg.getDynamicConfig()) &&
+          scoretrak_config_v1_config_pb.DynamicConfig.toObject(
+            includeInstance,
+            f
+          ),
+        report:
+          (f = msg.getReport()) &&
+          scoretrak_report_v1_report_pb.Report.toObject(includeInstance, f),
+        hostGroupsList: jspb.Message.toObjectList(
+          msg.getHostGroupsList(),
+          scoretrak_host_group_v1_host_group_pb.HostGroup.toObject,
+          includeInstance
+        ),
+        hostsList: jspb.Message.toObjectList(
+          msg.getHostsList(),
+          scoretrak_host_v1_host_pb.Host.toObject,
+          includeInstance
+        ),
+        teamsList: jspb.Message.toObjectList(
+          msg.getTeamsList(),
+          scoretrak_team_v1_team_pb.Team.toObject,
+          includeInstance
+        ),
+        servicesList: jspb.Message.toObjectList(
+          msg.getServicesList(),
+          scoretrak_service_v1_service_pb.Service.toObject,
+          includeInstance
+        ),
+        serviceGroupsList: jspb.Message.toObjectList(
+          msg.getServiceGroupsList(),
+          scoretrak_service_group_v1_service_group_pb.ServiceGroup.toObject,
+          includeInstance
+        ),
+        roundsList: jspb.Message.toObjectList(
+          msg.getRoundsList(),
+          scoretrak_round_v1_round_pb.Round.toObject,
+          includeInstance
+        ),
+        propertiesList: jspb.Message.toObjectList(
+          msg.getPropertiesList(),
+          scoretrak_property_v1_property_pb.Property.toObject,
+          includeInstance
+        ),
+        checksList: jspb.Message.toObjectList(
+          msg.getChecksList(),
+          scoretrak_check_v1_check_pb.Check.toObject,
+          includeInstance
+        ),
+        usersList: jspb.Message.toObjectList(
+          msg.getUsersList(),
+          scoretrak_user_v1_user_pb.User.toObject,
+          includeInstance
+        ),
+        policy:
+          (f = msg.getPolicy()) &&
+          scoretrak_policy_v1_policy_pb.Policy.toObject(includeInstance, f),
+      };
 
+    if (includeInstance) {
+      obj.$jspbMessageInstance = msg;
+    }
+    return obj;
+  };
+}
 
 /**
  * Deserializes binary data (in protobuf wire format).
  * @param {jspb.ByteSource} bytes The bytes to deserialize.
  * @return {!proto.scoretrak.competition.v1.Competition}
  */
-proto.scoretrak.competition.v1.Competition.deserializeBinary = function(bytes) {
+proto.scoretrak.competition.v1.Competition.deserializeBinary = function (
+  bytes
+) {
   var reader = new jspb.BinaryReader(bytes);
-  var msg = new proto.scoretrak.competition.v1.Competition;
-  return proto.scoretrak.competition.v1.Competition.deserializeBinaryFromReader(msg, reader);
+  var msg = new proto.scoretrak.competition.v1.Competition();
+  return proto.scoretrak.competition.v1.Competition.deserializeBinaryFromReader(
+    msg,
+    reader
+  );
 };
-
 
 /**
  * Deserializes binary data (in protobuf wire format) from the
@@ -376,92 +521,136 @@ proto.scoretrak.competition.v1.Competition.deserializeBinary = function(bytes) {
  * @param {!jspb.BinaryReader} reader The BinaryReader to use.
  * @return {!proto.scoretrak.competition.v1.Competition}
  */
-proto.scoretrak.competition.v1.Competition.deserializeBinaryFromReader = function(msg, reader) {
-  while (reader.nextField()) {
-    if (reader.isEndGroup()) {
-      break;
+proto.scoretrak.competition.v1.Competition.deserializeBinaryFromReader =
+  function (msg, reader) {
+    while (reader.nextField()) {
+      if (reader.isEndGroup()) {
+        break;
+      }
+      var field = reader.getFieldNumber();
+      switch (field) {
+        case 1:
+          var value = new scoretrak_config_v1_config_pb.DynamicConfig();
+          reader.readMessage(
+            value,
+            scoretrak_config_v1_config_pb.DynamicConfig
+              .deserializeBinaryFromReader
+          );
+          msg.setDynamicConfig(value);
+          break;
+        case 2:
+          var value = new scoretrak_report_v1_report_pb.Report();
+          reader.readMessage(
+            value,
+            scoretrak_report_v1_report_pb.Report.deserializeBinaryFromReader
+          );
+          msg.setReport(value);
+          break;
+        case 3:
+          var value = new scoretrak_host_group_v1_host_group_pb.HostGroup();
+          reader.readMessage(
+            value,
+            scoretrak_host_group_v1_host_group_pb.HostGroup
+              .deserializeBinaryFromReader
+          );
+          msg.addHostGroups(value);
+          break;
+        case 4:
+          var value = new scoretrak_host_v1_host_pb.Host();
+          reader.readMessage(
+            value,
+            scoretrak_host_v1_host_pb.Host.deserializeBinaryFromReader
+          );
+          msg.addHosts(value);
+          break;
+        case 5:
+          var value = new scoretrak_team_v1_team_pb.Team();
+          reader.readMessage(
+            value,
+            scoretrak_team_v1_team_pb.Team.deserializeBinaryFromReader
+          );
+          msg.addTeams(value);
+          break;
+        case 6:
+          var value = new scoretrak_service_v1_service_pb.Service();
+          reader.readMessage(
+            value,
+            scoretrak_service_v1_service_pb.Service.deserializeBinaryFromReader
+          );
+          msg.addServices(value);
+          break;
+        case 7:
+          var value =
+            new scoretrak_service_group_v1_service_group_pb.ServiceGroup();
+          reader.readMessage(
+            value,
+            scoretrak_service_group_v1_service_group_pb.ServiceGroup
+              .deserializeBinaryFromReader
+          );
+          msg.addServiceGroups(value);
+          break;
+        case 8:
+          var value = new scoretrak_round_v1_round_pb.Round();
+          reader.readMessage(
+            value,
+            scoretrak_round_v1_round_pb.Round.deserializeBinaryFromReader
+          );
+          msg.addRounds(value);
+          break;
+        case 9:
+          var value = new scoretrak_property_v1_property_pb.Property();
+          reader.readMessage(
+            value,
+            scoretrak_property_v1_property_pb.Property
+              .deserializeBinaryFromReader
+          );
+          msg.addProperties(value);
+          break;
+        case 10:
+          var value = new scoretrak_check_v1_check_pb.Check();
+          reader.readMessage(
+            value,
+            scoretrak_check_v1_check_pb.Check.deserializeBinaryFromReader
+          );
+          msg.addChecks(value);
+          break;
+        case 11:
+          var value = new scoretrak_user_v1_user_pb.User();
+          reader.readMessage(
+            value,
+            scoretrak_user_v1_user_pb.User.deserializeBinaryFromReader
+          );
+          msg.addUsers(value);
+          break;
+        case 12:
+          var value = new scoretrak_policy_v1_policy_pb.Policy();
+          reader.readMessage(
+            value,
+            scoretrak_policy_v1_policy_pb.Policy.deserializeBinaryFromReader
+          );
+          msg.setPolicy(value);
+          break;
+        default:
+          reader.skipField();
+          break;
+      }
     }
-    var field = reader.getFieldNumber();
-    switch (field) {
-    case 1:
-      var value = new scoretrak_config_v1_config_pb.DynamicConfig;
-      reader.readMessage(value,scoretrak_config_v1_config_pb.DynamicConfig.deserializeBinaryFromReader);
-      msg.setDynamicConfig(value);
-      break;
-    case 2:
-      var value = new scoretrak_report_v1_report_pb.Report;
-      reader.readMessage(value,scoretrak_report_v1_report_pb.Report.deserializeBinaryFromReader);
-      msg.setReport(value);
-      break;
-    case 3:
-      var value = new scoretrak_host_group_v1_host_group_pb.HostGroup;
-      reader.readMessage(value,scoretrak_host_group_v1_host_group_pb.HostGroup.deserializeBinaryFromReader);
-      msg.addHostGroups(value);
-      break;
-    case 4:
-      var value = new scoretrak_host_v1_host_pb.Host;
-      reader.readMessage(value,scoretrak_host_v1_host_pb.Host.deserializeBinaryFromReader);
-      msg.addHosts(value);
-      break;
-    case 5:
-      var value = new scoretrak_team_v1_team_pb.Team;
-      reader.readMessage(value,scoretrak_team_v1_team_pb.Team.deserializeBinaryFromReader);
-      msg.addTeams(value);
-      break;
-    case 6:
-      var value = new scoretrak_service_v1_service_pb.Service;
-      reader.readMessage(value,scoretrak_service_v1_service_pb.Service.deserializeBinaryFromReader);
-      msg.addServices(value);
-      break;
-    case 7:
-      var value = new scoretrak_service_group_v1_service_group_pb.ServiceGroup;
-      reader.readMessage(value,scoretrak_service_group_v1_service_group_pb.ServiceGroup.deserializeBinaryFromReader);
-      msg.addServiceGroups(value);
-      break;
-    case 8:
-      var value = new scoretrak_round_v1_round_pb.Round;
-      reader.readMessage(value,scoretrak_round_v1_round_pb.Round.deserializeBinaryFromReader);
-      msg.addRounds(value);
-      break;
-    case 9:
-      var value = new scoretrak_property_v1_property_pb.Property;
-      reader.readMessage(value,scoretrak_property_v1_property_pb.Property.deserializeBinaryFromReader);
-      msg.addProperties(value);
-      break;
-    case 10:
-      var value = new scoretrak_check_v1_check_pb.Check;
-      reader.readMessage(value,scoretrak_check_v1_check_pb.Check.deserializeBinaryFromReader);
-      msg.addChecks(value);
-      break;
-    case 11:
-      var value = new scoretrak_user_v1_user_pb.User;
-      reader.readMessage(value,scoretrak_user_v1_user_pb.User.deserializeBinaryFromReader);
-      msg.addUsers(value);
-      break;
-    case 12:
-      var value = new scoretrak_policy_v1_policy_pb.Policy;
-      reader.readMessage(value,scoretrak_policy_v1_policy_pb.Policy.deserializeBinaryFromReader);
-      msg.setPolicy(value);
-      break;
-    default:
-      reader.skipField();
-      break;
-    }
-  }
-  return msg;
-};
-
+    return msg;
+  };
 
 /**
  * Serializes the message to binary data (in protobuf wire format).
  * @return {!Uint8Array}
  */
-proto.scoretrak.competition.v1.Competition.prototype.serializeBinary = function() {
-  var writer = new jspb.BinaryWriter();
-  proto.scoretrak.competition.v1.Competition.serializeBinaryToWriter(this, writer);
-  return writer.getResultBuffer();
-};
-
+proto.scoretrak.competition.v1.Competition.prototype.serializeBinary =
+  function () {
+    var writer = new jspb.BinaryWriter();
+    proto.scoretrak.competition.v1.Competition.serializeBinaryToWriter(
+      this,
+      writer
+    );
+    return writer.getResultBuffer();
+  };
 
 /**
  * Serializes the given message to binary data (in protobuf wire
@@ -470,7 +659,10 @@ proto.scoretrak.competition.v1.Competition.prototype.serializeBinary = function(
  * @param {!jspb.BinaryWriter} writer
  * @suppress {unusedLocalVariables} f is only used for nested messages
  */
-proto.scoretrak.competition.v1.Competition.serializeBinaryToWriter = function(message, writer) {
+proto.scoretrak.competition.v1.Competition.serializeBinaryToWriter = function (
+  message,
+  writer
+) {
   var f = undefined;
   f = message.getDynamicConfig();
   if (f != null) {
@@ -525,7 +717,8 @@ proto.scoretrak.competition.v1.Competition.serializeBinaryToWriter = function(me
     writer.writeRepeatedMessage(
       7,
       f,
-      scoretrak_service_group_v1_service_group_pb.ServiceGroup.serializeBinaryToWriter
+      scoretrak_service_group_v1_service_group_pb.ServiceGroup
+        .serializeBinaryToWriter
     );
   }
   f = message.getRoundsList();
@@ -570,514 +763,647 @@ proto.scoretrak.competition.v1.Competition.serializeBinaryToWriter = function(me
   }
 };
 
-
 /**
  * optional scoretrak.config.v1.DynamicConfig dynamic_config = 1;
  * @return {?proto.scoretrak.config.v1.DynamicConfig}
  */
-proto.scoretrak.competition.v1.Competition.prototype.getDynamicConfig = function() {
-  return /** @type{?proto.scoretrak.config.v1.DynamicConfig} */ (
-    jspb.Message.getWrapperField(this, scoretrak_config_v1_config_pb.DynamicConfig, 1));
-};
-
+proto.scoretrak.competition.v1.Competition.prototype.getDynamicConfig =
+  function () {
+    return /** @type{?proto.scoretrak.config.v1.DynamicConfig} */ (
+      jspb.Message.getWrapperField(
+        this,
+        scoretrak_config_v1_config_pb.DynamicConfig,
+        1
+      )
+    );
+  };
 
 /**
  * @param {?proto.scoretrak.config.v1.DynamicConfig|undefined} value
  * @return {!proto.scoretrak.competition.v1.Competition} returns this
-*/
-proto.scoretrak.competition.v1.Competition.prototype.setDynamicConfig = function(value) {
-  return jspb.Message.setWrapperField(this, 1, value);
-};
-
+ */
+proto.scoretrak.competition.v1.Competition.prototype.setDynamicConfig =
+  function (value) {
+    return jspb.Message.setWrapperField(this, 1, value);
+  };
 
 /**
  * Clears the message field making it undefined.
  * @return {!proto.scoretrak.competition.v1.Competition} returns this
  */
-proto.scoretrak.competition.v1.Competition.prototype.clearDynamicConfig = function() {
-  return this.setDynamicConfig(undefined);
-};
-
+proto.scoretrak.competition.v1.Competition.prototype.clearDynamicConfig =
+  function () {
+    return this.setDynamicConfig(undefined);
+  };
 
 /**
  * Returns whether this field is set.
  * @return {boolean}
  */
-proto.scoretrak.competition.v1.Competition.prototype.hasDynamicConfig = function() {
-  return jspb.Message.getField(this, 1) != null;
-};
-
+proto.scoretrak.competition.v1.Competition.prototype.hasDynamicConfig =
+  function () {
+    return jspb.Message.getField(this, 1) != null;
+  };
 
 /**
  * optional scoretrak.report.v1.Report report = 2;
  * @return {?proto.scoretrak.report.v1.Report}
  */
-proto.scoretrak.competition.v1.Competition.prototype.getReport = function() {
+proto.scoretrak.competition.v1.Competition.prototype.getReport = function () {
   return /** @type{?proto.scoretrak.report.v1.Report} */ (
-    jspb.Message.getWrapperField(this, scoretrak_report_v1_report_pb.Report, 2));
+    jspb.Message.getWrapperField(this, scoretrak_report_v1_report_pb.Report, 2)
+  );
 };
-
 
 /**
  * @param {?proto.scoretrak.report.v1.Report|undefined} value
  * @return {!proto.scoretrak.competition.v1.Competition} returns this
-*/
-proto.scoretrak.competition.v1.Competition.prototype.setReport = function(value) {
+ */
+proto.scoretrak.competition.v1.Competition.prototype.setReport = function (
+  value
+) {
   return jspb.Message.setWrapperField(this, 2, value);
 };
-
 
 /**
  * Clears the message field making it undefined.
  * @return {!proto.scoretrak.competition.v1.Competition} returns this
  */
-proto.scoretrak.competition.v1.Competition.prototype.clearReport = function() {
+proto.scoretrak.competition.v1.Competition.prototype.clearReport = function () {
   return this.setReport(undefined);
 };
-
 
 /**
  * Returns whether this field is set.
  * @return {boolean}
  */
-proto.scoretrak.competition.v1.Competition.prototype.hasReport = function() {
+proto.scoretrak.competition.v1.Competition.prototype.hasReport = function () {
   return jspb.Message.getField(this, 2) != null;
 };
-
 
 /**
  * repeated scoretrak.host_group.v1.HostGroup host_groups = 3;
  * @return {!Array<!proto.scoretrak.host_group.v1.HostGroup>}
  */
-proto.scoretrak.competition.v1.Competition.prototype.getHostGroupsList = function() {
-  return /** @type{!Array<!proto.scoretrak.host_group.v1.HostGroup>} */ (
-    jspb.Message.getRepeatedWrapperField(this, scoretrak_host_group_v1_host_group_pb.HostGroup, 3));
-};
-
+proto.scoretrak.competition.v1.Competition.prototype.getHostGroupsList =
+  function () {
+    return /** @type{!Array<!proto.scoretrak.host_group.v1.HostGroup>} */ (
+      jspb.Message.getRepeatedWrapperField(
+        this,
+        scoretrak_host_group_v1_host_group_pb.HostGroup,
+        3
+      )
+    );
+  };
 
 /**
  * @param {!Array<!proto.scoretrak.host_group.v1.HostGroup>} value
  * @return {!proto.scoretrak.competition.v1.Competition} returns this
-*/
-proto.scoretrak.competition.v1.Competition.prototype.setHostGroupsList = function(value) {
-  return jspb.Message.setRepeatedWrapperField(this, 3, value);
-};
-
+ */
+proto.scoretrak.competition.v1.Competition.prototype.setHostGroupsList =
+  function (value) {
+    return jspb.Message.setRepeatedWrapperField(this, 3, value);
+  };
 
 /**
  * @param {!proto.scoretrak.host_group.v1.HostGroup=} opt_value
  * @param {number=} opt_index
  * @return {!proto.scoretrak.host_group.v1.HostGroup}
  */
-proto.scoretrak.competition.v1.Competition.prototype.addHostGroups = function(opt_value, opt_index) {
-  return jspb.Message.addToRepeatedWrapperField(this, 3, opt_value, proto.scoretrak.host_group.v1.HostGroup, opt_index);
+proto.scoretrak.competition.v1.Competition.prototype.addHostGroups = function (
+  opt_value,
+  opt_index
+) {
+  return jspb.Message.addToRepeatedWrapperField(
+    this,
+    3,
+    opt_value,
+    proto.scoretrak.host_group.v1.HostGroup,
+    opt_index
+  );
 };
-
 
 /**
  * Clears the list making it empty but non-null.
  * @return {!proto.scoretrak.competition.v1.Competition} returns this
  */
-proto.scoretrak.competition.v1.Competition.prototype.clearHostGroupsList = function() {
-  return this.setHostGroupsList([]);
-};
-
+proto.scoretrak.competition.v1.Competition.prototype.clearHostGroupsList =
+  function () {
+    return this.setHostGroupsList([]);
+  };
 
 /**
  * repeated scoretrak.host.v1.Host hosts = 4;
  * @return {!Array<!proto.scoretrak.host.v1.Host>}
  */
-proto.scoretrak.competition.v1.Competition.prototype.getHostsList = function() {
-  return /** @type{!Array<!proto.scoretrak.host.v1.Host>} */ (
-    jspb.Message.getRepeatedWrapperField(this, scoretrak_host_v1_host_pb.Host, 4));
-};
-
+proto.scoretrak.competition.v1.Competition.prototype.getHostsList =
+  function () {
+    return /** @type{!Array<!proto.scoretrak.host.v1.Host>} */ (
+      jspb.Message.getRepeatedWrapperField(
+        this,
+        scoretrak_host_v1_host_pb.Host,
+        4
+      )
+    );
+  };
 
 /**
  * @param {!Array<!proto.scoretrak.host.v1.Host>} value
  * @return {!proto.scoretrak.competition.v1.Competition} returns this
-*/
-proto.scoretrak.competition.v1.Competition.prototype.setHostsList = function(value) {
+ */
+proto.scoretrak.competition.v1.Competition.prototype.setHostsList = function (
+  value
+) {
   return jspb.Message.setRepeatedWrapperField(this, 4, value);
 };
-
 
 /**
  * @param {!proto.scoretrak.host.v1.Host=} opt_value
  * @param {number=} opt_index
  * @return {!proto.scoretrak.host.v1.Host}
  */
-proto.scoretrak.competition.v1.Competition.prototype.addHosts = function(opt_value, opt_index) {
-  return jspb.Message.addToRepeatedWrapperField(this, 4, opt_value, proto.scoretrak.host.v1.Host, opt_index);
+proto.scoretrak.competition.v1.Competition.prototype.addHosts = function (
+  opt_value,
+  opt_index
+) {
+  return jspb.Message.addToRepeatedWrapperField(
+    this,
+    4,
+    opt_value,
+    proto.scoretrak.host.v1.Host,
+    opt_index
+  );
 };
-
 
 /**
  * Clears the list making it empty but non-null.
  * @return {!proto.scoretrak.competition.v1.Competition} returns this
  */
-proto.scoretrak.competition.v1.Competition.prototype.clearHostsList = function() {
-  return this.setHostsList([]);
-};
-
+proto.scoretrak.competition.v1.Competition.prototype.clearHostsList =
+  function () {
+    return this.setHostsList([]);
+  };
 
 /**
  * repeated scoretrak.team.v1.Team teams = 5;
  * @return {!Array<!proto.scoretrak.team.v1.Team>}
  */
-proto.scoretrak.competition.v1.Competition.prototype.getTeamsList = function() {
-  return /** @type{!Array<!proto.scoretrak.team.v1.Team>} */ (
-    jspb.Message.getRepeatedWrapperField(this, scoretrak_team_v1_team_pb.Team, 5));
-};
-
+proto.scoretrak.competition.v1.Competition.prototype.getTeamsList =
+  function () {
+    return /** @type{!Array<!proto.scoretrak.team.v1.Team>} */ (
+      jspb.Message.getRepeatedWrapperField(
+        this,
+        scoretrak_team_v1_team_pb.Team,
+        5
+      )
+    );
+  };
 
 /**
  * @param {!Array<!proto.scoretrak.team.v1.Team>} value
  * @return {!proto.scoretrak.competition.v1.Competition} returns this
-*/
-proto.scoretrak.competition.v1.Competition.prototype.setTeamsList = function(value) {
+ */
+proto.scoretrak.competition.v1.Competition.prototype.setTeamsList = function (
+  value
+) {
   return jspb.Message.setRepeatedWrapperField(this, 5, value);
 };
-
 
 /**
  * @param {!proto.scoretrak.team.v1.Team=} opt_value
  * @param {number=} opt_index
  * @return {!proto.scoretrak.team.v1.Team}
  */
-proto.scoretrak.competition.v1.Competition.prototype.addTeams = function(opt_value, opt_index) {
-  return jspb.Message.addToRepeatedWrapperField(this, 5, opt_value, proto.scoretrak.team.v1.Team, opt_index);
+proto.scoretrak.competition.v1.Competition.prototype.addTeams = function (
+  opt_value,
+  opt_index
+) {
+  return jspb.Message.addToRepeatedWrapperField(
+    this,
+    5,
+    opt_value,
+    proto.scoretrak.team.v1.Team,
+    opt_index
+  );
 };
-
 
 /**
  * Clears the list making it empty but non-null.
  * @return {!proto.scoretrak.competition.v1.Competition} returns this
  */
-proto.scoretrak.competition.v1.Competition.prototype.clearTeamsList = function() {
-  return this.setTeamsList([]);
-};
-
+proto.scoretrak.competition.v1.Competition.prototype.clearTeamsList =
+  function () {
+    return this.setTeamsList([]);
+  };
 
 /**
  * repeated scoretrak.service.v1.Service services = 6;
  * @return {!Array<!proto.scoretrak.service.v1.Service>}
  */
-proto.scoretrak.competition.v1.Competition.prototype.getServicesList = function() {
-  return /** @type{!Array<!proto.scoretrak.service.v1.Service>} */ (
-    jspb.Message.getRepeatedWrapperField(this, scoretrak_service_v1_service_pb.Service, 6));
-};
-
+proto.scoretrak.competition.v1.Competition.prototype.getServicesList =
+  function () {
+    return /** @type{!Array<!proto.scoretrak.service.v1.Service>} */ (
+      jspb.Message.getRepeatedWrapperField(
+        this,
+        scoretrak_service_v1_service_pb.Service,
+        6
+      )
+    );
+  };
 
 /**
  * @param {!Array<!proto.scoretrak.service.v1.Service>} value
  * @return {!proto.scoretrak.competition.v1.Competition} returns this
-*/
-proto.scoretrak.competition.v1.Competition.prototype.setServicesList = function(value) {
-  return jspb.Message.setRepeatedWrapperField(this, 6, value);
-};
-
+ */
+proto.scoretrak.competition.v1.Competition.prototype.setServicesList =
+  function (value) {
+    return jspb.Message.setRepeatedWrapperField(this, 6, value);
+  };
 
 /**
  * @param {!proto.scoretrak.service.v1.Service=} opt_value
  * @param {number=} opt_index
  * @return {!proto.scoretrak.service.v1.Service}
  */
-proto.scoretrak.competition.v1.Competition.prototype.addServices = function(opt_value, opt_index) {
-  return jspb.Message.addToRepeatedWrapperField(this, 6, opt_value, proto.scoretrak.service.v1.Service, opt_index);
+proto.scoretrak.competition.v1.Competition.prototype.addServices = function (
+  opt_value,
+  opt_index
+) {
+  return jspb.Message.addToRepeatedWrapperField(
+    this,
+    6,
+    opt_value,
+    proto.scoretrak.service.v1.Service,
+    opt_index
+  );
 };
-
 
 /**
  * Clears the list making it empty but non-null.
  * @return {!proto.scoretrak.competition.v1.Competition} returns this
  */
-proto.scoretrak.competition.v1.Competition.prototype.clearServicesList = function() {
-  return this.setServicesList([]);
-};
-
+proto.scoretrak.competition.v1.Competition.prototype.clearServicesList =
+  function () {
+    return this.setServicesList([]);
+  };
 
 /**
  * repeated scoretrak.service_group.v1.ServiceGroup service_groups = 7;
  * @return {!Array<!proto.scoretrak.service_group.v1.ServiceGroup>}
  */
-proto.scoretrak.competition.v1.Competition.prototype.getServiceGroupsList = function() {
-  return /** @type{!Array<!proto.scoretrak.service_group.v1.ServiceGroup>} */ (
-    jspb.Message.getRepeatedWrapperField(this, scoretrak_service_group_v1_service_group_pb.ServiceGroup, 7));
-};
-
+proto.scoretrak.competition.v1.Competition.prototype.getServiceGroupsList =
+  function () {
+    return /** @type{!Array<!proto.scoretrak.service_group.v1.ServiceGroup>} */ (
+      jspb.Message.getRepeatedWrapperField(
+        this,
+        scoretrak_service_group_v1_service_group_pb.ServiceGroup,
+        7
+      )
+    );
+  };
 
 /**
  * @param {!Array<!proto.scoretrak.service_group.v1.ServiceGroup>} value
  * @return {!proto.scoretrak.competition.v1.Competition} returns this
-*/
-proto.scoretrak.competition.v1.Competition.prototype.setServiceGroupsList = function(value) {
-  return jspb.Message.setRepeatedWrapperField(this, 7, value);
-};
-
+ */
+proto.scoretrak.competition.v1.Competition.prototype.setServiceGroupsList =
+  function (value) {
+    return jspb.Message.setRepeatedWrapperField(this, 7, value);
+  };
 
 /**
  * @param {!proto.scoretrak.service_group.v1.ServiceGroup=} opt_value
  * @param {number=} opt_index
  * @return {!proto.scoretrak.service_group.v1.ServiceGroup}
  */
-proto.scoretrak.competition.v1.Competition.prototype.addServiceGroups = function(opt_value, opt_index) {
-  return jspb.Message.addToRepeatedWrapperField(this, 7, opt_value, proto.scoretrak.service_group.v1.ServiceGroup, opt_index);
-};
-
+proto.scoretrak.competition.v1.Competition.prototype.addServiceGroups =
+  function (opt_value, opt_index) {
+    return jspb.Message.addToRepeatedWrapperField(
+      this,
+      7,
+      opt_value,
+      proto.scoretrak.service_group.v1.ServiceGroup,
+      opt_index
+    );
+  };
 
 /**
  * Clears the list making it empty but non-null.
  * @return {!proto.scoretrak.competition.v1.Competition} returns this
  */
-proto.scoretrak.competition.v1.Competition.prototype.clearServiceGroupsList = function() {
-  return this.setServiceGroupsList([]);
-};
-
+proto.scoretrak.competition.v1.Competition.prototype.clearServiceGroupsList =
+  function () {
+    return this.setServiceGroupsList([]);
+  };
 
 /**
  * repeated scoretrak.round.v1.Round rounds = 8;
  * @return {!Array<!proto.scoretrak.round.v1.Round>}
  */
-proto.scoretrak.competition.v1.Competition.prototype.getRoundsList = function() {
-  return /** @type{!Array<!proto.scoretrak.round.v1.Round>} */ (
-    jspb.Message.getRepeatedWrapperField(this, scoretrak_round_v1_round_pb.Round, 8));
-};
-
+proto.scoretrak.competition.v1.Competition.prototype.getRoundsList =
+  function () {
+    return /** @type{!Array<!proto.scoretrak.round.v1.Round>} */ (
+      jspb.Message.getRepeatedWrapperField(
+        this,
+        scoretrak_round_v1_round_pb.Round,
+        8
+      )
+    );
+  };
 
 /**
  * @param {!Array<!proto.scoretrak.round.v1.Round>} value
  * @return {!proto.scoretrak.competition.v1.Competition} returns this
-*/
-proto.scoretrak.competition.v1.Competition.prototype.setRoundsList = function(value) {
+ */
+proto.scoretrak.competition.v1.Competition.prototype.setRoundsList = function (
+  value
+) {
   return jspb.Message.setRepeatedWrapperField(this, 8, value);
 };
-
 
 /**
  * @param {!proto.scoretrak.round.v1.Round=} opt_value
  * @param {number=} opt_index
  * @return {!proto.scoretrak.round.v1.Round}
  */
-proto.scoretrak.competition.v1.Competition.prototype.addRounds = function(opt_value, opt_index) {
-  return jspb.Message.addToRepeatedWrapperField(this, 8, opt_value, proto.scoretrak.round.v1.Round, opt_index);
+proto.scoretrak.competition.v1.Competition.prototype.addRounds = function (
+  opt_value,
+  opt_index
+) {
+  return jspb.Message.addToRepeatedWrapperField(
+    this,
+    8,
+    opt_value,
+    proto.scoretrak.round.v1.Round,
+    opt_index
+  );
 };
-
 
 /**
  * Clears the list making it empty but non-null.
  * @return {!proto.scoretrak.competition.v1.Competition} returns this
  */
-proto.scoretrak.competition.v1.Competition.prototype.clearRoundsList = function() {
-  return this.setRoundsList([]);
-};
-
+proto.scoretrak.competition.v1.Competition.prototype.clearRoundsList =
+  function () {
+    return this.setRoundsList([]);
+  };
 
 /**
  * repeated scoretrak.property.v1.Property properties = 9;
  * @return {!Array<!proto.scoretrak.property.v1.Property>}
  */
-proto.scoretrak.competition.v1.Competition.prototype.getPropertiesList = function() {
-  return /** @type{!Array<!proto.scoretrak.property.v1.Property>} */ (
-    jspb.Message.getRepeatedWrapperField(this, scoretrak_property_v1_property_pb.Property, 9));
-};
-
+proto.scoretrak.competition.v1.Competition.prototype.getPropertiesList =
+  function () {
+    return /** @type{!Array<!proto.scoretrak.property.v1.Property>} */ (
+      jspb.Message.getRepeatedWrapperField(
+        this,
+        scoretrak_property_v1_property_pb.Property,
+        9
+      )
+    );
+  };
 
 /**
  * @param {!Array<!proto.scoretrak.property.v1.Property>} value
  * @return {!proto.scoretrak.competition.v1.Competition} returns this
-*/
-proto.scoretrak.competition.v1.Competition.prototype.setPropertiesList = function(value) {
-  return jspb.Message.setRepeatedWrapperField(this, 9, value);
-};
-
+ */
+proto.scoretrak.competition.v1.Competition.prototype.setPropertiesList =
+  function (value) {
+    return jspb.Message.setRepeatedWrapperField(this, 9, value);
+  };
 
 /**
  * @param {!proto.scoretrak.property.v1.Property=} opt_value
  * @param {number=} opt_index
  * @return {!proto.scoretrak.property.v1.Property}
  */
-proto.scoretrak.competition.v1.Competition.prototype.addProperties = function(opt_value, opt_index) {
-  return jspb.Message.addToRepeatedWrapperField(this, 9, opt_value, proto.scoretrak.property.v1.Property, opt_index);
+proto.scoretrak.competition.v1.Competition.prototype.addProperties = function (
+  opt_value,
+  opt_index
+) {
+  return jspb.Message.addToRepeatedWrapperField(
+    this,
+    9,
+    opt_value,
+    proto.scoretrak.property.v1.Property,
+    opt_index
+  );
 };
-
 
 /**
  * Clears the list making it empty but non-null.
  * @return {!proto.scoretrak.competition.v1.Competition} returns this
  */
-proto.scoretrak.competition.v1.Competition.prototype.clearPropertiesList = function() {
-  return this.setPropertiesList([]);
-};
-
+proto.scoretrak.competition.v1.Competition.prototype.clearPropertiesList =
+  function () {
+    return this.setPropertiesList([]);
+  };
 
 /**
  * repeated scoretrak.check.v1.Check checks = 10;
  * @return {!Array<!proto.scoretrak.check.v1.Check>}
  */
-proto.scoretrak.competition.v1.Competition.prototype.getChecksList = function() {
-  return /** @type{!Array<!proto.scoretrak.check.v1.Check>} */ (
-    jspb.Message.getRepeatedWrapperField(this, scoretrak_check_v1_check_pb.Check, 10));
-};
-
+proto.scoretrak.competition.v1.Competition.prototype.getChecksList =
+  function () {
+    return /** @type{!Array<!proto.scoretrak.check.v1.Check>} */ (
+      jspb.Message.getRepeatedWrapperField(
+        this,
+        scoretrak_check_v1_check_pb.Check,
+        10
+      )
+    );
+  };
 
 /**
  * @param {!Array<!proto.scoretrak.check.v1.Check>} value
  * @return {!proto.scoretrak.competition.v1.Competition} returns this
-*/
-proto.scoretrak.competition.v1.Competition.prototype.setChecksList = function(value) {
+ */
+proto.scoretrak.competition.v1.Competition.prototype.setChecksList = function (
+  value
+) {
   return jspb.Message.setRepeatedWrapperField(this, 10, value);
 };
-
 
 /**
  * @param {!proto.scoretrak.check.v1.Check=} opt_value
  * @param {number=} opt_index
  * @return {!proto.scoretrak.check.v1.Check}
  */
-proto.scoretrak.competition.v1.Competition.prototype.addChecks = function(opt_value, opt_index) {
-  return jspb.Message.addToRepeatedWrapperField(this, 10, opt_value, proto.scoretrak.check.v1.Check, opt_index);
+proto.scoretrak.competition.v1.Competition.prototype.addChecks = function (
+  opt_value,
+  opt_index
+) {
+  return jspb.Message.addToRepeatedWrapperField(
+    this,
+    10,
+    opt_value,
+    proto.scoretrak.check.v1.Check,
+    opt_index
+  );
 };
-
 
 /**
  * Clears the list making it empty but non-null.
  * @return {!proto.scoretrak.competition.v1.Competition} returns this
  */
-proto.scoretrak.competition.v1.Competition.prototype.clearChecksList = function() {
-  return this.setChecksList([]);
-};
-
+proto.scoretrak.competition.v1.Competition.prototype.clearChecksList =
+  function () {
+    return this.setChecksList([]);
+  };
 
 /**
  * repeated scoretrak.user.v1.User users = 11;
  * @return {!Array<!proto.scoretrak.user.v1.User>}
  */
-proto.scoretrak.competition.v1.Competition.prototype.getUsersList = function() {
-  return /** @type{!Array<!proto.scoretrak.user.v1.User>} */ (
-    jspb.Message.getRepeatedWrapperField(this, scoretrak_user_v1_user_pb.User, 11));
-};
-
+proto.scoretrak.competition.v1.Competition.prototype.getUsersList =
+  function () {
+    return /** @type{!Array<!proto.scoretrak.user.v1.User>} */ (
+      jspb.Message.getRepeatedWrapperField(
+        this,
+        scoretrak_user_v1_user_pb.User,
+        11
+      )
+    );
+  };
 
 /**
  * @param {!Array<!proto.scoretrak.user.v1.User>} value
  * @return {!proto.scoretrak.competition.v1.Competition} returns this
-*/
-proto.scoretrak.competition.v1.Competition.prototype.setUsersList = function(value) {
+ */
+proto.scoretrak.competition.v1.Competition.prototype.setUsersList = function (
+  value
+) {
   return jspb.Message.setRepeatedWrapperField(this, 11, value);
 };
-
 
 /**
  * @param {!proto.scoretrak.user.v1.User=} opt_value
  * @param {number=} opt_index
  * @return {!proto.scoretrak.user.v1.User}
  */
-proto.scoretrak.competition.v1.Competition.prototype.addUsers = function(opt_value, opt_index) {
-  return jspb.Message.addToRepeatedWrapperField(this, 11, opt_value, proto.scoretrak.user.v1.User, opt_index);
+proto.scoretrak.competition.v1.Competition.prototype.addUsers = function (
+  opt_value,
+  opt_index
+) {
+  return jspb.Message.addToRepeatedWrapperField(
+    this,
+    11,
+    opt_value,
+    proto.scoretrak.user.v1.User,
+    opt_index
+  );
 };
-
 
 /**
  * Clears the list making it empty but non-null.
  * @return {!proto.scoretrak.competition.v1.Competition} returns this
  */
-proto.scoretrak.competition.v1.Competition.prototype.clearUsersList = function() {
-  return this.setUsersList([]);
-};
-
+proto.scoretrak.competition.v1.Competition.prototype.clearUsersList =
+  function () {
+    return this.setUsersList([]);
+  };
 
 /**
  * optional scoretrak.policy.v1.Policy policy = 12;
  * @return {?proto.scoretrak.policy.v1.Policy}
  */
-proto.scoretrak.competition.v1.Competition.prototype.getPolicy = function() {
+proto.scoretrak.competition.v1.Competition.prototype.getPolicy = function () {
   return /** @type{?proto.scoretrak.policy.v1.Policy} */ (
-    jspb.Message.getWrapperField(this, scoretrak_policy_v1_policy_pb.Policy, 12));
+    jspb.Message.getWrapperField(this, scoretrak_policy_v1_policy_pb.Policy, 12)
+  );
 };
-
 
 /**
  * @param {?proto.scoretrak.policy.v1.Policy|undefined} value
  * @return {!proto.scoretrak.competition.v1.Competition} returns this
-*/
-proto.scoretrak.competition.v1.Competition.prototype.setPolicy = function(value) {
+ */
+proto.scoretrak.competition.v1.Competition.prototype.setPolicy = function (
+  value
+) {
   return jspb.Message.setWrapperField(this, 12, value);
 };
-
 
 /**
  * Clears the message field making it undefined.
  * @return {!proto.scoretrak.competition.v1.Competition} returns this
  */
-proto.scoretrak.competition.v1.Competition.prototype.clearPolicy = function() {
+proto.scoretrak.competition.v1.Competition.prototype.clearPolicy = function () {
   return this.setPolicy(undefined);
 };
-
 
 /**
  * Returns whether this field is set.
  * @return {boolean}
  */
-proto.scoretrak.competition.v1.Competition.prototype.hasPolicy = function() {
+proto.scoretrak.competition.v1.Competition.prototype.hasPolicy = function () {
   return jspb.Message.getField(this, 12) != null;
 };
 
-
-
-
-
 if (jspb.Message.GENERATE_TO_OBJECT) {
-/**
- * Creates an object representation of this proto.
- * Field names that are reserved in JavaScript and will be renamed to pb_name.
- * Optional fields that are not set will be set to undefined.
- * To access a reserved field use, foo.pb_<name>, eg, foo.pb_default.
- * For the list of reserved names please see:
- *     net/proto2/compiler/js/internal/generator.cc#kKeyword.
- * @param {boolean=} opt_includeInstance Deprecated. whether to include the
- *     JSPB instance for transitional soy proto support:
- *     http://goto/soy-param-migration
- * @return {!Object}
- */
-proto.scoretrak.competition.v1.LoadCompetitionRequest.prototype.toObject = function(opt_includeInstance) {
-  return proto.scoretrak.competition.v1.LoadCompetitionRequest.toObject(opt_includeInstance, this);
-};
+  /**
+   * Creates an object representation of this proto.
+   * Field names that are reserved in JavaScript and will be renamed to pb_name.
+   * Optional fields that are not set will be set to undefined.
+   * To access a reserved field use, foo.pb_<name>, eg, foo.pb_default.
+   * For the list of reserved names please see:
+   *     net/proto2/compiler/js/internal/generator.cc#kKeyword.
+   * @param {boolean=} opt_includeInstance Deprecated. whether to include the
+   *     JSPB instance for transitional soy proto support:
+   *     http://goto/soy-param-migration
+   * @return {!Object}
+   */
+  proto.scoretrak.competition.v1.LoadCompetitionRequest.prototype.toObject =
+    function (opt_includeInstance) {
+      return proto.scoretrak.competition.v1.LoadCompetitionRequest.toObject(
+        opt_includeInstance,
+        this
+      );
+    };
 
+  /**
+   * Static version of the {@see toObject} method.
+   * @param {boolean|undefined} includeInstance Deprecated. Whether to include
+   *     the JSPB instance for transitional soy proto support:
+   *     http://goto/soy-param-migration
+   * @param {!proto.scoretrak.competition.v1.LoadCompetitionRequest} msg The msg instance to transform.
+   * @return {!Object}
+   * @suppress {unusedLocalVariables} f is only used for nested messages
+   */
+  proto.scoretrak.competition.v1.LoadCompetitionRequest.toObject = function (
+    includeInstance,
+    msg
+  ) {
+    var f,
+      obj = {
+        competition:
+          (f = msg.getCompetition()) &&
+          proto.scoretrak.competition.v1.Competition.toObject(
+            includeInstance,
+            f
+          ),
+      };
 
-/**
- * Static version of the {@see toObject} method.
- * @param {boolean|undefined} includeInstance Deprecated. Whether to include
- *     the JSPB instance for transitional soy proto support:
- *     http://goto/soy-param-migration
- * @param {!proto.scoretrak.competition.v1.LoadCompetitionRequest} msg The msg instance to transform.
- * @return {!Object}
- * @suppress {unusedLocalVariables} f is only used for nested messages
- */
-proto.scoretrak.competition.v1.LoadCompetitionRequest.toObject = function(includeInstance, msg) {
-  var f, obj = {
-    competition: (f = msg.getCompetition()) && proto.scoretrak.competition.v1.Competition.toObject(includeInstance, f)
+    if (includeInstance) {
+      obj.$jspbMessageInstance = msg;
+    }
+    return obj;
   };
-
-  if (includeInstance) {
-    obj.$jspbMessageInstance = msg;
-  }
-  return obj;
-};
 }
-
 
 /**
  * Deserializes binary data (in protobuf wire format).
  * @param {jspb.ByteSource} bytes The bytes to deserialize.
  * @return {!proto.scoretrak.competition.v1.LoadCompetitionRequest}
  */
-proto.scoretrak.competition.v1.LoadCompetitionRequest.deserializeBinary = function(bytes) {
-  var reader = new jspb.BinaryReader(bytes);
-  var msg = new proto.scoretrak.competition.v1.LoadCompetitionRequest;
-  return proto.scoretrak.competition.v1.LoadCompetitionRequest.deserializeBinaryFromReader(msg, reader);
-};
-
+proto.scoretrak.competition.v1.LoadCompetitionRequest.deserializeBinary =
+  function (bytes) {
+    var reader = new jspb.BinaryReader(bytes);
+    var msg = new proto.scoretrak.competition.v1.LoadCompetitionRequest();
+    return proto.scoretrak.competition.v1.LoadCompetitionRequest.deserializeBinaryFromReader(
+      msg,
+      reader
+    );
+  };
 
 /**
  * Deserializes binary data (in protobuf wire format) from the
@@ -1086,37 +1412,44 @@ proto.scoretrak.competition.v1.LoadCompetitionRequest.deserializeBinary = functi
  * @param {!jspb.BinaryReader} reader The BinaryReader to use.
  * @return {!proto.scoretrak.competition.v1.LoadCompetitionRequest}
  */
-proto.scoretrak.competition.v1.LoadCompetitionRequest.deserializeBinaryFromReader = function(msg, reader) {
-  while (reader.nextField()) {
-    if (reader.isEndGroup()) {
-      break;
+proto.scoretrak.competition.v1.LoadCompetitionRequest.deserializeBinaryFromReader =
+  function (msg, reader) {
+    while (reader.nextField()) {
+      if (reader.isEndGroup()) {
+        break;
+      }
+      var field = reader.getFieldNumber();
+      switch (field) {
+        case 1:
+          var value = new proto.scoretrak.competition.v1.Competition();
+          reader.readMessage(
+            value,
+            proto.scoretrak.competition.v1.Competition
+              .deserializeBinaryFromReader
+          );
+          msg.setCompetition(value);
+          break;
+        default:
+          reader.skipField();
+          break;
+      }
     }
-    var field = reader.getFieldNumber();
-    switch (field) {
-    case 1:
-      var value = new proto.scoretrak.competition.v1.Competition;
-      reader.readMessage(value,proto.scoretrak.competition.v1.Competition.deserializeBinaryFromReader);
-      msg.setCompetition(value);
-      break;
-    default:
-      reader.skipField();
-      break;
-    }
-  }
-  return msg;
-};
-
+    return msg;
+  };
 
 /**
  * Serializes the message to binary data (in protobuf wire format).
  * @return {!Uint8Array}
  */
-proto.scoretrak.competition.v1.LoadCompetitionRequest.prototype.serializeBinary = function() {
-  var writer = new jspb.BinaryWriter();
-  proto.scoretrak.competition.v1.LoadCompetitionRequest.serializeBinaryToWriter(this, writer);
-  return writer.getResultBuffer();
-};
-
+proto.scoretrak.competition.v1.LoadCompetitionRequest.prototype.serializeBinary =
+  function () {
+    var writer = new jspb.BinaryWriter();
+    proto.scoretrak.competition.v1.LoadCompetitionRequest.serializeBinaryToWriter(
+      this,
+      writer
+    );
+    return writer.getResultBuffer();
+  };
 
 /**
  * Serializes the given message to binary data (in protobuf wire
@@ -1125,110 +1458,119 @@ proto.scoretrak.competition.v1.LoadCompetitionRequest.prototype.serializeBinary 
  * @param {!jspb.BinaryWriter} writer
  * @suppress {unusedLocalVariables} f is only used for nested messages
  */
-proto.scoretrak.competition.v1.LoadCompetitionRequest.serializeBinaryToWriter = function(message, writer) {
-  var f = undefined;
-  f = message.getCompetition();
-  if (f != null) {
-    writer.writeMessage(
-      1,
-      f,
-      proto.scoretrak.competition.v1.Competition.serializeBinaryToWriter
-    );
-  }
-};
-
+proto.scoretrak.competition.v1.LoadCompetitionRequest.serializeBinaryToWriter =
+  function (message, writer) {
+    var f = undefined;
+    f = message.getCompetition();
+    if (f != null) {
+      writer.writeMessage(
+        1,
+        f,
+        proto.scoretrak.competition.v1.Competition.serializeBinaryToWriter
+      );
+    }
+  };
 
 /**
  * optional Competition competition = 1;
  * @return {?proto.scoretrak.competition.v1.Competition}
  */
-proto.scoretrak.competition.v1.LoadCompetitionRequest.prototype.getCompetition = function() {
-  return /** @type{?proto.scoretrak.competition.v1.Competition} */ (
-    jspb.Message.getWrapperField(this, proto.scoretrak.competition.v1.Competition, 1));
-};
-
+proto.scoretrak.competition.v1.LoadCompetitionRequest.prototype.getCompetition =
+  function () {
+    return /** @type{?proto.scoretrak.competition.v1.Competition} */ (
+      jspb.Message.getWrapperField(
+        this,
+        proto.scoretrak.competition.v1.Competition,
+        1
+      )
+    );
+  };
 
 /**
  * @param {?proto.scoretrak.competition.v1.Competition|undefined} value
  * @return {!proto.scoretrak.competition.v1.LoadCompetitionRequest} returns this
-*/
-proto.scoretrak.competition.v1.LoadCompetitionRequest.prototype.setCompetition = function(value) {
-  return jspb.Message.setWrapperField(this, 1, value);
-};
-
+ */
+proto.scoretrak.competition.v1.LoadCompetitionRequest.prototype.setCompetition =
+  function (value) {
+    return jspb.Message.setWrapperField(this, 1, value);
+  };
 
 /**
  * Clears the message field making it undefined.
  * @return {!proto.scoretrak.competition.v1.LoadCompetitionRequest} returns this
  */
-proto.scoretrak.competition.v1.LoadCompetitionRequest.prototype.clearCompetition = function() {
-  return this.setCompetition(undefined);
-};
-
+proto.scoretrak.competition.v1.LoadCompetitionRequest.prototype.clearCompetition =
+  function () {
+    return this.setCompetition(undefined);
+  };
 
 /**
  * Returns whether this field is set.
  * @return {boolean}
  */
-proto.scoretrak.competition.v1.LoadCompetitionRequest.prototype.hasCompetition = function() {
-  return jspb.Message.getField(this, 1) != null;
-};
-
-
-
-
-
-if (jspb.Message.GENERATE_TO_OBJECT) {
-/**
- * Creates an object representation of this proto.
- * Field names that are reserved in JavaScript and will be renamed to pb_name.
- * Optional fields that are not set will be set to undefined.
- * To access a reserved field use, foo.pb_<name>, eg, foo.pb_default.
- * For the list of reserved names please see:
- *     net/proto2/compiler/js/internal/generator.cc#kKeyword.
- * @param {boolean=} opt_includeInstance Deprecated. whether to include the
- *     JSPB instance for transitional soy proto support:
- *     http://goto/soy-param-migration
- * @return {!Object}
- */
-proto.scoretrak.competition.v1.LoadCompetitionResponse.prototype.toObject = function(opt_includeInstance) {
-  return proto.scoretrak.competition.v1.LoadCompetitionResponse.toObject(opt_includeInstance, this);
-};
-
-
-/**
- * Static version of the {@see toObject} method.
- * @param {boolean|undefined} includeInstance Deprecated. Whether to include
- *     the JSPB instance for transitional soy proto support:
- *     http://goto/soy-param-migration
- * @param {!proto.scoretrak.competition.v1.LoadCompetitionResponse} msg The msg instance to transform.
- * @return {!Object}
- * @suppress {unusedLocalVariables} f is only used for nested messages
- */
-proto.scoretrak.competition.v1.LoadCompetitionResponse.toObject = function(includeInstance, msg) {
-  var f, obj = {
-
+proto.scoretrak.competition.v1.LoadCompetitionRequest.prototype.hasCompetition =
+  function () {
+    return jspb.Message.getField(this, 1) != null;
   };
 
-  if (includeInstance) {
-    obj.$jspbMessageInstance = msg;
-  }
-  return obj;
-};
-}
+if (jspb.Message.GENERATE_TO_OBJECT) {
+  /**
+   * Creates an object representation of this proto.
+   * Field names that are reserved in JavaScript and will be renamed to pb_name.
+   * Optional fields that are not set will be set to undefined.
+   * To access a reserved field use, foo.pb_<name>, eg, foo.pb_default.
+   * For the list of reserved names please see:
+   *     net/proto2/compiler/js/internal/generator.cc#kKeyword.
+   * @param {boolean=} opt_includeInstance Deprecated. whether to include the
+   *     JSPB instance for transitional soy proto support:
+   *     http://goto/soy-param-migration
+   * @return {!Object}
+   */
+  proto.scoretrak.competition.v1.LoadCompetitionResponse.prototype.toObject =
+    function (opt_includeInstance) {
+      return proto.scoretrak.competition.v1.LoadCompetitionResponse.toObject(
+        opt_includeInstance,
+        this
+      );
+    };
 
+  /**
+   * Static version of the {@see toObject} method.
+   * @param {boolean|undefined} includeInstance Deprecated. Whether to include
+   *     the JSPB instance for transitional soy proto support:
+   *     http://goto/soy-param-migration
+   * @param {!proto.scoretrak.competition.v1.LoadCompetitionResponse} msg The msg instance to transform.
+   * @return {!Object}
+   * @suppress {unusedLocalVariables} f is only used for nested messages
+   */
+  proto.scoretrak.competition.v1.LoadCompetitionResponse.toObject = function (
+    includeInstance,
+    msg
+  ) {
+    var f,
+      obj = {};
+
+    if (includeInstance) {
+      obj.$jspbMessageInstance = msg;
+    }
+    return obj;
+  };
+}
 
 /**
  * Deserializes binary data (in protobuf wire format).
  * @param {jspb.ByteSource} bytes The bytes to deserialize.
  * @return {!proto.scoretrak.competition.v1.LoadCompetitionResponse}
  */
-proto.scoretrak.competition.v1.LoadCompetitionResponse.deserializeBinary = function(bytes) {
-  var reader = new jspb.BinaryReader(bytes);
-  var msg = new proto.scoretrak.competition.v1.LoadCompetitionResponse;
-  return proto.scoretrak.competition.v1.LoadCompetitionResponse.deserializeBinaryFromReader(msg, reader);
-};
-
+proto.scoretrak.competition.v1.LoadCompetitionResponse.deserializeBinary =
+  function (bytes) {
+    var reader = new jspb.BinaryReader(bytes);
+    var msg = new proto.scoretrak.competition.v1.LoadCompetitionResponse();
+    return proto.scoretrak.competition.v1.LoadCompetitionResponse.deserializeBinaryFromReader(
+      msg,
+      reader
+    );
+  };
 
 /**
  * Deserializes binary data (in protobuf wire format) from the
@@ -1237,32 +1579,35 @@ proto.scoretrak.competition.v1.LoadCompetitionResponse.deserializeBinary = funct
  * @param {!jspb.BinaryReader} reader The BinaryReader to use.
  * @return {!proto.scoretrak.competition.v1.LoadCompetitionResponse}
  */
-proto.scoretrak.competition.v1.LoadCompetitionResponse.deserializeBinaryFromReader = function(msg, reader) {
-  while (reader.nextField()) {
-    if (reader.isEndGroup()) {
-      break;
+proto.scoretrak.competition.v1.LoadCompetitionResponse.deserializeBinaryFromReader =
+  function (msg, reader) {
+    while (reader.nextField()) {
+      if (reader.isEndGroup()) {
+        break;
+      }
+      var field = reader.getFieldNumber();
+      switch (field) {
+        default:
+          reader.skipField();
+          break;
+      }
     }
-    var field = reader.getFieldNumber();
-    switch (field) {
-    default:
-      reader.skipField();
-      break;
-    }
-  }
-  return msg;
-};
-
+    return msg;
+  };
 
 /**
  * Serializes the message to binary data (in protobuf wire format).
  * @return {!Uint8Array}
  */
-proto.scoretrak.competition.v1.LoadCompetitionResponse.prototype.serializeBinary = function() {
-  var writer = new jspb.BinaryWriter();
-  proto.scoretrak.competition.v1.LoadCompetitionResponse.serializeBinaryToWriter(this, writer);
-  return writer.getResultBuffer();
-};
-
+proto.scoretrak.competition.v1.LoadCompetitionResponse.prototype.serializeBinary =
+  function () {
+    var writer = new jspb.BinaryWriter();
+    proto.scoretrak.competition.v1.LoadCompetitionResponse.serializeBinaryToWriter(
+      this,
+      writer
+    );
+    return writer.getResultBuffer();
+  };
 
 /**
  * Serializes the given message to binary data (in protobuf wire
@@ -1271,65 +1616,67 @@ proto.scoretrak.competition.v1.LoadCompetitionResponse.prototype.serializeBinary
  * @param {!jspb.BinaryWriter} writer
  * @suppress {unusedLocalVariables} f is only used for nested messages
  */
-proto.scoretrak.competition.v1.LoadCompetitionResponse.serializeBinaryToWriter = function(message, writer) {
-  var f = undefined;
-};
-
-
-
-
-
-if (jspb.Message.GENERATE_TO_OBJECT) {
-/**
- * Creates an object representation of this proto.
- * Field names that are reserved in JavaScript and will be renamed to pb_name.
- * Optional fields that are not set will be set to undefined.
- * To access a reserved field use, foo.pb_<name>, eg, foo.pb_default.
- * For the list of reserved names please see:
- *     net/proto2/compiler/js/internal/generator.cc#kKeyword.
- * @param {boolean=} opt_includeInstance Deprecated. whether to include the
- *     JSPB instance for transitional soy proto support:
- *     http://goto/soy-param-migration
- * @return {!Object}
- */
-proto.scoretrak.competition.v1.FetchCoreCompetitionRequest.prototype.toObject = function(opt_includeInstance) {
-  return proto.scoretrak.competition.v1.FetchCoreCompetitionRequest.toObject(opt_includeInstance, this);
-};
-
-
-/**
- * Static version of the {@see toObject} method.
- * @param {boolean|undefined} includeInstance Deprecated. Whether to include
- *     the JSPB instance for transitional soy proto support:
- *     http://goto/soy-param-migration
- * @param {!proto.scoretrak.competition.v1.FetchCoreCompetitionRequest} msg The msg instance to transform.
- * @return {!Object}
- * @suppress {unusedLocalVariables} f is only used for nested messages
- */
-proto.scoretrak.competition.v1.FetchCoreCompetitionRequest.toObject = function(includeInstance, msg) {
-  var f, obj = {
-
+proto.scoretrak.competition.v1.LoadCompetitionResponse.serializeBinaryToWriter =
+  function (message, writer) {
+    var f = undefined;
   };
 
-  if (includeInstance) {
-    obj.$jspbMessageInstance = msg;
-  }
-  return obj;
-};
-}
+if (jspb.Message.GENERATE_TO_OBJECT) {
+  /**
+   * Creates an object representation of this proto.
+   * Field names that are reserved in JavaScript and will be renamed to pb_name.
+   * Optional fields that are not set will be set to undefined.
+   * To access a reserved field use, foo.pb_<name>, eg, foo.pb_default.
+   * For the list of reserved names please see:
+   *     net/proto2/compiler/js/internal/generator.cc#kKeyword.
+   * @param {boolean=} opt_includeInstance Deprecated. whether to include the
+   *     JSPB instance for transitional soy proto support:
+   *     http://goto/soy-param-migration
+   * @return {!Object}
+   */
+  proto.scoretrak.competition.v1.FetchCoreCompetitionRequest.prototype.toObject =
+    function (opt_includeInstance) {
+      return proto.scoretrak.competition.v1.FetchCoreCompetitionRequest.toObject(
+        opt_includeInstance,
+        this
+      );
+    };
 
+  /**
+   * Static version of the {@see toObject} method.
+   * @param {boolean|undefined} includeInstance Deprecated. Whether to include
+   *     the JSPB instance for transitional soy proto support:
+   *     http://goto/soy-param-migration
+   * @param {!proto.scoretrak.competition.v1.FetchCoreCompetitionRequest} msg The msg instance to transform.
+   * @return {!Object}
+   * @suppress {unusedLocalVariables} f is only used for nested messages
+   */
+  proto.scoretrak.competition.v1.FetchCoreCompetitionRequest.toObject =
+    function (includeInstance, msg) {
+      var f,
+        obj = {};
+
+      if (includeInstance) {
+        obj.$jspbMessageInstance = msg;
+      }
+      return obj;
+    };
+}
 
 /**
  * Deserializes binary data (in protobuf wire format).
  * @param {jspb.ByteSource} bytes The bytes to deserialize.
  * @return {!proto.scoretrak.competition.v1.FetchCoreCompetitionRequest}
  */
-proto.scoretrak.competition.v1.FetchCoreCompetitionRequest.deserializeBinary = function(bytes) {
-  var reader = new jspb.BinaryReader(bytes);
-  var msg = new proto.scoretrak.competition.v1.FetchCoreCompetitionRequest;
-  return proto.scoretrak.competition.v1.FetchCoreCompetitionRequest.deserializeBinaryFromReader(msg, reader);
-};
-
+proto.scoretrak.competition.v1.FetchCoreCompetitionRequest.deserializeBinary =
+  function (bytes) {
+    var reader = new jspb.BinaryReader(bytes);
+    var msg = new proto.scoretrak.competition.v1.FetchCoreCompetitionRequest();
+    return proto.scoretrak.competition.v1.FetchCoreCompetitionRequest.deserializeBinaryFromReader(
+      msg,
+      reader
+    );
+  };
 
 /**
  * Deserializes binary data (in protobuf wire format) from the
@@ -1338,32 +1685,35 @@ proto.scoretrak.competition.v1.FetchCoreCompetitionRequest.deserializeBinary = f
  * @param {!jspb.BinaryReader} reader The BinaryReader to use.
  * @return {!proto.scoretrak.competition.v1.FetchCoreCompetitionRequest}
  */
-proto.scoretrak.competition.v1.FetchCoreCompetitionRequest.deserializeBinaryFromReader = function(msg, reader) {
-  while (reader.nextField()) {
-    if (reader.isEndGroup()) {
-      break;
+proto.scoretrak.competition.v1.FetchCoreCompetitionRequest.deserializeBinaryFromReader =
+  function (msg, reader) {
+    while (reader.nextField()) {
+      if (reader.isEndGroup()) {
+        break;
+      }
+      var field = reader.getFieldNumber();
+      switch (field) {
+        default:
+          reader.skipField();
+          break;
+      }
     }
-    var field = reader.getFieldNumber();
-    switch (field) {
-    default:
-      reader.skipField();
-      break;
-    }
-  }
-  return msg;
-};
-
+    return msg;
+  };
 
 /**
  * Serializes the message to binary data (in protobuf wire format).
  * @return {!Uint8Array}
  */
-proto.scoretrak.competition.v1.FetchCoreCompetitionRequest.prototype.serializeBinary = function() {
-  var writer = new jspb.BinaryWriter();
-  proto.scoretrak.competition.v1.FetchCoreCompetitionRequest.serializeBinaryToWriter(this, writer);
-  return writer.getResultBuffer();
-};
-
+proto.scoretrak.competition.v1.FetchCoreCompetitionRequest.prototype.serializeBinary =
+  function () {
+    var writer = new jspb.BinaryWriter();
+    proto.scoretrak.competition.v1.FetchCoreCompetitionRequest.serializeBinaryToWriter(
+      this,
+      writer
+    );
+    return writer.getResultBuffer();
+  };
 
 /**
  * Serializes the given message to binary data (in protobuf wire
@@ -1372,65 +1722,74 @@ proto.scoretrak.competition.v1.FetchCoreCompetitionRequest.prototype.serializeBi
  * @param {!jspb.BinaryWriter} writer
  * @suppress {unusedLocalVariables} f is only used for nested messages
  */
-proto.scoretrak.competition.v1.FetchCoreCompetitionRequest.serializeBinaryToWriter = function(message, writer) {
-  var f = undefined;
-};
-
-
-
-
-
-if (jspb.Message.GENERATE_TO_OBJECT) {
-/**
- * Creates an object representation of this proto.
- * Field names that are reserved in JavaScript and will be renamed to pb_name.
- * Optional fields that are not set will be set to undefined.
- * To access a reserved field use, foo.pb_<name>, eg, foo.pb_default.
- * For the list of reserved names please see:
- *     net/proto2/compiler/js/internal/generator.cc#kKeyword.
- * @param {boolean=} opt_includeInstance Deprecated. whether to include the
- *     JSPB instance for transitional soy proto support:
- *     http://goto/soy-param-migration
- * @return {!Object}
- */
-proto.scoretrak.competition.v1.FetchCoreCompetitionResponse.prototype.toObject = function(opt_includeInstance) {
-  return proto.scoretrak.competition.v1.FetchCoreCompetitionResponse.toObject(opt_includeInstance, this);
-};
-
-
-/**
- * Static version of the {@see toObject} method.
- * @param {boolean|undefined} includeInstance Deprecated. Whether to include
- *     the JSPB instance for transitional soy proto support:
- *     http://goto/soy-param-migration
- * @param {!proto.scoretrak.competition.v1.FetchCoreCompetitionResponse} msg The msg instance to transform.
- * @return {!Object}
- * @suppress {unusedLocalVariables} f is only used for nested messages
- */
-proto.scoretrak.competition.v1.FetchCoreCompetitionResponse.toObject = function(includeInstance, msg) {
-  var f, obj = {
-    competition: (f = msg.getCompetition()) && proto.scoretrak.competition.v1.Competition.toObject(includeInstance, f)
+proto.scoretrak.competition.v1.FetchCoreCompetitionRequest.serializeBinaryToWriter =
+  function (message, writer) {
+    var f = undefined;
   };
 
-  if (includeInstance) {
-    obj.$jspbMessageInstance = msg;
-  }
-  return obj;
-};
-}
+if (jspb.Message.GENERATE_TO_OBJECT) {
+  /**
+   * Creates an object representation of this proto.
+   * Field names that are reserved in JavaScript and will be renamed to pb_name.
+   * Optional fields that are not set will be set to undefined.
+   * To access a reserved field use, foo.pb_<name>, eg, foo.pb_default.
+   * For the list of reserved names please see:
+   *     net/proto2/compiler/js/internal/generator.cc#kKeyword.
+   * @param {boolean=} opt_includeInstance Deprecated. whether to include the
+   *     JSPB instance for transitional soy proto support:
+   *     http://goto/soy-param-migration
+   * @return {!Object}
+   */
+  proto.scoretrak.competition.v1.FetchCoreCompetitionResponse.prototype.toObject =
+    function (opt_includeInstance) {
+      return proto.scoretrak.competition.v1.FetchCoreCompetitionResponse.toObject(
+        opt_includeInstance,
+        this
+      );
+    };
 
+  /**
+   * Static version of the {@see toObject} method.
+   * @param {boolean|undefined} includeInstance Deprecated. Whether to include
+   *     the JSPB instance for transitional soy proto support:
+   *     http://goto/soy-param-migration
+   * @param {!proto.scoretrak.competition.v1.FetchCoreCompetitionResponse} msg The msg instance to transform.
+   * @return {!Object}
+   * @suppress {unusedLocalVariables} f is only used for nested messages
+   */
+  proto.scoretrak.competition.v1.FetchCoreCompetitionResponse.toObject =
+    function (includeInstance, msg) {
+      var f,
+        obj = {
+          competition:
+            (f = msg.getCompetition()) &&
+            proto.scoretrak.competition.v1.Competition.toObject(
+              includeInstance,
+              f
+            ),
+        };
+
+      if (includeInstance) {
+        obj.$jspbMessageInstance = msg;
+      }
+      return obj;
+    };
+}
 
 /**
  * Deserializes binary data (in protobuf wire format).
  * @param {jspb.ByteSource} bytes The bytes to deserialize.
  * @return {!proto.scoretrak.competition.v1.FetchCoreCompetitionResponse}
  */
-proto.scoretrak.competition.v1.FetchCoreCompetitionResponse.deserializeBinary = function(bytes) {
-  var reader = new jspb.BinaryReader(bytes);
-  var msg = new proto.scoretrak.competition.v1.FetchCoreCompetitionResponse;
-  return proto.scoretrak.competition.v1.FetchCoreCompetitionResponse.deserializeBinaryFromReader(msg, reader);
-};
-
+proto.scoretrak.competition.v1.FetchCoreCompetitionResponse.deserializeBinary =
+  function (bytes) {
+    var reader = new jspb.BinaryReader(bytes);
+    var msg = new proto.scoretrak.competition.v1.FetchCoreCompetitionResponse();
+    return proto.scoretrak.competition.v1.FetchCoreCompetitionResponse.deserializeBinaryFromReader(
+      msg,
+      reader
+    );
+  };
 
 /**
  * Deserializes binary data (in protobuf wire format) from the
@@ -1439,37 +1798,44 @@ proto.scoretrak.competition.v1.FetchCoreCompetitionResponse.deserializeBinary = 
  * @param {!jspb.BinaryReader} reader The BinaryReader to use.
  * @return {!proto.scoretrak.competition.v1.FetchCoreCompetitionResponse}
  */
-proto.scoretrak.competition.v1.FetchCoreCompetitionResponse.deserializeBinaryFromReader = function(msg, reader) {
-  while (reader.nextField()) {
-    if (reader.isEndGroup()) {
-      break;
+proto.scoretrak.competition.v1.FetchCoreCompetitionResponse.deserializeBinaryFromReader =
+  function (msg, reader) {
+    while (reader.nextField()) {
+      if (reader.isEndGroup()) {
+        break;
+      }
+      var field = reader.getFieldNumber();
+      switch (field) {
+        case 1:
+          var value = new proto.scoretrak.competition.v1.Competition();
+          reader.readMessage(
+            value,
+            proto.scoretrak.competition.v1.Competition
+              .deserializeBinaryFromReader
+          );
+          msg.setCompetition(value);
+          break;
+        default:
+          reader.skipField();
+          break;
+      }
     }
-    var field = reader.getFieldNumber();
-    switch (field) {
-    case 1:
-      var value = new proto.scoretrak.competition.v1.Competition;
-      reader.readMessage(value,proto.scoretrak.competition.v1.Competition.deserializeBinaryFromReader);
-      msg.setCompetition(value);
-      break;
-    default:
-      reader.skipField();
-      break;
-    }
-  }
-  return msg;
-};
-
+    return msg;
+  };
 
 /**
  * Serializes the message to binary data (in protobuf wire format).
  * @return {!Uint8Array}
  */
-proto.scoretrak.competition.v1.FetchCoreCompetitionResponse.prototype.serializeBinary = function() {
-  var writer = new jspb.BinaryWriter();
-  proto.scoretrak.competition.v1.FetchCoreCompetitionResponse.serializeBinaryToWriter(this, writer);
-  return writer.getResultBuffer();
-};
-
+proto.scoretrak.competition.v1.FetchCoreCompetitionResponse.prototype.serializeBinary =
+  function () {
+    var writer = new jspb.BinaryWriter();
+    proto.scoretrak.competition.v1.FetchCoreCompetitionResponse.serializeBinaryToWriter(
+      this,
+      writer
+    );
+    return writer.getResultBuffer();
+  };
 
 /**
  * Serializes the given message to binary data (in protobuf wire
@@ -1478,110 +1844,118 @@ proto.scoretrak.competition.v1.FetchCoreCompetitionResponse.prototype.serializeB
  * @param {!jspb.BinaryWriter} writer
  * @suppress {unusedLocalVariables} f is only used for nested messages
  */
-proto.scoretrak.competition.v1.FetchCoreCompetitionResponse.serializeBinaryToWriter = function(message, writer) {
-  var f = undefined;
-  f = message.getCompetition();
-  if (f != null) {
-    writer.writeMessage(
-      1,
-      f,
-      proto.scoretrak.competition.v1.Competition.serializeBinaryToWriter
-    );
-  }
-};
-
+proto.scoretrak.competition.v1.FetchCoreCompetitionResponse.serializeBinaryToWriter =
+  function (message, writer) {
+    var f = undefined;
+    f = message.getCompetition();
+    if (f != null) {
+      writer.writeMessage(
+        1,
+        f,
+        proto.scoretrak.competition.v1.Competition.serializeBinaryToWriter
+      );
+    }
+  };
 
 /**
  * optional Competition competition = 1;
  * @return {?proto.scoretrak.competition.v1.Competition}
  */
-proto.scoretrak.competition.v1.FetchCoreCompetitionResponse.prototype.getCompetition = function() {
-  return /** @type{?proto.scoretrak.competition.v1.Competition} */ (
-    jspb.Message.getWrapperField(this, proto.scoretrak.competition.v1.Competition, 1));
-};
-
+proto.scoretrak.competition.v1.FetchCoreCompetitionResponse.prototype.getCompetition =
+  function () {
+    return /** @type{?proto.scoretrak.competition.v1.Competition} */ (
+      jspb.Message.getWrapperField(
+        this,
+        proto.scoretrak.competition.v1.Competition,
+        1
+      )
+    );
+  };
 
 /**
  * @param {?proto.scoretrak.competition.v1.Competition|undefined} value
  * @return {!proto.scoretrak.competition.v1.FetchCoreCompetitionResponse} returns this
-*/
-proto.scoretrak.competition.v1.FetchCoreCompetitionResponse.prototype.setCompetition = function(value) {
-  return jspb.Message.setWrapperField(this, 1, value);
-};
-
+ */
+proto.scoretrak.competition.v1.FetchCoreCompetitionResponse.prototype.setCompetition =
+  function (value) {
+    return jspb.Message.setWrapperField(this, 1, value);
+  };
 
 /**
  * Clears the message field making it undefined.
  * @return {!proto.scoretrak.competition.v1.FetchCoreCompetitionResponse} returns this
  */
-proto.scoretrak.competition.v1.FetchCoreCompetitionResponse.prototype.clearCompetition = function() {
-  return this.setCompetition(undefined);
-};
-
+proto.scoretrak.competition.v1.FetchCoreCompetitionResponse.prototype.clearCompetition =
+  function () {
+    return this.setCompetition(undefined);
+  };
 
 /**
  * Returns whether this field is set.
  * @return {boolean}
  */
-proto.scoretrak.competition.v1.FetchCoreCompetitionResponse.prototype.hasCompetition = function() {
-  return jspb.Message.getField(this, 1) != null;
-};
-
-
-
-
-
-if (jspb.Message.GENERATE_TO_OBJECT) {
-/**
- * Creates an object representation of this proto.
- * Field names that are reserved in JavaScript and will be renamed to pb_name.
- * Optional fields that are not set will be set to undefined.
- * To access a reserved field use, foo.pb_<name>, eg, foo.pb_default.
- * For the list of reserved names please see:
- *     net/proto2/compiler/js/internal/generator.cc#kKeyword.
- * @param {boolean=} opt_includeInstance Deprecated. whether to include the
- *     JSPB instance for transitional soy proto support:
- *     http://goto/soy-param-migration
- * @return {!Object}
- */
-proto.scoretrak.competition.v1.FetchEntireCompetitionRequest.prototype.toObject = function(opt_includeInstance) {
-  return proto.scoretrak.competition.v1.FetchEntireCompetitionRequest.toObject(opt_includeInstance, this);
-};
-
-
-/**
- * Static version of the {@see toObject} method.
- * @param {boolean|undefined} includeInstance Deprecated. Whether to include
- *     the JSPB instance for transitional soy proto support:
- *     http://goto/soy-param-migration
- * @param {!proto.scoretrak.competition.v1.FetchEntireCompetitionRequest} msg The msg instance to transform.
- * @return {!Object}
- * @suppress {unusedLocalVariables} f is only used for nested messages
- */
-proto.scoretrak.competition.v1.FetchEntireCompetitionRequest.toObject = function(includeInstance, msg) {
-  var f, obj = {
-
+proto.scoretrak.competition.v1.FetchCoreCompetitionResponse.prototype.hasCompetition =
+  function () {
+    return jspb.Message.getField(this, 1) != null;
   };
 
-  if (includeInstance) {
-    obj.$jspbMessageInstance = msg;
-  }
-  return obj;
-};
-}
+if (jspb.Message.GENERATE_TO_OBJECT) {
+  /**
+   * Creates an object representation of this proto.
+   * Field names that are reserved in JavaScript and will be renamed to pb_name.
+   * Optional fields that are not set will be set to undefined.
+   * To access a reserved field use, foo.pb_<name>, eg, foo.pb_default.
+   * For the list of reserved names please see:
+   *     net/proto2/compiler/js/internal/generator.cc#kKeyword.
+   * @param {boolean=} opt_includeInstance Deprecated. whether to include the
+   *     JSPB instance for transitional soy proto support:
+   *     http://goto/soy-param-migration
+   * @return {!Object}
+   */
+  proto.scoretrak.competition.v1.FetchEntireCompetitionRequest.prototype.toObject =
+    function (opt_includeInstance) {
+      return proto.scoretrak.competition.v1.FetchEntireCompetitionRequest.toObject(
+        opt_includeInstance,
+        this
+      );
+    };
 
+  /**
+   * Static version of the {@see toObject} method.
+   * @param {boolean|undefined} includeInstance Deprecated. Whether to include
+   *     the JSPB instance for transitional soy proto support:
+   *     http://goto/soy-param-migration
+   * @param {!proto.scoretrak.competition.v1.FetchEntireCompetitionRequest} msg The msg instance to transform.
+   * @return {!Object}
+   * @suppress {unusedLocalVariables} f is only used for nested messages
+   */
+  proto.scoretrak.competition.v1.FetchEntireCompetitionRequest.toObject =
+    function (includeInstance, msg) {
+      var f,
+        obj = {};
+
+      if (includeInstance) {
+        obj.$jspbMessageInstance = msg;
+      }
+      return obj;
+    };
+}
 
 /**
  * Deserializes binary data (in protobuf wire format).
  * @param {jspb.ByteSource} bytes The bytes to deserialize.
  * @return {!proto.scoretrak.competition.v1.FetchEntireCompetitionRequest}
  */
-proto.scoretrak.competition.v1.FetchEntireCompetitionRequest.deserializeBinary = function(bytes) {
-  var reader = new jspb.BinaryReader(bytes);
-  var msg = new proto.scoretrak.competition.v1.FetchEntireCompetitionRequest;
-  return proto.scoretrak.competition.v1.FetchEntireCompetitionRequest.deserializeBinaryFromReader(msg, reader);
-};
-
+proto.scoretrak.competition.v1.FetchEntireCompetitionRequest.deserializeBinary =
+  function (bytes) {
+    var reader = new jspb.BinaryReader(bytes);
+    var msg =
+      new proto.scoretrak.competition.v1.FetchEntireCompetitionRequest();
+    return proto.scoretrak.competition.v1.FetchEntireCompetitionRequest.deserializeBinaryFromReader(
+      msg,
+      reader
+    );
+  };
 
 /**
  * Deserializes binary data (in protobuf wire format) from the
@@ -1590,32 +1964,35 @@ proto.scoretrak.competition.v1.FetchEntireCompetitionRequest.deserializeBinary =
  * @param {!jspb.BinaryReader} reader The BinaryReader to use.
  * @return {!proto.scoretrak.competition.v1.FetchEntireCompetitionRequest}
  */
-proto.scoretrak.competition.v1.FetchEntireCompetitionRequest.deserializeBinaryFromReader = function(msg, reader) {
-  while (reader.nextField()) {
-    if (reader.isEndGroup()) {
-      break;
+proto.scoretrak.competition.v1.FetchEntireCompetitionRequest.deserializeBinaryFromReader =
+  function (msg, reader) {
+    while (reader.nextField()) {
+      if (reader.isEndGroup()) {
+        break;
+      }
+      var field = reader.getFieldNumber();
+      switch (field) {
+        default:
+          reader.skipField();
+          break;
+      }
     }
-    var field = reader.getFieldNumber();
-    switch (field) {
-    default:
-      reader.skipField();
-      break;
-    }
-  }
-  return msg;
-};
-
+    return msg;
+  };
 
 /**
  * Serializes the message to binary data (in protobuf wire format).
  * @return {!Uint8Array}
  */
-proto.scoretrak.competition.v1.FetchEntireCompetitionRequest.prototype.serializeBinary = function() {
-  var writer = new jspb.BinaryWriter();
-  proto.scoretrak.competition.v1.FetchEntireCompetitionRequest.serializeBinaryToWriter(this, writer);
-  return writer.getResultBuffer();
-};
-
+proto.scoretrak.competition.v1.FetchEntireCompetitionRequest.prototype.serializeBinary =
+  function () {
+    var writer = new jspb.BinaryWriter();
+    proto.scoretrak.competition.v1.FetchEntireCompetitionRequest.serializeBinaryToWriter(
+      this,
+      writer
+    );
+    return writer.getResultBuffer();
+  };
 
 /**
  * Serializes the given message to binary data (in protobuf wire
@@ -1624,65 +2001,75 @@ proto.scoretrak.competition.v1.FetchEntireCompetitionRequest.prototype.serialize
  * @param {!jspb.BinaryWriter} writer
  * @suppress {unusedLocalVariables} f is only used for nested messages
  */
-proto.scoretrak.competition.v1.FetchEntireCompetitionRequest.serializeBinaryToWriter = function(message, writer) {
-  var f = undefined;
-};
-
-
-
-
-
-if (jspb.Message.GENERATE_TO_OBJECT) {
-/**
- * Creates an object representation of this proto.
- * Field names that are reserved in JavaScript and will be renamed to pb_name.
- * Optional fields that are not set will be set to undefined.
- * To access a reserved field use, foo.pb_<name>, eg, foo.pb_default.
- * For the list of reserved names please see:
- *     net/proto2/compiler/js/internal/generator.cc#kKeyword.
- * @param {boolean=} opt_includeInstance Deprecated. whether to include the
- *     JSPB instance for transitional soy proto support:
- *     http://goto/soy-param-migration
- * @return {!Object}
- */
-proto.scoretrak.competition.v1.FetchEntireCompetitionResponse.prototype.toObject = function(opt_includeInstance) {
-  return proto.scoretrak.competition.v1.FetchEntireCompetitionResponse.toObject(opt_includeInstance, this);
-};
-
-
-/**
- * Static version of the {@see toObject} method.
- * @param {boolean|undefined} includeInstance Deprecated. Whether to include
- *     the JSPB instance for transitional soy proto support:
- *     http://goto/soy-param-migration
- * @param {!proto.scoretrak.competition.v1.FetchEntireCompetitionResponse} msg The msg instance to transform.
- * @return {!Object}
- * @suppress {unusedLocalVariables} f is only used for nested messages
- */
-proto.scoretrak.competition.v1.FetchEntireCompetitionResponse.toObject = function(includeInstance, msg) {
-  var f, obj = {
-    competition: (f = msg.getCompetition()) && proto.scoretrak.competition.v1.Competition.toObject(includeInstance, f)
+proto.scoretrak.competition.v1.FetchEntireCompetitionRequest.serializeBinaryToWriter =
+  function (message, writer) {
+    var f = undefined;
   };
 
-  if (includeInstance) {
-    obj.$jspbMessageInstance = msg;
-  }
-  return obj;
-};
-}
+if (jspb.Message.GENERATE_TO_OBJECT) {
+  /**
+   * Creates an object representation of this proto.
+   * Field names that are reserved in JavaScript and will be renamed to pb_name.
+   * Optional fields that are not set will be set to undefined.
+   * To access a reserved field use, foo.pb_<name>, eg, foo.pb_default.
+   * For the list of reserved names please see:
+   *     net/proto2/compiler/js/internal/generator.cc#kKeyword.
+   * @param {boolean=} opt_includeInstance Deprecated. whether to include the
+   *     JSPB instance for transitional soy proto support:
+   *     http://goto/soy-param-migration
+   * @return {!Object}
+   */
+  proto.scoretrak.competition.v1.FetchEntireCompetitionResponse.prototype.toObject =
+    function (opt_includeInstance) {
+      return proto.scoretrak.competition.v1.FetchEntireCompetitionResponse.toObject(
+        opt_includeInstance,
+        this
+      );
+    };
 
+  /**
+   * Static version of the {@see toObject} method.
+   * @param {boolean|undefined} includeInstance Deprecated. Whether to include
+   *     the JSPB instance for transitional soy proto support:
+   *     http://goto/soy-param-migration
+   * @param {!proto.scoretrak.competition.v1.FetchEntireCompetitionResponse} msg The msg instance to transform.
+   * @return {!Object}
+   * @suppress {unusedLocalVariables} f is only used for nested messages
+   */
+  proto.scoretrak.competition.v1.FetchEntireCompetitionResponse.toObject =
+    function (includeInstance, msg) {
+      var f,
+        obj = {
+          competition:
+            (f = msg.getCompetition()) &&
+            proto.scoretrak.competition.v1.Competition.toObject(
+              includeInstance,
+              f
+            ),
+        };
+
+      if (includeInstance) {
+        obj.$jspbMessageInstance = msg;
+      }
+      return obj;
+    };
+}
 
 /**
  * Deserializes binary data (in protobuf wire format).
  * @param {jspb.ByteSource} bytes The bytes to deserialize.
  * @return {!proto.scoretrak.competition.v1.FetchEntireCompetitionResponse}
  */
-proto.scoretrak.competition.v1.FetchEntireCompetitionResponse.deserializeBinary = function(bytes) {
-  var reader = new jspb.BinaryReader(bytes);
-  var msg = new proto.scoretrak.competition.v1.FetchEntireCompetitionResponse;
-  return proto.scoretrak.competition.v1.FetchEntireCompetitionResponse.deserializeBinaryFromReader(msg, reader);
-};
-
+proto.scoretrak.competition.v1.FetchEntireCompetitionResponse.deserializeBinary =
+  function (bytes) {
+    var reader = new jspb.BinaryReader(bytes);
+    var msg =
+      new proto.scoretrak.competition.v1.FetchEntireCompetitionResponse();
+    return proto.scoretrak.competition.v1.FetchEntireCompetitionResponse.deserializeBinaryFromReader(
+      msg,
+      reader
+    );
+  };
 
 /**
  * Deserializes binary data (in protobuf wire format) from the
@@ -1691,37 +2078,44 @@ proto.scoretrak.competition.v1.FetchEntireCompetitionResponse.deserializeBinary 
  * @param {!jspb.BinaryReader} reader The BinaryReader to use.
  * @return {!proto.scoretrak.competition.v1.FetchEntireCompetitionResponse}
  */
-proto.scoretrak.competition.v1.FetchEntireCompetitionResponse.deserializeBinaryFromReader = function(msg, reader) {
-  while (reader.nextField()) {
-    if (reader.isEndGroup()) {
-      break;
+proto.scoretrak.competition.v1.FetchEntireCompetitionResponse.deserializeBinaryFromReader =
+  function (msg, reader) {
+    while (reader.nextField()) {
+      if (reader.isEndGroup()) {
+        break;
+      }
+      var field = reader.getFieldNumber();
+      switch (field) {
+        case 1:
+          var value = new proto.scoretrak.competition.v1.Competition();
+          reader.readMessage(
+            value,
+            proto.scoretrak.competition.v1.Competition
+              .deserializeBinaryFromReader
+          );
+          msg.setCompetition(value);
+          break;
+        default:
+          reader.skipField();
+          break;
+      }
     }
-    var field = reader.getFieldNumber();
-    switch (field) {
-    case 1:
-      var value = new proto.scoretrak.competition.v1.Competition;
-      reader.readMessage(value,proto.scoretrak.competition.v1.Competition.deserializeBinaryFromReader);
-      msg.setCompetition(value);
-      break;
-    default:
-      reader.skipField();
-      break;
-    }
-  }
-  return msg;
-};
-
+    return msg;
+  };
 
 /**
  * Serializes the message to binary data (in protobuf wire format).
  * @return {!Uint8Array}
  */
-proto.scoretrak.competition.v1.FetchEntireCompetitionResponse.prototype.serializeBinary = function() {
-  var writer = new jspb.BinaryWriter();
-  proto.scoretrak.competition.v1.FetchEntireCompetitionResponse.serializeBinaryToWriter(this, writer);
-  return writer.getResultBuffer();
-};
-
+proto.scoretrak.competition.v1.FetchEntireCompetitionResponse.prototype.serializeBinary =
+  function () {
+    var writer = new jspb.BinaryWriter();
+    proto.scoretrak.competition.v1.FetchEntireCompetitionResponse.serializeBinaryToWriter(
+      this,
+      writer
+    );
+    return writer.getResultBuffer();
+  };
 
 /**
  * Serializes the given message to binary data (in protobuf wire
@@ -1730,110 +2124,120 @@ proto.scoretrak.competition.v1.FetchEntireCompetitionResponse.prototype.serializ
  * @param {!jspb.BinaryWriter} writer
  * @suppress {unusedLocalVariables} f is only used for nested messages
  */
-proto.scoretrak.competition.v1.FetchEntireCompetitionResponse.serializeBinaryToWriter = function(message, writer) {
-  var f = undefined;
-  f = message.getCompetition();
-  if (f != null) {
-    writer.writeMessage(
-      1,
-      f,
-      proto.scoretrak.competition.v1.Competition.serializeBinaryToWriter
-    );
-  }
-};
-
+proto.scoretrak.competition.v1.FetchEntireCompetitionResponse.serializeBinaryToWriter =
+  function (message, writer) {
+    var f = undefined;
+    f = message.getCompetition();
+    if (f != null) {
+      writer.writeMessage(
+        1,
+        f,
+        proto.scoretrak.competition.v1.Competition.serializeBinaryToWriter
+      );
+    }
+  };
 
 /**
  * optional Competition competition = 1;
  * @return {?proto.scoretrak.competition.v1.Competition}
  */
-proto.scoretrak.competition.v1.FetchEntireCompetitionResponse.prototype.getCompetition = function() {
-  return /** @type{?proto.scoretrak.competition.v1.Competition} */ (
-    jspb.Message.getWrapperField(this, proto.scoretrak.competition.v1.Competition, 1));
-};
-
+proto.scoretrak.competition.v1.FetchEntireCompetitionResponse.prototype.getCompetition =
+  function () {
+    return /** @type{?proto.scoretrak.competition.v1.Competition} */ (
+      jspb.Message.getWrapperField(
+        this,
+        proto.scoretrak.competition.v1.Competition,
+        1
+      )
+    );
+  };
 
 /**
  * @param {?proto.scoretrak.competition.v1.Competition|undefined} value
  * @return {!proto.scoretrak.competition.v1.FetchEntireCompetitionResponse} returns this
-*/
-proto.scoretrak.competition.v1.FetchEntireCompetitionResponse.prototype.setCompetition = function(value) {
-  return jspb.Message.setWrapperField(this, 1, value);
-};
-
+ */
+proto.scoretrak.competition.v1.FetchEntireCompetitionResponse.prototype.setCompetition =
+  function (value) {
+    return jspb.Message.setWrapperField(this, 1, value);
+  };
 
 /**
  * Clears the message field making it undefined.
  * @return {!proto.scoretrak.competition.v1.FetchEntireCompetitionResponse} returns this
  */
-proto.scoretrak.competition.v1.FetchEntireCompetitionResponse.prototype.clearCompetition = function() {
-  return this.setCompetition(undefined);
-};
-
+proto.scoretrak.competition.v1.FetchEntireCompetitionResponse.prototype.clearCompetition =
+  function () {
+    return this.setCompetition(undefined);
+  };
 
 /**
  * Returns whether this field is set.
  * @return {boolean}
  */
-proto.scoretrak.competition.v1.FetchEntireCompetitionResponse.prototype.hasCompetition = function() {
-  return jspb.Message.getField(this, 1) != null;
-};
-
-
-
-
-
-if (jspb.Message.GENERATE_TO_OBJECT) {
-/**
- * Creates an object representation of this proto.
- * Field names that are reserved in JavaScript and will be renamed to pb_name.
- * Optional fields that are not set will be set to undefined.
- * To access a reserved field use, foo.pb_<name>, eg, foo.pb_default.
- * For the list of reserved names please see:
- *     net/proto2/compiler/js/internal/generator.cc#kKeyword.
- * @param {boolean=} opt_includeInstance Deprecated. whether to include the
- *     JSPB instance for transitional soy proto support:
- *     http://goto/soy-param-migration
- * @return {!Object}
- */
-proto.scoretrak.competition.v1.ResetScoresRequest.prototype.toObject = function(opt_includeInstance) {
-  return proto.scoretrak.competition.v1.ResetScoresRequest.toObject(opt_includeInstance, this);
-};
-
-
-/**
- * Static version of the {@see toObject} method.
- * @param {boolean|undefined} includeInstance Deprecated. Whether to include
- *     the JSPB instance for transitional soy proto support:
- *     http://goto/soy-param-migration
- * @param {!proto.scoretrak.competition.v1.ResetScoresRequest} msg The msg instance to transform.
- * @return {!Object}
- * @suppress {unusedLocalVariables} f is only used for nested messages
- */
-proto.scoretrak.competition.v1.ResetScoresRequest.toObject = function(includeInstance, msg) {
-  var f, obj = {
-
+proto.scoretrak.competition.v1.FetchEntireCompetitionResponse.prototype.hasCompetition =
+  function () {
+    return jspb.Message.getField(this, 1) != null;
   };
 
-  if (includeInstance) {
-    obj.$jspbMessageInstance = msg;
-  }
-  return obj;
-};
-}
+if (jspb.Message.GENERATE_TO_OBJECT) {
+  /**
+   * Creates an object representation of this proto.
+   * Field names that are reserved in JavaScript and will be renamed to pb_name.
+   * Optional fields that are not set will be set to undefined.
+   * To access a reserved field use, foo.pb_<name>, eg, foo.pb_default.
+   * For the list of reserved names please see:
+   *     net/proto2/compiler/js/internal/generator.cc#kKeyword.
+   * @param {boolean=} opt_includeInstance Deprecated. whether to include the
+   *     JSPB instance for transitional soy proto support:
+   *     http://goto/soy-param-migration
+   * @return {!Object}
+   */
+  proto.scoretrak.competition.v1.ResetScoresRequest.prototype.toObject =
+    function (opt_includeInstance) {
+      return proto.scoretrak.competition.v1.ResetScoresRequest.toObject(
+        opt_includeInstance,
+        this
+      );
+    };
 
+  /**
+   * Static version of the {@see toObject} method.
+   * @param {boolean|undefined} includeInstance Deprecated. Whether to include
+   *     the JSPB instance for transitional soy proto support:
+   *     http://goto/soy-param-migration
+   * @param {!proto.scoretrak.competition.v1.ResetScoresRequest} msg The msg instance to transform.
+   * @return {!Object}
+   * @suppress {unusedLocalVariables} f is only used for nested messages
+   */
+  proto.scoretrak.competition.v1.ResetScoresRequest.toObject = function (
+    includeInstance,
+    msg
+  ) {
+    var f,
+      obj = {};
+
+    if (includeInstance) {
+      obj.$jspbMessageInstance = msg;
+    }
+    return obj;
+  };
+}
 
 /**
  * Deserializes binary data (in protobuf wire format).
  * @param {jspb.ByteSource} bytes The bytes to deserialize.
  * @return {!proto.scoretrak.competition.v1.ResetScoresRequest}
  */
-proto.scoretrak.competition.v1.ResetScoresRequest.deserializeBinary = function(bytes) {
+proto.scoretrak.competition.v1.ResetScoresRequest.deserializeBinary = function (
+  bytes
+) {
   var reader = new jspb.BinaryReader(bytes);
-  var msg = new proto.scoretrak.competition.v1.ResetScoresRequest;
-  return proto.scoretrak.competition.v1.ResetScoresRequest.deserializeBinaryFromReader(msg, reader);
+  var msg = new proto.scoretrak.competition.v1.ResetScoresRequest();
+  return proto.scoretrak.competition.v1.ResetScoresRequest.deserializeBinaryFromReader(
+    msg,
+    reader
+  );
 };
-
 
 /**
  * Deserializes binary data (in protobuf wire format) from the
@@ -1842,32 +2246,35 @@ proto.scoretrak.competition.v1.ResetScoresRequest.deserializeBinary = function(b
  * @param {!jspb.BinaryReader} reader The BinaryReader to use.
  * @return {!proto.scoretrak.competition.v1.ResetScoresRequest}
  */
-proto.scoretrak.competition.v1.ResetScoresRequest.deserializeBinaryFromReader = function(msg, reader) {
-  while (reader.nextField()) {
-    if (reader.isEndGroup()) {
-      break;
+proto.scoretrak.competition.v1.ResetScoresRequest.deserializeBinaryFromReader =
+  function (msg, reader) {
+    while (reader.nextField()) {
+      if (reader.isEndGroup()) {
+        break;
+      }
+      var field = reader.getFieldNumber();
+      switch (field) {
+        default:
+          reader.skipField();
+          break;
+      }
     }
-    var field = reader.getFieldNumber();
-    switch (field) {
-    default:
-      reader.skipField();
-      break;
-    }
-  }
-  return msg;
-};
-
+    return msg;
+  };
 
 /**
  * Serializes the message to binary data (in protobuf wire format).
  * @return {!Uint8Array}
  */
-proto.scoretrak.competition.v1.ResetScoresRequest.prototype.serializeBinary = function() {
-  var writer = new jspb.BinaryWriter();
-  proto.scoretrak.competition.v1.ResetScoresRequest.serializeBinaryToWriter(this, writer);
-  return writer.getResultBuffer();
-};
-
+proto.scoretrak.competition.v1.ResetScoresRequest.prototype.serializeBinary =
+  function () {
+    var writer = new jspb.BinaryWriter();
+    proto.scoretrak.competition.v1.ResetScoresRequest.serializeBinaryToWriter(
+      this,
+      writer
+    );
+    return writer.getResultBuffer();
+  };
 
 /**
  * Serializes the given message to binary data (in protobuf wire
@@ -1876,65 +2283,69 @@ proto.scoretrak.competition.v1.ResetScoresRequest.prototype.serializeBinary = fu
  * @param {!jspb.BinaryWriter} writer
  * @suppress {unusedLocalVariables} f is only used for nested messages
  */
-proto.scoretrak.competition.v1.ResetScoresRequest.serializeBinaryToWriter = function(message, writer) {
-  var f = undefined;
-};
-
-
-
-
-
-if (jspb.Message.GENERATE_TO_OBJECT) {
-/**
- * Creates an object representation of this proto.
- * Field names that are reserved in JavaScript and will be renamed to pb_name.
- * Optional fields that are not set will be set to undefined.
- * To access a reserved field use, foo.pb_<name>, eg, foo.pb_default.
- * For the list of reserved names please see:
- *     net/proto2/compiler/js/internal/generator.cc#kKeyword.
- * @param {boolean=} opt_includeInstance Deprecated. whether to include the
- *     JSPB instance for transitional soy proto support:
- *     http://goto/soy-param-migration
- * @return {!Object}
- */
-proto.scoretrak.competition.v1.ResetScoresResponse.prototype.toObject = function(opt_includeInstance) {
-  return proto.scoretrak.competition.v1.ResetScoresResponse.toObject(opt_includeInstance, this);
-};
-
-
-/**
- * Static version of the {@see toObject} method.
- * @param {boolean|undefined} includeInstance Deprecated. Whether to include
- *     the JSPB instance for transitional soy proto support:
- *     http://goto/soy-param-migration
- * @param {!proto.scoretrak.competition.v1.ResetScoresResponse} msg The msg instance to transform.
- * @return {!Object}
- * @suppress {unusedLocalVariables} f is only used for nested messages
- */
-proto.scoretrak.competition.v1.ResetScoresResponse.toObject = function(includeInstance, msg) {
-  var f, obj = {
-
+proto.scoretrak.competition.v1.ResetScoresRequest.serializeBinaryToWriter =
+  function (message, writer) {
+    var f = undefined;
   };
 
-  if (includeInstance) {
-    obj.$jspbMessageInstance = msg;
-  }
-  return obj;
-};
-}
+if (jspb.Message.GENERATE_TO_OBJECT) {
+  /**
+   * Creates an object representation of this proto.
+   * Field names that are reserved in JavaScript and will be renamed to pb_name.
+   * Optional fields that are not set will be set to undefined.
+   * To access a reserved field use, foo.pb_<name>, eg, foo.pb_default.
+   * For the list of reserved names please see:
+   *     net/proto2/compiler/js/internal/generator.cc#kKeyword.
+   * @param {boolean=} opt_includeInstance Deprecated. whether to include the
+   *     JSPB instance for transitional soy proto support:
+   *     http://goto/soy-param-migration
+   * @return {!Object}
+   */
+  proto.scoretrak.competition.v1.ResetScoresResponse.prototype.toObject =
+    function (opt_includeInstance) {
+      return proto.scoretrak.competition.v1.ResetScoresResponse.toObject(
+        opt_includeInstance,
+        this
+      );
+    };
 
+  /**
+   * Static version of the {@see toObject} method.
+   * @param {boolean|undefined} includeInstance Deprecated. Whether to include
+   *     the JSPB instance for transitional soy proto support:
+   *     http://goto/soy-param-migration
+   * @param {!proto.scoretrak.competition.v1.ResetScoresResponse} msg The msg instance to transform.
+   * @return {!Object}
+   * @suppress {unusedLocalVariables} f is only used for nested messages
+   */
+  proto.scoretrak.competition.v1.ResetScoresResponse.toObject = function (
+    includeInstance,
+    msg
+  ) {
+    var f,
+      obj = {};
+
+    if (includeInstance) {
+      obj.$jspbMessageInstance = msg;
+    }
+    return obj;
+  };
+}
 
 /**
  * Deserializes binary data (in protobuf wire format).
  * @param {jspb.ByteSource} bytes The bytes to deserialize.
  * @return {!proto.scoretrak.competition.v1.ResetScoresResponse}
  */
-proto.scoretrak.competition.v1.ResetScoresResponse.deserializeBinary = function(bytes) {
-  var reader = new jspb.BinaryReader(bytes);
-  var msg = new proto.scoretrak.competition.v1.ResetScoresResponse;
-  return proto.scoretrak.competition.v1.ResetScoresResponse.deserializeBinaryFromReader(msg, reader);
-};
-
+proto.scoretrak.competition.v1.ResetScoresResponse.deserializeBinary =
+  function (bytes) {
+    var reader = new jspb.BinaryReader(bytes);
+    var msg = new proto.scoretrak.competition.v1.ResetScoresResponse();
+    return proto.scoretrak.competition.v1.ResetScoresResponse.deserializeBinaryFromReader(
+      msg,
+      reader
+    );
+  };
 
 /**
  * Deserializes binary data (in protobuf wire format) from the
@@ -1943,32 +2354,35 @@ proto.scoretrak.competition.v1.ResetScoresResponse.deserializeBinary = function(
  * @param {!jspb.BinaryReader} reader The BinaryReader to use.
  * @return {!proto.scoretrak.competition.v1.ResetScoresResponse}
  */
-proto.scoretrak.competition.v1.ResetScoresResponse.deserializeBinaryFromReader = function(msg, reader) {
-  while (reader.nextField()) {
-    if (reader.isEndGroup()) {
-      break;
+proto.scoretrak.competition.v1.ResetScoresResponse.deserializeBinaryFromReader =
+  function (msg, reader) {
+    while (reader.nextField()) {
+      if (reader.isEndGroup()) {
+        break;
+      }
+      var field = reader.getFieldNumber();
+      switch (field) {
+        default:
+          reader.skipField();
+          break;
+      }
     }
-    var field = reader.getFieldNumber();
-    switch (field) {
-    default:
-      reader.skipField();
-      break;
-    }
-  }
-  return msg;
-};
-
+    return msg;
+  };
 
 /**
  * Serializes the message to binary data (in protobuf wire format).
  * @return {!Uint8Array}
  */
-proto.scoretrak.competition.v1.ResetScoresResponse.prototype.serializeBinary = function() {
-  var writer = new jspb.BinaryWriter();
-  proto.scoretrak.competition.v1.ResetScoresResponse.serializeBinaryToWriter(this, writer);
-  return writer.getResultBuffer();
-};
-
+proto.scoretrak.competition.v1.ResetScoresResponse.prototype.serializeBinary =
+  function () {
+    var writer = new jspb.BinaryWriter();
+    proto.scoretrak.competition.v1.ResetScoresResponse.serializeBinaryToWriter(
+      this,
+      writer
+    );
+    return writer.getResultBuffer();
+  };
 
 /**
  * Serializes the given message to binary data (in protobuf wire
@@ -1977,65 +2391,69 @@ proto.scoretrak.competition.v1.ResetScoresResponse.prototype.serializeBinary = f
  * @param {!jspb.BinaryWriter} writer
  * @suppress {unusedLocalVariables} f is only used for nested messages
  */
-proto.scoretrak.competition.v1.ResetScoresResponse.serializeBinaryToWriter = function(message, writer) {
-  var f = undefined;
-};
-
-
-
-
-
-if (jspb.Message.GENERATE_TO_OBJECT) {
-/**
- * Creates an object representation of this proto.
- * Field names that are reserved in JavaScript and will be renamed to pb_name.
- * Optional fields that are not set will be set to undefined.
- * To access a reserved field use, foo.pb_<name>, eg, foo.pb_default.
- * For the list of reserved names please see:
- *     net/proto2/compiler/js/internal/generator.cc#kKeyword.
- * @param {boolean=} opt_includeInstance Deprecated. whether to include the
- *     JSPB instance for transitional soy proto support:
- *     http://goto/soy-param-migration
- * @return {!Object}
- */
-proto.scoretrak.competition.v1.DeleteCompetitionRequest.prototype.toObject = function(opt_includeInstance) {
-  return proto.scoretrak.competition.v1.DeleteCompetitionRequest.toObject(opt_includeInstance, this);
-};
-
-
-/**
- * Static version of the {@see toObject} method.
- * @param {boolean|undefined} includeInstance Deprecated. Whether to include
- *     the JSPB instance for transitional soy proto support:
- *     http://goto/soy-param-migration
- * @param {!proto.scoretrak.competition.v1.DeleteCompetitionRequest} msg The msg instance to transform.
- * @return {!Object}
- * @suppress {unusedLocalVariables} f is only used for nested messages
- */
-proto.scoretrak.competition.v1.DeleteCompetitionRequest.toObject = function(includeInstance, msg) {
-  var f, obj = {
-
+proto.scoretrak.competition.v1.ResetScoresResponse.serializeBinaryToWriter =
+  function (message, writer) {
+    var f = undefined;
   };
 
-  if (includeInstance) {
-    obj.$jspbMessageInstance = msg;
-  }
-  return obj;
-};
-}
+if (jspb.Message.GENERATE_TO_OBJECT) {
+  /**
+   * Creates an object representation of this proto.
+   * Field names that are reserved in JavaScript and will be renamed to pb_name.
+   * Optional fields that are not set will be set to undefined.
+   * To access a reserved field use, foo.pb_<name>, eg, foo.pb_default.
+   * For the list of reserved names please see:
+   *     net/proto2/compiler/js/internal/generator.cc#kKeyword.
+   * @param {boolean=} opt_includeInstance Deprecated. whether to include the
+   *     JSPB instance for transitional soy proto support:
+   *     http://goto/soy-param-migration
+   * @return {!Object}
+   */
+  proto.scoretrak.competition.v1.DeleteCompetitionRequest.prototype.toObject =
+    function (opt_includeInstance) {
+      return proto.scoretrak.competition.v1.DeleteCompetitionRequest.toObject(
+        opt_includeInstance,
+        this
+      );
+    };
 
+  /**
+   * Static version of the {@see toObject} method.
+   * @param {boolean|undefined} includeInstance Deprecated. Whether to include
+   *     the JSPB instance for transitional soy proto support:
+   *     http://goto/soy-param-migration
+   * @param {!proto.scoretrak.competition.v1.DeleteCompetitionRequest} msg The msg instance to transform.
+   * @return {!Object}
+   * @suppress {unusedLocalVariables} f is only used for nested messages
+   */
+  proto.scoretrak.competition.v1.DeleteCompetitionRequest.toObject = function (
+    includeInstance,
+    msg
+  ) {
+    var f,
+      obj = {};
+
+    if (includeInstance) {
+      obj.$jspbMessageInstance = msg;
+    }
+    return obj;
+  };
+}
 
 /**
  * Deserializes binary data (in protobuf wire format).
  * @param {jspb.ByteSource} bytes The bytes to deserialize.
  * @return {!proto.scoretrak.competition.v1.DeleteCompetitionRequest}
  */
-proto.scoretrak.competition.v1.DeleteCompetitionRequest.deserializeBinary = function(bytes) {
-  var reader = new jspb.BinaryReader(bytes);
-  var msg = new proto.scoretrak.competition.v1.DeleteCompetitionRequest;
-  return proto.scoretrak.competition.v1.DeleteCompetitionRequest.deserializeBinaryFromReader(msg, reader);
-};
-
+proto.scoretrak.competition.v1.DeleteCompetitionRequest.deserializeBinary =
+  function (bytes) {
+    var reader = new jspb.BinaryReader(bytes);
+    var msg = new proto.scoretrak.competition.v1.DeleteCompetitionRequest();
+    return proto.scoretrak.competition.v1.DeleteCompetitionRequest.deserializeBinaryFromReader(
+      msg,
+      reader
+    );
+  };
 
 /**
  * Deserializes binary data (in protobuf wire format) from the
@@ -2044,32 +2462,35 @@ proto.scoretrak.competition.v1.DeleteCompetitionRequest.deserializeBinary = func
  * @param {!jspb.BinaryReader} reader The BinaryReader to use.
  * @return {!proto.scoretrak.competition.v1.DeleteCompetitionRequest}
  */
-proto.scoretrak.competition.v1.DeleteCompetitionRequest.deserializeBinaryFromReader = function(msg, reader) {
-  while (reader.nextField()) {
-    if (reader.isEndGroup()) {
-      break;
+proto.scoretrak.competition.v1.DeleteCompetitionRequest.deserializeBinaryFromReader =
+  function (msg, reader) {
+    while (reader.nextField()) {
+      if (reader.isEndGroup()) {
+        break;
+      }
+      var field = reader.getFieldNumber();
+      switch (field) {
+        default:
+          reader.skipField();
+          break;
+      }
     }
-    var field = reader.getFieldNumber();
-    switch (field) {
-    default:
-      reader.skipField();
-      break;
-    }
-  }
-  return msg;
-};
-
+    return msg;
+  };
 
 /**
  * Serializes the message to binary data (in protobuf wire format).
  * @return {!Uint8Array}
  */
-proto.scoretrak.competition.v1.DeleteCompetitionRequest.prototype.serializeBinary = function() {
-  var writer = new jspb.BinaryWriter();
-  proto.scoretrak.competition.v1.DeleteCompetitionRequest.serializeBinaryToWriter(this, writer);
-  return writer.getResultBuffer();
-};
-
+proto.scoretrak.competition.v1.DeleteCompetitionRequest.prototype.serializeBinary =
+  function () {
+    var writer = new jspb.BinaryWriter();
+    proto.scoretrak.competition.v1.DeleteCompetitionRequest.serializeBinaryToWriter(
+      this,
+      writer
+    );
+    return writer.getResultBuffer();
+  };
 
 /**
  * Serializes the given message to binary data (in protobuf wire
@@ -2078,65 +2499,69 @@ proto.scoretrak.competition.v1.DeleteCompetitionRequest.prototype.serializeBinar
  * @param {!jspb.BinaryWriter} writer
  * @suppress {unusedLocalVariables} f is only used for nested messages
  */
-proto.scoretrak.competition.v1.DeleteCompetitionRequest.serializeBinaryToWriter = function(message, writer) {
-  var f = undefined;
-};
-
-
-
-
-
-if (jspb.Message.GENERATE_TO_OBJECT) {
-/**
- * Creates an object representation of this proto.
- * Field names that are reserved in JavaScript and will be renamed to pb_name.
- * Optional fields that are not set will be set to undefined.
- * To access a reserved field use, foo.pb_<name>, eg, foo.pb_default.
- * For the list of reserved names please see:
- *     net/proto2/compiler/js/internal/generator.cc#kKeyword.
- * @param {boolean=} opt_includeInstance Deprecated. whether to include the
- *     JSPB instance for transitional soy proto support:
- *     http://goto/soy-param-migration
- * @return {!Object}
- */
-proto.scoretrak.competition.v1.DeleteCompetitionResponse.prototype.toObject = function(opt_includeInstance) {
-  return proto.scoretrak.competition.v1.DeleteCompetitionResponse.toObject(opt_includeInstance, this);
-};
-
-
-/**
- * Static version of the {@see toObject} method.
- * @param {boolean|undefined} includeInstance Deprecated. Whether to include
- *     the JSPB instance for transitional soy proto support:
- *     http://goto/soy-param-migration
- * @param {!proto.scoretrak.competition.v1.DeleteCompetitionResponse} msg The msg instance to transform.
- * @return {!Object}
- * @suppress {unusedLocalVariables} f is only used for nested messages
- */
-proto.scoretrak.competition.v1.DeleteCompetitionResponse.toObject = function(includeInstance, msg) {
-  var f, obj = {
-
+proto.scoretrak.competition.v1.DeleteCompetitionRequest.serializeBinaryToWriter =
+  function (message, writer) {
+    var f = undefined;
   };
 
-  if (includeInstance) {
-    obj.$jspbMessageInstance = msg;
-  }
-  return obj;
-};
-}
+if (jspb.Message.GENERATE_TO_OBJECT) {
+  /**
+   * Creates an object representation of this proto.
+   * Field names that are reserved in JavaScript and will be renamed to pb_name.
+   * Optional fields that are not set will be set to undefined.
+   * To access a reserved field use, foo.pb_<name>, eg, foo.pb_default.
+   * For the list of reserved names please see:
+   *     net/proto2/compiler/js/internal/generator.cc#kKeyword.
+   * @param {boolean=} opt_includeInstance Deprecated. whether to include the
+   *     JSPB instance for transitional soy proto support:
+   *     http://goto/soy-param-migration
+   * @return {!Object}
+   */
+  proto.scoretrak.competition.v1.DeleteCompetitionResponse.prototype.toObject =
+    function (opt_includeInstance) {
+      return proto.scoretrak.competition.v1.DeleteCompetitionResponse.toObject(
+        opt_includeInstance,
+        this
+      );
+    };
 
+  /**
+   * Static version of the {@see toObject} method.
+   * @param {boolean|undefined} includeInstance Deprecated. Whether to include
+   *     the JSPB instance for transitional soy proto support:
+   *     http://goto/soy-param-migration
+   * @param {!proto.scoretrak.competition.v1.DeleteCompetitionResponse} msg The msg instance to transform.
+   * @return {!Object}
+   * @suppress {unusedLocalVariables} f is only used for nested messages
+   */
+  proto.scoretrak.competition.v1.DeleteCompetitionResponse.toObject = function (
+    includeInstance,
+    msg
+  ) {
+    var f,
+      obj = {};
+
+    if (includeInstance) {
+      obj.$jspbMessageInstance = msg;
+    }
+    return obj;
+  };
+}
 
 /**
  * Deserializes binary data (in protobuf wire format).
  * @param {jspb.ByteSource} bytes The bytes to deserialize.
  * @return {!proto.scoretrak.competition.v1.DeleteCompetitionResponse}
  */
-proto.scoretrak.competition.v1.DeleteCompetitionResponse.deserializeBinary = function(bytes) {
-  var reader = new jspb.BinaryReader(bytes);
-  var msg = new proto.scoretrak.competition.v1.DeleteCompetitionResponse;
-  return proto.scoretrak.competition.v1.DeleteCompetitionResponse.deserializeBinaryFromReader(msg, reader);
-};
-
+proto.scoretrak.competition.v1.DeleteCompetitionResponse.deserializeBinary =
+  function (bytes) {
+    var reader = new jspb.BinaryReader(bytes);
+    var msg = new proto.scoretrak.competition.v1.DeleteCompetitionResponse();
+    return proto.scoretrak.competition.v1.DeleteCompetitionResponse.deserializeBinaryFromReader(
+      msg,
+      reader
+    );
+  };
 
 /**
  * Deserializes binary data (in protobuf wire format) from the
@@ -2145,32 +2570,35 @@ proto.scoretrak.competition.v1.DeleteCompetitionResponse.deserializeBinary = fun
  * @param {!jspb.BinaryReader} reader The BinaryReader to use.
  * @return {!proto.scoretrak.competition.v1.DeleteCompetitionResponse}
  */
-proto.scoretrak.competition.v1.DeleteCompetitionResponse.deserializeBinaryFromReader = function(msg, reader) {
-  while (reader.nextField()) {
-    if (reader.isEndGroup()) {
-      break;
+proto.scoretrak.competition.v1.DeleteCompetitionResponse.deserializeBinaryFromReader =
+  function (msg, reader) {
+    while (reader.nextField()) {
+      if (reader.isEndGroup()) {
+        break;
+      }
+      var field = reader.getFieldNumber();
+      switch (field) {
+        default:
+          reader.skipField();
+          break;
+      }
     }
-    var field = reader.getFieldNumber();
-    switch (field) {
-    default:
-      reader.skipField();
-      break;
-    }
-  }
-  return msg;
-};
-
+    return msg;
+  };
 
 /**
  * Serializes the message to binary data (in protobuf wire format).
  * @return {!Uint8Array}
  */
-proto.scoretrak.competition.v1.DeleteCompetitionResponse.prototype.serializeBinary = function() {
-  var writer = new jspb.BinaryWriter();
-  proto.scoretrak.competition.v1.DeleteCompetitionResponse.serializeBinaryToWriter(this, writer);
-  return writer.getResultBuffer();
-};
-
+proto.scoretrak.competition.v1.DeleteCompetitionResponse.prototype.serializeBinary =
+  function () {
+    var writer = new jspb.BinaryWriter();
+    proto.scoretrak.competition.v1.DeleteCompetitionResponse.serializeBinaryToWriter(
+      this,
+      writer
+    );
+    return writer.getResultBuffer();
+  };
 
 /**
  * Serializes the given message to binary data (in protobuf wire
@@ -2179,9 +2607,9 @@ proto.scoretrak.competition.v1.DeleteCompetitionResponse.prototype.serializeBina
  * @param {!jspb.BinaryWriter} writer
  * @suppress {unusedLocalVariables} f is only used for nested messages
  */
-proto.scoretrak.competition.v1.DeleteCompetitionResponse.serializeBinaryToWriter = function(message, writer) {
-  var f = undefined;
-};
-
+proto.scoretrak.competition.v1.DeleteCompetitionResponse.serializeBinaryToWriter =
+  function (message, writer) {
+    var f = undefined;
+  };
 
 goog.object.extend(exports, proto.scoretrak.competition.v1);

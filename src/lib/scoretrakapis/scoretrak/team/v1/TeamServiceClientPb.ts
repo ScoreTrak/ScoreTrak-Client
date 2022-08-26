@@ -6,28 +6,27 @@
 
 // GENERATED CODE -- DO NOT EDIT!
 
-
 /* eslint-disable */
 // @ts-nocheck
 
+import * as grpcWeb from "grpc-web";
 
-import * as grpcWeb from 'grpc-web';
-
-import * as scoretrak_team_v1_team_pb from '../../../scoretrak/team/v1/team_pb';
-
+import * as scoretrak_team_v1_team_pb from "../../../scoretrak/team/v1/team_pb";
 
 export class TeamServiceClient {
   client_: grpcWeb.AbstractClientBase;
   hostname_: string;
-  credentials_: null | { [index: string]: string; };
-  options_: null | { [index: string]: any; };
+  credentials_: null | { [index: string]: string };
+  options_: null | { [index: string]: any };
 
-  constructor (hostname: string,
-               credentials?: null | { [index: string]: string; },
-               options?: null | { [index: string]: any; }) {
+  constructor(
+    hostname: string,
+    credentials?: null | { [index: string]: string },
+    options?: null | { [index: string]: any }
+  ) {
     if (!options) options = {};
     if (!credentials) credentials = {};
-    options['format'] = 'text';
+    options["format"] = "text";
 
     this.client_ = new grpcWeb.GrpcWebClientBase(options);
     this.hostname_ = hostname;
@@ -36,7 +35,7 @@ export class TeamServiceClient {
   }
 
   methodDescriptorGetAll = new grpcWeb.MethodDescriptor(
-    '/scoretrak.team.v1.TeamService/GetAll',
+    "/scoretrak.team.v1.TeamService/GetAll",
     grpcWeb.MethodType.UNARY,
     scoretrak_team_v1_team_pb.GetAllRequest,
     scoretrak_team_v1_team_pb.GetAllResponse,
@@ -48,38 +47,45 @@ export class TeamServiceClient {
 
   getAll(
     request: scoretrak_team_v1_team_pb.GetAllRequest,
-    metadata: grpcWeb.Metadata | null): Promise<scoretrak_team_v1_team_pb.GetAllResponse>;
+    metadata: grpcWeb.Metadata | null
+  ): Promise<scoretrak_team_v1_team_pb.GetAllResponse>;
 
   getAll(
     request: scoretrak_team_v1_team_pb.GetAllRequest,
     metadata: grpcWeb.Metadata | null,
-    callback: (err: grpcWeb.RpcError,
-               response: scoretrak_team_v1_team_pb.GetAllResponse) => void): grpcWeb.ClientReadableStream<scoretrak_team_v1_team_pb.GetAllResponse>;
+    callback: (
+      err: grpcWeb.RpcError,
+      response: scoretrak_team_v1_team_pb.GetAllResponse
+    ) => void
+  ): grpcWeb.ClientReadableStream<scoretrak_team_v1_team_pb.GetAllResponse>;
 
   getAll(
     request: scoretrak_team_v1_team_pb.GetAllRequest,
     metadata: grpcWeb.Metadata | null,
-    callback?: (err: grpcWeb.RpcError,
-               response: scoretrak_team_v1_team_pb.GetAllResponse) => void) {
+    callback?: (
+      err: grpcWeb.RpcError,
+      response: scoretrak_team_v1_team_pb.GetAllResponse
+    ) => void
+  ) {
     if (callback !== undefined) {
       return this.client_.rpcCall(
-        this.hostname_ +
-          '/scoretrak.team.v1.TeamService/GetAll',
+        this.hostname_ + "/scoretrak.team.v1.TeamService/GetAll",
         request,
         metadata || {},
         this.methodDescriptorGetAll,
-        callback);
+        callback
+      );
     }
     return this.client_.unaryCall(
-    this.hostname_ +
-      '/scoretrak.team.v1.TeamService/GetAll',
-    request,
-    metadata || {},
-    this.methodDescriptorGetAll);
+      this.hostname_ + "/scoretrak.team.v1.TeamService/GetAll",
+      request,
+      metadata || {},
+      this.methodDescriptorGetAll
+    );
   }
 
   methodDescriptorGetByID = new grpcWeb.MethodDescriptor(
-    '/scoretrak.team.v1.TeamService/GetByID',
+    "/scoretrak.team.v1.TeamService/GetByID",
     grpcWeb.MethodType.UNARY,
     scoretrak_team_v1_team_pb.GetByIDRequest,
     scoretrak_team_v1_team_pb.GetByIDResponse,
@@ -91,38 +97,45 @@ export class TeamServiceClient {
 
   getByID(
     request: scoretrak_team_v1_team_pb.GetByIDRequest,
-    metadata: grpcWeb.Metadata | null): Promise<scoretrak_team_v1_team_pb.GetByIDResponse>;
+    metadata: grpcWeb.Metadata | null
+  ): Promise<scoretrak_team_v1_team_pb.GetByIDResponse>;
 
   getByID(
     request: scoretrak_team_v1_team_pb.GetByIDRequest,
     metadata: grpcWeb.Metadata | null,
-    callback: (err: grpcWeb.RpcError,
-               response: scoretrak_team_v1_team_pb.GetByIDResponse) => void): grpcWeb.ClientReadableStream<scoretrak_team_v1_team_pb.GetByIDResponse>;
+    callback: (
+      err: grpcWeb.RpcError,
+      response: scoretrak_team_v1_team_pb.GetByIDResponse
+    ) => void
+  ): grpcWeb.ClientReadableStream<scoretrak_team_v1_team_pb.GetByIDResponse>;
 
   getByID(
     request: scoretrak_team_v1_team_pb.GetByIDRequest,
     metadata: grpcWeb.Metadata | null,
-    callback?: (err: grpcWeb.RpcError,
-               response: scoretrak_team_v1_team_pb.GetByIDResponse) => void) {
+    callback?: (
+      err: grpcWeb.RpcError,
+      response: scoretrak_team_v1_team_pb.GetByIDResponse
+    ) => void
+  ) {
     if (callback !== undefined) {
       return this.client_.rpcCall(
-        this.hostname_ +
-          '/scoretrak.team.v1.TeamService/GetByID',
+        this.hostname_ + "/scoretrak.team.v1.TeamService/GetByID",
         request,
         metadata || {},
         this.methodDescriptorGetByID,
-        callback);
+        callback
+      );
     }
     return this.client_.unaryCall(
-    this.hostname_ +
-      '/scoretrak.team.v1.TeamService/GetByID',
-    request,
-    metadata || {},
-    this.methodDescriptorGetByID);
+      this.hostname_ + "/scoretrak.team.v1.TeamService/GetByID",
+      request,
+      metadata || {},
+      this.methodDescriptorGetByID
+    );
   }
 
   methodDescriptorDelete = new grpcWeb.MethodDescriptor(
-    '/scoretrak.team.v1.TeamService/Delete',
+    "/scoretrak.team.v1.TeamService/Delete",
     grpcWeb.MethodType.UNARY,
     scoretrak_team_v1_team_pb.DeleteRequest,
     scoretrak_team_v1_team_pb.DeleteResponse,
@@ -134,38 +147,45 @@ export class TeamServiceClient {
 
   delete(
     request: scoretrak_team_v1_team_pb.DeleteRequest,
-    metadata: grpcWeb.Metadata | null): Promise<scoretrak_team_v1_team_pb.DeleteResponse>;
+    metadata: grpcWeb.Metadata | null
+  ): Promise<scoretrak_team_v1_team_pb.DeleteResponse>;
 
   delete(
     request: scoretrak_team_v1_team_pb.DeleteRequest,
     metadata: grpcWeb.Metadata | null,
-    callback: (err: grpcWeb.RpcError,
-               response: scoretrak_team_v1_team_pb.DeleteResponse) => void): grpcWeb.ClientReadableStream<scoretrak_team_v1_team_pb.DeleteResponse>;
+    callback: (
+      err: grpcWeb.RpcError,
+      response: scoretrak_team_v1_team_pb.DeleteResponse
+    ) => void
+  ): grpcWeb.ClientReadableStream<scoretrak_team_v1_team_pb.DeleteResponse>;
 
   delete(
     request: scoretrak_team_v1_team_pb.DeleteRequest,
     metadata: grpcWeb.Metadata | null,
-    callback?: (err: grpcWeb.RpcError,
-               response: scoretrak_team_v1_team_pb.DeleteResponse) => void) {
+    callback?: (
+      err: grpcWeb.RpcError,
+      response: scoretrak_team_v1_team_pb.DeleteResponse
+    ) => void
+  ) {
     if (callback !== undefined) {
       return this.client_.rpcCall(
-        this.hostname_ +
-          '/scoretrak.team.v1.TeamService/Delete',
+        this.hostname_ + "/scoretrak.team.v1.TeamService/Delete",
         request,
         metadata || {},
         this.methodDescriptorDelete,
-        callback);
+        callback
+      );
     }
     return this.client_.unaryCall(
-    this.hostname_ +
-      '/scoretrak.team.v1.TeamService/Delete',
-    request,
-    metadata || {},
-    this.methodDescriptorDelete);
+      this.hostname_ + "/scoretrak.team.v1.TeamService/Delete",
+      request,
+      metadata || {},
+      this.methodDescriptorDelete
+    );
   }
 
   methodDescriptorStore = new grpcWeb.MethodDescriptor(
-    '/scoretrak.team.v1.TeamService/Store',
+    "/scoretrak.team.v1.TeamService/Store",
     grpcWeb.MethodType.UNARY,
     scoretrak_team_v1_team_pb.StoreRequest,
     scoretrak_team_v1_team_pb.StoreResponse,
@@ -177,38 +197,45 @@ export class TeamServiceClient {
 
   store(
     request: scoretrak_team_v1_team_pb.StoreRequest,
-    metadata: grpcWeb.Metadata | null): Promise<scoretrak_team_v1_team_pb.StoreResponse>;
+    metadata: grpcWeb.Metadata | null
+  ): Promise<scoretrak_team_v1_team_pb.StoreResponse>;
 
   store(
     request: scoretrak_team_v1_team_pb.StoreRequest,
     metadata: grpcWeb.Metadata | null,
-    callback: (err: grpcWeb.RpcError,
-               response: scoretrak_team_v1_team_pb.StoreResponse) => void): grpcWeb.ClientReadableStream<scoretrak_team_v1_team_pb.StoreResponse>;
+    callback: (
+      err: grpcWeb.RpcError,
+      response: scoretrak_team_v1_team_pb.StoreResponse
+    ) => void
+  ): grpcWeb.ClientReadableStream<scoretrak_team_v1_team_pb.StoreResponse>;
 
   store(
     request: scoretrak_team_v1_team_pb.StoreRequest,
     metadata: grpcWeb.Metadata | null,
-    callback?: (err: grpcWeb.RpcError,
-               response: scoretrak_team_v1_team_pb.StoreResponse) => void) {
+    callback?: (
+      err: grpcWeb.RpcError,
+      response: scoretrak_team_v1_team_pb.StoreResponse
+    ) => void
+  ) {
     if (callback !== undefined) {
       return this.client_.rpcCall(
-        this.hostname_ +
-          '/scoretrak.team.v1.TeamService/Store',
+        this.hostname_ + "/scoretrak.team.v1.TeamService/Store",
         request,
         metadata || {},
         this.methodDescriptorStore,
-        callback);
+        callback
+      );
     }
     return this.client_.unaryCall(
-    this.hostname_ +
-      '/scoretrak.team.v1.TeamService/Store',
-    request,
-    metadata || {},
-    this.methodDescriptorStore);
+      this.hostname_ + "/scoretrak.team.v1.TeamService/Store",
+      request,
+      metadata || {},
+      this.methodDescriptorStore
+    );
   }
 
   methodDescriptorUpdate = new grpcWeb.MethodDescriptor(
-    '/scoretrak.team.v1.TeamService/Update',
+    "/scoretrak.team.v1.TeamService/Update",
     grpcWeb.MethodType.UNARY,
     scoretrak_team_v1_team_pb.UpdateRequest,
     scoretrak_team_v1_team_pb.UpdateResponse,
@@ -220,35 +247,40 @@ export class TeamServiceClient {
 
   update(
     request: scoretrak_team_v1_team_pb.UpdateRequest,
-    metadata: grpcWeb.Metadata | null): Promise<scoretrak_team_v1_team_pb.UpdateResponse>;
+    metadata: grpcWeb.Metadata | null
+  ): Promise<scoretrak_team_v1_team_pb.UpdateResponse>;
 
   update(
     request: scoretrak_team_v1_team_pb.UpdateRequest,
     metadata: grpcWeb.Metadata | null,
-    callback: (err: grpcWeb.RpcError,
-               response: scoretrak_team_v1_team_pb.UpdateResponse) => void): grpcWeb.ClientReadableStream<scoretrak_team_v1_team_pb.UpdateResponse>;
+    callback: (
+      err: grpcWeb.RpcError,
+      response: scoretrak_team_v1_team_pb.UpdateResponse
+    ) => void
+  ): grpcWeb.ClientReadableStream<scoretrak_team_v1_team_pb.UpdateResponse>;
 
   update(
     request: scoretrak_team_v1_team_pb.UpdateRequest,
     metadata: grpcWeb.Metadata | null,
-    callback?: (err: grpcWeb.RpcError,
-               response: scoretrak_team_v1_team_pb.UpdateResponse) => void) {
+    callback?: (
+      err: grpcWeb.RpcError,
+      response: scoretrak_team_v1_team_pb.UpdateResponse
+    ) => void
+  ) {
     if (callback !== undefined) {
       return this.client_.rpcCall(
-        this.hostname_ +
-          '/scoretrak.team.v1.TeamService/Update',
+        this.hostname_ + "/scoretrak.team.v1.TeamService/Update",
         request,
         metadata || {},
         this.methodDescriptorUpdate,
-        callback);
+        callback
+      );
     }
     return this.client_.unaryCall(
-    this.hostname_ +
-      '/scoretrak.team.v1.TeamService/Update',
-    request,
-    metadata || {},
-    this.methodDescriptorUpdate);
+      this.hostname_ + "/scoretrak.team.v1.TeamService/Update",
+      request,
+      metadata || {},
+      this.methodDescriptorUpdate
+    );
   }
-
 }
-

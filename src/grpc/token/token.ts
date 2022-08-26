@@ -1,68 +1,67 @@
-import jwt_decode from "jwt-decode"
+import jwt_decode from "jwt-decode";
 
 export enum Role {
   Red = "red",
   Black = "black",
-  Blue = "blue"
+  Blue = "blue",
 }
 
 export type JWTToken = {
-  exp: number,
-  jti: string,
-  username: string,
-  team_id: string,
-  role: Role
-}
+  exp: number;
+  jti: string;
+  username: string;
+  team_id: string;
+  role: Role;
+};
 
-
-const saveToken = (token : string) => {
+const saveToken = (token: string) => {
   localStorage.setItem("token", JSON.stringify(token));
-}
+};
 
 const logout = () => {
   localStorage.removeItem("token");
 };
 
-const getToken = ():string => {
+const getToken = (): string => {
   return JSON.parse(localStorage.getItem("token") as string);
 };
 
-const tokenExists = ():boolean =>{
-  return !!localStorage.getItem("token")
-}
+const tokenExists = (): boolean => {
+  return !!localStorage.getItem("token");
+};
 
 const getDecodedJWT = (): JWTToken | null => {
-  const item = localStorage.getItem("token")
-  if (item !== null){
-    return jwt_decode(item) as JWTToken
+  const item = localStorage.getItem("token");
+  if (item !== null) {
+    return jwt_decode(item) as JWTToken;
   }
-  return null
-}
+  return null;
+};
 
-const getCurrentRole = ():string | undefined => {
-  if (isAValidToken()){
-    return getDecodedJWT()?.role
+const getCurrentRole = (): string | undefined => {
+  if (isAValidToken()) {
+    return getDecodedJWT()?.role;
   } else {
-    return undefined
+    return undefined;
   }
 };
 
-const getCurrentTeamID = ():string | undefined => {
-  return getDecodedJWT()?.team_id
+const getCurrentTeamID = (): string | undefined => {
+  return getDecodedJWT()?.team_id;
 };
 
-const tokenExpired = ():boolean => {
+const tokenExpired = (): boolean => {
   let current_time = new Date().getTime() / 1000;
-  const exp = getDecodedJWT()?.exp
-  if (exp){
-    return current_time > exp
+  const exp = getDecodedJWT()?.exp;
+  if (exp) {
+    return current_time > exp;
   }
-  return false
-}
+  return false;
+};
 
 const isAValidToken = () => {
-  return (tokenExists() && !tokenExpired())
-}
+  return tokenExists() && !tokenExpired();
+};
 export const token = {
   saveToken,
   logout,
@@ -70,5 +69,5 @@ export const token = {
   getCurrentRole,
   getDecodedJWT,
   isAValidToken,
-  getCurrentTeamID
+  getCurrentTeamID,
 };

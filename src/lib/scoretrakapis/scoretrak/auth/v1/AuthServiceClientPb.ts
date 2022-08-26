@@ -6,28 +6,27 @@
 
 // GENERATED CODE -- DO NOT EDIT!
 
-
 /* eslint-disable */
 // @ts-nocheck
 
+import * as grpcWeb from "grpc-web";
 
-import * as grpcWeb from 'grpc-web';
-
-import * as scoretrak_auth_v1_auth_pb from '../../../scoretrak/auth/v1/auth_pb';
-
+import * as scoretrak_auth_v1_auth_pb from "../../../scoretrak/auth/v1/auth_pb";
 
 export class AuthServiceClient {
   client_: grpcWeb.AbstractClientBase;
   hostname_: string;
-  credentials_: null | { [index: string]: string; };
-  options_: null | { [index: string]: any; };
+  credentials_: null | { [index: string]: string };
+  options_: null | { [index: string]: any };
 
-  constructor (hostname: string,
-               credentials?: null | { [index: string]: string; },
-               options?: null | { [index: string]: any; }) {
+  constructor(
+    hostname: string,
+    credentials?: null | { [index: string]: string },
+    options?: null | { [index: string]: any }
+  ) {
     if (!options) options = {};
     if (!credentials) credentials = {};
-    options['format'] = 'text';
+    options["format"] = "text";
 
     this.client_ = new grpcWeb.GrpcWebClientBase(options);
     this.hostname_ = hostname;
@@ -36,7 +35,7 @@ export class AuthServiceClient {
   }
 
   methodDescriptorLogin = new grpcWeb.MethodDescriptor(
-    '/scoretrak.auth.v1.AuthService/Login',
+    "/scoretrak.auth.v1.AuthService/Login",
     grpcWeb.MethodType.UNARY,
     scoretrak_auth_v1_auth_pb.LoginRequest,
     scoretrak_auth_v1_auth_pb.LoginResponse,
@@ -48,35 +47,40 @@ export class AuthServiceClient {
 
   login(
     request: scoretrak_auth_v1_auth_pb.LoginRequest,
-    metadata: grpcWeb.Metadata | null): Promise<scoretrak_auth_v1_auth_pb.LoginResponse>;
+    metadata: grpcWeb.Metadata | null
+  ): Promise<scoretrak_auth_v1_auth_pb.LoginResponse>;
 
   login(
     request: scoretrak_auth_v1_auth_pb.LoginRequest,
     metadata: grpcWeb.Metadata | null,
-    callback: (err: grpcWeb.RpcError,
-               response: scoretrak_auth_v1_auth_pb.LoginResponse) => void): grpcWeb.ClientReadableStream<scoretrak_auth_v1_auth_pb.LoginResponse>;
+    callback: (
+      err: grpcWeb.RpcError,
+      response: scoretrak_auth_v1_auth_pb.LoginResponse
+    ) => void
+  ): grpcWeb.ClientReadableStream<scoretrak_auth_v1_auth_pb.LoginResponse>;
 
   login(
     request: scoretrak_auth_v1_auth_pb.LoginRequest,
     metadata: grpcWeb.Metadata | null,
-    callback?: (err: grpcWeb.RpcError,
-               response: scoretrak_auth_v1_auth_pb.LoginResponse) => void) {
+    callback?: (
+      err: grpcWeb.RpcError,
+      response: scoretrak_auth_v1_auth_pb.LoginResponse
+    ) => void
+  ) {
     if (callback !== undefined) {
       return this.client_.rpcCall(
-        this.hostname_ +
-          '/scoretrak.auth.v1.AuthService/Login',
+        this.hostname_ + "/scoretrak.auth.v1.AuthService/Login",
         request,
         metadata || {},
         this.methodDescriptorLogin,
-        callback);
+        callback
+      );
     }
     return this.client_.unaryCall(
-    this.hostname_ +
-      '/scoretrak.auth.v1.AuthService/Login',
-    request,
-    metadata || {},
-    this.methodDescriptorLogin);
+      this.hostname_ + "/scoretrak.auth.v1.AuthService/Login",
+      request,
+      metadata || {},
+      this.methodDescriptorLogin
+    );
   }
-
 }
-

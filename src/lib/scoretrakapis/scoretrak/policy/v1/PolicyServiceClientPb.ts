@@ -6,28 +6,27 @@
 
 // GENERATED CODE -- DO NOT EDIT!
 
-
 /* eslint-disable */
 // @ts-nocheck
 
+import * as grpcWeb from "grpc-web";
 
-import * as grpcWeb from 'grpc-web';
-
-import * as scoretrak_policy_v1_policy_pb from '../../../scoretrak/policy/v1/policy_pb';
-
+import * as scoretrak_policy_v1_policy_pb from "../../../scoretrak/policy/v1/policy_pb";
 
 export class PolicyServiceClient {
   client_: grpcWeb.AbstractClientBase;
   hostname_: string;
-  credentials_: null | { [index: string]: string; };
-  options_: null | { [index: string]: any; };
+  credentials_: null | { [index: string]: string };
+  options_: null | { [index: string]: any };
 
-  constructor (hostname: string,
-               credentials?: null | { [index: string]: string; },
-               options?: null | { [index: string]: any; }) {
+  constructor(
+    hostname: string,
+    credentials?: null | { [index: string]: string },
+    options?: null | { [index: string]: any }
+  ) {
     if (!options) options = {};
     if (!credentials) credentials = {};
-    options['format'] = 'text';
+    options["format"] = "text";
 
     this.client_ = new grpcWeb.GrpcWebClientBase(options);
     this.hostname_ = hostname;
@@ -36,7 +35,7 @@ export class PolicyServiceClient {
   }
 
   methodDescriptorGet = new grpcWeb.MethodDescriptor(
-    '/scoretrak.policy.v1.PolicyService/Get',
+    "/scoretrak.policy.v1.PolicyService/Get",
     grpcWeb.MethodType.SERVER_STREAMING,
     scoretrak_policy_v1_policy_pb.GetRequest,
     scoretrak_policy_v1_policy_pb.GetResponse,
@@ -48,17 +47,18 @@ export class PolicyServiceClient {
 
   get(
     request: scoretrak_policy_v1_policy_pb.GetRequest,
-    metadata?: grpcWeb.Metadata): grpcWeb.ClientReadableStream<scoretrak_policy_v1_policy_pb.GetResponse> {
+    metadata?: grpcWeb.Metadata
+  ): grpcWeb.ClientReadableStream<scoretrak_policy_v1_policy_pb.GetResponse> {
     return this.client_.serverStreaming(
-      this.hostname_ +
-        '/scoretrak.policy.v1.PolicyService/Get',
+      this.hostname_ + "/scoretrak.policy.v1.PolicyService/Get",
       request,
       metadata || {},
-      this.methodDescriptorGet);
+      this.methodDescriptorGet
+    );
   }
 
   methodDescriptorUpdate = new grpcWeb.MethodDescriptor(
-    '/scoretrak.policy.v1.PolicyService/Update',
+    "/scoretrak.policy.v1.PolicyService/Update",
     grpcWeb.MethodType.UNARY,
     scoretrak_policy_v1_policy_pb.UpdateRequest,
     scoretrak_policy_v1_policy_pb.UpdateResponse,
@@ -70,35 +70,40 @@ export class PolicyServiceClient {
 
   update(
     request: scoretrak_policy_v1_policy_pb.UpdateRequest,
-    metadata: grpcWeb.Metadata | null): Promise<scoretrak_policy_v1_policy_pb.UpdateResponse>;
+    metadata: grpcWeb.Metadata | null
+  ): Promise<scoretrak_policy_v1_policy_pb.UpdateResponse>;
 
   update(
     request: scoretrak_policy_v1_policy_pb.UpdateRequest,
     metadata: grpcWeb.Metadata | null,
-    callback: (err: grpcWeb.RpcError,
-               response: scoretrak_policy_v1_policy_pb.UpdateResponse) => void): grpcWeb.ClientReadableStream<scoretrak_policy_v1_policy_pb.UpdateResponse>;
+    callback: (
+      err: grpcWeb.RpcError,
+      response: scoretrak_policy_v1_policy_pb.UpdateResponse
+    ) => void
+  ): grpcWeb.ClientReadableStream<scoretrak_policy_v1_policy_pb.UpdateResponse>;
 
   update(
     request: scoretrak_policy_v1_policy_pb.UpdateRequest,
     metadata: grpcWeb.Metadata | null,
-    callback?: (err: grpcWeb.RpcError,
-               response: scoretrak_policy_v1_policy_pb.UpdateResponse) => void) {
+    callback?: (
+      err: grpcWeb.RpcError,
+      response: scoretrak_policy_v1_policy_pb.UpdateResponse
+    ) => void
+  ) {
     if (callback !== undefined) {
       return this.client_.rpcCall(
-        this.hostname_ +
-          '/scoretrak.policy.v1.PolicyService/Update',
+        this.hostname_ + "/scoretrak.policy.v1.PolicyService/Update",
         request,
         metadata || {},
         this.methodDescriptorUpdate,
-        callback);
+        callback
+      );
     }
     return this.client_.unaryCall(
-    this.hostname_ +
-      '/scoretrak.policy.v1.PolicyService/Update',
-    request,
-    metadata || {},
-    this.methodDescriptorUpdate);
+      this.hostname_ + "/scoretrak.policy.v1.PolicyService/Update",
+      request,
+      metadata || {},
+      this.methodDescriptorUpdate
+    );
   }
-
 }
-

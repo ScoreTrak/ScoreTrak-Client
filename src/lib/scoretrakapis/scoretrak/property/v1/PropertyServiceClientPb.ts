@@ -6,28 +6,27 @@
 
 // GENERATED CODE -- DO NOT EDIT!
 
-
 /* eslint-disable */
 // @ts-nocheck
 
+import * as grpcWeb from "grpc-web";
 
-import * as grpcWeb from 'grpc-web';
-
-import * as scoretrak_property_v1_property_pb from '../../../scoretrak/property/v1/property_pb';
-
+import * as scoretrak_property_v1_property_pb from "../../../scoretrak/property/v1/property_pb";
 
 export class PropertyServiceClient {
   client_: grpcWeb.AbstractClientBase;
   hostname_: string;
-  credentials_: null | { [index: string]: string; };
-  options_: null | { [index: string]: any; };
+  credentials_: null | { [index: string]: string };
+  options_: null | { [index: string]: any };
 
-  constructor (hostname: string,
-               credentials?: null | { [index: string]: string; },
-               options?: null | { [index: string]: any; }) {
+  constructor(
+    hostname: string,
+    credentials?: null | { [index: string]: string },
+    options?: null | { [index: string]: any }
+  ) {
     if (!options) options = {};
     if (!credentials) credentials = {};
-    options['format'] = 'text';
+    options["format"] = "text";
 
     this.client_ = new grpcWeb.GrpcWebClientBase(options);
     this.hostname_ = hostname;
@@ -36,7 +35,7 @@ export class PropertyServiceClient {
   }
 
   methodDescriptorGetAll = new grpcWeb.MethodDescriptor(
-    '/scoretrak.property.v1.PropertyService/GetAll',
+    "/scoretrak.property.v1.PropertyService/GetAll",
     grpcWeb.MethodType.UNARY,
     scoretrak_property_v1_property_pb.GetAllRequest,
     scoretrak_property_v1_property_pb.GetAllResponse,
@@ -48,38 +47,45 @@ export class PropertyServiceClient {
 
   getAll(
     request: scoretrak_property_v1_property_pb.GetAllRequest,
-    metadata: grpcWeb.Metadata | null): Promise<scoretrak_property_v1_property_pb.GetAllResponse>;
+    metadata: grpcWeb.Metadata | null
+  ): Promise<scoretrak_property_v1_property_pb.GetAllResponse>;
 
   getAll(
     request: scoretrak_property_v1_property_pb.GetAllRequest,
     metadata: grpcWeb.Metadata | null,
-    callback: (err: grpcWeb.RpcError,
-               response: scoretrak_property_v1_property_pb.GetAllResponse) => void): grpcWeb.ClientReadableStream<scoretrak_property_v1_property_pb.GetAllResponse>;
+    callback: (
+      err: grpcWeb.RpcError,
+      response: scoretrak_property_v1_property_pb.GetAllResponse
+    ) => void
+  ): grpcWeb.ClientReadableStream<scoretrak_property_v1_property_pb.GetAllResponse>;
 
   getAll(
     request: scoretrak_property_v1_property_pb.GetAllRequest,
     metadata: grpcWeb.Metadata | null,
-    callback?: (err: grpcWeb.RpcError,
-               response: scoretrak_property_v1_property_pb.GetAllResponse) => void) {
+    callback?: (
+      err: grpcWeb.RpcError,
+      response: scoretrak_property_v1_property_pb.GetAllResponse
+    ) => void
+  ) {
     if (callback !== undefined) {
       return this.client_.rpcCall(
-        this.hostname_ +
-          '/scoretrak.property.v1.PropertyService/GetAll',
+        this.hostname_ + "/scoretrak.property.v1.PropertyService/GetAll",
         request,
         metadata || {},
         this.methodDescriptorGetAll,
-        callback);
+        callback
+      );
     }
     return this.client_.unaryCall(
-    this.hostname_ +
-      '/scoretrak.property.v1.PropertyService/GetAll',
-    request,
-    metadata || {},
-    this.methodDescriptorGetAll);
+      this.hostname_ + "/scoretrak.property.v1.PropertyService/GetAll",
+      request,
+      metadata || {},
+      this.methodDescriptorGetAll
+    );
   }
 
   methodDescriptorDelete = new grpcWeb.MethodDescriptor(
-    '/scoretrak.property.v1.PropertyService/Delete',
+    "/scoretrak.property.v1.PropertyService/Delete",
     grpcWeb.MethodType.UNARY,
     scoretrak_property_v1_property_pb.DeleteRequest,
     scoretrak_property_v1_property_pb.DeleteResponse,
@@ -91,38 +97,45 @@ export class PropertyServiceClient {
 
   delete(
     request: scoretrak_property_v1_property_pb.DeleteRequest,
-    metadata: grpcWeb.Metadata | null): Promise<scoretrak_property_v1_property_pb.DeleteResponse>;
+    metadata: grpcWeb.Metadata | null
+  ): Promise<scoretrak_property_v1_property_pb.DeleteResponse>;
 
   delete(
     request: scoretrak_property_v1_property_pb.DeleteRequest,
     metadata: grpcWeb.Metadata | null,
-    callback: (err: grpcWeb.RpcError,
-               response: scoretrak_property_v1_property_pb.DeleteResponse) => void): grpcWeb.ClientReadableStream<scoretrak_property_v1_property_pb.DeleteResponse>;
+    callback: (
+      err: grpcWeb.RpcError,
+      response: scoretrak_property_v1_property_pb.DeleteResponse
+    ) => void
+  ): grpcWeb.ClientReadableStream<scoretrak_property_v1_property_pb.DeleteResponse>;
 
   delete(
     request: scoretrak_property_v1_property_pb.DeleteRequest,
     metadata: grpcWeb.Metadata | null,
-    callback?: (err: grpcWeb.RpcError,
-               response: scoretrak_property_v1_property_pb.DeleteResponse) => void) {
+    callback?: (
+      err: grpcWeb.RpcError,
+      response: scoretrak_property_v1_property_pb.DeleteResponse
+    ) => void
+  ) {
     if (callback !== undefined) {
       return this.client_.rpcCall(
-        this.hostname_ +
-          '/scoretrak.property.v1.PropertyService/Delete',
+        this.hostname_ + "/scoretrak.property.v1.PropertyService/Delete",
         request,
         metadata || {},
         this.methodDescriptorDelete,
-        callback);
+        callback
+      );
     }
     return this.client_.unaryCall(
-    this.hostname_ +
-      '/scoretrak.property.v1.PropertyService/Delete',
-    request,
-    metadata || {},
-    this.methodDescriptorDelete);
+      this.hostname_ + "/scoretrak.property.v1.PropertyService/Delete",
+      request,
+      metadata || {},
+      this.methodDescriptorDelete
+    );
   }
 
   methodDescriptorStore = new grpcWeb.MethodDescriptor(
-    '/scoretrak.property.v1.PropertyService/Store',
+    "/scoretrak.property.v1.PropertyService/Store",
     grpcWeb.MethodType.UNARY,
     scoretrak_property_v1_property_pb.StoreRequest,
     scoretrak_property_v1_property_pb.StoreResponse,
@@ -134,38 +147,45 @@ export class PropertyServiceClient {
 
   store(
     request: scoretrak_property_v1_property_pb.StoreRequest,
-    metadata: grpcWeb.Metadata | null): Promise<scoretrak_property_v1_property_pb.StoreResponse>;
+    metadata: grpcWeb.Metadata | null
+  ): Promise<scoretrak_property_v1_property_pb.StoreResponse>;
 
   store(
     request: scoretrak_property_v1_property_pb.StoreRequest,
     metadata: grpcWeb.Metadata | null,
-    callback: (err: grpcWeb.RpcError,
-               response: scoretrak_property_v1_property_pb.StoreResponse) => void): grpcWeb.ClientReadableStream<scoretrak_property_v1_property_pb.StoreResponse>;
+    callback: (
+      err: grpcWeb.RpcError,
+      response: scoretrak_property_v1_property_pb.StoreResponse
+    ) => void
+  ): grpcWeb.ClientReadableStream<scoretrak_property_v1_property_pb.StoreResponse>;
 
   store(
     request: scoretrak_property_v1_property_pb.StoreRequest,
     metadata: grpcWeb.Metadata | null,
-    callback?: (err: grpcWeb.RpcError,
-               response: scoretrak_property_v1_property_pb.StoreResponse) => void) {
+    callback?: (
+      err: grpcWeb.RpcError,
+      response: scoretrak_property_v1_property_pb.StoreResponse
+    ) => void
+  ) {
     if (callback !== undefined) {
       return this.client_.rpcCall(
-        this.hostname_ +
-          '/scoretrak.property.v1.PropertyService/Store',
+        this.hostname_ + "/scoretrak.property.v1.PropertyService/Store",
         request,
         metadata || {},
         this.methodDescriptorStore,
-        callback);
+        callback
+      );
     }
     return this.client_.unaryCall(
-    this.hostname_ +
-      '/scoretrak.property.v1.PropertyService/Store',
-    request,
-    metadata || {},
-    this.methodDescriptorStore);
+      this.hostname_ + "/scoretrak.property.v1.PropertyService/Store",
+      request,
+      metadata || {},
+      this.methodDescriptorStore
+    );
   }
 
   methodDescriptorUpdate = new grpcWeb.MethodDescriptor(
-    '/scoretrak.property.v1.PropertyService/Update',
+    "/scoretrak.property.v1.PropertyService/Update",
     grpcWeb.MethodType.UNARY,
     scoretrak_property_v1_property_pb.UpdateRequest,
     scoretrak_property_v1_property_pb.UpdateResponse,
@@ -177,38 +197,45 @@ export class PropertyServiceClient {
 
   update(
     request: scoretrak_property_v1_property_pb.UpdateRequest,
-    metadata: grpcWeb.Metadata | null): Promise<scoretrak_property_v1_property_pb.UpdateResponse>;
+    metadata: grpcWeb.Metadata | null
+  ): Promise<scoretrak_property_v1_property_pb.UpdateResponse>;
 
   update(
     request: scoretrak_property_v1_property_pb.UpdateRequest,
     metadata: grpcWeb.Metadata | null,
-    callback: (err: grpcWeb.RpcError,
-               response: scoretrak_property_v1_property_pb.UpdateResponse) => void): grpcWeb.ClientReadableStream<scoretrak_property_v1_property_pb.UpdateResponse>;
+    callback: (
+      err: grpcWeb.RpcError,
+      response: scoretrak_property_v1_property_pb.UpdateResponse
+    ) => void
+  ): grpcWeb.ClientReadableStream<scoretrak_property_v1_property_pb.UpdateResponse>;
 
   update(
     request: scoretrak_property_v1_property_pb.UpdateRequest,
     metadata: grpcWeb.Metadata | null,
-    callback?: (err: grpcWeb.RpcError,
-               response: scoretrak_property_v1_property_pb.UpdateResponse) => void) {
+    callback?: (
+      err: grpcWeb.RpcError,
+      response: scoretrak_property_v1_property_pb.UpdateResponse
+    ) => void
+  ) {
     if (callback !== undefined) {
       return this.client_.rpcCall(
-        this.hostname_ +
-          '/scoretrak.property.v1.PropertyService/Update',
+        this.hostname_ + "/scoretrak.property.v1.PropertyService/Update",
         request,
         metadata || {},
         this.methodDescriptorUpdate,
-        callback);
+        callback
+      );
     }
     return this.client_.unaryCall(
-    this.hostname_ +
-      '/scoretrak.property.v1.PropertyService/Update',
-    request,
-    metadata || {},
-    this.methodDescriptorUpdate);
+      this.hostname_ + "/scoretrak.property.v1.PropertyService/Update",
+      request,
+      metadata || {},
+      this.methodDescriptorUpdate
+    );
   }
 
   methodDescriptorGetByServiceIDKey = new grpcWeb.MethodDescriptor(
-    '/scoretrak.property.v1.PropertyService/GetByServiceIDKey',
+    "/scoretrak.property.v1.PropertyService/GetByServiceIDKey",
     grpcWeb.MethodType.UNARY,
     scoretrak_property_v1_property_pb.GetByServiceIDKeyRequest,
     scoretrak_property_v1_property_pb.GetByServiceIDKeyResponse,
@@ -220,38 +247,47 @@ export class PropertyServiceClient {
 
   getByServiceIDKey(
     request: scoretrak_property_v1_property_pb.GetByServiceIDKeyRequest,
-    metadata: grpcWeb.Metadata | null): Promise<scoretrak_property_v1_property_pb.GetByServiceIDKeyResponse>;
+    metadata: grpcWeb.Metadata | null
+  ): Promise<scoretrak_property_v1_property_pb.GetByServiceIDKeyResponse>;
 
   getByServiceIDKey(
     request: scoretrak_property_v1_property_pb.GetByServiceIDKeyRequest,
     metadata: grpcWeb.Metadata | null,
-    callback: (err: grpcWeb.RpcError,
-               response: scoretrak_property_v1_property_pb.GetByServiceIDKeyResponse) => void): grpcWeb.ClientReadableStream<scoretrak_property_v1_property_pb.GetByServiceIDKeyResponse>;
+    callback: (
+      err: grpcWeb.RpcError,
+      response: scoretrak_property_v1_property_pb.GetByServiceIDKeyResponse
+    ) => void
+  ): grpcWeb.ClientReadableStream<scoretrak_property_v1_property_pb.GetByServiceIDKeyResponse>;
 
   getByServiceIDKey(
     request: scoretrak_property_v1_property_pb.GetByServiceIDKeyRequest,
     metadata: grpcWeb.Metadata | null,
-    callback?: (err: grpcWeb.RpcError,
-               response: scoretrak_property_v1_property_pb.GetByServiceIDKeyResponse) => void) {
+    callback?: (
+      err: grpcWeb.RpcError,
+      response: scoretrak_property_v1_property_pb.GetByServiceIDKeyResponse
+    ) => void
+  ) {
     if (callback !== undefined) {
       return this.client_.rpcCall(
         this.hostname_ +
-          '/scoretrak.property.v1.PropertyService/GetByServiceIDKey',
+          "/scoretrak.property.v1.PropertyService/GetByServiceIDKey",
         request,
         metadata || {},
         this.methodDescriptorGetByServiceIDKey,
-        callback);
+        callback
+      );
     }
     return this.client_.unaryCall(
-    this.hostname_ +
-      '/scoretrak.property.v1.PropertyService/GetByServiceIDKey',
-    request,
-    metadata || {},
-    this.methodDescriptorGetByServiceIDKey);
+      this.hostname_ +
+        "/scoretrak.property.v1.PropertyService/GetByServiceIDKey",
+      request,
+      metadata || {},
+      this.methodDescriptorGetByServiceIDKey
+    );
   }
 
   methodDescriptorGetAllByServiceID = new grpcWeb.MethodDescriptor(
-    '/scoretrak.property.v1.PropertyService/GetAllByServiceID',
+    "/scoretrak.property.v1.PropertyService/GetAllByServiceID",
     grpcWeb.MethodType.UNARY,
     scoretrak_property_v1_property_pb.GetAllByServiceIDRequest,
     scoretrak_property_v1_property_pb.GetAllByServiceIDResponse,
@@ -263,35 +299,42 @@ export class PropertyServiceClient {
 
   getAllByServiceID(
     request: scoretrak_property_v1_property_pb.GetAllByServiceIDRequest,
-    metadata: grpcWeb.Metadata | null): Promise<scoretrak_property_v1_property_pb.GetAllByServiceIDResponse>;
+    metadata: grpcWeb.Metadata | null
+  ): Promise<scoretrak_property_v1_property_pb.GetAllByServiceIDResponse>;
 
   getAllByServiceID(
     request: scoretrak_property_v1_property_pb.GetAllByServiceIDRequest,
     metadata: grpcWeb.Metadata | null,
-    callback: (err: grpcWeb.RpcError,
-               response: scoretrak_property_v1_property_pb.GetAllByServiceIDResponse) => void): grpcWeb.ClientReadableStream<scoretrak_property_v1_property_pb.GetAllByServiceIDResponse>;
+    callback: (
+      err: grpcWeb.RpcError,
+      response: scoretrak_property_v1_property_pb.GetAllByServiceIDResponse
+    ) => void
+  ): grpcWeb.ClientReadableStream<scoretrak_property_v1_property_pb.GetAllByServiceIDResponse>;
 
   getAllByServiceID(
     request: scoretrak_property_v1_property_pb.GetAllByServiceIDRequest,
     metadata: grpcWeb.Metadata | null,
-    callback?: (err: grpcWeb.RpcError,
-               response: scoretrak_property_v1_property_pb.GetAllByServiceIDResponse) => void) {
+    callback?: (
+      err: grpcWeb.RpcError,
+      response: scoretrak_property_v1_property_pb.GetAllByServiceIDResponse
+    ) => void
+  ) {
     if (callback !== undefined) {
       return this.client_.rpcCall(
         this.hostname_ +
-          '/scoretrak.property.v1.PropertyService/GetAllByServiceID',
+          "/scoretrak.property.v1.PropertyService/GetAllByServiceID",
         request,
         metadata || {},
         this.methodDescriptorGetAllByServiceID,
-        callback);
+        callback
+      );
     }
     return this.client_.unaryCall(
-    this.hostname_ +
-      '/scoretrak.property.v1.PropertyService/GetAllByServiceID',
-    request,
-    metadata || {},
-    this.methodDescriptorGetAllByServiceID);
+      this.hostname_ +
+        "/scoretrak.property.v1.PropertyService/GetAllByServiceID",
+      request,
+      metadata || {},
+      this.methodDescriptorGetAllByServiceID
+    );
   }
-
 }
-

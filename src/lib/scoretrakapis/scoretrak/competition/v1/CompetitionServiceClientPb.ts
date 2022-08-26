@@ -6,28 +6,27 @@
 
 // GENERATED CODE -- DO NOT EDIT!
 
-
 /* eslint-disable */
 // @ts-nocheck
 
+import * as grpcWeb from "grpc-web";
 
-import * as grpcWeb from 'grpc-web';
-
-import * as scoretrak_competition_v1_competition_pb from '../../../scoretrak/competition/v1/competition_pb';
-
+import * as scoretrak_competition_v1_competition_pb from "../../../scoretrak/competition/v1/competition_pb";
 
 export class CompetitionServiceClient {
   client_: grpcWeb.AbstractClientBase;
   hostname_: string;
-  credentials_: null | { [index: string]: string; };
-  options_: null | { [index: string]: any; };
+  credentials_: null | { [index: string]: string };
+  options_: null | { [index: string]: any };
 
-  constructor (hostname: string,
-               credentials?: null | { [index: string]: string; },
-               options?: null | { [index: string]: any; }) {
+  constructor(
+    hostname: string,
+    credentials?: null | { [index: string]: string },
+    options?: null | { [index: string]: any }
+  ) {
     if (!options) options = {};
     if (!credentials) credentials = {};
-    options['format'] = 'text';
+    options["format"] = "text";
 
     this.client_ = new grpcWeb.GrpcWebClientBase(options);
     this.hostname_ = hostname;
@@ -36,11 +35,13 @@ export class CompetitionServiceClient {
   }
 
   methodDescriptorLoadCompetition = new grpcWeb.MethodDescriptor(
-    '/scoretrak.competition.v1.CompetitionService/LoadCompetition',
+    "/scoretrak.competition.v1.CompetitionService/LoadCompetition",
     grpcWeb.MethodType.UNARY,
     scoretrak_competition_v1_competition_pb.LoadCompetitionRequest,
     scoretrak_competition_v1_competition_pb.LoadCompetitionResponse,
-    (request: scoretrak_competition_v1_competition_pb.LoadCompetitionRequest) => {
+    (
+      request: scoretrak_competition_v1_competition_pb.LoadCompetitionRequest
+    ) => {
       return request.serializeBinary();
     },
     scoretrak_competition_v1_competition_pb.LoadCompetitionResponse.deserializeBinary
@@ -48,42 +49,53 @@ export class CompetitionServiceClient {
 
   loadCompetition(
     request: scoretrak_competition_v1_competition_pb.LoadCompetitionRequest,
-    metadata: grpcWeb.Metadata | null): Promise<scoretrak_competition_v1_competition_pb.LoadCompetitionResponse>;
+    metadata: grpcWeb.Metadata | null
+  ): Promise<scoretrak_competition_v1_competition_pb.LoadCompetitionResponse>;
 
   loadCompetition(
     request: scoretrak_competition_v1_competition_pb.LoadCompetitionRequest,
     metadata: grpcWeb.Metadata | null,
-    callback: (err: grpcWeb.RpcError,
-               response: scoretrak_competition_v1_competition_pb.LoadCompetitionResponse) => void): grpcWeb.ClientReadableStream<scoretrak_competition_v1_competition_pb.LoadCompetitionResponse>;
+    callback: (
+      err: grpcWeb.RpcError,
+      response: scoretrak_competition_v1_competition_pb.LoadCompetitionResponse
+    ) => void
+  ): grpcWeb.ClientReadableStream<scoretrak_competition_v1_competition_pb.LoadCompetitionResponse>;
 
   loadCompetition(
     request: scoretrak_competition_v1_competition_pb.LoadCompetitionRequest,
     metadata: grpcWeb.Metadata | null,
-    callback?: (err: grpcWeb.RpcError,
-               response: scoretrak_competition_v1_competition_pb.LoadCompetitionResponse) => void) {
+    callback?: (
+      err: grpcWeb.RpcError,
+      response: scoretrak_competition_v1_competition_pb.LoadCompetitionResponse
+    ) => void
+  ) {
     if (callback !== undefined) {
       return this.client_.rpcCall(
         this.hostname_ +
-          '/scoretrak.competition.v1.CompetitionService/LoadCompetition',
+          "/scoretrak.competition.v1.CompetitionService/LoadCompetition",
         request,
         metadata || {},
         this.methodDescriptorLoadCompetition,
-        callback);
+        callback
+      );
     }
     return this.client_.unaryCall(
-    this.hostname_ +
-      '/scoretrak.competition.v1.CompetitionService/LoadCompetition',
-    request,
-    metadata || {},
-    this.methodDescriptorLoadCompetition);
+      this.hostname_ +
+        "/scoretrak.competition.v1.CompetitionService/LoadCompetition",
+      request,
+      metadata || {},
+      this.methodDescriptorLoadCompetition
+    );
   }
 
   methodDescriptorFetchCoreCompetition = new grpcWeb.MethodDescriptor(
-    '/scoretrak.competition.v1.CompetitionService/FetchCoreCompetition',
+    "/scoretrak.competition.v1.CompetitionService/FetchCoreCompetition",
     grpcWeb.MethodType.UNARY,
     scoretrak_competition_v1_competition_pb.FetchCoreCompetitionRequest,
     scoretrak_competition_v1_competition_pb.FetchCoreCompetitionResponse,
-    (request: scoretrak_competition_v1_competition_pb.FetchCoreCompetitionRequest) => {
+    (
+      request: scoretrak_competition_v1_competition_pb.FetchCoreCompetitionRequest
+    ) => {
       return request.serializeBinary();
     },
     scoretrak_competition_v1_competition_pb.FetchCoreCompetitionResponse.deserializeBinary
@@ -91,42 +103,53 @@ export class CompetitionServiceClient {
 
   fetchCoreCompetition(
     request: scoretrak_competition_v1_competition_pb.FetchCoreCompetitionRequest,
-    metadata: grpcWeb.Metadata | null): Promise<scoretrak_competition_v1_competition_pb.FetchCoreCompetitionResponse>;
+    metadata: grpcWeb.Metadata | null
+  ): Promise<scoretrak_competition_v1_competition_pb.FetchCoreCompetitionResponse>;
 
   fetchCoreCompetition(
     request: scoretrak_competition_v1_competition_pb.FetchCoreCompetitionRequest,
     metadata: grpcWeb.Metadata | null,
-    callback: (err: grpcWeb.RpcError,
-               response: scoretrak_competition_v1_competition_pb.FetchCoreCompetitionResponse) => void): grpcWeb.ClientReadableStream<scoretrak_competition_v1_competition_pb.FetchCoreCompetitionResponse>;
+    callback: (
+      err: grpcWeb.RpcError,
+      response: scoretrak_competition_v1_competition_pb.FetchCoreCompetitionResponse
+    ) => void
+  ): grpcWeb.ClientReadableStream<scoretrak_competition_v1_competition_pb.FetchCoreCompetitionResponse>;
 
   fetchCoreCompetition(
     request: scoretrak_competition_v1_competition_pb.FetchCoreCompetitionRequest,
     metadata: grpcWeb.Metadata | null,
-    callback?: (err: grpcWeb.RpcError,
-               response: scoretrak_competition_v1_competition_pb.FetchCoreCompetitionResponse) => void) {
+    callback?: (
+      err: grpcWeb.RpcError,
+      response: scoretrak_competition_v1_competition_pb.FetchCoreCompetitionResponse
+    ) => void
+  ) {
     if (callback !== undefined) {
       return this.client_.rpcCall(
         this.hostname_ +
-          '/scoretrak.competition.v1.CompetitionService/FetchCoreCompetition',
+          "/scoretrak.competition.v1.CompetitionService/FetchCoreCompetition",
         request,
         metadata || {},
         this.methodDescriptorFetchCoreCompetition,
-        callback);
+        callback
+      );
     }
     return this.client_.unaryCall(
-    this.hostname_ +
-      '/scoretrak.competition.v1.CompetitionService/FetchCoreCompetition',
-    request,
-    metadata || {},
-    this.methodDescriptorFetchCoreCompetition);
+      this.hostname_ +
+        "/scoretrak.competition.v1.CompetitionService/FetchCoreCompetition",
+      request,
+      metadata || {},
+      this.methodDescriptorFetchCoreCompetition
+    );
   }
 
   methodDescriptorFetchEntireCompetition = new grpcWeb.MethodDescriptor(
-    '/scoretrak.competition.v1.CompetitionService/FetchEntireCompetition',
+    "/scoretrak.competition.v1.CompetitionService/FetchEntireCompetition",
     grpcWeb.MethodType.UNARY,
     scoretrak_competition_v1_competition_pb.FetchEntireCompetitionRequest,
     scoretrak_competition_v1_competition_pb.FetchEntireCompetitionResponse,
-    (request: scoretrak_competition_v1_competition_pb.FetchEntireCompetitionRequest) => {
+    (
+      request: scoretrak_competition_v1_competition_pb.FetchEntireCompetitionRequest
+    ) => {
       return request.serializeBinary();
     },
     scoretrak_competition_v1_competition_pb.FetchEntireCompetitionResponse.deserializeBinary
@@ -134,38 +157,47 @@ export class CompetitionServiceClient {
 
   fetchEntireCompetition(
     request: scoretrak_competition_v1_competition_pb.FetchEntireCompetitionRequest,
-    metadata: grpcWeb.Metadata | null): Promise<scoretrak_competition_v1_competition_pb.FetchEntireCompetitionResponse>;
+    metadata: grpcWeb.Metadata | null
+  ): Promise<scoretrak_competition_v1_competition_pb.FetchEntireCompetitionResponse>;
 
   fetchEntireCompetition(
     request: scoretrak_competition_v1_competition_pb.FetchEntireCompetitionRequest,
     metadata: grpcWeb.Metadata | null,
-    callback: (err: grpcWeb.RpcError,
-               response: scoretrak_competition_v1_competition_pb.FetchEntireCompetitionResponse) => void): grpcWeb.ClientReadableStream<scoretrak_competition_v1_competition_pb.FetchEntireCompetitionResponse>;
+    callback: (
+      err: grpcWeb.RpcError,
+      response: scoretrak_competition_v1_competition_pb.FetchEntireCompetitionResponse
+    ) => void
+  ): grpcWeb.ClientReadableStream<scoretrak_competition_v1_competition_pb.FetchEntireCompetitionResponse>;
 
   fetchEntireCompetition(
     request: scoretrak_competition_v1_competition_pb.FetchEntireCompetitionRequest,
     metadata: grpcWeb.Metadata | null,
-    callback?: (err: grpcWeb.RpcError,
-               response: scoretrak_competition_v1_competition_pb.FetchEntireCompetitionResponse) => void) {
+    callback?: (
+      err: grpcWeb.RpcError,
+      response: scoretrak_competition_v1_competition_pb.FetchEntireCompetitionResponse
+    ) => void
+  ) {
     if (callback !== undefined) {
       return this.client_.rpcCall(
         this.hostname_ +
-          '/scoretrak.competition.v1.CompetitionService/FetchEntireCompetition',
+          "/scoretrak.competition.v1.CompetitionService/FetchEntireCompetition",
         request,
         metadata || {},
         this.methodDescriptorFetchEntireCompetition,
-        callback);
+        callback
+      );
     }
     return this.client_.unaryCall(
-    this.hostname_ +
-      '/scoretrak.competition.v1.CompetitionService/FetchEntireCompetition',
-    request,
-    metadata || {},
-    this.methodDescriptorFetchEntireCompetition);
+      this.hostname_ +
+        "/scoretrak.competition.v1.CompetitionService/FetchEntireCompetition",
+      request,
+      metadata || {},
+      this.methodDescriptorFetchEntireCompetition
+    );
   }
 
   methodDescriptorResetScores = new grpcWeb.MethodDescriptor(
-    '/scoretrak.competition.v1.CompetitionService/ResetScores',
+    "/scoretrak.competition.v1.CompetitionService/ResetScores",
     grpcWeb.MethodType.UNARY,
     scoretrak_competition_v1_competition_pb.ResetScoresRequest,
     scoretrak_competition_v1_competition_pb.ResetScoresResponse,
@@ -177,42 +209,53 @@ export class CompetitionServiceClient {
 
   resetScores(
     request: scoretrak_competition_v1_competition_pb.ResetScoresRequest,
-    metadata: grpcWeb.Metadata | null): Promise<scoretrak_competition_v1_competition_pb.ResetScoresResponse>;
+    metadata: grpcWeb.Metadata | null
+  ): Promise<scoretrak_competition_v1_competition_pb.ResetScoresResponse>;
 
   resetScores(
     request: scoretrak_competition_v1_competition_pb.ResetScoresRequest,
     metadata: grpcWeb.Metadata | null,
-    callback: (err: grpcWeb.RpcError,
-               response: scoretrak_competition_v1_competition_pb.ResetScoresResponse) => void): grpcWeb.ClientReadableStream<scoretrak_competition_v1_competition_pb.ResetScoresResponse>;
+    callback: (
+      err: grpcWeb.RpcError,
+      response: scoretrak_competition_v1_competition_pb.ResetScoresResponse
+    ) => void
+  ): grpcWeb.ClientReadableStream<scoretrak_competition_v1_competition_pb.ResetScoresResponse>;
 
   resetScores(
     request: scoretrak_competition_v1_competition_pb.ResetScoresRequest,
     metadata: grpcWeb.Metadata | null,
-    callback?: (err: grpcWeb.RpcError,
-               response: scoretrak_competition_v1_competition_pb.ResetScoresResponse) => void) {
+    callback?: (
+      err: grpcWeb.RpcError,
+      response: scoretrak_competition_v1_competition_pb.ResetScoresResponse
+    ) => void
+  ) {
     if (callback !== undefined) {
       return this.client_.rpcCall(
         this.hostname_ +
-          '/scoretrak.competition.v1.CompetitionService/ResetScores',
+          "/scoretrak.competition.v1.CompetitionService/ResetScores",
         request,
         metadata || {},
         this.methodDescriptorResetScores,
-        callback);
+        callback
+      );
     }
     return this.client_.unaryCall(
-    this.hostname_ +
-      '/scoretrak.competition.v1.CompetitionService/ResetScores',
-    request,
-    metadata || {},
-    this.methodDescriptorResetScores);
+      this.hostname_ +
+        "/scoretrak.competition.v1.CompetitionService/ResetScores",
+      request,
+      metadata || {},
+      this.methodDescriptorResetScores
+    );
   }
 
   methodDescriptorDeleteCompetition = new grpcWeb.MethodDescriptor(
-    '/scoretrak.competition.v1.CompetitionService/DeleteCompetition',
+    "/scoretrak.competition.v1.CompetitionService/DeleteCompetition",
     grpcWeb.MethodType.UNARY,
     scoretrak_competition_v1_competition_pb.DeleteCompetitionRequest,
     scoretrak_competition_v1_competition_pb.DeleteCompetitionResponse,
-    (request: scoretrak_competition_v1_competition_pb.DeleteCompetitionRequest) => {
+    (
+      request: scoretrak_competition_v1_competition_pb.DeleteCompetitionRequest
+    ) => {
       return request.serializeBinary();
     },
     scoretrak_competition_v1_competition_pb.DeleteCompetitionResponse.deserializeBinary
@@ -220,35 +263,42 @@ export class CompetitionServiceClient {
 
   deleteCompetition(
     request: scoretrak_competition_v1_competition_pb.DeleteCompetitionRequest,
-    metadata: grpcWeb.Metadata | null): Promise<scoretrak_competition_v1_competition_pb.DeleteCompetitionResponse>;
+    metadata: grpcWeb.Metadata | null
+  ): Promise<scoretrak_competition_v1_competition_pb.DeleteCompetitionResponse>;
 
   deleteCompetition(
     request: scoretrak_competition_v1_competition_pb.DeleteCompetitionRequest,
     metadata: grpcWeb.Metadata | null,
-    callback: (err: grpcWeb.RpcError,
-               response: scoretrak_competition_v1_competition_pb.DeleteCompetitionResponse) => void): grpcWeb.ClientReadableStream<scoretrak_competition_v1_competition_pb.DeleteCompetitionResponse>;
+    callback: (
+      err: grpcWeb.RpcError,
+      response: scoretrak_competition_v1_competition_pb.DeleteCompetitionResponse
+    ) => void
+  ): grpcWeb.ClientReadableStream<scoretrak_competition_v1_competition_pb.DeleteCompetitionResponse>;
 
   deleteCompetition(
     request: scoretrak_competition_v1_competition_pb.DeleteCompetitionRequest,
     metadata: grpcWeb.Metadata | null,
-    callback?: (err: grpcWeb.RpcError,
-               response: scoretrak_competition_v1_competition_pb.DeleteCompetitionResponse) => void) {
+    callback?: (
+      err: grpcWeb.RpcError,
+      response: scoretrak_competition_v1_competition_pb.DeleteCompetitionResponse
+    ) => void
+  ) {
     if (callback !== undefined) {
       return this.client_.rpcCall(
         this.hostname_ +
-          '/scoretrak.competition.v1.CompetitionService/DeleteCompetition',
+          "/scoretrak.competition.v1.CompetitionService/DeleteCompetition",
         request,
         metadata || {},
         this.methodDescriptorDeleteCompetition,
-        callback);
+        callback
+      );
     }
     return this.client_.unaryCall(
-    this.hostname_ +
-      '/scoretrak.competition.v1.CompetitionService/DeleteCompetition',
-    request,
-    metadata || {},
-    this.methodDescriptorDeleteCompetition);
+      this.hostname_ +
+        "/scoretrak.competition.v1.CompetitionService/DeleteCompetition",
+      request,
+      metadata || {},
+      this.methodDescriptorDeleteCompetition
+    );
   }
-
 }
-

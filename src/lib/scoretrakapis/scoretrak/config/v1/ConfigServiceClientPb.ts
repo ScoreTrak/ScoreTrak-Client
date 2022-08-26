@@ -6,28 +6,27 @@
 
 // GENERATED CODE -- DO NOT EDIT!
 
-
 /* eslint-disable */
 // @ts-nocheck
 
+import * as grpcWeb from "grpc-web";
 
-import * as grpcWeb from 'grpc-web';
-
-import * as scoretrak_config_v1_config_pb from '../../../scoretrak/config/v1/config_pb';
-
+import * as scoretrak_config_v1_config_pb from "../../../scoretrak/config/v1/config_pb";
 
 export class DynamicConfigServiceClient {
   client_: grpcWeb.AbstractClientBase;
   hostname_: string;
-  credentials_: null | { [index: string]: string; };
-  options_: null | { [index: string]: any; };
+  credentials_: null | { [index: string]: string };
+  options_: null | { [index: string]: any };
 
-  constructor (hostname: string,
-               credentials?: null | { [index: string]: string; },
-               options?: null | { [index: string]: any; }) {
+  constructor(
+    hostname: string,
+    credentials?: null | { [index: string]: string },
+    options?: null | { [index: string]: any }
+  ) {
     if (!options) options = {};
     if (!credentials) credentials = {};
-    options['format'] = 'text';
+    options["format"] = "text";
 
     this.client_ = new grpcWeb.GrpcWebClientBase(options);
     this.hostname_ = hostname;
@@ -36,7 +35,7 @@ export class DynamicConfigServiceClient {
   }
 
   methodDescriptorGet = new grpcWeb.MethodDescriptor(
-    '/scoretrak.config.v1.DynamicConfigService/Get',
+    "/scoretrak.config.v1.DynamicConfigService/Get",
     grpcWeb.MethodType.UNARY,
     scoretrak_config_v1_config_pb.GetRequest,
     scoretrak_config_v1_config_pb.GetResponse,
@@ -48,38 +47,45 @@ export class DynamicConfigServiceClient {
 
   get(
     request: scoretrak_config_v1_config_pb.GetRequest,
-    metadata: grpcWeb.Metadata | null): Promise<scoretrak_config_v1_config_pb.GetResponse>;
+    metadata: grpcWeb.Metadata | null
+  ): Promise<scoretrak_config_v1_config_pb.GetResponse>;
 
   get(
     request: scoretrak_config_v1_config_pb.GetRequest,
     metadata: grpcWeb.Metadata | null,
-    callback: (err: grpcWeb.RpcError,
-               response: scoretrak_config_v1_config_pb.GetResponse) => void): grpcWeb.ClientReadableStream<scoretrak_config_v1_config_pb.GetResponse>;
+    callback: (
+      err: grpcWeb.RpcError,
+      response: scoretrak_config_v1_config_pb.GetResponse
+    ) => void
+  ): grpcWeb.ClientReadableStream<scoretrak_config_v1_config_pb.GetResponse>;
 
   get(
     request: scoretrak_config_v1_config_pb.GetRequest,
     metadata: grpcWeb.Metadata | null,
-    callback?: (err: grpcWeb.RpcError,
-               response: scoretrak_config_v1_config_pb.GetResponse) => void) {
+    callback?: (
+      err: grpcWeb.RpcError,
+      response: scoretrak_config_v1_config_pb.GetResponse
+    ) => void
+  ) {
     if (callback !== undefined) {
       return this.client_.rpcCall(
-        this.hostname_ +
-          '/scoretrak.config.v1.DynamicConfigService/Get',
+        this.hostname_ + "/scoretrak.config.v1.DynamicConfigService/Get",
         request,
         metadata || {},
         this.methodDescriptorGet,
-        callback);
+        callback
+      );
     }
     return this.client_.unaryCall(
-    this.hostname_ +
-      '/scoretrak.config.v1.DynamicConfigService/Get',
-    request,
-    metadata || {},
-    this.methodDescriptorGet);
+      this.hostname_ + "/scoretrak.config.v1.DynamicConfigService/Get",
+      request,
+      metadata || {},
+      this.methodDescriptorGet
+    );
   }
 
   methodDescriptorUpdate = new grpcWeb.MethodDescriptor(
-    '/scoretrak.config.v1.DynamicConfigService/Update',
+    "/scoretrak.config.v1.DynamicConfigService/Update",
     grpcWeb.MethodType.UNARY,
     scoretrak_config_v1_config_pb.UpdateRequest,
     scoretrak_config_v1_config_pb.UpdateResponse,
@@ -91,50 +97,58 @@ export class DynamicConfigServiceClient {
 
   update(
     request: scoretrak_config_v1_config_pb.UpdateRequest,
-    metadata: grpcWeb.Metadata | null): Promise<scoretrak_config_v1_config_pb.UpdateResponse>;
+    metadata: grpcWeb.Metadata | null
+  ): Promise<scoretrak_config_v1_config_pb.UpdateResponse>;
 
   update(
     request: scoretrak_config_v1_config_pb.UpdateRequest,
     metadata: grpcWeb.Metadata | null,
-    callback: (err: grpcWeb.RpcError,
-               response: scoretrak_config_v1_config_pb.UpdateResponse) => void): grpcWeb.ClientReadableStream<scoretrak_config_v1_config_pb.UpdateResponse>;
+    callback: (
+      err: grpcWeb.RpcError,
+      response: scoretrak_config_v1_config_pb.UpdateResponse
+    ) => void
+  ): grpcWeb.ClientReadableStream<scoretrak_config_v1_config_pb.UpdateResponse>;
 
   update(
     request: scoretrak_config_v1_config_pb.UpdateRequest,
     metadata: grpcWeb.Metadata | null,
-    callback?: (err: grpcWeb.RpcError,
-               response: scoretrak_config_v1_config_pb.UpdateResponse) => void) {
+    callback?: (
+      err: grpcWeb.RpcError,
+      response: scoretrak_config_v1_config_pb.UpdateResponse
+    ) => void
+  ) {
     if (callback !== undefined) {
       return this.client_.rpcCall(
-        this.hostname_ +
-          '/scoretrak.config.v1.DynamicConfigService/Update',
+        this.hostname_ + "/scoretrak.config.v1.DynamicConfigService/Update",
         request,
         metadata || {},
         this.methodDescriptorUpdate,
-        callback);
+        callback
+      );
     }
     return this.client_.unaryCall(
-    this.hostname_ +
-      '/scoretrak.config.v1.DynamicConfigService/Update',
-    request,
-    metadata || {},
-    this.methodDescriptorUpdate);
+      this.hostname_ + "/scoretrak.config.v1.DynamicConfigService/Update",
+      request,
+      metadata || {},
+      this.methodDescriptorUpdate
+    );
   }
-
 }
 
 export class StaticConfigServiceClient {
   client_: grpcWeb.AbstractClientBase;
   hostname_: string;
-  credentials_: null | { [index: string]: string; };
-  options_: null | { [index: string]: any; };
+  credentials_: null | { [index: string]: string };
+  options_: null | { [index: string]: any };
 
-  constructor (hostname: string,
-               credentials?: null | { [index: string]: string; },
-               options?: null | { [index: string]: any; }) {
+  constructor(
+    hostname: string,
+    credentials?: null | { [index: string]: string },
+    options?: null | { [index: string]: any }
+  ) {
     if (!options) options = {};
     if (!credentials) credentials = {};
-    options['format'] = 'text';
+    options["format"] = "text";
 
     this.client_ = new grpcWeb.GrpcWebClientBase(options);
     this.hostname_ = hostname;
@@ -143,7 +157,7 @@ export class StaticConfigServiceClient {
   }
 
   methodDescriptorGet = new grpcWeb.MethodDescriptor(
-    '/scoretrak.config.v1.StaticConfigService/Get',
+    "/scoretrak.config.v1.StaticConfigService/Get",
     grpcWeb.MethodType.UNARY,
     scoretrak_config_v1_config_pb.GetStaticConfigRequest,
     scoretrak_config_v1_config_pb.GetStaticConfigResponse,
@@ -155,35 +169,40 @@ export class StaticConfigServiceClient {
 
   get(
     request: scoretrak_config_v1_config_pb.GetStaticConfigRequest,
-    metadata: grpcWeb.Metadata | null): Promise<scoretrak_config_v1_config_pb.GetStaticConfigResponse>;
+    metadata: grpcWeb.Metadata | null
+  ): Promise<scoretrak_config_v1_config_pb.GetStaticConfigResponse>;
 
   get(
     request: scoretrak_config_v1_config_pb.GetStaticConfigRequest,
     metadata: grpcWeb.Metadata | null,
-    callback: (err: grpcWeb.RpcError,
-               response: scoretrak_config_v1_config_pb.GetStaticConfigResponse) => void): grpcWeb.ClientReadableStream<scoretrak_config_v1_config_pb.GetStaticConfigResponse>;
+    callback: (
+      err: grpcWeb.RpcError,
+      response: scoretrak_config_v1_config_pb.GetStaticConfigResponse
+    ) => void
+  ): grpcWeb.ClientReadableStream<scoretrak_config_v1_config_pb.GetStaticConfigResponse>;
 
   get(
     request: scoretrak_config_v1_config_pb.GetStaticConfigRequest,
     metadata: grpcWeb.Metadata | null,
-    callback?: (err: grpcWeb.RpcError,
-               response: scoretrak_config_v1_config_pb.GetStaticConfigResponse) => void) {
+    callback?: (
+      err: grpcWeb.RpcError,
+      response: scoretrak_config_v1_config_pb.GetStaticConfigResponse
+    ) => void
+  ) {
     if (callback !== undefined) {
       return this.client_.rpcCall(
-        this.hostname_ +
-          '/scoretrak.config.v1.StaticConfigService/Get',
+        this.hostname_ + "/scoretrak.config.v1.StaticConfigService/Get",
         request,
         metadata || {},
         this.methodDescriptorGet,
-        callback);
+        callback
+      );
     }
     return this.client_.unaryCall(
-    this.hostname_ +
-      '/scoretrak.config.v1.StaticConfigService/Get',
-    request,
-    metadata || {},
-    this.methodDescriptorGet);
+      this.hostname_ + "/scoretrak.config.v1.StaticConfigService/Get",
+      request,
+      metadata || {},
+      this.methodDescriptorGet
+    );
   }
-
 }
-

@@ -1,15 +1,9 @@
 {
-  "extends": [
-    "tslint-etc",
-    "tslint:latest"
-  ],
+  "extends": ["tslint-etc", "tslint:latest"],
   "rules": {
     "no-unused-declaration": true
   },
   "linterOptions": {
-    "exclude": [
-      "",
-      "./src/lib/scoretrakapis/**/*.ts"
-    ]
+    "exclude": ["", "./src/lib/scoretrakapis/**/*.ts"]
   }
 }
