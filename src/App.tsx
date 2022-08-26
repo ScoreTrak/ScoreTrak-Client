@@ -24,13 +24,6 @@ import Logs from "./routes/logs";
 import { ReportProvider } from "./contexts/ReportContext";
 import Ranks from "./routes/scoreboard/ranks";
 import Details from "./routes/scoreboard/details";
-import Hosts from "./routes/settings/hosts";
-import Users from "./routes/settings/users";
-import Teams from "./routes/settings/teams";
-import Services from "./routes/settings/services";
-import ServiceGroups from "./routes/settings/service_groups";
-import Properties from "./routes/settings/properties";
-import HostGroups from "./routes/settings/host_groups";
 import Scoreboard from "./routes/scoreboard";
 import ScoreboardLayout from "./layouts/ScoreboardLayout";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
@@ -90,16 +83,6 @@ function App() {
                   </Route>
                   <Route path={"settings"} element={<DefaultLayout />}>
                     <Route index element={<Settings />} />
-                    <Route path={"hosts"} element={<Hosts />} />
-                    <Route path={"host_groups"} element={<HostGroups />} />
-                    <Route path={"properties"} element={<Properties />} />
-                    <Route
-                      path={"service_groups"}
-                      element={<ServiceGroups />}
-                    />
-                    <Route path={"services"} element={<Services />} />
-                    <Route path={"teams"} element={<Teams />} />
-                    <Route path={"users"} element={<Users />} />
                   </Route>
                 </Routes>
               </TitleContextProvider>
