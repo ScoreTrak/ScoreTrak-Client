@@ -9,7 +9,7 @@ import Button from "@material-ui/core/Button";
 import {
   StoreRequest,
   Team,
-} from "../../../lib/scoretrakapis/scoretrak/team/v1/team_pb";
+} from "@buf/grpc_web_scoretrak_scoretrakapis/scoretrak/team/v1/team_pb";
 import { Severity } from "../../../types/types";
 import { UInt64Value } from "google-protobuf/google/protobuf/wrappers_pb";
 import { useSnackbar } from "notistack";
@@ -104,7 +104,7 @@ const TeamCreate = () => {
         0
       );
     });
-    gRPCClients.teamClient.store(storeRequest, {}).then(
+    gRPCClients.team.v1.teamServicePromiseClient.store(storeRequest, {}).then(
       (_) => {
         enqueueSnackbar(`Teams Created!`, { variant: Severity.Success });
       },

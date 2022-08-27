@@ -6,14 +6,14 @@ import {
   Team,
   StoreRequest,
   UpdateRequest,
-} from "../scoretrakapis/scoretrak/team/v1/team_pb";
+} from "@buf/grpc_web_scoretrak_scoretrakapis/scoretrak/team/v1/team_pb";
 import grpcWeb from "grpc-web";
 import { gRPCClients } from "../../grpc/gRPCClients";
-import { UUID } from "../scoretrakapis/scoretrak/proto/v1/uuid_pb";
+import { UUID } from "@buf/grpc_web_scoretrak_scoretrakapis/scoretrak/proto/v1/uuid_pb";
 
 export function useTeamsQuery() {
   const fetchTeams = async () => {
-    const teamsResponse = await gRPCClients.teamClient.getAll(
+    const teamsResponse = await gRPCClients.team.v1.teamServicePromiseClient.getAll(
       new GetAllRequest(),
       {}
     );
@@ -29,7 +29,7 @@ export function useTeamQuery(teamId: string) {
     uuid.setValue(id);
     const request = new GetByIDRequest();
     request.setId(uuid);
-    const teamResponse = await gRPCClients.teamClient.getByID(request, {});
+    const teamResponse = await gRPCClients.team.v1.teamServicePromiseClient.getByID(request, {});
     return teamResponse.getTeam();
   };
 
@@ -42,7 +42,7 @@ export function useAddTeamMutation() {
   const queryClient = useQueryClient();
 
   const addTeam = async (addTeamRequest: StoreRequest) => {
-    return await gRPCClients.teamClient.store(addTeamRequest, {});
+    return await gRPCClients.team.v1.teamServicePromiseClient.store(addTeamRequest, {});
   };
 
   return useMutation(addTeam, {
@@ -56,7 +56,7 @@ export function useUpdateTeamMutation() {
   const queryClient = useQueryClient();
 
   const updateTeam = async (updateTeamRequest: UpdateRequest) => {
-    return await gRPCClients.teamClient.update(updateTeamRequest, {});
+    return await gRPCClients.team.v1.teamServicePromiseClient.update(updateTeamRequest, {});
   };
 
   return useMutation(updateTeam, {
@@ -70,7 +70,7 @@ export function useDeleteTeamMutation() {
   const queryClient = useQueryClient();
 
   const deleteTeam = async (deleteTeamRequest: DeleteRequest) => {
-    const deleteResponse = await gRPCClients.teamClient.delete(
+    await gRPCClients.team.v1.teamServicePromiseClient.delete(
       deleteTeamRequest,
       {}
     );

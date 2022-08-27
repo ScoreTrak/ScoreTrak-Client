@@ -1,6 +1,6 @@
 import { IHost } from "../../types/material_table";
-import { Host } from "../scoretrakapis/scoretrak/host/v1/host_pb";
-import { UUID } from "../scoretrakapis/scoretrak/proto/v1/uuid_pb";
+import { Host } from "@buf/grpc_web_scoretrak_scoretrakapis/scoretrak/host/v1/host_pb";
+import { UUID } from "@buf/grpc_web_scoretrak_scoretrakapis/scoretrak/proto/v1/uuid_pb";
 import {
   BoolValue,
   StringValue,

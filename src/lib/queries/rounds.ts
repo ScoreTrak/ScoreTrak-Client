@@ -3,13 +3,13 @@ import {
   GetAllRequest,
   GetByIDRequest,
   Round,
-} from "../scoretrakapis/scoretrak/round/v1/round_pb";
+} from "@buf/grpc_web_scoretrak_scoretrakapis/scoretrak/round/v1/round_pb";
 import grpcWeb from "grpc-web";
 import { gRPCClients } from "../../grpc/gRPCClients";
 
 export function useRoundsQuery() {
   async function fetchRounds() {
-    const roundsResponse = await gRPCClients.roundClient.getAll(
+    const roundsResponse = await gRPCClients.round.v1.roundServicePromiseClient.getAll(
       new GetAllRequest(),
       {}
     );
@@ -22,7 +22,7 @@ export function useRoundsQuery() {
 export function useRoundQuery(roundId: string) {
   async function fetchRoundById(id: string) {
     const request = new GetByIDRequest().setId(parseInt(id));
-    const roundResponse = await gRPCClients.roundClient.getAll(request, {});
+    const roundResponse = await gRPCClients.round.v1.roundServicePromiseClient.getAll(request, {});
     return roundResponse.getRoundsList();
   }
 

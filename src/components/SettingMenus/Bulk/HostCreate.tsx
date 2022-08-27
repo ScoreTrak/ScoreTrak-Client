@@ -8,12 +8,12 @@ import TextField from "@material-ui/core/TextField";
 import Box from "@material-ui/core/Box";
 import CircularProgress from "@material-ui/core/CircularProgress";
 import Button from "@material-ui/core/Button";
-import { Team } from "../../../lib/scoretrakapis/scoretrak/team/v1/team_pb";
-import { HostGroup } from "../../../lib/scoretrakapis/scoretrak/host_group/v1/host_group_pb";
-import { GetAllRequest as GetAllRequestHostGroup } from "../../../lib/scoretrakapis/scoretrak/host_group/v1/host_group_pb";
-import { GetAllRequest as GetAllRequestTeam } from "../../../lib/scoretrakapis/scoretrak/team/v1/team_pb";
+import { Team } from "@buf/grpc_web_scoretrak_scoretrakapis/scoretrak/team/v1/team_pb";
+import { HostGroup } from "@buf/grpc_web_scoretrak_scoretrakapis/scoretrak/host_group/v1/host_group_pb";
+import { GetAllRequest as GetAllRequestHostGroup } from "@buf/grpc_web_scoretrak_scoretrakapis/scoretrak/host_group/v1/host_group_pb";
+import { GetAllRequest as GetAllRequestTeam } from "@buf/grpc_web_scoretrak_scoretrakapis/scoretrak/team/v1/team_pb";
 import { Severity } from "../../../types/types";
-import { StoreRequest } from "../../../lib/scoretrakapis/scoretrak/host/v1/host_pb";
+import { StoreRequest } from "@buf/grpc_web_scoretrak_scoretrakapis/scoretrak/host/v1/host_pb";
 import Switch from "@material-ui/core/Switch";
 import FormControlLabel from "@material-ui/core/FormControlLabel";
 import IconButton from "@material-ui/core/IconButton";
@@ -55,7 +55,7 @@ const HostCreate = () => {
   });
   const [rowsData, setRowData] = useState<Record<string, IHost>>({});
   useEffect(() => {
-    gRPCClients.teamClient.getAll(new GetAllRequestTeam(), {}).then(
+    gRPCClients.team.v1.teamServicePromiseClient.getAll(new GetAllRequestTeam(), {}).then(
       (respTeam) => {
         setData((prevState) => {
           return {
@@ -82,7 +82,7 @@ const HostCreate = () => {
         );
       }
     );
-    gRPCClients.hostGroupClient.getAll(new GetAllRequestHostGroup(), {}).then(
+    gRPCClients.host_group.v1.hostGroupServicePromiseClient.getAll(new GetAllRequestHostGroup(), {}).then(
       (respHostGroup) => {
         setData((prevState) => {
           const hostGroupsTemplateState: templateState[] = [];
@@ -108,7 +108,7 @@ const HostCreate = () => {
         );
       }
     );
-  }, []);
+  }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
   const modifyRowDataProperty = (
     val: valueof<IHost>,
@@ -202,7 +202,7 @@ const HostCreate = () => {
       });
     }
 
-    gRPCClients.hostClient.store(storeRequest, {}).then(
+    gRPCClients.host.v1.hostServicePromiseClient.store(storeRequest, {}).then(
       (_) => {
         enqueueSnackbar("Success!", {
           variant: Severity.Success,
@@ -512,6 +512,7 @@ const HostCreate = () => {
                     </TableRow>
                   );
                 }
+                return <></>
               })}
             </TableBody>
           </Table>

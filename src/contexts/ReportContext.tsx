@@ -4,13 +4,12 @@ import { useSnackbar } from "notistack";
 import {
   GetRequest,
   GetResponse,
-} from "../lib/scoretrakapis/scoretrak/report/v1/report_pb";
+} from "@buf/grpc_web_scoretrak_scoretrakapis/scoretrak/report/v1/report_pb";
 import { gRPCClients } from "../grpc/gRPCClients";
 import { useNavigate } from "react-router-dom";
 import { token } from "../grpc/token/token";
 import { Severity } from "../types/types";
 import { SnackbarDismissButton } from "../components/SnackbarDismissButton";
-import { useBannerTitle } from "./BannerTitleContext";
 
 export const ReportContext = createContext<Report | undefined>(undefined);
 
@@ -23,18 +22,16 @@ export function ReportProvider({ children }) {
   const { enqueueSnackbar } = useSnackbar();
   const [report, setReport] = useState<Report | undefined>(undefined);
   const navigate = useNavigate();
-  const { setBannerTitle } = useBannerTitle();
 
   useEffect(() => {
     const streamRequest = new GetRequest();
-    const stream = gRPCClients.reportClient.get(streamRequest, {});
+    const stream = gRPCClients.report.v1.reportServicePromiseClient.get(streamRequest, {});
 
     stream.on("data", (response) => {
       const cache = (response as GetResponse).getReport()?.getCache();
       if (cache != null) {
         const report = JSON.parse(cache) as Report;
         setReport(report);
-        setBannerTitle(`Round: ${report.Round}`);
       }
     });
 
@@ -51,13 +48,8 @@ export function ReportProvider({ children }) {
     });
 
     return () => stream.cancel();
-  }, []);
+  }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
-  useEffect(() => {
-    if (report) {
-      setBannerTitle(`Round: ${report.Round}`);
-    }
-  }, [report]);
 
   return (
     <>

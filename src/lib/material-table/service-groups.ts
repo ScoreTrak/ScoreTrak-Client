@@ -1,7 +1,7 @@
-import { ServiceGroup } from "../scoretrakapis/scoretrak/service_group/v1/service_group_pb";
+import { ServiceGroup } from "@buf/grpc_web_scoretrak_scoretrakapis/scoretrak/service_group/v1/service_group_pb";
 import { IServiceGroup } from "../../types/material_table";
 import { BoolValue } from "google-protobuf/google/protobuf/wrappers_pb";
-import { UUID } from "../scoretrakapis/scoretrak/proto/v1/uuid_pb";
+import { UUID } from "@buf/grpc_web_scoretrak_scoretrakapis/scoretrak/proto/v1/uuid_pb";
 
 export function serviceGroupToIServiceGroup(
   serviceGroup: ServiceGroup

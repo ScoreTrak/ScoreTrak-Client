@@ -1,9 +1,9 @@
 import {
   Property,
   Status,
-} from "../scoretrakapis/scoretrak/property/v1/property_pb";
+} from "@buf/grpc_web_scoretrak_scoretrakapis/scoretrak/property/v1/property_pb";
 import { IProperty, IPropertyStatus } from "../../types/material_table";
-import { UUID } from "../scoretrakapis/scoretrak/proto/v1/uuid_pb";
+import { UUID } from "@buf/grpc_web_scoretrak_scoretrakapis/scoretrak/proto/v1/uuid_pb";
 
 function statusToPropertyStatus(status: Status): IPropertyStatus | undefined {
   if (status === Status.STATUS_VIEW) return IPropertyStatus.View;

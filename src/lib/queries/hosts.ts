@@ -6,14 +6,14 @@ import {
   Host,
   StoreRequest,
   UpdateRequest,
-} from "../scoretrakapis/scoretrak/host/v1/host_pb";
+} from "@buf/grpc_web_scoretrak_scoretrakapis/scoretrak/host/v1/host_pb";
 import grpcWeb from "grpc-web";
 import { gRPCClients } from "../../grpc/gRPCClients";
-import { UUID } from "../scoretrakapis/scoretrak/proto/v1/uuid_pb";
+import { UUID } from "@buf/grpc_web_scoretrak_scoretrakapis/scoretrak/proto/v1/uuid_pb";
 
 export function useHostsQuery() {
   const fetchHosts = async () => {
-    const hostsResponse = await gRPCClients.hostClient.getAll(
+    const hostsResponse = await gRPCClients.host.v1.hostServicePromiseClient.getAll(
       new GetAllRequest(),
       {}
     );
@@ -29,7 +29,7 @@ export function useHostQuery(hostId: string) {
     uuid.setValue(id);
     const request = new GetByIDRequest();
     request.setId(uuid);
-    const hostResponse = await gRPCClients.hostClient.getByID(request, {});
+    const hostResponse = await gRPCClients.host.v1.hostServicePromiseClient.getByID(request, {});
     return hostResponse.getHost();
   };
 
@@ -42,7 +42,7 @@ export function useAddHostMutation() {
   const queryClient = useQueryClient();
 
   const addHost = async (addHostRequest: StoreRequest) => {
-    return await gRPCClients.hostClient.store(addHostRequest, {});
+    return await gRPCClients.host.v1.hostServicePromiseClient.store(addHostRequest, {});
   };
 
   return useMutation(addHost, {
@@ -56,7 +56,7 @@ export function useUpdateHostMutation() {
   const queryClient = useQueryClient();
 
   const updateHost = async (updateHostRequest: UpdateRequest) => {
-    return await gRPCClients.hostClient.update(updateHostRequest, {});
+    return await gRPCClients.host.v1.hostServicePromiseClient.update(updateHostRequest, {});
   };
 
   return useMutation(updateHost, {
@@ -70,7 +70,7 @@ export function useDeleteHostMutation() {
   const queryClient = useQueryClient();
 
   const deleteHost = async (deleteHostRequest: DeleteRequest) => {
-    const deleteResponse = await gRPCClients.hostClient.delete(
+    await gRPCClients.host.v1.hostServicePromiseClient.delete(
       deleteHostRequest,
       {}
     );

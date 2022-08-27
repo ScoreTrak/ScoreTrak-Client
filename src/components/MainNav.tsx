@@ -4,9 +4,8 @@ import Typography from "@material-ui/core/Typography";
 import AppBar from "@material-ui/core/AppBar";
 import { makeStyles } from "@material-ui/core/styles";
 import { Brightness4, Brightness7 } from "@material-ui/icons";
-import { Box, Button, Container, Menu, MenuItem, useTheme } from "@material-ui/core";
+import { Box, Button, Container, useTheme } from "@material-ui/core";
 import { usePaletteType } from "../contexts/PaletteTypeContext";
-import { useBannerTitle } from "../contexts/BannerTitleContext";
 import { Role, token } from "../grpc/token/token";
 import SettingsIcon from "@material-ui/icons/Settings";
 import DescriptionIcon from "@material-ui/icons/Description";
@@ -14,14 +13,11 @@ import BarChartIcon from "@material-ui/icons/BarChart";
 import DetailsIcon from "@material-ui/icons/Details";
 import {
   Link as RouterLink,
-  NavigateOptions,
-  To,
   useNavigate,
 } from "react-router-dom";
 import { useReport } from "../contexts/ReportContext";
 import CheckCircleIcon from "@material-ui/icons/CheckCircle";
 import { usePolicy } from "../contexts/PolicyContext";
-import { MouseEvent, useState } from "react";
 
 const useStyles = makeStyles((_) => ({
   root: {
@@ -42,7 +38,6 @@ export function MainNav() {
   const theme = useTheme();
   const { togglePaletteType } = usePaletteType();
   const classes = useStyles();
-  const { bannerTitle } = useBannerTitle();
   const navigate = useNavigate();
 
   const handleLogout = () => {

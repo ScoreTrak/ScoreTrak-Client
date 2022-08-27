@@ -6,14 +6,14 @@ import {
   Service,
   StoreRequest,
   UpdateRequest,
-} from "../scoretrakapis/scoretrak/service/v1/service_pb";
+} from "@buf/grpc_web_scoretrak_scoretrakapis/scoretrak/service/v1/service_pb";
 import grpcWeb from "grpc-web";
 import { gRPCClients } from "../../grpc/gRPCClients";
-import { UUID } from "../scoretrakapis/scoretrak/proto/v1/uuid_pb";
+import { UUID } from "@buf/grpc_web_scoretrak_scoretrakapis/scoretrak/proto/v1/uuid_pb";
 
 export function useServicesQuery() {
   const fetchServices = async () => {
-    const serviceResponse = await gRPCClients.serviceClient.getAll(
+    const serviceResponse = await gRPCClients.service.v1.serviceServicePromiseClient.getAll(
       new GetAllRequest(),
       {}
     );
@@ -29,7 +29,7 @@ export function useServiceQuery(serviceId: string) {
     uuid.setValue(id);
     const request = new GetByIDRequest();
     request.setId(uuid);
-    const serviceResponse = await gRPCClients.serviceClient.getByID(
+    const serviceResponse = await gRPCClients.service.v1.serviceServicePromiseClient.getByID(
       request,
       {}
     );
@@ -46,7 +46,7 @@ export function useAddServiceMutation() {
   const queryClient = useQueryClient();
 
   const addService = async (addServiceRequest: StoreRequest) => {
-    return await gRPCClients.serviceClient.store(addServiceRequest, {});
+    return await gRPCClients.service.v1.serviceServicePromiseClient.store(addServiceRequest, {});
   };
 
   return useMutation(addService, {
@@ -60,7 +60,7 @@ export function useUpdateServiceMutation() {
   const queryClient = useQueryClient();
 
   const updateService = async (updateServiceRequest: UpdateRequest) => {
-    return await gRPCClients.serviceClient.update(updateServiceRequest, {});
+    return await gRPCClients.service.v1.serviceServicePromiseClient.update(updateServiceRequest, {});
   };
 
   return useMutation(updateService, {
@@ -74,7 +74,7 @@ export function useDeleteServiceMutation() {
   const queryClient = useQueryClient();
 
   const deleteService = async (deleteServiceRequest: DeleteRequest) => {
-    const deleteResponse = await gRPCClients.serviceClient.delete(
+    await gRPCClients.service.v1.serviceServicePromiseClient.delete(
       deleteServiceRequest,
       {}
     );
@@ -87,3 +87,4 @@ export function useDeleteServiceMutation() {
     },
   });
 }
+

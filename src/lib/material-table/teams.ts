@@ -1,9 +1,9 @@
-import { Team } from "../scoretrakapis/scoretrak/team/v1/team_pb";
+import { Team } from "@buf/grpc_web_scoretrak_scoretrakapis/scoretrak/team/v1/team_pb";
 import {
   BoolValue,
   UInt64Value,
 } from "google-protobuf/google/protobuf/wrappers_pb";
-import { UUID } from "../scoretrakapis/scoretrak/proto/v1/uuid_pb";
+import { UUID } from "@buf/grpc_web_scoretrak_scoretrakapis/scoretrak/proto/v1/uuid_pb";
 import { ITeam } from "../../types/material_table";
 
 export function teamToITeam(team: Team): ITeam {

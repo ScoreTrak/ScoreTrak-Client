@@ -15,17 +15,17 @@ import Button from "@material-ui/core/Button";
 import {
   GetAllRequest as GetAllRequestServiceGroup,
   ServiceGroup,
-} from "../../../lib/scoretrakapis/scoretrak/service_group/v1/service_group_pb";
+} from "@buf/grpc_web_scoretrak_scoretrakapis/scoretrak/service_group/v1/service_group_pb";
 import { Severity } from "../../../types/types";
 import {
   GetAllRequest as GetAllRequestService,
   StoreRequest,
-} from "../../../lib/scoretrakapis/scoretrak/service/v1/service_pb";
+} from "@buf/grpc_web_scoretrak_scoretrakapis/scoretrak/service/v1/service_pb";
 import {
   GetAllRequest as GetAllRequestHost,
   Host,
-} from "../../../lib/scoretrakapis/scoretrak/host/v1/host_pb";
-import { HostGroup } from "../../../lib/scoretrakapis/scoretrak/host_group/v1/host_group_pb";
+} from "@buf/grpc_web_scoretrak_scoretrakapis/scoretrak/host/v1/host_pb";
+import { HostGroup } from "@buf/grpc_web_scoretrak_scoretrakapis/scoretrak/host_group/v1/host_group_pb";
 import { useSnackbar } from "notistack";
 import { SnackbarDismissButton } from "../../SnackbarDismissButton";
 import { gRPCClients } from "../../../grpc/gRPCClients";
@@ -77,7 +77,7 @@ const ServiceCreate = () => {
   };
 
   useEffect(() => {
-    gRPCClients.serviceGroupClient.getAll(new GetAllRequestService(), {}).then(
+    gRPCClients.service_group.v1.serviceGroupServicePromiseClient.getAll(new GetAllRequestService(), {}).then(
       (respServiceGrp) => {
         setData((prevState) => {
           return {
@@ -94,7 +94,7 @@ const ServiceCreate = () => {
         );
       }
     );
-    gRPCClients.hostGroupClient
+    gRPCClients.host_group.v1.hostGroupServicePromiseClient
       .getAll(new GetAllRequestServiceGroup(), {})
       .then(
         (respHostGroup) => {
@@ -122,7 +122,7 @@ const ServiceCreate = () => {
         }
       );
 
-    gRPCClients.hostClient.getAll(new GetAllRequestHost(), {}).then(
+    gRPCClients.host.v1.hostServicePromiseClient.getAll(new GetAllRequestHost(), {}).then(
       (respHost) => {
         setData((prevState) => {
           return {
@@ -139,7 +139,7 @@ const ServiceCreate = () => {
         );
       }
     );
-  }, []);
+  }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
   const setNumberOfServices = (hostGroupID: string, value: number) => {
     if (value >= 0) {
@@ -181,7 +181,7 @@ const ServiceCreate = () => {
       storeRequest.addServices(IServiceToService(servVals));
     });
 
-    gRPCClients.serviceClient.store(storeRequest, {}).then(
+    gRPCClients.service.v1.serviceServicePromiseClient.store(storeRequest, {}).then(
       (_) => {
         enqueueSnackbar("Success!", {
           variant: Severity.Success,

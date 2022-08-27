@@ -80,7 +80,6 @@ export default function Settings() {
           variant="scrollable"
           scrollButtons="auto"
           aria-label="scrollable auto tabs example"
-          centered
         >
           <Tab label="Competition" {...a11yProps(0)} />
           <Tab label="Teams" {...a11yProps(1)} />

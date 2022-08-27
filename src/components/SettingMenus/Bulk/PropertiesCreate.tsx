@@ -13,9 +13,9 @@ import MenuItem from "@material-ui/core/MenuItem";
 import { availableChecks, Checks } from "../util/serviceDefaultProperties";
 import Switch from "@material-ui/core/Switch";
 import Button from "@material-ui/core/Button";
-import { GetAllRequest } from "../../../lib/scoretrakapis/scoretrak/service/v1/service_pb";
+import { GetAllRequest } from "@buf/grpc_web_scoretrak_scoretrakapis/scoretrak/service/v1/service_pb";
 import { Severity } from "../../../types/types";
-import { StoreRequest } from "../../../lib/scoretrakapis/scoretrak/property/v1/property_pb";
+import { StoreRequest } from "@buf/grpc_web_scoretrak_scoretrakapis/scoretrak/property/v1/property_pb";
 import { useSnackbar } from "notistack";
 import { SnackbarDismissButton } from "../../SnackbarDismissButton";
 import { gRPCClients } from "../../../grpc/gRPCClients";
@@ -38,7 +38,7 @@ const PropertiesCreate = () => {
   const [rowsData, setRowData] = useState<RowType>({});
 
   useEffect(() => {
-    gRPCClients.serviceClient.getAll(new GetAllRequest(), {}).then(
+    gRPCClients.service.v1.serviceServicePromiseClient.getAll(new GetAllRequest(), {}).then(
       (respService) => {
         const rowdt: RowType = {};
         const displayNames = new Set<string>();
@@ -126,7 +126,7 @@ const PropertiesCreate = () => {
     properties.forEach((property) => {
       storeRequest.addProperties(IPropertyToProperty(property));
     });
-    gRPCClients.propertyClient.store(storeRequest, {}).then(
+    gRPCClients.property.v1.propertyServicePromiseClient.store(storeRequest, {}).then(
       () => {
         enqueueSnackbar("Success!", {
           variant: Severity.Success,

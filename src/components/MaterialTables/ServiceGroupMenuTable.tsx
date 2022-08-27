@@ -4,10 +4,10 @@ import {
   RedeployRequest,
   StoreRequest,
   UpdateRequest,
-} from "../../lib/scoretrakapis/scoretrak/service_group/v1/service_group_pb";
-import { UUID } from "../../lib/scoretrakapis/scoretrak/proto/v1/uuid_pb";
+} from "@buf/grpc_web_scoretrak_scoretrakapis/scoretrak/service_group/v1/service_group_pb";
+import { UUID } from "@buf/grpc_web_scoretrak_scoretrakapis/scoretrak/proto/v1/uuid_pb";
 import MaterialTable, { Column } from "@material-table/core";
-import { Box, CircularProgress } from "@material-ui/core";
+import { CircularProgress } from "@material-ui/core";
 import { useSnackbar } from "notistack";
 import { SnackbarDismissButton } from "../SnackbarDismissButton";
 import { gRPCClients } from "../../grpc/gRPCClients";
@@ -62,7 +62,7 @@ export default function ServiceGroupMaterialTable() {
               icon: "replay",
               tooltip: "redeploy workers",
               onClick: (event, rowData) => {
-                return gRPCClients.serviceGroupClient
+                return gRPCClients.service_group.v1.serviceGroupServicePromiseClient
                   .redeploy(
                     new RedeployRequest().setId(
                       new UUID().setValue(

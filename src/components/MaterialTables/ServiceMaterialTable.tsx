@@ -8,8 +8,8 @@ import {
   StoreRequest,
   TestServiceRequest,
   UpdateRequest,
-} from "../../lib/scoretrakapis/scoretrak/service/v1/service_pb";
-import { UUID } from "../../lib/scoretrakapis/scoretrak/proto/v1/uuid_pb";
+} from "@buf/grpc_web_scoretrak_scoretrakapis/scoretrak/service/v1/service_pb";
+import { UUID } from "@buf/grpc_web_scoretrak_scoretrakapis/scoretrak/proto/v1/uuid_pb";
 import { CircularProgress } from "@material-ui/core";
 import { gRPCClients } from "../../grpc/gRPCClients";
 import { IService } from "../../types/material_table";
@@ -38,13 +38,9 @@ export function ServiceMaterialTable() {
   } = useServicesQuery();
   const {
     data: serviceGroupsData,
-    isLoading: serviceGroupsIsLoading,
-    isSuccess: serviceGroupsIsSuccess,
   } = useServiceGroupsQuery();
   const {
     data: hostsData,
-    isLoading: hostsIsLoading,
-    isSuccess: hostsIsSuccess,
   } = useHostsQuery();
 
   const addService = useAddServiceMutation();
@@ -126,7 +122,7 @@ export function ServiceMaterialTable() {
       setColumns((prevState) => {
         for (let i = 0; i < prevState.length; i++) {
           const column = prevState[i];
-          if (column.title == "Service Group ID") {
+          if (column.title === "Service Group ID") {
             column.lookup = lookup;
           }
         }
@@ -150,7 +146,7 @@ export function ServiceMaterialTable() {
       setColumns((prevState) => {
         for (let i = 0; i < prevState.length; i++) {
           const column = prevState[i];
-          if (column.title == "Host ID") {
+          if (column.title === "Host ID") {
             column.lookup = lookup;
           }
         }
@@ -170,7 +166,7 @@ export function ServiceMaterialTable() {
               icon: "flash_on",
               tooltip: "test service",
               onClick: (event, rowData) => {
-                return gRPCClients.serviceClient
+                return gRPCClients.service.v1.serviceServicePromiseClient
                   .testService(
                     new TestServiceRequest().setId(
                       new UUID().setValue((rowData as IService).id as string)

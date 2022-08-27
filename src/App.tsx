@@ -15,7 +15,6 @@ import { createTheme } from "@material-ui/core";
 import { useTitle } from "react-use";
 import { usePaletteType } from "./contexts/PaletteTypeContext";
 import { Route, Routes } from "react-router-dom";
-import { TitleContextProvider } from "./contexts/BannerTitleContext";
 import DefaultLayout from "./layouts/DefaultLayout";
 import AuthLayout from "./layouts/AuthLayout";
 import SignIn from "./routes/auth/sign_in";
@@ -65,7 +64,6 @@ function App() {
         >
           <PolicyProvider>
             <ReportProvider>
-              <TitleContextProvider>
                 <Routes>
                   <Route path={"/"} element={<ScoreboardLayout />}>
                     <Route index element={<Scoreboard />} />
@@ -85,7 +83,6 @@ function App() {
                     <Route index element={<Settings />} />
                   </Route>
                 </Routes>
-              </TitleContextProvider>
             </ReportProvider>
           </PolicyProvider>
         </SnackbarProvider>

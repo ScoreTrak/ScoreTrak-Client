@@ -1,7 +1,7 @@
 import { Outlet } from "react-router-dom";
 import { useReport } from "../contexts/ReportContext";
 import React from "react";
-import { Box, CircularProgress, Typography } from "@material-ui/core";
+import { Box, CircularProgress } from "@material-ui/core";
 import BaseLayout from "./BaseLayout";
 import PreCompBanner from "../components/PreCompBanner";
 

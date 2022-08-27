@@ -3,17 +3,12 @@ import MaterialTable, { Column } from "@material-table/core";
 import {
   DeleteRequest,
   StoreRequest,
-  Team,
   UpdateRequest,
-} from "../../lib/scoretrakapis/scoretrak/team/v1/team_pb";
+} from "@buf/grpc_web_scoretrak_scoretrakapis/scoretrak/team/v1/team_pb";
 import { Severity } from "../../types/types";
 import { SnackbarDismissButton } from "../SnackbarDismissButton";
-import { UUID } from "../../lib/scoretrakapis/scoretrak/proto/v1/uuid_pb";
+import { UUID } from "@buf/grpc_web_scoretrak_scoretrakapis/scoretrak/proto/v1/uuid_pb";
 import { CircularProgress } from "@material-ui/core";
-import {
-  BoolValue,
-  UInt64Value,
-} from "google-protobuf/google/protobuf/wrappers_pb";
 import { ITeam } from "../../types/material_table";
 import {
   useAddTeamMutation,

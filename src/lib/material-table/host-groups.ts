@@ -1,7 +1,7 @@
-import { HostGroup } from "../scoretrakapis/scoretrak/host_group/v1/host_group_pb";
+import { HostGroup } from "@buf/grpc_web_scoretrak_scoretrakapis/scoretrak/host_group/v1/host_group_pb";
 import { IHostGroup } from "../../types/material_table";
 import { BoolValue } from "google-protobuf/google/protobuf/wrappers_pb";
-import { UUID } from "../scoretrakapis/scoretrak/proto/v1/uuid_pb";
+import { UUID } from "@buf/grpc_web_scoretrak_scoretrakapis/scoretrak/proto/v1/uuid_pb";
 
 export function hostGroupToIHostGroup(hostGroup: HostGroup): IHostGroup {
   return {

@@ -1,14 +1,12 @@
-import { useEffect, useState } from "react";
-import Box from "@material-ui/core/Box";
 import MaterialTable, { Column } from "@material-table/core";
 import { Severity } from "../../types/types";
 import { CircularProgress } from "@material-ui/core";
-import { UUID } from "../../lib/scoretrakapis/scoretrak/proto/v1/uuid_pb";
+import { UUID } from "@buf/grpc_web_scoretrak_scoretrakapis/scoretrak/proto/v1/uuid_pb";
 import {
   DeleteRequest,
   StoreRequest,
   UpdateRequest,
-} from "../../lib/scoretrakapis/scoretrak/host_group/v1/host_group_pb";
+} from "@buf/grpc_web_scoretrak_scoretrakapis/scoretrak/host_group/v1/host_group_pb";
 import { useSnackbar } from "notistack";
 import { SnackbarDismissButton } from "../SnackbarDismissButton";
 import {

@@ -1,7 +1,7 @@
 import {
   GetAllRequest,
   Round,
-} from "../lib/scoretrakapis/scoretrak/round/v1/round_pb";
+} from "@buf/grpc_web_scoretrak_scoretrakapis/scoretrak/round/v1/round_pb";
 import { useSnackbar } from "notistack";
 import MaterialTable, { Column } from "@material-table/core";
 import { useEffect, useState } from "react";
@@ -55,7 +55,7 @@ export default function Logs() {
   });
 
   function reloadSetter() {
-    gRPCClients.roundClient.getAll(new GetAllRequest(), {}).then(
+    gRPCClients.round.v1.roundServicePromiseClient.getAll(new GetAllRequest(), {}).then(
       (roundsResponse) => {
         setState((prevState) => {
           return {
@@ -77,7 +77,7 @@ export default function Logs() {
   }
   useEffect(() => {
     reloadSetter();
-  }, []);
+  }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
   return (
     <>

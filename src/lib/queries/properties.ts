@@ -6,14 +6,14 @@ import {
   Property,
   StoreRequest,
   UpdateRequest,
-} from "../scoretrakapis/scoretrak/property/v1/property_pb";
+} from "@buf/grpc_web_scoretrak_scoretrakapis/scoretrak/property/v1/property_pb";
 import grpcWeb from "grpc-web";
 import { gRPCClients } from "../../grpc/gRPCClients";
-import { UUID } from "../scoretrakapis/scoretrak/proto/v1/uuid_pb";
+import { UUID } from "@buf/grpc_web_scoretrak_scoretrakapis/scoretrak/proto/v1/uuid_pb";
 
 export function usePropertiesQuery() {
   const fetchProperties = async () => {
-    const propertiesResponse = await gRPCClients.propertyClient.getAll(
+    const propertiesResponse = await gRPCClients.property.v1.propertyServicePromiseClient.getAll(
       new GetAllRequest(),
       {}
     );
@@ -33,7 +33,7 @@ export function usePropertiesByServiceIdQuery(serviceId: string) {
     const request = new GetAllByServiceIDRequest();
     request.setServiceId(uuid);
     const propertiesResponse =
-      await gRPCClients.propertyClient.getAllByServiceID(request, {});
+      await gRPCClients.property.v1.propertyServicePromiseClient.getAllByServiceID(request, {});
     return propertiesResponse.getPropertiesList();
   };
 
@@ -46,7 +46,7 @@ export function useAddPropertyMutation() {
   const queryClient = useQueryClient();
 
   const addProperty = async (addPropertyRequest: StoreRequest) => {
-    return await gRPCClients.propertyClient.store(addPropertyRequest, {});
+    return await gRPCClients.property.v1.propertyServicePromiseClient.store(addPropertyRequest, {});
   };
 
   return useMutation(addProperty, {
@@ -60,7 +60,7 @@ export function useUpdatePropertyMutation() {
   const queryClient = useQueryClient();
 
   const updateProperty = async (updatePropertyRequest: UpdateRequest) => {
-    return await gRPCClients.propertyClient.update(updatePropertyRequest, {});
+    return await gRPCClients.property.v1.propertyServicePromiseClient.update(updatePropertyRequest, {});
   };
 
   return useMutation(updateProperty, {
@@ -74,7 +74,7 @@ export function useDeletePropertyMutation() {
   const queryClient = useQueryClient();
 
   const deleteProperty = async (deletePropertyRequest: DeleteRequest) => {
-    await gRPCClients.propertyClient.delete(deletePropertyRequest, {});
+    await gRPCClients.property.v1.propertyServicePromiseClient.delete(deletePropertyRequest, {});
     return deletePropertyRequest.getServiceId();
   };
 

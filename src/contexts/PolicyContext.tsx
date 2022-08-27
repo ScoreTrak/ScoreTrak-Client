@@ -3,7 +3,7 @@ import {
   GetRequest,
   GetResponse,
   Policy,
-} from "../lib/scoretrakapis/scoretrak/policy/v1/policy_pb";
+} from "@buf/grpc_web_scoretrak_scoretrakapis/scoretrak/policy/v1/policy_pb";
 import { gRPCClients } from "../grpc/gRPCClients";
 import grpcWeb from "grpc-web";
 import { useSnackbar } from "notistack";
@@ -26,7 +26,7 @@ export function PolicyProvider({ children }) {
 
   useEffect(() => {
     const streamRequest = new GetRequest();
-    const stream = gRPCClients.policyClient.get(streamRequest, {});
+    const stream = gRPCClients.policy.v1.policyServicePromiseClient.get(streamRequest, {});
 
     // @ts-ignore
     stream.on("data", (response: GetResponse) => {
@@ -52,7 +52,7 @@ export function PolicyProvider({ children }) {
     });
 
     return () => stream.cancel();
-  }, []);
+  }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
   return (
     <PolicyContext.Provider value={policy}>{children}</PolicyContext.Provider>

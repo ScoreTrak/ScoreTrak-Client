@@ -1,7 +1,7 @@
 import { useForm } from "react-hook-form";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { LoginRequest } from "../../lib/scoretrakapis/scoretrak/auth/v1/auth_pb";
+import { LoginRequest } from "@buf/grpc_web_scoretrak_scoretrakapis/scoretrak/auth/v1/auth_pb";
 import { gRPCClients } from "../../grpc/gRPCClients";
 import { token } from "../../grpc/token/token";
 import { Severity } from "../../types/types";
@@ -65,7 +65,7 @@ export default function Sign_in() {
     const loginRequest = new LoginRequest();
     loginRequest.setUsername(data.username);
     loginRequest.setPassword(data.password);
-    gRPCClients.authClient.login(loginRequest, {}).then(
+    gRPCClients.auth.v1.authServicePromiseClient.login(loginRequest, {}).then(
       (r) => {
         token.saveToken(r.getAccessToken());
         navigate("/");

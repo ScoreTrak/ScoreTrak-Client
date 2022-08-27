@@ -6,14 +6,14 @@ import {
   HostGroup,
   StoreRequest,
   UpdateRequest,
-} from "../scoretrakapis/scoretrak/host_group/v1/host_group_pb";
+} from "@buf/grpc_web_scoretrak_scoretrakapis/scoretrak/host_group/v1/host_group_pb";
 import grpcWeb from "grpc-web";
 import { gRPCClients } from "../../grpc/gRPCClients";
-import { UUID } from "../scoretrakapis/scoretrak/proto/v1/uuid_pb";
+import { UUID } from "@buf/grpc_web_scoretrak_scoretrakapis/scoretrak/proto/v1/uuid_pb";
 
 export function useHostGroupsQuery() {
   const fetchHostGroups = async () => {
-    const hostGroupsResponse = await gRPCClients.hostGroupClient.getAll(
+    const hostGroupsResponse = await gRPCClients.host_group.v1.hostGroupServicePromiseClient.getAll(
       new GetAllRequest(),
       {}
     );
@@ -32,7 +32,7 @@ export function useHostGroupQuery(hostGroupId: string) {
     uuid.setValue(id);
     const request = new GetByIDRequest();
     request.setId(uuid);
-    const hostGroupResponse = await gRPCClients.hostGroupClient.getByID(
+    const hostGroupResponse = await gRPCClients.host_group.v1.hostGroupServicePromiseClient.getByID(
       request,
       {}
     );
@@ -49,7 +49,7 @@ export function useAddHostGroupMutation() {
   const queryClient = useQueryClient();
 
   const addHostGroup = async (addHostGroupRequest: StoreRequest) => {
-    return await gRPCClients.hostGroupClient.store(addHostGroupRequest, {});
+    return await gRPCClients.host_group.v1.hostGroupServicePromiseClient.store(addHostGroupRequest, {});
   };
 
   return useMutation(addHostGroup, {
@@ -63,7 +63,7 @@ export function useUpdateHostGroupMutation() {
   const queryClient = useQueryClient();
 
   const updateHostGroup = async (updateHostGroupRequest: UpdateRequest) => {
-    return await gRPCClients.hostGroupClient.update(updateHostGroupRequest, {});
+    return await gRPCClients.host_group.v1.hostGroupServicePromiseClient.update(updateHostGroupRequest, {});
   };
 
   return useMutation(updateHostGroup, {
@@ -77,7 +77,7 @@ export function useDeleteHostGroupMutation() {
   const queryClient = useQueryClient();
 
   const deleteHostGroup = async (deleteHostGroupRequest: DeleteRequest) => {
-    const deleteResponse = await gRPCClients.hostGroupClient.delete(
+    await gRPCClients.host_group.v1.hostGroupServicePromiseClient.delete(
       deleteHostGroupRequest,
       {}
     );

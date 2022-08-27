@@ -27,21 +27,21 @@ import PauseCircleOutlineIcon from "@material-ui/icons/PauseCircleOutline";
 import {
   GetAllByServiceIDRequest as GetAllByServiceIDRequestCheck,
   GetAllByServiceIDResponse as GetAllByServiceIDResponseCheck,
-} from "../../lib/scoretrakapis/scoretrak/check/v1/check_pb";
+} from "@buf/grpc_web_scoretrak_scoretrakapis/scoretrak/check/v1/check_pb";
 import {
   GetAllByServiceIDRequest as GetAllByServiceIDRequestProperty,
   GetAllByServiceIDResponse as GetAllByServiceIDResponseProperty,
   Property,
   Status,
   UpdateRequest as UpdateRequestProperty,
-} from "../../lib/scoretrakapis/scoretrak/property/v1/property_pb";
+} from "@buf/grpc_web_scoretrak_scoretrakapis/scoretrak/property/v1/property_pb";
 import {
   GetByIDRequest as GetByIDRequestHost,
   Host,
   UpdateRequest as UpdateRequestHost,
-} from "../../lib/scoretrakapis/scoretrak/host/v1/host_pb";
+} from "@buf/grpc_web_scoretrak_scoretrakapis/scoretrak/host/v1/host_pb";
 
-import { UUID } from "../../lib/scoretrakapis/scoretrak/proto/v1/uuid_pb";
+import { UUID } from "@buf/grpc_web_scoretrak_scoretrakapis/scoretrak/proto/v1/uuid_pb";
 import { StringValue } from "google-protobuf/google/protobuf/wrappers_pb";
 import { IconButton, Tooltip } from "@material-ui/core";
 import { Replay } from "@material-ui/icons";
@@ -401,7 +401,7 @@ function SingleTeamDetailsAccordionDetailsBox(
     const uuid = new UUID();
     uuid.setValue(service);
     checksRequest.setServiceId(uuid);
-    return gRPCClients.checkClient.getAllByServiceID(checksRequest, {});
+    return gRPCClients.check.v1.checkServicePromiseClient.getAllByServiceID(checksRequest, {});
   }
 
   async function reloadProperties(
@@ -411,7 +411,7 @@ function SingleTeamDetailsAccordionDetailsBox(
     const uuid = new UUID();
     uuid.setValue(service);
     propertiesRequest.setServiceId(uuid);
-    return gRPCClients.propertyClient.getAllByServiceID(propertiesRequest, {});
+    return gRPCClients.property.v1.propertyServicePromiseClient.getAllByServiceID(propertiesRequest, {});
   }
 
   async function reloadHost(hostID: string) {
@@ -419,7 +419,7 @@ function SingleTeamDetailsAccordionDetailsBox(
     const uuid = new UUID();
     uuid.setValue(hostID);
     hostsRequest.setId(uuid);
-    return gRPCClients.hostClient.getByID(hostsRequest, {});
+    return gRPCClients.host.v1.hostServicePromiseClient.getByID(hostsRequest, {});
   }
 
   function reloadPropertiesSetter(
@@ -478,7 +478,7 @@ function SingleTeamDetailsAccordionDetailsBox(
     host.setId(uuid);
     host.setAddress(address);
     hostsRequest.setHost(host);
-    gRPCClients.hostClient.update(hostsRequest, {}).then(
+    gRPCClients.host.v1.hostServicePromiseClient.update(hostsRequest, {}).then(
       (r) => {
         props.setHostData({ edit_host: true, address });
         reloadHostSetter(hstID);
@@ -611,7 +611,7 @@ function SingleTeamDetailsAccordionDetailsBox(
                         property.setValue(stringValue);
                         const updatedProperty = new UpdateRequestProperty();
                         updatedProperty.setProperty(property);
-                        gRPCClients.propertyClient
+                        gRPCClients.property.v1.propertyServicePromiseClient
                           .update(updatedProperty, {})
                           .then(
                             (r) => {

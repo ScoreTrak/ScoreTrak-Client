@@ -7,9 +7,9 @@ import {
   DeleteRequest,
   StoreRequest,
   UpdateRequest,
-} from "../../lib/scoretrakapis/scoretrak/property/v1/property_pb";
+} from "@buf/grpc_web_scoretrak_scoretrakapis/scoretrak/property/v1/property_pb";
 import Box from "@material-ui/core/Box";
-import { UUID } from "../../lib/scoretrakapis/scoretrak/proto/v1/uuid_pb";
+import { UUID } from "@buf/grpc_web_scoretrak_scoretrakapis/scoretrak/proto/v1/uuid_pb";
 import { CircularProgress } from "@material-ui/core";
 import {
   useAddPropertyMutation,

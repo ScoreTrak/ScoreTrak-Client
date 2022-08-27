@@ -8,7 +8,7 @@ import {
   GetRequest,
   GetStaticConfigRequest,
   UpdateRequest as UpdateRequestDynamicConfig,
-} from "../../lib/scoretrakapis/scoretrak/config/v1/config_pb";
+} from "@buf/grpc_web_scoretrak_scoretrakapis/scoretrak/config/v1/config_pb";
 import { Severity } from "../../types/types";
 import { SnackbarDismissButton } from "../SnackbarDismissButton";
 import {
@@ -19,7 +19,7 @@ import {
 import {
   Policy,
   UpdateRequest as UpdateRequestPolicy,
-} from "../../lib/scoretrakapis/scoretrak/policy/v1/policy_pb";
+} from "@buf/grpc_web_scoretrak_scoretrakapis/scoretrak/policy/v1/policy_pb";
 import {
   Competition,
   DeleteCompetitionRequest,
@@ -27,19 +27,19 @@ import {
   FetchEntireCompetitionRequest,
   LoadCompetitionRequest,
   ResetScoresRequest,
-} from "../../lib/scoretrakapis/scoretrak/competition/v1/competition_pb";
-import { Report } from "../../lib/scoretrakapis/scoretrak/report/v1/report_pb";
+} from "@buf/grpc_web_scoretrak_scoretrakapis/scoretrak/competition/v1/competition_pb";
+import { Report } from "@buf/grpc_web_scoretrak_scoretrakapis/scoretrak/report/v1/report_pb";
 import { Timestamp } from "google-protobuf/google/protobuf/timestamp_pb";
-import { Check } from "../../lib/scoretrakapis/scoretrak/check/v1/check_pb";
-import { UUID } from "../../lib/scoretrakapis/scoretrak/proto/v1/uuid_pb";
-import { Round } from "../../lib/scoretrakapis/scoretrak/round/v1/round_pb";
-import { Team } from "../../lib/scoretrakapis/scoretrak/team/v1/team_pb";
-import { HostGroup } from "../../lib/scoretrakapis/scoretrak/host_group/v1/host_group_pb";
-import { ServiceGroup } from "../../lib/scoretrakapis/scoretrak/service_group/v1/service_group_pb";
-import { User } from "../../lib/scoretrakapis/scoretrak/user/v1/user_pb";
-import { Host } from "../../lib/scoretrakapis/scoretrak/host/v1/host_pb";
-import { Service } from "../../lib/scoretrakapis/scoretrak/service/v1/service_pb";
-import { Property } from "../../lib/scoretrakapis/scoretrak/property/v1/property_pb";
+import { Check } from "@buf/grpc_web_scoretrak_scoretrakapis/scoretrak/check/v1/check_pb";
+import { UUID } from "@buf/grpc_web_scoretrak_scoretrakapis/scoretrak/proto/v1/uuid_pb";
+import { Round } from "@buf/grpc_web_scoretrak_scoretrakapis/scoretrak/round/v1/round_pb";
+import { Team } from "@buf/grpc_web_scoretrak_scoretrakapis/scoretrak/team/v1/team_pb";
+import { HostGroup } from "@buf/grpc_web_scoretrak_scoretrakapis/scoretrak/host_group/v1/host_group_pb";
+import { ServiceGroup } from "@buf/grpc_web_scoretrak_scoretrakapis/scoretrak/service_group/v1/service_group_pb";
+import { User } from "@buf/grpc_web_scoretrak_scoretrakapis/scoretrak/user/v1/user_pb";
+import { Host } from "@buf/grpc_web_scoretrak_scoretrakapis/scoretrak/host/v1/host_pb";
+import { Service } from "@buf/grpc_web_scoretrak_scoretrakapis/scoretrak/service/v1/service_pb";
+import { Property } from "@buf/grpc_web_scoretrak_scoretrakapis/scoretrak/property/v1/property_pb";
 import { saveAs } from "file-saver";
 import Box from "@material-ui/core/Box";
 import Accordion from "@material-ui/core/Accordion";
@@ -63,6 +63,13 @@ import CloudUploadIcon from "@material-ui/icons/CloudUpload";
 import DialogActions from "@material-ui/core/DialogActions";
 import CircularProgress from "@material-ui/core/CircularProgress";
 import { gRPCClients } from "../../grpc/gRPCClients";
+import {
+  useCoreCompetitionQuery,
+  useDeleteCompetitionMutation, useEntireCompetitionQuery, useLoadCompetitionMutation,
+  useResetCompetitionMutation
+} from "../../lib/queries/competition";
+import { useDynamicConfigMutation, useDynamicConfigQuery, useStaticConfigQuery } from "../../lib/queries/config";
+import { useUpdatePolicyMutation } from "../../lib/queries/policy";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -99,15 +106,19 @@ export default function CompMenu() {
   const theme = useTheme();
   const { enqueueSnackbar } = useSnackbar();
   const classes = useStyles();
-  const [dt, setData] = useState<{
-    loader: boolean;
-    dynamicConfig: undefined | DynamicConfig;
-    staticConfig: object;
-  }>({
-    loader: true,
-    dynamicConfig: undefined,
-    staticConfig: {},
-  });
+  const [staticConfig, setStaticConfig] = useState({})
+
+  const {data: staticConfigData, isLoading: staticConfigIsLoading} = useStaticConfigQuery()
+  const {data: dynamicConfigData} = useDynamicConfigQuery()
+
+  const {data: coreCompetitionData} = useCoreCompetitionQuery()
+  const {data: entireCompetitionData} = useEntireCompetitionQuery()
+
+  const updateDynamicConfig = useDynamicConfigMutation()
+  const loadCompetition = useLoadCompetitionMutation()
+  const resetCompetition = useResetCompetitionMutation()
+  const deleteCompetition = useDeleteCompetitionMutation()
+  const updatePolicy = useUpdatePolicyMutation()
 
   const [open, setOpen] = useState<string>("");
   const [fileSelected, setFileSelected] = useState({
@@ -125,6 +136,10 @@ export default function CompMenu() {
 
   const [expanded, setExpanded] = useState("panelConfig");
 
+  useEffect(() => {
+    if (staticConfigData) setStaticConfig(JSON.parse(staticConfigData))
+  }, [staticConfigData])
+
   const handleChange =
     (panel: string) => (event: React.ChangeEvent<{}>, isExpanded: boolean) => {
       setExpanded(isExpanded ? panel : "");
@@ -138,70 +153,11 @@ export default function CompMenu() {
     });
   };
 
-  function loadAll() {
-    gRPCClients.staticConfigClient.get(new GetStaticConfigRequest(), {}).then(
-      (response) => {
-        setData((prevState) => {
-          return {
-            ...prevState,
-            staticConfig: JSON.parse(response.getStaticConfig()),
-          };
-        });
-      },
-      (err: any) => {
-        enqueueSnackbar(
-          `Failed to fetch static config: ${err.message}. Error code: ${err.code}`,
-          { variant: Severity.Error, action: SnackbarDismissButton }
-        );
-      }
-    );
-
-    gRPCClients.dynamicConfigClient.get(new GetRequest(), {}).then(
-      (response) => {
-        setData((prevState) => {
-          return {
-            ...prevState,
-            dynamicConfig: response.getDynamicConfig(),
-            loader: false,
-          };
-        });
-      },
-      (err: any) => {
-        enqueueSnackbar(
-          `Failed to fetch dynamic config: ${err.message}. Error code: ${err.code}`,
-          { variant: Severity.Error, action: SnackbarDismissButton }
-        );
-      }
-    );
-  }
-  useEffect(() => {
-    loadAll();
-  }, []); // eslint-disable-line react-hooks/exhaustive-deps
-
   const handleSetEnabled = (e: React.ChangeEvent<HTMLInputElement>) => {
     const boolVal = new BoolValue().setValue(e.target.checked);
-    gRPCClients.dynamicConfigClient
-      .update(
-        new UpdateRequestDynamicConfig().setDynamicConfig(
-          new DynamicConfig().setEnabled(boolVal)
-        ),
-        {}
-      )
-      .then(
-        (resp) => {
-          setData((prevState) => {
-            const newDN = prevState.dynamicConfig;
-            newDN?.setEnabled(boolVal);
-            return { ...prevState, dynamicConfig: newDN };
-          });
-        },
-        (err: any) => {
-          enqueueSnackbar(
-            `Failed to enable competition: ${err.message}. Error code: ${err.code}`,
-            { variant: Severity.Error, action: SnackbarDismissButton }
-          );
-        }
-      );
+    const updatedDynamicConfig = new DynamicConfig().setEnabled(boolVal)
+
+    updateDynamicConfig.mutate(updatedDynamicConfig)
   };
 
   const handleSetRoundDuration = (e: React.SyntheticEvent) => {
@@ -209,42 +165,13 @@ export default function CompMenu() {
     const val = Number(
       (document.getElementById("round_duration") as HTMLInputElement).value
     );
-    gRPCClients.dynamicConfigClient
-      .update(
-        new UpdateRequestDynamicConfig().setDynamicConfig(
-          new DynamicConfig().setRoundDuration(val)
-        ),
-        {}
-      )
-      .then(
-        (resp) => {
-          setData((prevState) => {
-            const newDN = prevState.dynamicConfig;
-            newDN?.setRoundDuration(val);
-            return { ...prevState, dynamicConfig: newDN };
-          });
-        },
-        (err: any) => {
-          enqueueSnackbar(
-            `Failed to enable competition: ${err.message}. Error code: ${err.code}`,
-            { variant: Severity.Error, action: SnackbarDismissButton }
-          );
-        }
-      );
+
+    const updatedDynamicConfig = new DynamicConfig().setRoundDuration(val)
+    updateDynamicConfig.mutate(updatedDynamicConfig)
   };
 
   const handleSetPolicy = (policy: Policy) => {
-    gRPCClients.policyClient
-      .update(new UpdateRequestPolicy().setPolicy(policy), {})
-      .then(
-        (resp) => {},
-        (err: any) => {
-          enqueueSnackbar(
-            `Failed to update policy: ${err.message}. Error code: ${err.code}`,
-            { variant: Severity.Error, action: SnackbarDismissButton }
-          );
-        }
-      );
+    updatePolicy.mutate(policy)
   };
 
   const handleUpload = () => {
@@ -466,22 +393,9 @@ export default function CompMenu() {
           });
           comp.setPropertiesList(properties);
         }
-        gRPCClients.competitionClient
-          .loadCompetition(
-            new LoadCompetitionRequest().setCompetition(comp),
-            {}
-          )
-          .then(
-            (resp) => {
-              enqueueSnackbar("Success!", { variant: Severity.Success });
-            },
-            (err: any) => {
-              enqueueSnackbar(
-                `Failed to upload competition: ${err.message}. Error code: ${err.code}`,
-                { variant: Severity.Error, action: SnackbarDismissButton }
-              );
-            }
-          );
+
+
+        loadCompetition.mutate(comp)
       };
       reader.onerror = function (evt) {
         enqueueSnackbar(`Failed to open the file`, {
@@ -494,40 +408,12 @@ export default function CompMenu() {
   };
 
   const handleResetCompetition = () => {
-    gRPCClients.competitionClient
-      .resetScores(new ResetScoresRequest(), {})
-      .then(
-        (resp) => {
-          enqueueSnackbar("Successfully reset all of the scores!", {
-            variant: Severity.Success,
-          });
-        },
-        (err: any) => {
-          enqueueSnackbar(
-            `Failed to reset scores: ${err.message}. Error code: ${err.code}`,
-            { variant: Severity.Error, action: SnackbarDismissButton }
-          );
-        }
-      );
+    resetCompetition.mutate(new ResetScoresRequest())
     handleClose();
   };
 
   const handleDeleteCompetition = () => {
-    gRPCClients.competitionClient
-      .deleteCompetition(new DeleteCompetitionRequest(), {})
-      .then(
-        (resp) => {
-          enqueueSnackbar("Successfully deleted all competition data!", {
-            variant: Severity.Success,
-          });
-        },
-        (err: any) => {
-          enqueueSnackbar(
-            `Failed to delete competition data: ${err.message}. Error code: ${err.code}`,
-            { variant: Severity.Error, action: SnackbarDismissButton }
-          );
-        }
-      );
+    deleteCompetition.mutate(new DeleteCompetitionRequest())
     handleClose();
   };
 
@@ -540,8 +426,6 @@ export default function CompMenu() {
 
   return (
     <>
-      {!dt.loader ?
-        <>
           <Accordion
             expanded={expanded === "panelConfig"}
             onChange={handleChange("panelConfig")}
@@ -564,7 +448,7 @@ export default function CompMenu() {
                 <FormControlLabel
                   control={
                     <Switch
-                      checked={dt.dynamicConfig?.getEnabled()?.getValue()}
+                      checked={dynamicConfigData?.getEnabled()?.getValue()}
                       onChange={handleSetEnabled}
                     />
                   }
@@ -577,7 +461,7 @@ export default function CompMenu() {
                   <FormControl>
                     <InputLabel htmlFor="round_duration">
                       Round Duration (Current:{" "}
-                      {dt.dynamicConfig?.getRoundDuration()})
+                      {dynamicConfigData?.getRoundDuration()})
                     </InputLabel>
                     <Input
                       id="round_duration"
@@ -734,7 +618,7 @@ export default function CompMenu() {
                 bgcolor="background.paper"
               >
                 <ReactJson
-                  src={dt.staticConfig}
+                  src={staticConfig}
                   style={{ backgroundColor: "inherit" }}
                   onDelete={false}
                   onEdit={false}
@@ -780,7 +664,7 @@ export default function CompMenu() {
                   className={classes.button}
                   startIcon={<SaveIcon />}
                   onClick={() => {
-                    gRPCClients.competitionClient
+                    gRPCClients.competition.v1.competitionServicePromiseClient
                       .fetchCoreCompetition(
                         new FetchCoreCompetitionRequest(),
                         {}
@@ -866,7 +750,7 @@ export default function CompMenu() {
                   className={classes.button}
                   startIcon={<SaveIcon />}
                   onClick={() => {
-                    gRPCClients.competitionClient
+                    gRPCClients.competition.v1.competitionServicePromiseClient
                       .fetchEntireCompetition(
                         new FetchEntireCompetitionRequest(),
                         {}
@@ -990,12 +874,6 @@ export default function CompMenu() {
               </Box>
             </AccordionDetails>
           </Accordion>
-        </>
-       :
-        <Box height="100%" width="100%" m="auto">
-          <CircularProgress />
-        </Box>
-      }
     </>
   )
 }

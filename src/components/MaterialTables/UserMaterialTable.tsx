@@ -1,23 +1,17 @@
 import React, { useEffect, useState } from "react";
 import { Role } from "../../grpc/token/token";
-import Box from "@material-ui/core/Box";
 import MaterialTable, { Column } from "@material-table/core";
-import { GetAllRequest as GetAllRequestTeam } from "../../lib/scoretrakapis/scoretrak/team/v1/team_pb";
 import {
   DeleteRequest,
-  GetAllRequest as GetAllRequestUser,
-  Role as ProtoRole,
   StoreRequest,
   UpdateRequest,
-  User,
-} from "../../lib/scoretrakapis/scoretrak/user/v1/user_pb";
+} from "@buf/grpc_web_scoretrak_scoretrakapis/scoretrak/user/v1/user_pb";
 import { Severity } from "../../types/types";
-import { UUID } from "../../lib/scoretrakapis/scoretrak/proto/v1/uuid_pb";
+import { UUID } from "@buf/grpc_web_scoretrak_scoretrakapis/scoretrak/proto/v1/uuid_pb";
 import { CircularProgress } from "@material-ui/core";
 import { useSnackbar } from "notistack";
 import { SnackbarDismissButton } from "../SnackbarDismissButton";
-import { gRPCClients } from "../../grpc/gRPCClients";
-import { IHost, IUser } from "../../types/material_table";
+import { IUser } from "../../types/material_table";
 import {
   useAddUserMutation,
   useDeleteUserMutation,
@@ -28,50 +22,6 @@ import { useTeamsQuery } from "../../lib/queries/teams";
 import { IUserToUser, userToIUser } from "../../lib/material-table/users";
 import grpcWeb from "grpc-web";
 
-type userColumns = {
-  id: string | undefined;
-  username: string;
-  password: string;
-  passwordHash: string | undefined;
-  teamId: string | undefined;
-  role: Role | undefined;
-};
-
-function userToUserColumn(user: User): userColumns {
-  return {
-    id: user.getId()?.getValue(),
-    password: user.getPassword(),
-    passwordHash: user.getPasswordHash(),
-    role: ProtoRoleToRole(user.getRole()),
-    teamId: user.getTeamId()?.getValue(),
-    username: user.getUsername(),
-  };
-}
-
-function userColumnsToUser(userC: userColumns): User {
-  const u = new User();
-  if (userC.id && userC.id !== "") u.setId(new UUID().setValue(userC.id));
-  u.setPassword(userC.password);
-  u.setUsername(userC.username);
-  u.setRole(RoleToProtoRole(userC.role));
-  if (userC.teamId && userC.teamId !== "")
-    u.setTeamId(new UUID().setValue(userC.teamId));
-  return u;
-}
-
-function ProtoRoleToRole(eRole: ProtoRole): Role | undefined {
-  if (eRole === ProtoRole.ROLE_BLUE) return Role.Blue;
-  if (eRole === ProtoRole.ROLE_BLACK) return Role.Black;
-  if (eRole === ProtoRole.ROLE_RED) return Role.Red;
-  return undefined;
-}
-
-function RoleToProtoRole(role: Role | undefined): ProtoRole {
-  if (role === Role.Blue) return ProtoRole.ROLE_BLUE;
-  if (role === Role.Black) return ProtoRole.ROLE_BLACK;
-  if (role === Role.Red) return ProtoRole.ROLE_RED;
-  return ProtoRole.ROLE_UNSPECIFIED;
-}
 
 export default function UserMaterialTable() {
   const title = "Users";
@@ -84,8 +34,6 @@ export default function UserMaterialTable() {
   } = useUsersQuery();
   const {
     data: teamsData,
-    isLoading: teamsIsLoading,
-    isSuccess: teamsIsSuccess,
   } = useTeamsQuery();
 
   const addUser = useAddUserMutation();
@@ -131,7 +79,7 @@ export default function UserMaterialTable() {
       setColumns((prevState) => {
         for (let i = 0; i < prevState.length; i++) {
           const column = prevState[i];
-          if (column.title == "Team ID") {
+          if (column.title === "Team ID") {
             column.lookup = lookup;
           }
         }
@@ -214,15 +162,7 @@ export default function UserMaterialTable() {
 
                   deleteUser.mutate(deleteRequest, {
                     onError: (error) => {
-                      enqueueSnackbar(
-                        `Unable to delete user: ${
-                          (error as grpcWeb.RpcError).message
-                        }. Error code: ${(error as grpcWeb.RpcError).code}`,
-                        {
-                          variant: Severity.Error,
-                          action: SnackbarDismissButton,
-                        }
-                      );
+                      enqueueSnackbar(`Unable to delete user: ${error.message}. Error code: ${error.code}`, { variant: Severity.Error, action: SnackbarDismissButton, });
                       reject();
                     },
                   });

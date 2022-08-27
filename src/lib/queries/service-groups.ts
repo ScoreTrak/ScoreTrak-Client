@@ -6,14 +6,14 @@ import {
   ServiceGroup,
   StoreRequest,
   UpdateRequest,
-} from "../scoretrakapis/scoretrak/service_group/v1/service_group_pb";
+} from "@buf/grpc_web_scoretrak_scoretrakapis/scoretrak/service_group/v1/service_group_pb";
 import grpcWeb from "grpc-web";
 import { gRPCClients } from "../../grpc/gRPCClients";
-import { UUID } from "../scoretrakapis/scoretrak/proto/v1/uuid_pb";
+import { UUID } from "@buf/grpc_web_scoretrak_scoretrakapis/scoretrak/proto/v1/uuid_pb";
 
 export function useServiceGroupsQuery() {
   const fetchServiceGroups = async () => {
-    const serviceGroupsResponse = await gRPCClients.serviceGroupClient.getAll(
+    const serviceGroupsResponse = await gRPCClients.service_group.v1.serviceGroupServicePromiseClient.getAll(
       new GetAllRequest(),
       {}
     );
@@ -32,7 +32,7 @@ export function useServiceGroupQuery(serviceGroupId: string) {
     uuid.setValue(id);
     const request = new GetByIDRequest();
     request.setId(uuid);
-    const serviceGroupResponse = await gRPCClients.serviceGroupClient.getByID(
+    const serviceGroupResponse = await gRPCClients.service_group.v1.serviceGroupServicePromiseClient.getByID(
       request,
       {}
     );
@@ -49,7 +49,7 @@ export function useAddServiceGroupMutation() {
   const queryClient = useQueryClient();
 
   const addServiceGroup = async (addServiceGroupRequest: StoreRequest) => {
-    return await gRPCClients.serviceGroupClient.store(
+    return await gRPCClients.service_group.v1.serviceGroupServicePromiseClient.store(
       addServiceGroupRequest,
       {}
     );
@@ -68,7 +68,7 @@ export function useUpdateServiceGroupMutation() {
   const updateServiceGroup = async (
     updateServiceGroupRequest: UpdateRequest
   ) => {
-    return await gRPCClients.serviceGroupClient.update(
+    return await gRPCClients.service_group.v1.serviceGroupServicePromiseClient.update(
       updateServiceGroupRequest,
       {}
     );
@@ -87,7 +87,7 @@ export function useDeleteServiceGroupMutation() {
   const deleteServiceGroup = async (
     deleteServiceGroupRequest: DeleteRequest
   ) => {
-    const deleteResponse = await gRPCClients.serviceGroupClient.delete(
+    await gRPCClients.service_group.v1.serviceGroupServicePromiseClient.delete(
       deleteServiceGroupRequest,
       {}
     );
