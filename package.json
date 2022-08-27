@@ -45,7 +45,6 @@
   },
   "scripts": {
     "start": "GENERATE_SOURCEMAP=false react-scripts start",
-    "prebuild": "buf generate --template buf.gen.yaml 'https://github.com/scoretrak/scoretrakapis.git'",
     "build": "GENERATE_SOURCEMAP=false react-scripts build",
     "test": "GENERATE_SOURCEMAP=false react-scripts test",
     "eject": "GENERATE_SOURCEMAP=false react-scripts eject"
