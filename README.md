@@ -31,7 +31,7 @@ npm run start
 ```shell
 # .env.development
 
-ST_API_SERVER_URL=http://scoretrak.dev.example.com:30080
+VITE_API_SERVER_URL=http://scoretrak.dev.example.com:30080
 ```
 
 ### Production

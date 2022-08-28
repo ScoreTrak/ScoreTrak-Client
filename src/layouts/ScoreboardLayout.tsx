@@ -10,22 +10,15 @@ export default function ScoreboardLayout() {
   return (
     <>
       <MainNav />
-      {report && report.Round !== 0 ?
-        <Box m={2} display={"flex"}>
-          <Container maxWidth={"xl"}>
+      <Box m={3} display={"flex"}>
+        <Container maxWidth={"xl"}>
+          {report && report.Round !== 0 ?
             <Outlet />
-          </Container>
-        </Box>
-        :
-        <>
-          <Box mt={2} sx={{textAlign: "center"}}>
-            <CircularProgress />
-            {report?.Round === 0 &&
-              <PreCompBanner />
-            }
-          </Box>
-        </>
-      }
+            :
+            <PreCompBanner />
+          }
+        </Container>
+      </Box>
     </>
   );
 }

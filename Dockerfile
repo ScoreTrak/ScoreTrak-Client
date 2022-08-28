@@ -8,6 +8,8 @@ COPY . .
 # Only install production packages
 RUN npm install
 # Build app
+ARG API_SERVER_URL=""
+ENV VITE_API_SERVER_URL=$API_SERVER_URL
 RUN npm run build
 
 
@@ -20,6 +22,6 @@ RUN rm -rf ./*
 # Copy static assets from builder stage
 COPY --from=builder /app/dist .
 #redirect 404s to index
-RUN #sed -i '/index  index.html index.htm;/a try_files \$uri \$uri/ /index.html;' /etc/nginx/conf.d/default.conf
+RUN sed -i '/index  index.html index.htm;/a try_files \$uri \$uri/ /index.html;' /etc/nginx/conf.d/default.conf
 # Containers run nginx with global directives and daemon off
 ENTRYPOINT ["nginx", "-g", "daemon off;"]

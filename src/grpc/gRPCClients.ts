@@ -19,7 +19,7 @@ import {
   DynamicConfigServicePromiseClient, StaticConfigServicePromiseClient
 } from "@buf/grpc_web_scoretrak_scoretrakapis/scoretrak/config/v1/config_grpc_web_pb";
 
-const serverAddress = import.meta.env.ST_API_SERVER_URL ?? window.location.origin
+const serverAddress = import.meta.env.VITE_API_SERVER_URL ?? window.location.origin
 
 
 export type GRPCClients = {
