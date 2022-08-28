@@ -7,7 +7,7 @@ export default function PreCompBanner() {
     <>
       <Box mt={2} sx={{textAlign: "center"}}>
         <Typography variant={"h4"}>
-          Welcome to the <strong>{ `${process.env.REACT_APP_COMPETITION_NAME} ` }</strong>Competition!
+          Welcome to the Competition!
         </Typography>
         <Typography variant={"h6"}>
           This window will automatically reload once the first round is

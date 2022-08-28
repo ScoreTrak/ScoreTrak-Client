@@ -18,6 +18,8 @@ Install Dependencies
 npm install
 ```
 
+Set your dev environment values (https://vitejs.dev/guide/env-and-mode.html)
+
 ### Development
 
 Start the application
@@ -26,10 +28,10 @@ Start the application
 npm run start
 ```
 
-Test the application
+```shell
+# .env.development
 
-```bash
-npm run test
+ST_API_SERVER_URL=http://scoretrak.dev.example.com:30080
 ```
 
 ### Production
@@ -43,6 +45,5 @@ npm run build
 Serve generated static files
 
 ```bash
-npm install --global serve
-serve -s build
+npm run serve
 ```

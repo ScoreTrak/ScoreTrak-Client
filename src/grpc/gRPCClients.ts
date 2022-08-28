@@ -19,8 +19,8 @@ import {
   DynamicConfigServicePromiseClient, StaticConfigServicePromiseClient
 } from "@buf/grpc_web_scoretrak_scoretrakapis/scoretrak/config/v1/config_grpc_web_pb";
 
+const serverAddress = import.meta.env.ST_API_SERVER_URL ?? window.location.origin
 
-const serverAddress = process.env.REACT_APP_COMPETITION_SERVER_URL ?? process.env.PUBLIC_URL
 
 export type GRPCClients = {
   auth: { v1: { authServicePromiseClient: AuthServicePromiseClient } },

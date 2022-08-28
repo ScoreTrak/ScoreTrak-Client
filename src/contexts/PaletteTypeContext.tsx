@@ -19,7 +19,7 @@ export function usePaletteType() {
 }
 
 // @ts-ignore
-export function PaletteTypeContextProvider({ children }) {
+export function PaletteTypeProvider({ children }) {
   const [paletteType, setPaletteType] = useLocalStorage<PaletteType>(
     "theme",
     "dark"

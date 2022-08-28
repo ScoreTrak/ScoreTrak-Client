@@ -1,19 +1,8 @@
 import "./App.css";
-import { useMemo } from "react";
 import "./App.css";
-import { ThemeProvider } from "@material-ui/core/styles";
-import {
-  deepOrange,
-  deepPurple,
-  lightBlue,
-  orange,
-} from "@material-ui/core/colors";
 import CssBaseline from "@material-ui/core/CssBaseline";
-import { SnackbarProvider } from "notistack";
 import { PolicyProvider } from "./contexts/PolicyContext";
-import { createTheme } from "@material-ui/core";
-import { useTitle } from "react-use";
-import { usePaletteType } from "./contexts/PaletteTypeContext";
+import { PaletteTypeProvider } from "./contexts/PaletteTypeContext";
 import { Route, Routes } from "react-router-dom";
 import DefaultLayout from "./layouts/DefaultLayout";
 import AuthLayout from "./layouts/AuthLayout";
@@ -26,44 +15,19 @@ import Details from "./routes/scoreboard/details";
 import Scoreboard from "./routes/scoreboard";
 import ScoreboardLayout from "./layouts/ScoreboardLayout";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import BaseLayout from "./layouts/BaseLayout";
 
 const queryClient = new QueryClient();
 
 function App() {
-  useTitle("ScoreTrak");
-  const { paletteType } = usePaletteType();
-
-  const theme = useMemo(
-    () =>
-      createTheme({
-        palette: {
-          type: paletteType,
-          primary: {
-            main: paletteType === "light" ? lightBlue[500] : orange[500],
-          },
-          secondary: {
-            main: paletteType === "light" ? deepPurple[500] : deepOrange[500],
-          },
-        },
-      }),
-    [paletteType]
-  );
-
   return (
-    <ThemeProvider theme={theme}>
+    <>
       <CssBaseline />
       <QueryClientProvider client={queryClient}>
-        <SnackbarProvider
-          maxSnack={3}
-          anchorOrigin={{
-            vertical: "bottom",
-            horizontal: "right",
-          }}
-          dense
-          preventDuplicate
-        >
-          <PolicyProvider>
-            <ReportProvider>
+            <PaletteTypeProvider>
+              <BaseLayout>
+        <PolicyProvider>
+          <ReportProvider>
                 <Routes>
                   <Route path={"/"} element={<ScoreboardLayout />}>
                     <Route index element={<Scoreboard />} />
@@ -83,11 +47,12 @@ function App() {
                     <Route index element={<Settings />} />
                   </Route>
                 </Routes>
-            </ReportProvider>
-          </PolicyProvider>
-        </SnackbarProvider>
+          </ReportProvider>
+        </PolicyProvider>
+              </BaseLayout>
+            </PaletteTypeProvider>
       </QueryClientProvider>
-    </ThemeProvider>
+    </>
   );
 }
 

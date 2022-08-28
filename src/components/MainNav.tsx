@@ -54,20 +54,6 @@ export function MainNav() {
               <Typography
                 component={RouterLink}
                 to={"/"}
-                variant="h5"
-                color="inherit"
-                className={classes.title}
-              >
-                <strong>
-                  {process.env.REACT_APP_COMPETITION_NAME ?? "ScoreTrak"}
-                </strong>
-              </Typography>
-            </Box>
-
-            <Box>
-              <Typography
-                component={RouterLink}
-                to={"/"}
                 variant="h6"
                 color="inherit"
                 className={classes.title}
