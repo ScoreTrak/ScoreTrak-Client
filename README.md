@@ -12,6 +12,13 @@ git clone https://github.com/ScoreTrak/client
 
 ## Usage
 
+Setup Buf Registry
+
+```bash
+npm config set @buf:registry https://npm.buf.build
+
+```
+
 Install Dependencies
 
 ```bash
