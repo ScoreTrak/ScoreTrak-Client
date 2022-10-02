@@ -12,24 +12,33 @@ git clone https://github.com/ScoreTrak/client
 
 ## Usage
 
+Setup Buf Registry
+
+```bash
+npm config set @buf:registry https://npm.buf.build
+
+```
+
 Install Dependencies
 
 ```bash
-yarn install
+npm install
 ```
+
+Set your dev environment values (https://vitejs.dev/guide/env-and-mode.html)
 
 ### Development
 
 Start the application
 
 ```bash
-yarn run start
+npm run start
 ```
 
-Test the application
+```shell
+# .env.development
 
-```bash
-yarn run test
+VITE_API_SERVER_URL=http://scoretrak.dev.example.com:30080
 ```
 
 ### Production
@@ -37,12 +46,11 @@ yarn run test
 Build the application
 
 ```bash
-yarn run build
+npm run build
 ```
 
 Serve generated static files
 
 ```bash
-yarn install --global serve
-serve -s build
+npm run serve
 ```

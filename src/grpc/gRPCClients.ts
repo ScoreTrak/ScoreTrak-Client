@@ -1,69 +1,82 @@
-import {token} from './token/token'
+import { token } from "./token/token";
 
-import {AuthServiceClient} from "../lib/scoretrakapis/scoretrak/auth/v1/AuthServiceClientPb"
-import {CheckServiceClient} from "../lib/scoretrakapis/scoretrak/check/v1/CheckServiceClientPb";
-import {CompetitionServiceClient} from "../lib/scoretrakapis/scoretrak/competition/v1/CompetitionServiceClientPb";
-import {DynamicConfigServiceClient, StaticConfigServiceClient} from "../lib/scoretrakapis/scoretrak/config/v1/ConfigServiceClientPb";
-import {HostServiceClient} from "../lib/scoretrakapis/scoretrak/host/v1/HostServiceClientPb";
-import {HostGroupServiceClient} from "../lib/scoretrakapis/scoretrak/host_group/v1/Host_groupServiceClientPb";
-import {PolicyServiceClient} from "../lib/scoretrakapis/scoretrak/policy/v1/PolicyServiceClientPb";
-import {PropertyServiceClient} from "../lib/scoretrakapis/scoretrak/property/v1/PropertyServiceClientPb";
-import {ReportServiceClient} from "../lib/scoretrakapis/scoretrak/report/v1/ReportServiceClientPb";
-import {RoundServiceClient} from "../lib/scoretrakapis/scoretrak/round/v1/RoundServiceClientPb";
-import {ServiceServiceClient} from "../lib/scoretrakapis/scoretrak/service/v1/ServiceServiceClientPb";
-import {ServiceGroupServiceClient} from "../lib/scoretrakapis/scoretrak/service_group/v1/Service_groupServiceClientPb";
-import {TeamServiceClient} from "../lib/scoretrakapis/scoretrak/team/v1/TeamServiceClientPb";
-import {UserServiceClient} from "../lib/scoretrakapis/scoretrak/user/v1/UserServiceClientPb";
+import { AuthServicePromiseClient } from "@buf/grpc_web_scoretrak_scoretrakapis/scoretrak/auth/v1/auth_grpc_web_pb"
+import { CheckServicePromiseClient } from "@buf/grpc_web_scoretrak_scoretrakapis/scoretrak/check/v1/check_grpc_web_pb";
+import { CompetitionServicePromiseClient } from "@buf/grpc_web_scoretrak_scoretrakapis/scoretrak/competition/v1/competition_grpc_web_pb";
+import { HostServicePromiseClient } from "@buf/grpc_web_scoretrak_scoretrakapis/scoretrak/host/v1/host_grpc_web_pb";
+import { HostGroupServicePromiseClient } from "@buf/grpc_web_scoretrak_scoretrakapis/scoretrak/host_group/v1/host_group_grpc_web_pb";
+import { PolicyServicePromiseClient } from "@buf/grpc_web_scoretrak_scoretrakapis/scoretrak/policy/v1/policy_grpc_web_pb";
+import { PropertyServicePromiseClient } from "@buf/grpc_web_scoretrak_scoretrakapis/scoretrak/property/v1/property_grpc_web_pb";
+import { ReportServicePromiseClient } from "@buf/grpc_web_scoretrak_scoretrakapis/scoretrak/report/v1/report_grpc_web_pb";
+import { RoundServicePromiseClient } from "@buf/grpc_web_scoretrak_scoretrakapis/scoretrak/round/v1/round_grpc_web_pb";
+import { ServiceServicePromiseClient } from "@buf/grpc_web_scoretrak_scoretrakapis/scoretrak/service/v1/service_grpc_web_pb";
+import {
+  ServiceGroupServicePromiseClient
+} from "@buf/grpc_web_scoretrak_scoretrakapis/scoretrak/service_group/v1/service_group_grpc_web_pb";
+import { TeamServicePromiseClient } from "@buf/grpc_web_scoretrak_scoretrakapis/scoretrak/team/v1/team_grpc_web_pb";
+import { UserServicePromiseClient } from "@buf/grpc_web_scoretrak_scoretrakapis/scoretrak/user/v1/user_grpc_web_pb";
+import {
+  DynamicConfigServicePromiseClient, StaticConfigServicePromiseClient
+} from "@buf/grpc_web_scoretrak_scoretrakapis/scoretrak/config/v1/config_grpc_web_pb";
 
-const serverAddress = process.env.PUBLIC_URL
+const serverAddress = import.meta.env.VITE_API_SERVER_URL ?? window.location.origin
+
 
 export type GRPCClients = {
-    authClient: AuthServiceClient;
-    checkClient: CheckServiceClient;
-    competitionClient: CompetitionServiceClient;
-    dynamicConfigClient: DynamicConfigServiceClient;
-    staticConfigClient: StaticConfigServiceClient;
-    hostClient: HostServiceClient;
-    hostGroupClient: HostGroupServiceClient;
-    policyClient: PolicyServiceClient;
-    propertyClient: PropertyServiceClient;
-    reportClient: ReportServiceClient;
-    roundClient: RoundServiceClient;
-    serviceClient: ServiceServiceClient;
-    serviceGroupClient: ServiceGroupServiceClient;
-    teamClient: TeamServiceClient;
-    userClient: UserServiceClient;
+  auth: { v1: { authServicePromiseClient: AuthServicePromiseClient } },
+  check: { v1: { checkServicePromiseClient: CheckServicePromiseClient } },
+  competition: { v1: { competitionServicePromiseClient: CompetitionServicePromiseClient } },
+  config: {
+    v1: {
+      dynamicConfigServicePromiseClient: DynamicConfigServicePromiseClient,
+      staticConfigServicePromiseClient: StaticConfigServicePromiseClient
+    }
+  },
+  host: { v1: { hostServicePromiseClient: HostServicePromiseClient } },
+  host_group: { v1: { hostGroupServicePromiseClient: HostGroupServicePromiseClient } },
+  policy: { v1: { policyServicePromiseClient: PolicyServicePromiseClient } },
+  property: { v1: { propertyServicePromiseClient: PropertyServicePromiseClient } },
+  report: { v1: { reportServicePromiseClient: ReportServicePromiseClient } },
+  round: { v1: { roundServicePromiseClient: RoundServicePromiseClient } },
+  service: { v1: { serviceServicePromiseClient: ServiceServicePromiseClient } },
+  service_group: { v1: { serviceGroupServicePromiseClient: ServiceGroupServicePromiseClient } },
+  team: { v1: { teamServicePromiseClient: TeamServicePromiseClient } },
+  user: { v1: { userServicePromiseClient: UserServicePromiseClient } },
 };
 
 class AuthInterceptor {
-    intercept = (request: any, invoker: any) => {
-        if (token.isAValidToken()) {
-            const metadata = request.getMetadata(undefined, undefined)
-            metadata.authorization = token.getToken()
-        }
-        return invoker(request)
+  intercept = (request: any, invoker: any) => {
+    if (token.isAValidToken()) {
+      const metadata = request.getMetadata(undefined, undefined);
+      metadata.authorization = token.getToken();
     }
+    return invoker(request);
+  };
 }
 
 const options = {
-    unaryInterceptors: [new AuthInterceptor()],
-    streamInterceptors: [new AuthInterceptor()]
-}
+  unaryInterceptors: [new AuthInterceptor()],
+  streamInterceptors: [new AuthInterceptor()],
+};
 
 export const gRPCClients: GRPCClients = {
-    authClient: new AuthServiceClient(serverAddress, null, options),
-    checkClient: new CheckServiceClient(serverAddress, null, options),
-    competitionClient: new CompetitionServiceClient(serverAddress, null, options),
-    dynamicConfigClient: new DynamicConfigServiceClient(serverAddress, null, options),
-    staticConfigClient: new StaticConfigServiceClient(serverAddress, null, options),
-    hostClient: new HostServiceClient(serverAddress, null, options),
-    hostGroupClient: new HostGroupServiceClient(serverAddress, null, options),
-    policyClient: new PolicyServiceClient(serverAddress, null, options),
-    propertyClient: new PropertyServiceClient(serverAddress, null, options),
-    reportClient: new ReportServiceClient(serverAddress, null, options),
-    roundClient: new RoundServiceClient(serverAddress, null, options),
-    serviceClient: new ServiceServiceClient(serverAddress, null, options),
-    serviceGroupClient: new ServiceGroupServiceClient(serverAddress, null, options),
-    teamClient: new TeamServiceClient(serverAddress, null, options),
-    userClient: new UserServiceClient(serverAddress, null, options)
+  auth: { v1: { authServicePromiseClient: new AuthServicePromiseClient(serverAddress, null, options) }},
+  check: { v1: { checkServicePromiseClient: new CheckServicePromiseClient(serverAddress, null, options) }},
+  competition: { v1: { competitionServicePromiseClient: new CompetitionServicePromiseClient(serverAddress, null, options) }},
+  config: {
+    v1: {
+      dynamicConfigServicePromiseClient: new DynamicConfigServicePromiseClient(serverAddress, null, options),
+      staticConfigServicePromiseClient: new StaticConfigServicePromiseClient(serverAddress, null, options)
+    }
+  },
+  host: { v1: { hostServicePromiseClient: new HostServicePromiseClient(serverAddress, null, options) }},
+  host_group: { v1: { hostGroupServicePromiseClient: new HostGroupServicePromiseClient(serverAddress, null, options) }},
+  policy: { v1: { policyServicePromiseClient: new PolicyServicePromiseClient(serverAddress, null, options) }},
+  property: { v1: { propertyServicePromiseClient: new PropertyServicePromiseClient(serverAddress, null, options) }},
+  report: { v1: { reportServicePromiseClient: new ReportServicePromiseClient(serverAddress, null, options) }},
+  round:  { v1: { roundServicePromiseClient: new RoundServicePromiseClient(serverAddress, null, options) }},
+  service: { v1: { serviceServicePromiseClient: new ServiceServicePromiseClient(serverAddress, null, options) }},
+  service_group: { v1: { serviceGroupServicePromiseClient: new ServiceGroupServicePromiseClient(serverAddress, null, options) }},
+  team: { v1: { teamServicePromiseClient: new TeamServicePromiseClient(serverAddress, null, options) }},
+  user: { v1: { userServicePromiseClient: new UserServicePromiseClient(serverAddress, null, options) }},
 };
