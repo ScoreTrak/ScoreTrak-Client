@@ -22,10 +22,10 @@ function App() {
     <>
       <CssBaseline />
       <QueryClientProvider client={queryClient}>
-            <PaletteTypeProvider>
-              <BaseLayout>
-        <PolicyProvider>
-          <ReportProvider>
+        <PaletteTypeProvider>
+          <BaseLayout>
+            <PolicyProvider>
+              <ReportProvider>
                 <Routes>
                   <Route path={"/"} element={<ScoreboardLayout />}>
                     <Route index element={<Scoreboard />} />
@@ -45,10 +45,10 @@ function App() {
                     <Route index element={<Settings />} />
                   </Route>
                 </Routes>
-          </ReportProvider>
-        </PolicyProvider>
-              </BaseLayout>
-            </PaletteTypeProvider>
+              </ReportProvider>
+            </PolicyProvider>
+          </BaseLayout>
+        </PaletteTypeProvider>
       </QueryClientProvider>
     </>
   );
