@@ -1,6 +1,9 @@
 import CssBaseline from "@material-ui/core/CssBaseline";
 import { PolicyProvider } from "./contexts/PolicyContext";
-import { PaletteTypeProvider } from "./contexts/PaletteTypeContext";
+import {
+  PaletteTypeProvider,
+  usePaletteType,
+} from "./contexts/PaletteTypeContext";
 import { Route, Routes } from "react-router-dom";
 import DefaultLayout from "./layouts/DefaultLayout";
 import AuthLayout from "./layouts/AuthLayout";
@@ -13,17 +16,52 @@ import Details from "./routes/scoreboard/details";
 import Scoreboard from "./routes/scoreboard";
 import ScoreboardLayout from "./layouts/ScoreboardLayout";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import BaseLayout from "./layouts/BaseLayout";
+import React, { useMemo } from "react";
+import { createTheme } from "@material-ui/core";
+import {
+  deepOrange,
+  deepPurple,
+  lightBlue,
+  orange,
+} from "@material-ui/core/colors";
+import { SnackbarProvider } from "notistack";
+import { ThemeProvider } from "@material-ui/core/styles";
 
 const queryClient = new QueryClient();
 
 function App() {
+  const { paletteType } = usePaletteType();
+
+  const theme = useMemo(
+    () =>
+      createTheme({
+        palette: {
+          type: paletteType,
+          primary: {
+            main: paletteType === "light" ? lightBlue[500] : orange[500],
+          },
+          secondary: {
+            main: paletteType === "light" ? deepPurple[500] : deepOrange[500],
+          },
+        },
+      }),
+    [paletteType]
+  );
+
   return (
     <>
-      <CssBaseline />
-      <QueryClientProvider client={queryClient}>
-        <PaletteTypeProvider>
-          <BaseLayout>
+      <ThemeProvider theme={theme}>
+        <SnackbarProvider
+          maxSnack={3}
+          anchorOrigin={{
+            vertical: "bottom",
+            horizontal: "right",
+          }}
+          dense
+          preventDuplicate
+        >
+          <CssBaseline />
+          <QueryClientProvider client={queryClient}>
             <PolicyProvider>
               <ReportProvider>
                 <Routes>
@@ -47,9 +85,9 @@ function App() {
                 </Routes>
               </ReportProvider>
             </PolicyProvider>
-          </BaseLayout>
-        </PaletteTypeProvider>
-      </QueryClientProvider>
+          </QueryClientProvider>
+        </SnackbarProvider>
+      </ThemeProvider>
     </>
   );
 }
