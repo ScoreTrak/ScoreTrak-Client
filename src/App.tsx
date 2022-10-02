@@ -1,5 +1,3 @@
-import "./App.css";
-import "./App.css";
 import CssBaseline from "@material-ui/core/CssBaseline";
 import { PolicyProvider } from "./contexts/PolicyContext";
 import { PaletteTypeProvider } from "./contexts/PaletteTypeContext";
