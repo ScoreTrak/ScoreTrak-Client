@@ -26,8 +26,15 @@ import {
 } from "@material-ui/core/colors";
 import { SnackbarProvider } from "notistack";
 import { ThemeProvider } from "@material-ui/core/styles";
+import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 
-const queryClient = new QueryClient();
+const queryClient = new QueryClient({
+  defaultOptions: {
+    queries: {
+      staleTime: Infinity,
+    },
+  },
+});
 
 function App() {
   const { paletteType } = usePaletteType();
@@ -47,6 +54,12 @@ function App() {
       }),
     [paletteType]
   );
+
+  // @ts-ignore
+  const bruh: (e: MouseEvent<HTMLDivElement, MouseEvent>) => void = (
+    // @ts-ignore
+    e: MouseEvent<HTMLDivElement, MouseEvent>
+  ) => {};
 
   return (
     <>
@@ -85,6 +98,7 @@ function App() {
                 </Routes>
               </ReportProvider>
             </PolicyProvider>
+            <ReactQueryDevtools initialIsOpen={true} />
           </QueryClientProvider>
         </SnackbarProvider>
       </ThemeProvider>

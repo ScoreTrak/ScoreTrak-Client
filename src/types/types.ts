@@ -26,7 +26,7 @@ export type SimpleService = {
   Points: number;
   PointsBoost: number;
   Properties: Record<string, SimpleProperty>;
-  SimpleServiceGroup: SimpleServiceGroup;
+  ServiceGroup: SimpleServiceGroup;
 };
 
 export type SimpleServiceGroup = {

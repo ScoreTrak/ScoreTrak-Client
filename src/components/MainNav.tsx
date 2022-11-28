@@ -11,30 +11,29 @@ import SettingsIcon from "@material-ui/icons/Settings";
 import DescriptionIcon from "@material-ui/icons/Description";
 import BarChartIcon from "@material-ui/icons/BarChart";
 import DetailsIcon from "@material-ui/icons/Details";
-import {
-  Link as RouterLink,
-  useNavigate,
-} from "react-router-dom";
+import { Link as RouterLink, useNavigate } from "react-router-dom";
 import { useReport } from "../contexts/ReportContext";
 import CheckCircleIcon from "@material-ui/icons/CheckCircle";
 import { usePolicy } from "../contexts/PolicyContext";
+import { usePolicyQuery, usePolicySubscription } from "~/lib/queries/policies";
 
 const useStyles = makeStyles((_) => ({
   root: {
     flexGrow: 1,
   },
   toolbar: {
-    justifyContent: 'space-between'
+    justifyContent: "space-between",
   },
   title: {
     flexGrow: 1,
-    textDecoration: "none"
-  }
+    textDecoration: "none",
+  },
 }));
 
 export function MainNav() {
-  const policy = usePolicy();
-  const report = useReport();
+  // const policy = usePolicy();
+  // const report = useReport();
+  usePolicySubscription();
   const theme = useTheme();
   const { togglePaletteType } = usePaletteType();
   const classes = useStyles();
@@ -48,7 +47,7 @@ export function MainNav() {
   return (
     <div className={classes.root}>
       <AppBar position="static">
-        <Container maxWidth={"xl"} >
+        <Container maxWidth={"xl"}>
           <Toolbar className={classes.toolbar}>
             <Box>
               <Typography
@@ -58,45 +57,48 @@ export function MainNav() {
                 color="inherit"
                 className={classes.title}
               >
-                {report?.Round === 0
-                  ? "Competition has not yet started!"
-                  : `Round: ${report?.Round}`}
+                {/*{report?.Round === 0*/}
+                {/*  ? "Competition has not yet started!"*/}
+                {/*  : `Round: ${report?.Round}`}*/}
               </Typography>
             </Box>
 
             <Box>
               {
                 <>
-                  {((policy && policy.showPoints?.value) ||
-                    token.getCurrentRole() === Role.Black) && (
-                    <IconButton component={RouterLink} to={"/scoreboard"}>
-                      <CheckCircleIcon />
-                    </IconButton>
-                  )}
+                  {/*{((policy && policy.showPoints?.value) ||*/}
+                  {/*  token.getCurrentRole() === Role.Black) && (*/}
+                  {/*  <IconButton component={RouterLink} to={"/scoreboard"}>*/}
+                  {/*    <CheckCircleIcon />*/}
+                  {/*  </IconButton>*/}
+                  {/*)}*/}
                   <IconButton component={RouterLink} to={"/scoreboard/ranks"}>
                     <BarChartIcon />
                   </IconButton>
                   {(token.getCurrentRole() === Role.Red ||
                     token.getCurrentRole() === Role.Blue ||
                     token.getCurrentRole() === Role.Black) && (
-                    <IconButton component={RouterLink} to={"/scoreboard/details"}>
+                    <IconButton
+                      component={RouterLink}
+                      to={"/scoreboard/details"}
+                    >
                       <DetailsIcon />
                     </IconButton>
                   )}
                 </>
               }
               {!token.isAValidToken() ? (
-                <Button component={RouterLink} to={"/auth/sign_in"} color={"inherit"}>
-                  <Typography>
-                    Sign In
-                  </Typography>
+                <Button
+                  component={RouterLink}
+                  to={"/auth/sign_in"}
+                  color={"inherit"}
+                >
+                  <Typography>Sign In</Typography>
                 </Button>
               ) : (
                 <>
                   <Button color={"inherit"} onClick={handleLogout}>
-                    <Typography>
-                      Sign Out
-                    </Typography>
+                    <Typography>Sign Out</Typography>
                   </Button>
                   {token.getCurrentRole() === Role.Black && (
                     <>
@@ -111,7 +113,11 @@ export function MainNav() {
                 </>
               )}
               <IconButton onClick={togglePaletteType}>
-                {theme.palette.type !== "light" ? <Brightness7 /> : <Brightness4 />}
+                {theme.palette.type !== "light" ? (
+                  <Brightness7 />
+                ) : (
+                  <Brightness4 />
+                )}
               </IconButton>
             </Box>
           </Toolbar>

@@ -26,7 +26,10 @@ export function PolicyProvider({ children }) {
 
   useEffect(() => {
     const streamRequest = new GetRequest();
-    const stream = gRPCClients.policy.v1.policyServicePromiseClient.get(streamRequest, {});
+    const stream = gRPCClients.policy.v1.policyServicePromiseClient.get(
+      streamRequest,
+      {}
+    );
 
     // @ts-ignore
     stream.on("data", (response: GetResponse) => {
@@ -42,7 +45,7 @@ export function PolicyProvider({ children }) {
           { variant: Severity.Error, action: SnackbarDismissButton }
         );
         token.logout();
-        navigate("/auth/login");
+        navigate("/auth/sign_in");
       } else {
         enqueueSnackbar(
           `Encountered an error while fetching policy: ${err.message}. Error code: ${err.code}`,

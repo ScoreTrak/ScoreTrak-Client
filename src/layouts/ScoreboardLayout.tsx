@@ -1,18 +1,23 @@
 import { Outlet } from "react-router-dom";
-import { useReport } from "../contexts/ReportContext";
 import React from "react";
 import { Box, Container } from "@material-ui/core";
 import PreCompBanner from "../components/PreCompBanner";
 import { MainNav } from "../components/MainNav";
+import { useReportQuery, useReportSubscription } from "~/lib/queries/reports";
 
 export default function ScoreboardLayout() {
-  const report = useReport();
+  useReportSubscription();
+  const { data: reportData, isLoading: reportIsLoading } = useReportQuery();
   return (
     <>
       <MainNav />
       <Box m={3} display={"flex"}>
         <Container maxWidth={"xl"}>
-          {report && report.Round !== 0 ? <Outlet /> : <PreCompBanner />}
+          {reportData && reportData.Round !== 0 ? (
+            <Outlet />
+          ) : (
+            <PreCompBanner />
+          )}
         </Container>
       </Box>
     </>
