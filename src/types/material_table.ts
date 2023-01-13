@@ -82,3 +82,7 @@ export interface IUser {
   teamId: string | undefined;
   role: UserRole | undefined;
 }
+
+export interface ICheck {
+
+}

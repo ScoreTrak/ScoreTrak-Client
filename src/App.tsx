@@ -1,7 +1,5 @@
 import CssBaseline from "@material-ui/core/CssBaseline";
-import { PolicyProvider } from "./contexts/PolicyContext";
 import {
-  PaletteTypeProvider,
   usePaletteType,
 } from "./contexts/PaletteTypeContext";
 import { Route, Routes } from "react-router-dom";
@@ -10,7 +8,6 @@ import AuthLayout from "./layouts/AuthLayout";
 import SignIn from "./routes/auth/sign_in";
 import Settings from "./routes/settings";
 import Logs from "./routes/logs";
-import { ReportProvider } from "./contexts/ReportContext";
 import Ranks from "./routes/scoreboard/ranks";
 import Details from "./routes/scoreboard/details";
 import Scoreboard from "./routes/scoreboard";
@@ -26,8 +23,15 @@ import {
 } from "@material-ui/core/colors";
 import { SnackbarProvider } from "notistack";
 import { ThemeProvider } from "@material-ui/core/styles";
+import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 
-const queryClient = new QueryClient();
+const queryClient = new QueryClient({
+  defaultOptions: {
+    queries: {
+      staleTime: Infinity,
+    },
+  },
+});
 
 function App() {
   const { paletteType } = usePaletteType();
@@ -48,6 +52,12 @@ function App() {
     [paletteType]
   );
 
+  // @ts-ignore
+  const bruh: (e: MouseEvent<HTMLDivElement, MouseEvent>) => void = (
+    // @ts-ignore
+    e: MouseEvent<HTMLDivElement, MouseEvent>
+  ) => {};
+
   return (
     <>
       <ThemeProvider theme={theme}>
@@ -62,8 +72,6 @@ function App() {
         >
           <CssBaseline />
           <QueryClientProvider client={queryClient}>
-            <PolicyProvider>
-              <ReportProvider>
                 <Routes>
                   <Route path={"/"} element={<ScoreboardLayout />}>
                     <Route index element={<Scoreboard />} />
@@ -83,8 +91,7 @@ function App() {
                     <Route index element={<Settings />} />
                   </Route>
                 </Routes>
-              </ReportProvider>
-            </PolicyProvider>
+            <ReactQueryDevtools initialIsOpen={true} />
           </QueryClientProvider>
         </SnackbarProvider>
       </ThemeProvider>

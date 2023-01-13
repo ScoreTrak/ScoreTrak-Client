@@ -1,6 +1,4 @@
 import { useTitle } from "react-use";
-import { usePolicy } from "../../contexts/PolicyContext";
-import { useReport } from "../../contexts/ReportContext";
 import { CircularProgress, Typography, useTheme } from "@material-ui/core";
 import React, { useState } from "react";
 import { Service } from "../../types/report";
@@ -16,6 +14,8 @@ import TablePagination from "@material-ui/core/TablePagination";
 import FormControlLabel from "@material-ui/core/FormControlLabel";
 import Switch from "@material-ui/core/Switch";
 import { makeStyles } from "@material-ui/core/styles";
+import { usePolicyQuery } from "~/lib/queries/policies";
+import { useReportQuery } from "~/lib/queries/reports";
 
 const useStyles = makeStyles({
   root: {
@@ -30,8 +30,6 @@ const useStyles = makeStyles({
 
 export default function Scoreboard() {
   useTitle("Status");
-  const policy = usePolicy();
-  const report = useReport();
   const theme = useTheme();
   const classes = useStyles();
   const [rowPage, setRowPage] = useState<number>(0);
@@ -39,6 +37,9 @@ export default function Scoreboard() {
   const [dense, setDense] = useState<boolean>(true);
   const [hideAddresses, setHideAddresses] = useState<boolean>(true);
   const [highlightParentTeam, setHighlightParentTeam] = useState<boolean>(true);
+
+  const { data: policyData, isLoading: policyIsLoading } = usePolicyQuery();
+  const { data: reportData, isLoading: reportIsLoading } = useReportQuery();
 
   const toggleHideAddresses = () => {
     setHideAddresses((prevState) => !prevState);
@@ -87,22 +88,24 @@ export default function Scoreboard() {
     Record<string, Service & { Address: string }>
   > = {};
   const dataKeys = new Set<string>();
-  if (report && "Teams" in report) {
-    for (const team in report.Teams) {
-      if (report.Teams.hasOwnProperty(team)) {
-        data[report.Teams[team].Name] = {};
-        for (const host in report.Teams[team].Hosts) {
-          if (report.Teams[team].Hosts.hasOwnProperty(host)) {
+  if (reportData && "Teams" in reportData) {
+    for (const team in reportData.Teams) {
+      if (reportData.Teams.hasOwnProperty(team)) {
+        data[reportData.Teams[team].Name] = {};
+        for (const host in reportData.Teams[team].Hosts) {
+          if (reportData.Teams[team].Hosts.hasOwnProperty(host)) {
             if (
-              Object.keys(report.Teams[team].Hosts[host].Services).length !== 0
+              Object.keys(reportData.Teams[team].Hosts[host].Services)
+                .length !== 0
             ) {
-              for (const service in report.Teams[team].Hosts[host].Services) {
+              for (const service in reportData.Teams[team].Hosts[host]
+                .Services) {
                 if (
-                  report.Teams[team].Hosts[host].Services.hasOwnProperty(
+                  reportData.Teams[team].Hosts[host].Services.hasOwnProperty(
                     service
                   )
                 ) {
-                  const hst = report.Teams[team].Hosts[host];
+                  const hst = reportData.Teams[team].Hosts[host];
                   const sr = hst.Services[service];
                   let keyName = "";
                   if (sr.DisplayName) {
@@ -115,18 +118,18 @@ export default function Scoreboard() {
                     }
                   }
 
-                  data[report.Teams[team].Name][keyName] = {
+                  data[reportData.Teams[team].Name][keyName] = {
                     ...sr,
-                    Address: report.Teams[team].Hosts[host].Address,
+                    Address: reportData.Teams[team].Hosts[host].Address,
                     Pause:
-                      report.Teams[team].Pause ||
+                      reportData.Teams[team].Pause ||
                       (hst.HostGroup != null ? hst.HostGroup.Pause : false) ||
                       hst.Pause ||
                       sr.Pause,
                   };
 
                   dataKeys.add(keyName);
-                  teamNamesSet.add(report.Teams[team].Name);
+                  teamNamesSet.add(reportData.Teams[team].Name);
                 }
               }
             }
@@ -139,12 +142,12 @@ export default function Scoreboard() {
   const teamNames = Array.from(teamNamesSet);
   dataKeysArray.sort();
 
-  const collator = new Intl.Collator([], {numeric: true});
+  const collator = new Intl.Collator([], { numeric: true });
   teamNames.sort((a, b) => collator.compare(a, b));
 
   return (
     <>
-      {report && report.Round !== 0 ? (
+      {reportData && reportData.Round !== 0 ? (
         <TableContainer>
           <Table
             stickyHeader
@@ -246,11 +249,12 @@ export default function Scoreboard() {
                                 const teamId = token.getCurrentTeamID();
 
                                 if (
-                                  report &&
+                                  reportData &&
+                                  !reportIsLoading &&
                                   token.isAValidToken() &&
                                   teamId != null &&
-                                  teamId in report.Teams &&
-                                  report.Teams[teamId].Name === name &&
+                                  teamId in reportData.Teams &&
+                                  reportData.Teams[teamId].Name === name &&
                                   highlightParentTeam
                                 ) {
                                   style = {
@@ -331,9 +335,9 @@ export default function Scoreboard() {
                       }
                       label="Dense padding"
                     />
-                    {policy &&
+                    {policyData &&
                       (token.isAValidToken() ||
-                        policy.showAddresses?.value) && (
+                        policyData.showAddresses?.value) && (
                         <FormControlLabel
                           className={classes.tableNavigator}
                           control={
@@ -378,7 +382,7 @@ export default function Scoreboard() {
         <div>
           <CircularProgress />
 
-          {report?.Round === 0 && (
+          {reportData?.Round === 0 && (
             <div>
               <Typography>Competition have not started yet!</Typography>
               <Typography>

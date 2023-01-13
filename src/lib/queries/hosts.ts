@@ -4,8 +4,8 @@ import {
   GetAllRequest,
   GetByIDRequest,
   Host,
-  StoreRequest,
-  UpdateRequest,
+  StoreRequest, StoreResponse,
+  UpdateRequest, UpdateResponse
 } from "@buf/grpc_web_scoretrak_scoretrakapis/scoretrak/host/v1/host_pb";
 import grpcWeb from "grpc-web";
 import { gRPCClients } from "../../grpc/gRPCClients";
@@ -45,7 +45,7 @@ export function useAddHostMutation() {
     return await gRPCClients.host.v1.hostServicePromiseClient.store(addHostRequest, {});
   };
 
-  return useMutation(addHost, {
+  return useMutation<StoreResponse, grpcWeb.RpcError, StoreRequest, grpcWeb.RpcError>(addHost, {
     onSuccess: () => {
       return queryClient.invalidateQueries(["hosts"]);
     },
@@ -59,7 +59,7 @@ export function useUpdateHostMutation() {
     return await gRPCClients.host.v1.hostServicePromiseClient.update(updateHostRequest, {});
   };
 
-  return useMutation(updateHost, {
+  return useMutation<UpdateResponse, grpcWeb.RpcError, UpdateRequest, grpcWeb.RpcError>(updateHost, {
     onSuccess: () => {
       return queryClient.invalidateQueries(["hosts"]);
     },
@@ -77,7 +77,7 @@ export function useDeleteHostMutation() {
     return deleteHostRequest.getId();
   };
 
-  return useMutation(deleteHost, {
+  return useMutation<UUID | undefined, grpcWeb.RpcError, DeleteRequest>(deleteHost, {
     onSuccess: () => {
       return queryClient.invalidateQueries(["hosts"]);
     },

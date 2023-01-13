@@ -1,7 +1,7 @@
 import { Box, Container, useTheme } from "@material-ui/core";
-import { useReport } from "../../contexts/ReportContext";
 import { ResponsiveBar } from "@nivo/bar";
 import { useTitle } from "react-use";
+import { useReportQuery } from "~/lib/queries/reports";
 
 const barDarkTheme = {
   axis: {
@@ -36,27 +36,27 @@ const barDarkTheme = {
 export default function Ranks() {
   useTitle("Ranks");
   const theme = useTheme();
-  const report = useReport();
+  const {data: reportData} = useReportQuery()
   const data: Record<string, number | string>[] = [];
   const dataKeys = new Set<string>();
 
-  if (report && "Teams" in report) {
-    for (const team in report.Teams) {
-      if (report.Teams.hasOwnProperty(team)) {
+  if (reportData && "Teams" in reportData) {
+    for (const team in reportData.Teams) {
+      if (reportData.Teams.hasOwnProperty(team)) {
         const serviceAggregator: Record<string, number> = {};
-        for (const host in report.Teams[team].Hosts) {
-          if (report.Teams[team].Hosts.hasOwnProperty(host)) {
+        for (const host in reportData.Teams[team].Hosts) {
+          if (reportData.Teams[team].Hosts.hasOwnProperty(host)) {
             if (
-              Object.keys(report.Teams[team].Hosts[host].Services).length !== 0
+              Object.keys(reportData.Teams[team].Hosts[host].Services).length !== 0
             ) {
-              for (const service in report.Teams[team].Hosts[host].Services) {
+              for (const service in reportData.Teams[team].Hosts[host].Services) {
                 if (
-                  report.Teams[team].Hosts[host].Services.hasOwnProperty(
+                  reportData.Teams[team].Hosts[host].Services.hasOwnProperty(
                     service
                   )
                 ) {
-                  const hst = report.Teams[team].Hosts[host];
-                  const sr = report.Teams[team].Hosts[host].Services[service];
+                  const hst = reportData.Teams[team].Hosts[host];
+                  const sr = reportData.Teams[team].Hosts[host].Services[service];
                   let keyName = "";
                   if (sr.DisplayName) {
                     keyName = sr.DisplayName;
@@ -82,7 +82,7 @@ export default function Ranks() {
         if (Object.keys(serviceAggregator).length !== 0) {
           data.push({
             ...serviceAggregator,
-            teamName: report.Teams[team].Name,
+            teamName: reportData.Teams[team].Name,
           });
         }
       }

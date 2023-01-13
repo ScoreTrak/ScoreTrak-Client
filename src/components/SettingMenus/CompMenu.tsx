@@ -1,14 +1,8 @@
 import { makeStyles } from "@material-ui/core/styles";
 import React, { useEffect, useState } from "react";
-import { usePolicy } from "../../contexts/PolicyContext";
 import { useTheme } from "@material-ui/core";
 import { useSnackbar } from "notistack";
-import {
-  DynamicConfig,
-  GetRequest,
-  GetStaticConfigRequest,
-  UpdateRequest as UpdateRequestDynamicConfig,
-} from "@buf/grpc_web_scoretrak_scoretrakapis/scoretrak/config/v1/config_pb";
+import { DynamicConfig } from "@buf/grpc_web_scoretrak_scoretrakapis/scoretrak/config/v1/config_pb";
 import { Severity } from "../../types/types";
 import { SnackbarDismissButton } from "../SnackbarDismissButton";
 import {
@@ -16,16 +10,12 @@ import {
   StringValue,
   UInt64Value,
 } from "google-protobuf/google/protobuf/wrappers_pb";
-import {
-  Policy,
-  UpdateRequest as UpdateRequestPolicy,
-} from "@buf/grpc_web_scoretrak_scoretrakapis/scoretrak/policy/v1/policy_pb";
+import { Policy } from "@buf/grpc_web_scoretrak_scoretrakapis/scoretrak/policy/v1/policy_pb";
 import {
   Competition,
   DeleteCompetitionRequest,
   FetchCoreCompetitionRequest,
   FetchEntireCompetitionRequest,
-  LoadCompetitionRequest,
   ResetScoresRequest,
 } from "@buf/grpc_web_scoretrak_scoretrakapis/scoretrak/competition/v1/competition_pb";
 import { Report } from "@buf/grpc_web_scoretrak_scoretrakapis/scoretrak/report/v1/report_pb";
@@ -61,15 +51,23 @@ import DialogContent from "@material-ui/core/DialogContent";
 import DialogContentText from "@material-ui/core/DialogContentText";
 import CloudUploadIcon from "@material-ui/icons/CloudUpload";
 import DialogActions from "@material-ui/core/DialogActions";
-import CircularProgress from "@material-ui/core/CircularProgress";
 import { gRPCClients } from "../../grpc/gRPCClients";
 import {
   useCoreCompetitionQuery,
-  useDeleteCompetitionMutation, useEntireCompetitionQuery, useLoadCompetitionMutation,
-  useResetCompetitionMutation
+  useDeleteCompetitionMutation,
+  useEntireCompetitionQuery,
+  useLoadCompetitionMutation,
+  useResetCompetitionMutation,
 } from "../../lib/queries/competition";
-import { useDynamicConfigMutation, useDynamicConfigQuery, useStaticConfigQuery } from "../../lib/queries/config";
-import { useUpdatePolicyMutation } from "../../lib/queries/policy";
+import {
+  useDynamicConfigMutation,
+  useDynamicConfigQuery,
+  useStaticConfigQuery,
+} from "../../lib/queries/config";
+import {
+  usePolicyQuery,
+  useUpdatePolicyMutation,
+} from "../../lib/queries/policies";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -102,23 +100,23 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default function CompMenu() {
-  const policy = usePolicy();
   const theme = useTheme();
   const { enqueueSnackbar } = useSnackbar();
   const classes = useStyles();
-  const [staticConfig, setStaticConfig] = useState({})
+  const [staticConfigJson, setStaticConfigJson] = useState({});
 
-  const {data: staticConfigData, isLoading: staticConfigIsLoading} = useStaticConfigQuery()
-  const {data: dynamicConfigData} = useDynamicConfigQuery()
+  const { data: policyData, isLoading: policyIsLoading } = usePolicyQuery();
+  const { data: staticConfigData, isLoading: staticConfigIsLoading } =
+    useStaticConfigQuery();
+  const { data: dynamicConfigData } = useDynamicConfigQuery();
+  const { data: coreCompetitionData } = useCoreCompetitionQuery();
+  const { data: entireCompetitionData } = useEntireCompetitionQuery();
 
-  const {data: coreCompetitionData} = useCoreCompetitionQuery()
-  const {data: entireCompetitionData} = useEntireCompetitionQuery()
-
-  const updateDynamicConfig = useDynamicConfigMutation()
-  const loadCompetition = useLoadCompetitionMutation()
-  const resetCompetition = useResetCompetitionMutation()
-  const deleteCompetition = useDeleteCompetitionMutation()
-  const updatePolicy = useUpdatePolicyMutation()
+  const updateDynamicConfig = useDynamicConfigMutation();
+  const loadCompetition = useLoadCompetitionMutation();
+  const resetCompetition = useResetCompetitionMutation();
+  const deleteCompetition = useDeleteCompetitionMutation();
+  const updatePolicy = useUpdatePolicyMutation();
 
   const [open, setOpen] = useState<string>("");
   const [fileSelected, setFileSelected] = useState({
@@ -137,8 +135,8 @@ export default function CompMenu() {
   const [expanded, setExpanded] = useState("panelConfig");
 
   useEffect(() => {
-    if (staticConfigData) setStaticConfig(JSON.parse(staticConfigData))
-  }, [staticConfigData])
+    if (staticConfigData) setStaticConfigJson(JSON.parse(staticConfigData));
+  }, [staticConfigData]);
 
   const handleChange =
     (panel: string) => (event: React.ChangeEvent<{}>, isExpanded: boolean) => {
@@ -155,9 +153,9 @@ export default function CompMenu() {
 
   const handleSetEnabled = (e: React.ChangeEvent<HTMLInputElement>) => {
     const boolVal = new BoolValue().setValue(e.target.checked);
-    const updatedDynamicConfig = new DynamicConfig().setEnabled(boolVal)
+    const updatedDynamicConfig = new DynamicConfig().setEnabled(boolVal);
 
-    updateDynamicConfig.mutate(updatedDynamicConfig)
+    updateDynamicConfig.mutate(updatedDynamicConfig);
   };
 
   const handleSetRoundDuration = (e: React.SyntheticEvent) => {
@@ -166,12 +164,13 @@ export default function CompMenu() {
       (document.getElementById("round_duration") as HTMLInputElement).value
     );
 
-    const updatedDynamicConfig = new DynamicConfig().setRoundDuration(val)
-    updateDynamicConfig.mutate(updatedDynamicConfig)
+    const updatedDynamicConfig = new DynamicConfig().setRoundDuration(val);
+    updatedDynamicConfig.setEnabled(dynamicConfigData?.getEnabled());
+    updateDynamicConfig.mutate(updatedDynamicConfig);
   };
 
   const handleSetPolicy = (policy: Policy) => {
-    updatePolicy.mutate(policy)
+    updatePolicy.mutate(policy);
   };
 
   const handleUpload = () => {
@@ -394,8 +393,7 @@ export default function CompMenu() {
           comp.setPropertiesList(properties);
         }
 
-
-        loadCompetition.mutate(comp)
+        loadCompetition.mutate(comp);
       };
       reader.onerror = function (evt) {
         enqueueSnackbar(`Failed to open the file`, {
@@ -408,12 +406,12 @@ export default function CompMenu() {
   };
 
   const handleResetCompetition = () => {
-    resetCompetition.mutate(new ResetScoresRequest())
+    resetCompetition.mutate(new ResetScoresRequest());
     handleClose();
   };
 
   const handleDeleteCompetition = () => {
-    deleteCompetition.mutate(new DeleteCompetitionRequest())
+    deleteCompetition.mutate(new DeleteCompetitionRequest());
     handleClose();
   };
 
@@ -426,454 +424,447 @@ export default function CompMenu() {
 
   return (
     <>
-          <Accordion
-            expanded={expanded === "panelConfig"}
-            onChange={handleChange("panelConfig")}
-          >
-            <AccordionSummary
-              expandIcon={<ExpandMoreIcon />}
-              aria-controls="panelConfigbh-content"
-              id="panelConfigbh-header"
-            >
-              <Typography className={classes.heading}>
-                ScoreTrak Settings
-              </Typography>
-              <Typography className={classes.secondaryHeading}>
-                Following are the dynamically configurable settings for scoring
-                masters
-              </Typography>
-            </AccordionSummary>
-            <AccordionDetails>
-              <Box p={1} m={1} bgcolor="background.paper">
-                <FormControlLabel
-                  control={
-                    <Switch
-                      checked={dynamicConfigData?.getEnabled()?.getValue()}
-                      onChange={handleSetEnabled}
-                    />
-                  }
-                  label="Enable Competition?"
+      <Accordion
+        expanded={expanded === "panelConfig"}
+        onChange={handleChange("panelConfig")}
+      >
+        <AccordionSummary
+          expandIcon={<ExpandMoreIcon />}
+          aria-controls="panelConfigbh-content"
+          id="panelConfigbh-header"
+        >
+          <Typography className={classes.heading}>
+            ScoreTrak Settings
+          </Typography>
+          <Typography className={classes.secondaryHeading}>
+            Following are the dynamically configurable settings for scoring
+            masters
+          </Typography>
+        </AccordionSummary>
+        <AccordionDetails>
+          <Box p={1} m={1} bgcolor="background.paper">
+            <FormControlLabel
+              control={
+                <Switch
+                  checked={dynamicConfigData?.getEnabled()?.getValue() ?? false}
+                  onChange={handleSetEnabled}
                 />
+              }
+              label="Enable Competition?"
+            />
 
-                <br />
+            <br />
 
-                <form onSubmit={handleSetRoundDuration}>
-                  <FormControl>
-                    <InputLabel htmlFor="round_duration">
-                      Round Duration (Current:{" "}
-                      {dynamicConfigData?.getRoundDuration()})
-                    </InputLabel>
-                    <Input
-                      id="round_duration"
-                      aria-describedby="my-helper-text"
-                      type="number"
-                      inputProps={{ min: "20" }}
-                    />
-                    <FormHelperText id="my-helper-text">
-                      Number of seconds it takes for one round to elapse.
-                    </FormHelperText>
-                    <Button type="submit" variant="outlined" color="primary">
-                      Set
-                    </Button>
-                  </FormControl>
-                </form>
-              </Box>
-            </AccordionDetails>
-          </Accordion>
-
-          {policy &&
-            <Accordion
-              expanded={expanded === "panelPolicy"}
-              onChange={handleChange("panelPolicy")}
-            >
-              <AccordionSummary
-                expandIcon={<ExpandMoreIcon />}
-                aria-controls="panelPolicybh-content"
-                id="panelPolicybh-header"
-              >
-                <Typography className={classes.heading}>Policy</Typography>
-                <Typography className={classes.secondaryHeading}>
-                  Configure policies for allowing/disallowing resources
-                </Typography>
-              </AccordionSummary>
-              <AccordionDetails>
-                <Box p={1} m={1} bgcolor="background.paper">
-                  <FormControlLabel
-                    control={
-                      <Switch
-                        checked={policy.allowUnauthenticatedUsers?.value}
-                        onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
-                          handleSetPolicy(
-                            new Policy().setAllowUnauthenticatedUsers(
-                              new BoolValue().setValue(e.target.checked)
-                            )
-                          );
-                        }}
-                        value="allow_unauthenticated_users"
-                      />
-                    }
-                    label="Allow unauthenticated users to see scoreboard"
-                  />
-                  <br />
-                  <FormControlLabel
-                    control={
-                      <Switch
-                        checked={
-                          policy.allowChangingUsernamesAndPasswords?.value
-                        }
-                        onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
-                          handleSetPolicy(
-                            new Policy().setAllowChangingUsernamesAndPasswords(
-                              new BoolValue().setValue(e.target.checked)
-                            )
-                          );
-                        }}
-                        value="allow_changing_usernames_and_passwords"
-                      />
-                    }
-                    label="Allow users to change usernames and passwords"
-                  />
-                  <br />
-                  <FormControlLabel
-                    control={
-                      <Switch
-                        checked={policy.showPoints?.value}
-                        onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
-                          handleSetPolicy(
-                            new Policy().setShowPoints(
-                              new BoolValue().setValue(e.target.checked)
-                            )
-                          );
-                        }}
-                        value="allow_to_see_points"
-                      />
-                    }
-                    label="Allow users to see other teams' points"
-                  />
-                  <br />
-                  <FormControlLabel
-                    control={
-                      <Switch
-                        checked={policy.showAddresses?.value}
-                        onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
-                          handleSetPolicy(
-                            new Policy().setShowAddresses(
-                              new BoolValue().setValue(e.target.checked)
-                            )
-                          );
-                        }}
-                        value="show_addresses"
-                      />
-                    }
-                    label="Allow users to see other teams' addresses"
-                  />
-                  <br />
-                  <FormControlLabel
-                    control={
-                      <Switch
-                        checked={
-                          policy.allowRedTeamLaunchingServiceTestsManually
-                            ?.value
-                        }
-                        onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
-                          handleSetPolicy(
-                            new Policy().setAllowRedTeamLaunchingServiceTestsManually(
-                              new BoolValue().setValue(e.target.checked)
-                            )
-                          );
-                        }}
-                        value="allow_red_team_launching_service_tests_manually"
-                      />
-                    }
-                    label="Allow Red Team to manually launch service tests(Only applies to a parrent team)"
-                  />
-                </Box>
-              </AccordionDetails>
-            </Accordion>
-          }
-
-          <Accordion
-            expanded={expanded === "panelStaticConfig"}
-            onChange={handleChange("panelStaticConfig")}
-          >
-            <AccordionSummary
-              expandIcon={<ExpandMoreIcon />}
-              aria-controls="panelStaticConfigbh-content"
-              id="panelStaticConfigbh-header"
-            >
-              <Typography className={classes.heading}>
-                Static ScoreTrak Config
-              </Typography>
-              <Typography className={classes.secondaryHeading}>
-                This is a JSON representation of the Static Config for Scoring
-                Master
-              </Typography>
-            </AccordionSummary>
-            <AccordionDetails>
-              <Box
-                component="span"
-                display="block"
-                p={1}
-                m={1}
-                bgcolor="background.paper"
-              >
-                <ReactJson
-                  src={staticConfig}
-                  style={{ backgroundColor: "inherit" }}
-                  onDelete={false}
-                  onEdit={false}
-                  displayDataTypes={false}
-                  displayObjectSize={false}
-                  theme={
-                    theme.palette.type === "dark"
-                      ? "monokai"
-                      : "bright:inverted"
-                  }
+            <form onSubmit={handleSetRoundDuration}>
+              <FormControl>
+                <InputLabel htmlFor="round_duration">
+                  Round Duration (Current:{" "}
+                  {dynamicConfigData?.getRoundDuration()})
+                </InputLabel>
+                <Input
+                  id="round_duration"
+                  aria-describedby="my-helper-text"
+                  type="number"
+                  inputProps={{ min: "20" }}
                 />
-              </Box>
-            </AccordionDetails>
-          </Accordion>
-          <Accordion
-            expanded={expanded === "panelImportExport"}
-            onChange={handleChange("panelImportExport")}
+                <FormHelperText id="my-helper-text">
+                  Number of seconds it takes for one round to elapse.
+                </FormHelperText>
+                <Button type="submit" variant="outlined" color="primary">
+                  Set
+                </Button>
+              </FormControl>
+            </form>
+          </Box>
+        </AccordionDetails>
+      </Accordion>
+
+      {policyData && (
+        <Accordion
+          expanded={expanded === "panelPolicy"}
+          onChange={handleChange("panelPolicy")}
+        >
+          <AccordionSummary
+            expandIcon={<ExpandMoreIcon />}
+            aria-controls="panelPolicybh-content"
+            id="panelPolicybh-header"
           >
-            <AccordionSummary
-              expandIcon={<ExpandMoreIcon />}
-              aria-controls="panelImportExportbh-content"
-              id="panelImportExportbh-header"
-            >
-              <Typography className={classes.heading}>
-                Export/Import Competition
-              </Typography>
-              <Typography className={classes.secondaryHeading}>
-                Export or Import the competition using a JSON representation of
-                the competition
-              </Typography>
-            </AccordionSummary>
-            <AccordionDetails>
-              <Box
-                width="100%"
-                p={1}
-                m={1}
-                bgcolor="background.paper"
-                textAlign="center"
-              >
-                <Button
-                  variant="contained"
-                  color="primary"
-                  className={classes.button}
-                  startIcon={<SaveIcon />}
-                  onClick={() => {
-                    gRPCClients.competition.v1.competitionServicePromiseClient
-                      .fetchCoreCompetition(
-                        new FetchCoreCompetitionRequest(),
-                        {}
-                      )
-                      .then(
-                        (resp) => {
-                          saveJSONtoFile(
-                            resp.getCompetition()?.toObject(),
-                            "core-competition.json"
-                          );
-                        },
-                        (err: any) => {
-                          enqueueSnackbar(
-                            `Failed to fetch competition: ${err.message}. Error code: ${err.code}`,
-                            {
-                              variant: Severity.Error,
-                              action: SnackbarDismissButton,
-                            }
-                          );
+            <Typography className={classes.heading}>Policy</Typography>
+            <Typography className={classes.secondaryHeading}>
+              Configure policies for allowing/disallowing resources
+            </Typography>
+          </AccordionSummary>
+          <AccordionDetails>
+            <Box p={1} m={1} bgcolor="background.paper">
+              <FormControlLabel
+                control={
+                  <Switch
+                    checked={policyData.allowUnauthenticatedUsers?.value}
+                    onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
+                      handleSetPolicy(
+                        new Policy().setAllowUnauthenticatedUsers(
+                          new BoolValue().setValue(e.target.checked)
+                        )
+                      );
+                    }}
+                    value="allow_unauthenticated_users"
+                  />
+                }
+                label="Allow unauthenticated users to see scoreboard"
+              />
+              <br />
+              <FormControlLabel
+                control={
+                  <Switch
+                    checked={
+                      policyData.allowChangingUsernamesAndPasswords?.value
+                    }
+                    onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
+                      handleSetPolicy(
+                        new Policy().setAllowChangingUsernamesAndPasswords(
+                          new BoolValue().setValue(e.target.checked)
+                        )
+                      );
+                    }}
+                    value="allow_changing_usernames_and_passwords"
+                  />
+                }
+                label="Allow users to change usernames and passwords"
+              />
+              <br />
+              <FormControlLabel
+                control={
+                  <Switch
+                    checked={policyData.showPoints?.value}
+                    onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
+                      handleSetPolicy(
+                        new Policy().setShowPoints(
+                          new BoolValue().setValue(e.target.checked)
+                        )
+                      );
+                    }}
+                    value="allow_to_see_points"
+                  />
+                }
+                label="Allow users to see other teams' points"
+              />
+              <br />
+              <FormControlLabel
+                control={
+                  <Switch
+                    checked={policyData.showAddresses?.value}
+                    onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
+                      handleSetPolicy(
+                        new Policy().setShowAddresses(
+                          new BoolValue().setValue(e.target.checked)
+                        )
+                      );
+                    }}
+                    value="show_addresses"
+                  />
+                }
+                label="Allow users to see other teams' addresses"
+              />
+              <br />
+              <FormControlLabel
+                control={
+                  <Switch
+                    checked={
+                      policyData.allowRedTeamLaunchingServiceTestsManually
+                        ?.value
+                    }
+                    onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
+                      handleSetPolicy(
+                        new Policy().setAllowRedTeamLaunchingServiceTestsManually(
+                          new BoolValue().setValue(e.target.checked)
+                        )
+                      );
+                    }}
+                    value="allow_red_team_launching_service_tests_manually"
+                  />
+                }
+                label="Allow Red Team to manually launch service tests(Only applies to a parrent team)"
+              />
+            </Box>
+          </AccordionDetails>
+        </Accordion>
+      )}
+
+      <Accordion
+        expanded={expanded === "panelStaticConfig"}
+        onChange={handleChange("panelStaticConfig")}
+      >
+        <AccordionSummary
+          expandIcon={<ExpandMoreIcon />}
+          aria-controls="panelStaticConfigbh-content"
+          id="panelStaticConfigbh-header"
+        >
+          <Typography className={classes.heading}>
+            Static ScoreTrak Config
+          </Typography>
+          <Typography className={classes.secondaryHeading}>
+            This is a JSON representation of the Static Config for Scoring
+            Master
+          </Typography>
+        </AccordionSummary>
+        <AccordionDetails>
+          <Box
+            component="span"
+            display="block"
+            p={1}
+            m={1}
+            bgcolor="background.paper"
+          >
+            <ReactJson
+              src={staticConfigJson}
+              style={{ backgroundColor: "inherit" }}
+              onDelete={false}
+              onEdit={false}
+              displayDataTypes={false}
+              displayObjectSize={false}
+              theme={
+                theme.palette.type === "dark" ? "monokai" : "bright:inverted"
+              }
+            />
+          </Box>
+        </AccordionDetails>
+      </Accordion>
+      <Accordion
+        expanded={expanded === "panelImportExport"}
+        onChange={handleChange("panelImportExport")}
+      >
+        <AccordionSummary
+          expandIcon={<ExpandMoreIcon />}
+          aria-controls="panelImportExportbh-content"
+          id="panelImportExportbh-header"
+        >
+          <Typography className={classes.heading}>
+            Export/Import Competition
+          </Typography>
+          <Typography className={classes.secondaryHeading}>
+            Export or Import the competition using a JSON representation of the
+            competition
+          </Typography>
+        </AccordionSummary>
+        <AccordionDetails>
+          <Box
+            width="100%"
+            p={1}
+            m={1}
+            bgcolor="background.paper"
+            textAlign="center"
+          >
+            <Button
+              variant="contained"
+              color="primary"
+              className={classes.button}
+              startIcon={<SaveIcon />}
+              onClick={() => {
+                gRPCClients.competition.v1.competitionServicePromiseClient
+                  .fetchCoreCompetition(new FetchCoreCompetitionRequest(), {})
+                  .then(
+                    (resp) => {
+                      saveJSONtoFile(
+                        resp.getCompetition()?.toObject(),
+                        "core-competition.json"
+                      );
+                    },
+                    (err: any) => {
+                      enqueueSnackbar(
+                        `Failed to fetch competition: ${err.message}. Error code: ${err.code}`,
+                        {
+                          variant: Severity.Error,
+                          action: SnackbarDismissButton,
                         }
                       );
-                  }}
+                    }
+                  );
+              }}
+            >
+              Export Core Competition
+            </Button>
+            <Button
+              variant="outlined"
+              color="primary"
+              onClick={handleClickOpen("upload")}
+            >
+              Upload Competition
+            </Button>
+            <Dialog
+              open={open === "upload"}
+              keepMounted
+              onClose={handleClose}
+              aria-labelledby="alert-dialog-slide-title"
+              aria-describedby="alert-dialog-slide-description"
+            >
+              <DialogContent>
+                <DialogContentText
+                  id="alert-dialog-slide-description"
+                  align="center"
                 >
-                  Export Core Competition
-                </Button>
-                <Button
-                  variant="outlined"
-                  color="primary"
-                  onClick={handleClickOpen("upload")}
-                >
-                  Upload Competition
-                </Button>
-                <Dialog
-                  open={open === "upload"}
-                  keepMounted
-                  onClose={handleClose}
-                  aria-labelledby="alert-dialog-slide-title"
-                  aria-describedby="alert-dialog-slide-description"
-                >
-                  <DialogContent>
-                    <DialogContentText
-                      id="alert-dialog-slide-description"
-                      align="center"
+                  <input
+                    className={classes.input}
+                    id="file"
+                    type="file"
+                    onChange={handleSetFileSelected}
+                  />
+                  <label htmlFor="file">
+                    <Button
+                      variant="contained"
+                      color="primary"
+                      className={classes.button}
+                      component="span"
+                      startIcon={<CloudUploadIcon />}
                     >
-                      <input
-                        className={classes.input}
-                        id="file"
-                        type="file"
-                        onChange={handleSetFileSelected}
-                      />
-                      <label htmlFor="file">
-                        <Button
-                          variant="contained"
-                          color="primary"
-                          className={classes.button}
-                          component="span"
-                          startIcon={<CloudUploadIcon />}
-                        >
-                          Load Competition
-                        </Button>
-                      </label>
-                    </DialogContentText>
-                    {fileSelected.selected && (
-                      <Typography align="center">
-                        {fileSelected.name}
-                      </Typography>
-                    )}
-                  </DialogContent>
-                  {fileSelected && (
-                    <DialogActions>
-                      <Button onClick={handleClose} color="primary">
-                        Cancel
-                      </Button>
-                      <Button onClick={handleUpload} color="primary">
-                        Upload
-                      </Button>
-                    </DialogActions>
-                  )}
-                </Dialog>
-                <Button
-                  variant="contained"
-                  color="primary"
-                  className={classes.button}
-                  startIcon={<SaveIcon />}
-                  onClick={() => {
-                    gRPCClients.competition.v1.competitionServicePromiseClient
-                      .fetchEntireCompetition(
-                        new FetchEntireCompetitionRequest(),
-                        {}
-                      )
-                      .then(
-                        (resp) => {
-                          saveJSONtoFile(
-                            resp.getCompetition()?.toObject(),
-                            "entire-competition.json"
-                          );
-                        },
-                        (err: any) => {
-                          enqueueSnackbar(
-                            `Failed to fetch competition: ${err.message}. Error code: ${err.code}`,
-                            {
-                              variant: Severity.Error,
-                              action: SnackbarDismissButton,
-                            }
-                          );
+                      Load Competition
+                    </Button>
+                  </label>
+                </DialogContentText>
+                {fileSelected.selected && (
+                  <Typography align="center">{fileSelected.name}</Typography>
+                )}
+              </DialogContent>
+              {fileSelected && (
+                <DialogActions>
+                  <Button onClick={handleClose} color="primary">
+                    Cancel
+                  </Button>
+                  <Button onClick={handleUpload} color="primary">
+                    Upload
+                  </Button>
+                </DialogActions>
+              )}
+            </Dialog>
+            <Button
+              variant="contained"
+              color="primary"
+              className={classes.button}
+              startIcon={<SaveIcon />}
+              onClick={() => {
+                gRPCClients.competition.v1.competitionServicePromiseClient
+                  .fetchEntireCompetition(
+                    new FetchEntireCompetitionRequest(),
+                    {}
+                  )
+                  .then(
+                    (resp) => {
+                      saveJSONtoFile(
+                        resp.getCompetition()?.toObject(),
+                        "entire-competition.json"
+                      );
+                    },
+                    (err: any) => {
+                      enqueueSnackbar(
+                        `Failed to fetch competition: ${err.message}. Error code: ${err.code}`,
+                        {
+                          variant: Severity.Error,
+                          action: SnackbarDismissButton,
                         }
                       );
-                  }}
-                >
-                  Export Entire Competition
-                </Button>
-              </Box>
-            </AccordionDetails>
-          </Accordion>
-
-          <Accordion
-            expanded={expanded === "panelDeleteReset"}
-            onChange={handleChange("panelDeleteReset")}
-          >
-            <AccordionSummary
-              expandIcon={<ExpandMoreIcon />}
-              aria-controls="panelDeleteReseth-content"
-              id="panelDeleteResetbh-header"
+                    }
+                  );
+              }}
             >
-              <Typography className={classes.heading}>
-                Reset/Delete Competition
-              </Typography>
-              <Typography className={classes.secondaryHeading}>
-                Reset: Resets Scores, and Rounds. Delete: Removes everything
-              </Typography>
-            </AccordionSummary>
-            <AccordionDetails>
-              <Box
-                width="100%"
-                p={1}
-                m={1}
-                bgcolor="background.paper"
-                textAlign="center"
-              >
-                <Button
-                  variant="outlined"
-                  style={{ color: "red", border: "1px solid red" }}
-                  onClick={handleClickOpen("reset")}
-                  className={classes.button}
+              Export Entire Competition
+            </Button>
+          </Box>
+        </AccordionDetails>
+      </Accordion>
+
+      <Accordion
+        expanded={expanded === "panelDeleteReset"}
+        onChange={handleChange("panelDeleteReset")}
+      >
+        <AccordionSummary
+          expandIcon={<ExpandMoreIcon />}
+          aria-controls="panelDeleteReseth-content"
+          id="panelDeleteResetbh-header"
+        >
+          <Typography className={classes.heading}>
+            Reset/Delete Competition
+          </Typography>
+          <Typography className={classes.secondaryHeading}>
+            Reset: Resets Scores, and Rounds. Delete: Removes everything
+          </Typography>
+        </AccordionSummary>
+        <AccordionDetails>
+          <Box
+            width="100%"
+            p={1}
+            m={1}
+            bgcolor="background.paper"
+            textAlign="center"
+          >
+            <Button
+              variant="outlined"
+              style={{ color: "red", border: "1px solid red" }}
+              onClick={handleClickOpen("reset")}
+              className={classes.button}
+            >
+              Reset Competition
+            </Button>
+            <Dialog
+              open={open === "reset"}
+              keepMounted
+              onClose={handleClose}
+              aria-labelledby="alert-dialog-slide-title"
+              aria-describedby="alert-dialog-slide-description"
+            >
+              <DialogContent>
+                <DialogContentText
+                  id="alert-dialog-slide-description"
+                  align="center"
                 >
+                  Are you sure?
+                </DialogContentText>
+              </DialogContent>
+
+              <DialogActions>
+                <Button onClick={handleClose} color="primary">
+                  Cancel
+                </Button>
+                <Button onClick={handleResetCompetition} color="primary">
                   Reset Competition
                 </Button>
-                <Dialog
-                  open={open === "reset"}
-                  keepMounted
-                  onClose={handleClose}
-                  aria-labelledby="alert-dialog-slide-title"
-                  aria-describedby="alert-dialog-slide-description"
-                >
-                  <DialogContent>
-                    <DialogContentText
-                      id="alert-dialog-slide-description"
-                      align="center"
-                    >
-                      Are you sure?
-                    </DialogContentText>
-                  </DialogContent>
+              </DialogActions>
+            </Dialog>
 
-                  <DialogActions>
-                    <Button onClick={handleClose} color="primary">
-                      Cancel
-                    </Button>
-                    <Button onClick={handleResetCompetition} color="primary">
-                      Reset Competition
-                    </Button>
-                  </DialogActions>
-                </Dialog>
-
-                <Button
-                  variant="outlined"
-                  style={{ color: "red", border: "1px solid red" }}
-                  onClick={handleClickOpen("delete")}
-                  className={classes.button}
+            <Button
+              variant="outlined"
+              style={{ color: "red", border: "1px solid red" }}
+              onClick={handleClickOpen("delete")}
+              className={classes.button}
+            >
+              Delete Competition
+            </Button>
+            <Dialog
+              open={open === "delete"}
+              keepMounted
+              onClose={handleClose}
+              aria-labelledby="alert-dialog-slide-title"
+              aria-describedby="alert-dialog-slide-description"
+            >
+              <DialogContent>
+                <DialogContentText
+                  id="alert-dialog-slide-description"
+                  align="center"
                 >
+                  Are you sure?
+                </DialogContentText>
+              </DialogContent>
+
+              <DialogActions>
+                <Button onClick={handleClose} color="primary">
+                  Cancel
+                </Button>
+                <Button onClick={handleDeleteCompetition} color="primary">
                   Delete Competition
                 </Button>
-                <Dialog
-                  open={open === "delete"}
-                  keepMounted
-                  onClose={handleClose}
-                  aria-labelledby="alert-dialog-slide-title"
-                  aria-describedby="alert-dialog-slide-description"
-                >
-                  <DialogContent>
-                    <DialogContentText
-                      id="alert-dialog-slide-description"
-                      align="center"
-                    >
-                      Are you sure?
-                    </DialogContentText>
-                  </DialogContent>
-
-                  <DialogActions>
-                    <Button onClick={handleClose} color="primary">
-                      Cancel
-                    </Button>
-                    <Button onClick={handleDeleteCompetition} color="primary">
-                      Delete Competition
-                    </Button>
-                  </DialogActions>
-                </Dialog>
-              </Box>
-            </AccordionDetails>
-          </Accordion>
+              </DialogActions>
+            </Dialog>
+          </Box>
+        </AccordionDetails>
+      </Accordion>
     </>
-  )
+  );
 }

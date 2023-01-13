@@ -20,7 +20,7 @@ export function useServiceGroupsQuery() {
     return serviceGroupsResponse.getServiceGroupsList();
   };
 
-  return useQuery<ServiceGroup[], grpcWeb.RpcError>(
+  return useQuery<ServiceGroup[], grpcWeb.RpcError, ServiceGroup[]>(
     ["service-groups"],
     fetchServiceGroups
   );
@@ -39,7 +39,7 @@ export function useServiceGroupQuery(serviceGroupId: string) {
     return serviceGroupResponse.getServiceGroup();
   };
 
-  return useQuery<ServiceGroup | undefined, grpcWeb.RpcError>(
+  return useQuery<ServiceGroup | undefined, grpcWeb.RpcError, ServiceGroup | undefined>(
     ["service-groups", serviceGroupId],
     () => fetchServiceGroupById(serviceGroupId)
   );
