@@ -20,7 +20,7 @@ export function useHostGroupsQuery() {
     return hostGroupsResponse.getHostGroupsList();
   };
 
-  return useQuery<HostGroup[], grpcWeb.RpcError>(
+  return useQuery<HostGroup[], grpcWeb.RpcError, HostGroup[]>(
     ["host-groups"],
     fetchHostGroups
   );
@@ -39,7 +39,7 @@ export function useHostGroupQuery(hostGroupId: string) {
     return hostGroupResponse.getHostGroup();
   };
 
-  return useQuery<HostGroup | undefined, grpcWeb.RpcError>(
+  return useQuery<HostGroup | undefined, grpcWeb.RpcError, HostGroup | undefined>(
     ["host-groups", hostGroupId],
     () => fetchHostGroupById(hostGroupId)
   );

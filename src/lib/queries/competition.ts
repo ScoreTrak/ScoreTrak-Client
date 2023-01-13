@@ -22,7 +22,7 @@ export function useCoreCompetitionQuery() {
     return await gRPCClients.competition.v1.competitionServicePromiseClient.fetchCoreCompetition(new FetchCoreCompetitionRequest(), {})
   }
 
-  return useQuery<FetchCoreCompetitionResponse, grpcWeb.RpcError, FetchCoreCompetitionRequest>(["competition", "core"], fetchCoreCompetition)
+  return useQuery<FetchCoreCompetitionResponse, grpcWeb.RpcError, FetchCoreCompetitionResponse>(["competition", "core"], fetchCoreCompetition)
 }
 
 export function useEntireCompetitionQuery() {
@@ -30,7 +30,7 @@ export function useEntireCompetitionQuery() {
     return await gRPCClients.competition.v1.competitionServicePromiseClient.fetchEntireCompetition(new FetchEntireCompetitionRequest(), {})
   }
 
-  return useQuery<FetchEntireCompetitionResponse, grpcWeb.RpcError, FetchEntireCompetitionRequest>(["competition", "entire"], fetchEntireCompetition)
+  return useQuery<FetchEntireCompetitionResponse, grpcWeb.RpcError, FetchEntireCompetitionResponse>(["competition", "entire"], fetchEntireCompetition)
 }
 
 export function useLoadCompetitionMutation() {

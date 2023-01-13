@@ -20,7 +20,7 @@ export function useServicesQuery() {
     return serviceResponse.getServicesList();
   };
 
-  return useQuery<Service[], grpcWeb.RpcError>(["services"], fetchServices);
+  return useQuery<Service[], grpcWeb.RpcError, Service[]>(["services"], fetchServices);
 }
 
 export function useServiceQuery(serviceId: string) {
@@ -36,7 +36,7 @@ export function useServiceQuery(serviceId: string) {
     return serviceResponse.getService();
   };
 
-  return useQuery<Service | undefined, grpcWeb.RpcError>(
+  return useQuery<Service | undefined, grpcWeb.RpcError, Service | undefined>(
     ["services", serviceId],
     () => fetchServiceById(serviceId)
   );

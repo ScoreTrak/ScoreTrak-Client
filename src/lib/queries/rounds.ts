@@ -16,7 +16,7 @@ export function useRoundsQuery() {
     return roundsResponse.getRoundsList();
   }
 
-  return useQuery<Round[], grpcWeb.RpcError>(["rounds"], fetchRounds);
+  return useQuery<Round[], grpcWeb.RpcError, Round[]>(["rounds"], fetchRounds);
 }
 
 export function useRoundQuery(roundId: string) {
@@ -26,7 +26,7 @@ export function useRoundQuery(roundId: string) {
     return roundResponse.getRoundsList();
   }
 
-  return useQuery<Round[], grpcWeb.RpcError>(["rounds"], () =>
+  return useQuery<Round[], grpcWeb.RpcError, Round[]>(["rounds"], () =>
     fetchRoundById(roundId)
   );
 }
