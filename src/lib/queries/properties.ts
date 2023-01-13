@@ -20,7 +20,7 @@ export function usePropertiesQuery() {
     return propertiesResponse.getPropertiesList();
   };
 
-  return useQuery<Property[], grpcWeb.RpcError>(
+  return useQuery<Property[], grpcWeb.RpcError, Property[], ["properties"]>(
     ["properties"],
     fetchProperties
   );
@@ -37,7 +37,7 @@ export function usePropertiesByServiceIdQuery(serviceId: string) {
     return propertiesResponse.getPropertiesList();
   };
 
-  return useQuery<Property[], grpcWeb.RpcError>(["properties", serviceId], () =>
+  return useQuery<Property[], grpcWeb.RpcError, Property[], ["properties"]>(["properties", serviceId], () =>
     fetchPropertiesByServiceId(serviceId)
   );
 }

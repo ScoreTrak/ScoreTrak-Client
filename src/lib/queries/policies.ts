@@ -53,6 +53,7 @@ export function usePolicySubscription() {
           `You are not authorized to perform this action. Please Log in`,
           { variant: Severity.Error, action: SnackbarDismissButton }
         );
+        // May want to export this logic outside of the grpc streaming/web socket.
         token.logout();
         navigate("/auth/sign_in");
       } else if (err.code === 14) {

@@ -1,4 +1,4 @@
-import { useForm } from "react-hook-form";
+import { SubmitHandler, useForm } from "react-hook-form";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { LoginRequest } from "@buf/grpc_web_scoretrak_scoretrakapis/scoretrak/auth/v1/auth_pb";
@@ -45,6 +45,11 @@ type LoginInfo = {
   password: string;
 };
 
+interface ILoginFormInput {
+  username: String;
+  password: String;
+}
+
 type LoginAlertType = {
   message: string;
   severity: Severity | undefined;
@@ -59,7 +64,9 @@ export default function Sign_in() {
     severity: undefined,
   });
   const navigate = useNavigate();
-  const handleLogin = (data: LoginInfo) => {
+
+  const handleLoginFormSubmit: SubmitHandler<ILoginFormInput> = data => {
+    const { username, password } = data
     setAlert({ severity: undefined, message: "" });
     setLoading(true);
     const loginRequest = new LoginRequest();
@@ -78,7 +85,8 @@ export default function Sign_in() {
         setLoading(false);
       }
     );
-  };
+
+  }
 
   return (
     <Container component="main" maxWidth="xs">
@@ -94,7 +102,7 @@ export default function Sign_in() {
         <Typography component="h1" variant="h5">
           Sign in
         </Typography>
-        <form className={classes.form} onSubmit={handleSubmit(handleLogin)}>
+        <form className={classes.form} onSubmit={handleSubmit(handleLoginFormSubmit)}>
           <TextField
             variant="outlined"
             margin="normal"

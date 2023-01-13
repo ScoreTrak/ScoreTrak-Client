@@ -12,8 +12,10 @@ import {
   GetResponse,
   GetUnaryRequest,
 } from "@buf/grpc_web_scoretrak_scoretrakapis/scoretrak/report/v1/report_pb";
+import { QueryKey } from "@tanstack/react-query-devtools/build/lib/styledComponents";
 
 export function useReportQuery() {
+  const queryClient = useQueryClient()
   const fetchReport = async () => {
     const reportResponse =
       await gRPCClients.report.v1.reportServicePromiseClient.getUnary(
@@ -26,7 +28,11 @@ export function useReportQuery() {
     return JSON.parse(<string>cache) as SimpleReport;
   };
 
-  return useQuery<SimpleReport, grpcWeb.RpcError>(["report"], fetchReport);
+  return useQuery<SimpleReport, grpcWeb.RpcError, SimpleReport, ["report"]>(["report"], fetchReport, {
+    onSuccess: data => {
+      return queryClient.invalidateQueries(["checks"])
+    }
+  });
 }
 
 export function useReportSubscription() {
@@ -52,6 +58,7 @@ export function useReportSubscription() {
 
     stream.on("error", (err: grpcWeb.RpcError) => {
       if (err.code === 7 || err.code === 16) {
+        // May want to export this logic outside the grpc streaming/web socket.
         token.logout();
         navigate("/auth/sign_in");
       } else if (err.code === 14) {

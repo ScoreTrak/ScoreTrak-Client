@@ -22,7 +22,7 @@ export function useDynamicConfigQuery() {
     return dynamicConfigResponse.getDynamicConfig();
   };
 
-  return useQuery<DynamicConfig | undefined, grpcWeb.RpcError>(
+  return useQuery<DynamicConfig | undefined, grpcWeb.RpcError, DynamicConfig | undefined, ["config", "dynamic"]>(
     ["config", "dynamic"],
     fetchDynamicConfig
   );
@@ -38,7 +38,7 @@ export function useStaticConfigQuery() {
     return staticConfigResponse.getStaticConfig();
   };
 
-  return useQuery<string, grpcWeb.RpcError>(
+  return useQuery<string, grpcWeb.RpcError, string, ["config", "static"]>(
     ["config", "static"],
     fetchStaticConfig
   );

@@ -20,7 +20,7 @@ export function useTeamsQuery() {
     return teamsResponse.getTeamsList();
   };
 
-  return useQuery<Team[], grpcWeb.RpcError>(["teams"], fetchTeams);
+  return useQuery<Team[], grpcWeb.RpcError, Team[], ["teams"]>(["teams"], fetchTeams);
 }
 
 export function useTeamQuery(teamId: string) {
@@ -33,7 +33,7 @@ export function useTeamQuery(teamId: string) {
     return teamResponse.getTeam();
   };
 
-  return useQuery<Team | undefined, grpcWeb.RpcError>(["teams", teamId], () =>
+  return useQuery<Team | undefined, grpcWeb.RpcError, Team | undefined, ["teams"]>(["teams", teamId], () =>
     fetchTeamById(teamId)
   );
 }

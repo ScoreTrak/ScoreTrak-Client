@@ -1,7 +1,5 @@
 import CssBaseline from "@material-ui/core/CssBaseline";
-import { PolicyProvider } from "./contexts/PolicyContext";
 import {
-  PaletteTypeProvider,
   usePaletteType,
 } from "./contexts/PaletteTypeContext";
 import { Route, Routes } from "react-router-dom";
@@ -10,7 +8,6 @@ import AuthLayout from "./layouts/AuthLayout";
 import SignIn from "./routes/auth/sign_in";
 import Settings from "./routes/settings";
 import Logs from "./routes/logs";
-import { ReportProvider } from "./contexts/ReportContext";
 import Ranks from "./routes/scoreboard/ranks";
 import Details from "./routes/scoreboard/details";
 import Scoreboard from "./routes/scoreboard";
@@ -75,8 +72,6 @@ function App() {
         >
           <CssBaseline />
           <QueryClientProvider client={queryClient}>
-            <PolicyProvider>
-              <ReportProvider>
                 <Routes>
                   <Route path={"/"} element={<ScoreboardLayout />}>
                     <Route index element={<Scoreboard />} />
@@ -96,8 +91,6 @@ function App() {
                     <Route index element={<Settings />} />
                   </Route>
                 </Routes>
-              </ReportProvider>
-            </PolicyProvider>
             <ReactQueryDevtools initialIsOpen={true} />
           </QueryClientProvider>
         </SnackbarProvider>

@@ -1,6 +1,4 @@
 import { useTitle } from "react-use";
-import { usePolicy } from "../../contexts/PolicyContext";
-import { useReport } from "../../contexts/ReportContext";
 import { CircularProgress, Typography, useTheme } from "@material-ui/core";
 import React, { useState } from "react";
 import { Service } from "../../types/report";
@@ -32,8 +30,6 @@ const useStyles = makeStyles({
 
 export default function Scoreboard() {
   useTitle("Status");
-  const policy = usePolicy();
-  const report = useReport();
   const theme = useTheme();
   const classes = useStyles();
   const [rowPage, setRowPage] = useState<number>(0);

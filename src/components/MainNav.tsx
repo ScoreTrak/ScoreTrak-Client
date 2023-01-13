@@ -12,10 +12,7 @@ import DescriptionIcon from "@material-ui/icons/Description";
 import BarChartIcon from "@material-ui/icons/BarChart";
 import DetailsIcon from "@material-ui/icons/Details";
 import { Link as RouterLink, useNavigate } from "react-router-dom";
-import { useReport } from "../contexts/ReportContext";
-import CheckCircleIcon from "@material-ui/icons/CheckCircle";
-import { usePolicy } from "../contexts/PolicyContext";
-import { usePolicyQuery, usePolicySubscription } from "~/lib/queries/policies";
+import { usePolicySubscription } from "~/lib/queries/policies";
 
 const useStyles = makeStyles((_) => ({
   root: {
@@ -31,8 +28,6 @@ const useStyles = makeStyles((_) => ({
 }));
 
 export function MainNav() {
-  // const policy = usePolicy();
-  // const report = useReport();
   usePolicySubscription();
   const theme = useTheme();
   const { togglePaletteType } = usePaletteType();

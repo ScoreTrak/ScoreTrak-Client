@@ -20,7 +20,7 @@ export function useUsersQuery() {
     return userResponse.getUsersList();
   };
 
-  return useQuery<User[], grpcWeb.RpcError>(["users"], fetchUsers);
+  return useQuery<User[], grpcWeb.RpcError, User[], ["users"]>(["users"], fetchUsers);
 }
 
 export function useUserQuery(userId: string) {
@@ -33,7 +33,7 @@ export function useUserQuery(userId: string) {
     return userResponse.getUser();
   };
 
-  return useQuery<User | undefined, grpcWeb.RpcError>(["users", userId], () =>
+  return useQuery<User | undefined, grpcWeb.RpcError, User | undefined, ["users"]>(["users", userId], () =>
     fetchUserById(userId)
   );
 }
