@@ -3,7 +3,7 @@ import {
   GetAllRequest,
   GetByIDRequest,
   Round,
-} from "@buf/grpc_web_scoretrak_scoretrakapis/scoretrak/round/v1/round_pb";
+} from "@buf/scoretrak_scoretrakapis.grpc_web/scoretrak/round/v1/round_pb";
 import grpcWeb from "grpc-web";
 import { gRPCClients } from "../../grpc/gRPCClients";
 

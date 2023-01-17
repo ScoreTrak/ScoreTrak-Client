@@ -6,10 +6,10 @@ import {
   Host,
   StoreRequest, StoreResponse,
   UpdateRequest, UpdateResponse
-} from "@buf/grpc_web_scoretrak_scoretrakapis/scoretrak/host/v1/host_pb";
+} from "@buf/scoretrak_scoretrakapis.grpc_web/scoretrak/host/v1/host_pb";
 import grpcWeb from "grpc-web";
 import { gRPCClients } from "../../grpc/gRPCClients";
-import { UUID } from "@buf/grpc_web_scoretrak_scoretrakapis/scoretrak/proto/v1/uuid_pb";
+import { UUID } from "@buf/scoretrak_scoretrakapis.grpc_web/scoretrak/proto/v1/uuid_pb";
 
 export function useHostsQuery() {
   const fetchHosts = async () => {

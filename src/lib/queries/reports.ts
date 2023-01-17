@@ -11,7 +11,7 @@ import {
   GetRequest,
   GetResponse,
   GetUnaryRequest,
-} from "@buf/grpc_web_scoretrak_scoretrakapis/scoretrak/report/v1/report_pb";
+} from "@buf/scoretrak_scoretrakapis.grpc_web/scoretrak/report/v1/report_pb";
 import { QueryKey } from "@tanstack/react-query-devtools/build/lib/styledComponents";
 
 export function useReportQuery() {

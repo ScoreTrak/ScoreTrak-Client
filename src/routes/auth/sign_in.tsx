@@ -1,7 +1,7 @@
 import { SubmitHandler, useForm } from "react-hook-form";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { LoginRequest } from "@buf/grpc_web_scoretrak_scoretrakapis/scoretrak/auth/v1/auth_pb";
+import { LoginRequest } from "@buf/scoretrak_scoretrakapis.grpc_web/scoretrak/auth/v1/auth_pb";
 import { gRPCClients } from "../../grpc/gRPCClients";
 import { token } from "../../grpc/token/token";
 import { Severity } from "../../types/types";

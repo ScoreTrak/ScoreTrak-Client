@@ -4,8 +4,8 @@ import {
   RedeployRequest,
   StoreRequest,
   UpdateRequest,
-} from "@buf/grpc_web_scoretrak_scoretrakapis/scoretrak/service_group/v1/service_group_pb";
-import { UUID } from "@buf/grpc_web_scoretrak_scoretrakapis/scoretrak/proto/v1/uuid_pb";
+} from "@buf/scoretrak_scoretrakapis.grpc_web/scoretrak/service_group/v1/service_group_pb";
+import { UUID } from "@buf/scoretrak_scoretrakapis.grpc_web/scoretrak/proto/v1/uuid_pb";
 import MaterialTable, { Column } from "@material-table/core";
 import { CircularProgress } from "@material-ui/core";
 import { useSnackbar } from "notistack";

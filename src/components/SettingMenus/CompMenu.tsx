@@ -2,7 +2,7 @@ import { makeStyles } from "@material-ui/core/styles";
 import React, { useEffect, useState } from "react";
 import { useTheme } from "@material-ui/core";
 import { useSnackbar } from "notistack";
-import { DynamicConfig } from "@buf/grpc_web_scoretrak_scoretrakapis/scoretrak/config/v1/config_pb";
+import { DynamicConfig } from "@buf/scoretrak_scoretrakapis.grpc_web/scoretrak/config/v1/config_pb";
 import { Severity } from "../../types/types";
 import { SnackbarDismissButton } from "../SnackbarDismissButton";
 import {
@@ -10,26 +10,26 @@ import {
   StringValue,
   UInt64Value,
 } from "google-protobuf/google/protobuf/wrappers_pb";
-import { Policy } from "@buf/grpc_web_scoretrak_scoretrakapis/scoretrak/policy/v1/policy_pb";
+import { Policy } from "@buf/scoretrak_scoretrakapis.grpc_web/scoretrak/policy/v1/policy_pb";
 import {
   Competition,
   DeleteCompetitionRequest,
   FetchCoreCompetitionRequest,
   FetchEntireCompetitionRequest,
   ResetScoresRequest,
-} from "@buf/grpc_web_scoretrak_scoretrakapis/scoretrak/competition/v1/competition_pb";
-import { Report } from "@buf/grpc_web_scoretrak_scoretrakapis/scoretrak/report/v1/report_pb";
+} from "@buf/scoretrak_scoretrakapis.grpc_web/scoretrak/competition/v1/competition_pb";
+import { Report } from "@buf/scoretrak_scoretrakapis.grpc_web/scoretrak/report/v1/report_pb";
 import { Timestamp } from "google-protobuf/google/protobuf/timestamp_pb";
-import { Check } from "@buf/grpc_web_scoretrak_scoretrakapis/scoretrak/check/v1/check_pb";
-import { UUID } from "@buf/grpc_web_scoretrak_scoretrakapis/scoretrak/proto/v1/uuid_pb";
-import { Round } from "@buf/grpc_web_scoretrak_scoretrakapis/scoretrak/round/v1/round_pb";
-import { Team } from "@buf/grpc_web_scoretrak_scoretrakapis/scoretrak/team/v1/team_pb";
-import { HostGroup } from "@buf/grpc_web_scoretrak_scoretrakapis/scoretrak/host_group/v1/host_group_pb";
-import { ServiceGroup } from "@buf/grpc_web_scoretrak_scoretrakapis/scoretrak/service_group/v1/service_group_pb";
-import { User } from "@buf/grpc_web_scoretrak_scoretrakapis/scoretrak/user/v1/user_pb";
-import { Host } from "@buf/grpc_web_scoretrak_scoretrakapis/scoretrak/host/v1/host_pb";
-import { Service } from "@buf/grpc_web_scoretrak_scoretrakapis/scoretrak/service/v1/service_pb";
-import { Property } from "@buf/grpc_web_scoretrak_scoretrakapis/scoretrak/property/v1/property_pb";
+import { Check } from "@buf/scoretrak_scoretrakapis.grpc_web/scoretrak/check/v1/check_pb";
+import { UUID } from "@buf/scoretrak_scoretrakapis.grpc_web/scoretrak/proto/v1/uuid_pb";
+import { Round } from "@buf/scoretrak_scoretrakapis.grpc_web/scoretrak/round/v1/round_pb";
+import { Team } from "@buf/scoretrak_scoretrakapis.grpc_web/scoretrak/team/v1/team_pb";
+import { HostGroup } from "@buf/scoretrak_scoretrakapis.grpc_web/scoretrak/host_group/v1/host_group_pb";
+import { ServiceGroup } from "@buf/scoretrak_scoretrakapis.grpc_web/scoretrak/service_group/v1/service_group_pb";
+import { User } from "@buf/scoretrak_scoretrakapis.grpc_web/scoretrak/user/v1/user_pb";
+import { Host } from "@buf/scoretrak_scoretrakapis.grpc_web/scoretrak/host/v1/host_pb";
+import { Service } from "@buf/scoretrak_scoretrakapis.grpc_web/scoretrak/service/v1/service_pb";
+import { Property } from "@buf/scoretrak_scoretrakapis.grpc_web/scoretrak/property/v1/property_pb";
 import { saveAs } from "file-saver";
 import Box from "@material-ui/core/Box";
 import Accordion from "@material-ui/core/Accordion";

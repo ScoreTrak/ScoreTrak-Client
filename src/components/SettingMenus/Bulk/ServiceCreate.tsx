@@ -15,17 +15,17 @@ import Button from "@material-ui/core/Button";
 import {
   GetAllRequest as GetAllRequestServiceGroup,
   ServiceGroup,
-} from "@buf/grpc_web_scoretrak_scoretrakapis/scoretrak/service_group/v1/service_group_pb";
+} from "@buf/scoretrak_scoretrakapis.grpc_web/scoretrak/service_group/v1/service_group_pb";
 import { Severity } from "../../../types/types";
 import {
   GetAllRequest as GetAllRequestService,
   StoreRequest,
-} from "@buf/grpc_web_scoretrak_scoretrakapis/scoretrak/service/v1/service_pb";
+} from "@buf/scoretrak_scoretrakapis.grpc_web/scoretrak/service/v1/service_pb";
 import {
   GetAllRequest as GetAllRequestHost,
   Host,
-} from "@buf/grpc_web_scoretrak_scoretrakapis/scoretrak/host/v1/host_pb";
-import { HostGroup } from "@buf/grpc_web_scoretrak_scoretrakapis/scoretrak/host_group/v1/host_group_pb";
+} from "@buf/scoretrak_scoretrakapis.grpc_web/scoretrak/host/v1/host_pb";
+import { HostGroup } from "@buf/scoretrak_scoretrakapis.grpc_web/scoretrak/host_group/v1/host_group_pb";
 import { useSnackbar } from "notistack";
 import { SnackbarDismissButton } from "../../SnackbarDismissButton";
 import { gRPCClients } from "../../../grpc/gRPCClients";

@@ -1,6 +1,6 @@
 import { IUser, UserRole } from "../../types/material_table";
-import { Role, User } from "@buf/grpc_web_scoretrak_scoretrakapis/scoretrak/user/v1/user_pb";
-import { UUID } from "@buf/grpc_web_scoretrak_scoretrakapis/scoretrak/proto/v1/uuid_pb";
+import { Role, User } from "@buf/scoretrak_scoretrakapis.grpc_web/scoretrak/user/v1/user_pb";
+import { UUID } from "@buf/scoretrak_scoretrakapis.grpc_web/scoretrak/proto/v1/uuid_pb";
 
 export function userToIUser(user: User): IUser {
   return {

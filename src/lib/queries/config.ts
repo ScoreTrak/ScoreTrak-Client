@@ -5,7 +5,7 @@ import {
   GetStaticConfigRequest,
   UpdateRequest,
   UpdateResponse,
-} from "@buf/grpc_web_scoretrak_scoretrakapis/scoretrak/config/v1/config_pb";
+} from "@buf/scoretrak_scoretrakapis.grpc_web/scoretrak/config/v1/config_pb";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import grpcWeb from "grpc-web";
 import { Severity } from "../../types/types";

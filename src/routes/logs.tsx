@@ -1,7 +1,7 @@
 import {
   GetAllRequest,
   Round,
-} from "@buf/grpc_web_scoretrak_scoretrakapis/scoretrak/round/v1/round_pb";
+} from "@buf/scoretrak_scoretrakapis.grpc_web/scoretrak/round/v1/round_pb";
 import { useSnackbar } from "notistack";
 import MaterialTable, { Column } from "@material-table/core";
 import { useEffect, useState } from "react";

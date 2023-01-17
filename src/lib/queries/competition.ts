@@ -10,7 +10,7 @@ import {
   FetchEntireCompetitionResponse, LoadCompetitionRequest, LoadCompetitionResponse,
   ResetScoresRequest,
   ResetScoresResponse
-} from "@buf/grpc_web_scoretrak_scoretrakapis/scoretrak/competition/v1/competition_pb";
+} from "@buf/scoretrak_scoretrakapis.grpc_web/scoretrak/competition/v1/competition_pb";
 import grpcWeb from "grpc-web";
 import { Severity } from "../../types/types";
 import { useSnackbar } from "notistack";

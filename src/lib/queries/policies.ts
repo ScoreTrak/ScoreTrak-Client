@@ -6,7 +6,7 @@ import {
   Policy,
   UpdateRequest,
   UpdateResponse,
-} from "@buf/grpc_web_scoretrak_scoretrakapis/scoretrak/policy/v1/policy_pb";
+} from "@buf/scoretrak_scoretrakapis.grpc_web/scoretrak/policy/v1/policy_pb";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import grpcWeb from "grpc-web";
 import { Severity } from "../../types/types";

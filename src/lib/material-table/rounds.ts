@@ -1,4 +1,4 @@
-import { Round } from "@buf/grpc_web_scoretrak_scoretrakapis/scoretrak/round/v1/round_pb";
+import { Round } from "@buf/scoretrak_scoretrakapis.grpc_web/scoretrak/round/v1/round_pb";
 import { IRound } from "../../types/material_table";
 
 function roundToIRound(round: Round): IRound {

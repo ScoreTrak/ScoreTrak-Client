@@ -6,10 +6,10 @@ import {
   Service,
   StoreRequest,
   UpdateRequest,
-} from "@buf/grpc_web_scoretrak_scoretrakapis/scoretrak/service/v1/service_pb";
+} from "@buf/scoretrak_scoretrakapis.grpc_web/scoretrak/service/v1/service_pb";
 import grpcWeb from "grpc-web";
 import { gRPCClients } from "../../grpc/gRPCClients";
-import { UUID } from "@buf/grpc_web_scoretrak_scoretrakapis/scoretrak/proto/v1/uuid_pb";
+import { UUID } from "@buf/scoretrak_scoretrakapis.grpc_web/scoretrak/proto/v1/uuid_pb";
 
 export function useServicesQuery() {
   const fetchServices = async () => {

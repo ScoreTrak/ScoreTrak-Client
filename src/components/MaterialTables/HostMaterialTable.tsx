@@ -7,8 +7,8 @@ import {
   DeleteRequest,
   StoreRequest,
   UpdateRequest,
-} from "@buf/grpc_web_scoretrak_scoretrakapis/scoretrak/host/v1/host_pb";
-import { UUID } from "@buf/grpc_web_scoretrak_scoretrakapis/scoretrak/proto/v1/uuid_pb";
+} from "@buf/scoretrak_scoretrakapis.grpc_web/scoretrak/host/v1/host_pb";
+import { UUID } from "@buf/scoretrak_scoretrakapis.grpc_web/scoretrak/proto/v1/uuid_pb";
 import { CircularProgress } from "@material-ui/core";
 import { IHost } from "../../types/material_table";
 import {
