@@ -1,20 +1,20 @@
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import {
-  DeleteRequest,
-  GetAllRequest,
-  GetByIDRequest,
+  ServiceGroupServiceDeleteRequest,
+  ServiceGroupServiceGetAllRequest,
+  ServiceGroupServiceGetByIDRequest,
   ServiceGroup,
-  StoreRequest,
-  UpdateRequest,
-} from "@buf/scoretrak_scoretrakapis.grpc_web/scoretrak/service_group/v1/service_group_pb";
+  ServiceGroupServiceStoreRequest,
+  ServiceGroupServiceUpdateRequest,
+} from "@buf/scoretrak_scoretrakapis.grpc_web/scoretrak/service_group/v2/service_group_pb";
 import grpcWeb from "grpc-web";
 import { gRPCClients } from "../../grpc/gRPCClients";
 import { UUID } from "@buf/scoretrak_scoretrakapis.grpc_web/scoretrak/proto/v1/uuid_pb";
 
 export function useServiceGroupsQuery() {
   const fetchServiceGroups = async () => {
-    const serviceGroupsResponse = await gRPCClients.service_group.v1.serviceGroupServicePromiseClient.getAll(
-      new GetAllRequest(),
+    const serviceGroupsResponse = await gRPCClients.service_group.v2.serviceGroupServicePromiseClient.getAll(
+      new ServiceGroupServiceGetAllRequest(),
       {}
     );
     return serviceGroupsResponse.getServiceGroupsList();
@@ -30,9 +30,9 @@ export function useServiceGroupQuery(serviceGroupId: string) {
   const fetchServiceGroupById = async (id: string) => {
     const uuid = new UUID();
     uuid.setValue(id);
-    const request = new GetByIDRequest();
+    const request = new ServiceGroupServiceGetByIDRequest();
     request.setId(uuid);
-    const serviceGroupResponse = await gRPCClients.service_group.v1.serviceGroupServicePromiseClient.getByID(
+    const serviceGroupResponse = await gRPCClients.service_group.v2.serviceGroupServicePromiseClient.getByID(
       request,
       {}
     );
@@ -48,8 +48,8 @@ export function useServiceGroupQuery(serviceGroupId: string) {
 export function useAddServiceGroupMutation() {
   const queryClient = useQueryClient();
 
-  const addServiceGroup = async (addServiceGroupRequest: StoreRequest) => {
-    return await gRPCClients.service_group.v1.serviceGroupServicePromiseClient.store(
+  const addServiceGroup = async (addServiceGroupRequest: ServiceGroupServiceStoreRequest) => {
+    return await gRPCClients.service_group.v2.serviceGroupServicePromiseClient.store(
       addServiceGroupRequest,
       {}
     );
@@ -66,9 +66,9 @@ export function useUpdateServiceGroupMutation() {
   const queryClient = useQueryClient();
 
   const updateServiceGroup = async (
-    updateServiceGroupRequest: UpdateRequest
+    updateServiceGroupRequest: ServiceGroupServiceUpdateRequest
   ) => {
-    return await gRPCClients.service_group.v1.serviceGroupServicePromiseClient.update(
+    return await gRPCClients.service_group.v2.serviceGroupServicePromiseClient.update(
       updateServiceGroupRequest,
       {}
     );
@@ -85,9 +85,9 @@ export function useDeleteServiceGroupMutation() {
   const queryClient = useQueryClient();
 
   const deleteServiceGroup = async (
-    deleteServiceGroupRequest: DeleteRequest
+    deleteServiceGroupRequest: ServiceGroupServiceDeleteRequest
   ) => {
-    await gRPCClients.service_group.v1.serviceGroupServicePromiseClient.delete(
+    await gRPCClients.service_group.v2.serviceGroupServicePromiseClient.delete(
       deleteServiceGroupRequest,
       {}
     );

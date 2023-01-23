@@ -1,12 +1,12 @@
 import { gRPCClients } from "../../grpc/gRPCClients";
 import {
-  GetRequest,
-  GetResponse,
-  GetUnaryRequest,
+  PolicyServiceGetRequest,
+  PolicyServiceGetResponse,
+  PolicyServiceGetUnaryRequest,
   Policy,
-  UpdateRequest,
-  UpdateResponse,
-} from "@buf/scoretrak_scoretrakapis.grpc_web/scoretrak/policy/v1/policy_pb";
+  PolicyServiceUpdateRequest,
+  PolicyServiceUpdateResponse,
+} from "@buf/scoretrak_scoretrakapis.grpc_web/scoretrak/policy/v2/policy_pb";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import grpcWeb from "grpc-web";
 import { Severity } from "../../types/types";
@@ -19,15 +19,16 @@ import { useNavigate } from "react-router-dom";
 export function usePolicyQuery() {
   const fetchPolicy = async () => {
     const policyResponse =
-      await gRPCClients.policy.v1.policyServicePromiseClient.getUnary(
-        new GetUnaryRequest(),
+      await gRPCClients.policy.v2.policyServicePromiseClient.getUnary(
+        new PolicyServiceGetUnaryRequest(),
         {}
       );
 
     return policyResponse.getPolicy()!.toObject();
   };
 
-  return useQuery<Policy.AsObject, grpcWeb.RpcError>(["policy"], fetchPolicy);
+  // We want to update the policy data with the websocket connection defined below
+  return useQuery<Policy.AsObject, grpcWeb.RpcError>(["policy"], fetchPolicy, {staleTime: Infinity});
 }
 
 export function usePolicySubscription() {
@@ -36,12 +37,12 @@ export function usePolicySubscription() {
   const navigate = useNavigate();
 
   useEffect(() => {
-    const streamRequest = new GetRequest();
+    const streamRequest = new PolicyServiceGetRequest();
     const stream =
-      gRPCClients.policy.v1.policyServicePromiseClient.get(streamRequest);
+      gRPCClients.policy.v2.policyServicePromiseClient.get(streamRequest);
 
     // @ts-ignore
-    stream.on("data", (response: GetResponse) => {
+    stream.on("data", (response: PolicyServiceGetResponse) => {
       if (response.hasPolicy()) {
         queryClient.setQueryData(["policy"], response.getPolicy()!.toObject());
       }
@@ -78,8 +79,8 @@ export function useUpdatePolicyMutation() {
   const { enqueueSnackbar } = useSnackbar();
 
   const updatePolicy = async (policy: Policy) => {
-    return await gRPCClients.policy.v1.policyServicePromiseClient.update(
-      new UpdateRequest().setPolicy(policy),
+    return await gRPCClients.policy.v2.policyServicePromiseClient.update(
+      new PolicyServiceUpdateRequest().setPolicy(policy),
       {}
     );
   };

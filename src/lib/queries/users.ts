@@ -1,20 +1,20 @@
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import {
-  DeleteRequest,
-  GetAllRequest,
-  GetByIDRequest,
+  UserServiceDeleteRequest,
+  UserServiceGetAllRequest,
+  UserServiceGetByIDRequest,
   User,
-  StoreRequest,
-  UpdateRequest, StoreResponse, DeleteResponse, UpdateResponse
-} from "@buf/scoretrak_scoretrakapis.grpc_web/scoretrak/user/v1/user_pb";
+  UserServiceStoreRequest,
+  UserServiceUpdateRequest, UserServiceStoreResponse, UserServiceUpdateResponse
+} from "@buf/scoretrak_scoretrakapis.grpc_web/scoretrak/user/v2/user_pb";
 import grpcWeb from "grpc-web";
 import { gRPCClients } from "../../grpc/gRPCClients";
 import { UUID } from "@buf/scoretrak_scoretrakapis.grpc_web/scoretrak/proto/v1/uuid_pb";
 
 export function useUsersQuery() {
   const fetchUsers = async () => {
-    const userResponse = await gRPCClients.user.v1.userServicePromiseClient.getAll(
-      new GetAllRequest(),
+    const userResponse = await gRPCClients.user.v2.userServicePromiseClient.getAll(
+      new UserServiceGetAllRequest(),
       {}
     );
     return userResponse.getUsersList();
@@ -27,9 +27,9 @@ export function useUserQuery(userId: string) {
   const fetchUserById = async (id: string) => {
     const uuid = new UUID();
     uuid.setValue(id);
-    const request = new GetByIDRequest();
+    const request = new UserServiceGetByIDRequest();
     request.setId(uuid);
-    const userResponse = await gRPCClients.user.v1.userServicePromiseClient.getByID(request, {});
+    const userResponse = await gRPCClients.user.v2.userServicePromiseClient.getByID(request, {});
     return userResponse.getUser();
   };
 
@@ -41,11 +41,11 @@ export function useUserQuery(userId: string) {
 export function useAddUserMutation() {
   const queryClient = useQueryClient();
 
-  const addUser = async (addUserRequest: StoreRequest) => {
-    return await gRPCClients.user.v1.userServicePromiseClient.store(addUserRequest, {});
+  const addUser = async (addUserRequest: UserServiceStoreRequest) => {
+    return await gRPCClients.user.v2.userServicePromiseClient.store(addUserRequest, {});
   };
 
-  return useMutation<StoreResponse, grpcWeb.RpcError, StoreRequest, grpcWeb.RpcError>(addUser, {
+  return useMutation<UserServiceStoreResponse, grpcWeb.RpcError, UserServiceStoreRequest, grpcWeb.RpcError>(addUser, {
     onSuccess: () => {
       return queryClient.invalidateQueries(["users"]);
     },
@@ -55,11 +55,11 @@ export function useAddUserMutation() {
 export function useUpdateUserMutation() {
   const queryClient = useQueryClient();
 
-  const updateUser = async (updateUserRequest: UpdateRequest) => {
-    return await gRPCClients.user.v1.userServicePromiseClient.update(updateUserRequest, {});
+  const updateUser = async (updateUserRequest: UserServiceUpdateRequest) => {
+    return await gRPCClients.user.v2.userServicePromiseClient.update(updateUserRequest, {});
   };
 
-  return useMutation<UpdateResponse, grpcWeb.RpcError, UpdateRequest>(updateUser, {
+  return useMutation<UserServiceUpdateResponse, grpcWeb.RpcError, UserServiceUpdateRequest>(updateUser, {
     onSuccess: () => {
       return queryClient.invalidateQueries(["users"]);
     },
@@ -69,15 +69,15 @@ export function useUpdateUserMutation() {
 export function useDeleteUserMutation() {
   const queryClient = useQueryClient();
 
-  const deleteUser = async (deleteUserRequest: DeleteRequest) => {
-    await gRPCClients.user.v1.userServicePromiseClient.delete(
+  const deleteUser = async (deleteUserRequest: UserServiceDeleteRequest) => {
+    await gRPCClients.user.v2.userServicePromiseClient.delete(
       deleteUserRequest,
       {}
     );
     return deleteUserRequest.getId();
   };
 
-  return useMutation<UUID | undefined, grpcWeb.RpcError, DeleteRequest>(deleteUser, {
+  return useMutation<UUID | undefined, grpcWeb.RpcError, UserServiceDeleteRequest>(deleteUser, {
     onSuccess: () => {
       return queryClient.invalidateQueries(["users"]);
     },

@@ -8,18 +8,18 @@ import { useEffect } from "react";
 import { token } from "~/grpc/token/token";
 import { useNavigate } from "react-router-dom";
 import {
-  GetRequest,
-  GetResponse,
-  GetUnaryRequest,
-} from "@buf/scoretrak_scoretrakapis.grpc_web/scoretrak/report/v1/report_pb";
+  ReportServiceGetRequest,
+  ReportServiceGetResponse,
+  ReportServiceGetUnaryRequest,
+} from "@buf/scoretrak_scoretrakapis.grpc_web/scoretrak/report/v2/report_pb";
 import { QueryKey } from "@tanstack/react-query-devtools/build/lib/styledComponents";
 
 export function useReportQuery() {
   const queryClient = useQueryClient()
   const fetchReport = async () => {
     const reportResponse =
-      await gRPCClients.report.v1.reportServicePromiseClient.getUnary(
-        new GetUnaryRequest(),
+      await gRPCClients.report.v2.reportServicePromiseClient.getUnary(
+        new ReportServiceGetUnaryRequest(),
         {}
       );
 
@@ -31,7 +31,9 @@ export function useReportQuery() {
   return useQuery<SimpleReport, grpcWeb.RpcError, SimpleReport, ["report"]>(["report"], fetchReport, {
     onSuccess: data => {
       return queryClient.invalidateQueries(["checks"])
-    }
+    },
+    // We want to update the report data with the websocket connection defined below
+    staleTime: Infinity
   });
 }
 
@@ -41,15 +43,15 @@ export function useReportSubscription() {
   const navigate = useNavigate();
 
   useEffect(() => {
-    const streamRequest = new GetRequest();
-    const stream = gRPCClients.report.v1.reportServicePromiseClient.get(
+    const streamRequest = new ReportServiceGetRequest();
+    const stream = gRPCClients.report.v2.reportServicePromiseClient.get(
       streamRequest,
       {}
     );
 
     // @ts-ignore
-    stream.on("data", (response: GetResponse) => {
-      const cache = (response as GetResponse).getReport()?.getCache();
+    stream.on("data", (response: ReportServiceGetResponse) => {
+      const cache = (response as ReportServiceGetResponse).getReport()?.getCache();
       if (cache != null) {
         const report = JSON.parse(cache) as SimpleReport;
         queryClient.setQueryData(["report"], report);

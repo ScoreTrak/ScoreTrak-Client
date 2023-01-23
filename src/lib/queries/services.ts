@@ -1,20 +1,20 @@
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import {
-  DeleteRequest,
-  GetAllRequest,
-  GetByIDRequest,
+  ServiceServiceDeleteRequest,
+  ServiceServiceGetAllRequest,
+  ServiceServiceGetByIDRequest,
   Service,
-  StoreRequest,
-  UpdateRequest,
-} from "@buf/scoretrak_scoretrakapis.grpc_web/scoretrak/service/v1/service_pb";
+  ServiceServiceStoreRequest,
+  ServiceServiceUpdateRequest,
+} from "@buf/scoretrak_scoretrakapis.grpc_web/scoretrak/service/v2/service_pb";
 import grpcWeb from "grpc-web";
 import { gRPCClients } from "../../grpc/gRPCClients";
 import { UUID } from "@buf/scoretrak_scoretrakapis.grpc_web/scoretrak/proto/v1/uuid_pb";
 
 export function useServicesQuery() {
   const fetchServices = async () => {
-    const serviceResponse = await gRPCClients.service.v1.serviceServicePromiseClient.getAll(
-      new GetAllRequest(),
+    const serviceResponse = await gRPCClients.service.v2.serviceServicePromiseClient.getAll(
+      new ServiceServiceGetAllRequest(),
       {}
     );
     return serviceResponse.getServicesList();
@@ -27,9 +27,9 @@ export function useServiceQuery(serviceId: string) {
   const fetchServiceById = async (id: string) => {
     const uuid = new UUID();
     uuid.setValue(id);
-    const request = new GetByIDRequest();
+    const request = new ServiceServiceGetByIDRequest();
     request.setId(uuid);
-    const serviceResponse = await gRPCClients.service.v1.serviceServicePromiseClient.getByID(
+    const serviceResponse = await gRPCClients.service.v2.serviceServicePromiseClient.getByID(
       request,
       {}
     );
@@ -45,8 +45,8 @@ export function useServiceQuery(serviceId: string) {
 export function useAddServiceMutation() {
   const queryClient = useQueryClient();
 
-  const addService = async (addServiceRequest: StoreRequest) => {
-    return await gRPCClients.service.v1.serviceServicePromiseClient.store(addServiceRequest, {});
+  const addService = async (addServiceRequest: ServiceServiceStoreRequest) => {
+    return await gRPCClients.service.v2.serviceServicePromiseClient.store(addServiceRequest, {});
   };
 
   return useMutation(addService, {
@@ -59,8 +59,8 @@ export function useAddServiceMutation() {
 export function useUpdateServiceMutation() {
   const queryClient = useQueryClient();
 
-  const updateService = async (updateServiceRequest: UpdateRequest) => {
-    return await gRPCClients.service.v1.serviceServicePromiseClient.update(updateServiceRequest, {});
+  const updateService = async (updateServiceRequest: ServiceServiceUpdateRequest) => {
+    return await gRPCClients.service.v2.serviceServicePromiseClient.update(updateServiceRequest, {});
   };
 
   return useMutation(updateService, {
@@ -73,8 +73,8 @@ export function useUpdateServiceMutation() {
 export function useDeleteServiceMutation() {
   const queryClient = useQueryClient();
 
-  const deleteService = async (deleteServiceRequest: DeleteRequest) => {
-    await gRPCClients.service.v1.serviceServicePromiseClient.delete(
+  const deleteService = async (deleteServiceRequest: ServiceServiceDeleteRequest) => {
+    await gRPCClients.service.v2.serviceServicePromiseClient.delete(
       deleteServiceRequest,
       {}
     );

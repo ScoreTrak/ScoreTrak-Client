@@ -1,16 +1,16 @@
 import { useQuery } from "@tanstack/react-query";
 import {
-  GetAllRequest,
-  GetByIDRequest,
+  RoundServiceGetAllRequest,
+  RoundServiceGetByIDRequest,
   Round,
-} from "@buf/scoretrak_scoretrakapis.grpc_web/scoretrak/round/v1/round_pb";
+} from "@buf/scoretrak_scoretrakapis.grpc_web/scoretrak/round/v2/round_pb";
 import grpcWeb from "grpc-web";
 import { gRPCClients } from "../../grpc/gRPCClients";
 
 export function useRoundsQuery() {
   async function fetchRounds() {
-    const roundsResponse = await gRPCClients.round.v1.roundServicePromiseClient.getAll(
-      new GetAllRequest(),
+    const roundsResponse = await gRPCClients.round.v2.roundServicePromiseClient.getAll(
+      new RoundServiceGetAllRequest(),
       {}
     );
     return roundsResponse.getRoundsList();
@@ -21,8 +21,8 @@ export function useRoundsQuery() {
 
 export function useRoundQuery(roundId: string) {
   async function fetchRoundById(id: string) {
-    const request = new GetByIDRequest().setId(parseInt(id));
-    const roundResponse = await gRPCClients.round.v1.roundServicePromiseClient.getAll(request, {});
+    const request = new RoundServiceGetByIDRequest().setId(parseInt(id));
+    const roundResponse = await gRPCClients.round.v2.roundServicePromiseClient.getAll(request, {});
     return roundResponse.getRoundsList();
   }
 
