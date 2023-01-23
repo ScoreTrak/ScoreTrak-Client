@@ -823,7 +823,7 @@ export default function CompMenu() {
                 <Button onClick={handleClose} color="primary">
                   Cancel
                 </Button>
-                <Button onClick={handleResetCompetition} color="primary">
+                <Button id={"confirm-reset-comp"} onClick={handleResetCompetition} color="primary">
                   Reset Competition
                 </Button>
               </DialogActions>
