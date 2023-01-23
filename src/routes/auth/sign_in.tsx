@@ -134,6 +134,7 @@ export default function Sign_in() {
             fullWidth
             variant="contained"
             className={classes.submit}
+            id={"auth-submit"}
           >
             Sign In
           </Button>
