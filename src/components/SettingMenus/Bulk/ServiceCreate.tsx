@@ -77,7 +77,7 @@ const ServiceCreate = () => {
   };
 
   useEffect(() => {
-    gRPCClients.service_group.v1.serviceGroupServicePromiseClient.getAll(new GetAllRequestService(), {}).then(
+    gRPCClients.service_group.v1.serviceGroupServicePromiseClient.getAll(new GetAllRequestService()).then(
       (respServiceGrp) => {
         setData((prevState) => {
           return {
@@ -95,7 +95,7 @@ const ServiceCreate = () => {
       }
     );
     gRPCClients.host_group.v1.hostGroupServicePromiseClient
-      .getAll(new GetAllRequestServiceGroup(), {})
+      .getAll(new GetAllRequestServiceGroup())
       .then(
         (respHostGroup) => {
           const counter: Record<string, number> = {};
@@ -122,7 +122,7 @@ const ServiceCreate = () => {
         }
       );
 
-    gRPCClients.host.v1.hostServicePromiseClient.getAll(new GetAllRequestHost(), {}).then(
+    gRPCClients.host.v1.hostServicePromiseClient.getAll(new GetAllRequestHost()).then(
       (respHost) => {
         setData((prevState) => {
           return {
@@ -181,7 +181,7 @@ const ServiceCreate = () => {
       storeRequest.addServices(IServiceToService(servVals));
     });
 
-    gRPCClients.service.v1.serviceServicePromiseClient.store(storeRequest, {}).then(
+    gRPCClients.service.v1.serviceServicePromiseClient.store(storeRequest).then(
       (_) => {
         enqueueSnackbar("Success!", {
           variant: Severity.Success,

@@ -38,7 +38,7 @@ const PropertiesCreate = () => {
   const [rowsData, setRowData] = useState<RowType>({});
 
   useEffect(() => {
-    gRPCClients.service.v1.serviceServicePromiseClient.getAll(new GetAllRequest(), {}).then(
+    gRPCClients.service.v1.serviceServicePromiseClient.getAll(new GetAllRequest()).then(
       (respService) => {
         const rowdt: RowType = {};
         const displayNames = new Set<string>();
@@ -126,7 +126,7 @@ const PropertiesCreate = () => {
     properties.forEach((property) => {
       storeRequest.addProperties(IPropertyToProperty(property));
     });
-    gRPCClients.property.v1.propertyServicePromiseClient.store(storeRequest, {}).then(
+    gRPCClients.property.v1.propertyServicePromiseClient.store(storeRequest).then(
       () => {
         enqueueSnackbar("Success!", {
           variant: Severity.Success,

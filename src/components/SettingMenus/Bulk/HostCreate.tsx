@@ -55,7 +55,7 @@ const HostCreate = () => {
   });
   const [rowsData, setRowData] = useState<Record<string, IHost>>({});
   useEffect(() => {
-    gRPCClients.team.v1.teamServicePromiseClient.getAll(new GetAllRequestTeam(), {}).then(
+    gRPCClients.team.v1.teamServicePromiseClient.getAll(new GetAllRequestTeam()).then(
       (respTeam) => {
         setData((prevState) => {
           return {
@@ -82,7 +82,7 @@ const HostCreate = () => {
         );
       }
     );
-    gRPCClients.host_group.v1.hostGroupServicePromiseClient.getAll(new GetAllRequestHostGroup(), {}).then(
+    gRPCClients.host_group.v1.hostGroupServicePromiseClient.getAll(new GetAllRequestHostGroup()).then(
       (respHostGroup) => {
         setData((prevState) => {
           const hostGroupsTemplateState: templateState[] = [];
@@ -202,7 +202,7 @@ const HostCreate = () => {
       });
     }
 
-    gRPCClients.host.v1.hostServicePromiseClient.store(storeRequest, {}).then(
+    gRPCClients.host.v1.hostServicePromiseClient.store(storeRequest).then(
       (_) => {
         enqueueSnackbar("Success!", {
           variant: Severity.Success,

@@ -104,7 +104,7 @@ const TeamCreate = () => {
         0
       );
     });
-    gRPCClients.team.v1.teamServicePromiseClient.store(storeRequest, {}).then(
+    gRPCClients.team.v1.teamServicePromiseClient.store(storeRequest).then(
       (_) => {
         enqueueSnackbar(`Teams Created!`, { variant: Severity.Success });
       },
