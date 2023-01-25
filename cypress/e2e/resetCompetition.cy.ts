@@ -24,7 +24,5 @@ describe('template spec', () => {
 
     cy.get('[href="/logs"]').click()
     cy.wait(1250)
-    // cy.contains()
-    // cy.contains("No records to display").should()
   })
 })
