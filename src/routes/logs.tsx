@@ -1,42 +1,13 @@
-import {
-  GetAllRequest,
-  Round,
-} from "@buf/scoretrak_scoretrakapis.grpc_web/scoretrak/round/v1/round_pb";
-import { useSnackbar } from "notistack";
 import MaterialTable, { Column } from "@material-table/core";
-import { useEffect, useState } from "react";
-import { Severity } from "../types/types";
-import { SnackbarDismissButton } from "../components/SnackbarDismissButton";
 import Box from "@material-ui/core/Box";
 import { CircularProgress, Container } from "@material-ui/core";
-import { gRPCClients } from "../grpc/gRPCClients";
-
-type roundColumns = {
-  id: number;
-  start: Date | undefined;
-  finish: Date | undefined;
-  note: string;
-  err: string;
-};
-
-function roundToRoundColumn(round: Round): roundColumns {
-  return {
-    id: round.getId(),
-    start: round.getStart()
-      ? new Date((round.getStart()?.getSeconds() as number) * 1000)
-      : undefined,
-    finish: round.getFinish()
-      ? new Date((round.getFinish()?.getSeconds() as number) * 1000)
-      : undefined,
-    err: round.getErr(),
-    note: round.getNote(),
-  };
-}
+import { useRoundsQuery } from "~/lib/queries/rounds";
+import { IRound } from "~/types/material_table";
+import { roundToIRound } from "~/lib/material-table/rounds";
 
 export default function Logs() {
   const title = "Rounds";
-  const { enqueueSnackbar } = useSnackbar();
-  const columns: Array<Column<roundColumns>> = [
+  const columns: Array<Column<IRound>> = [
     { title: "ID (optional)", field: "id", editable: "onAdd" },
     { title: "Start Time", field: "start", type: "datetime" },
     { title: "Note", field: "note" },
@@ -44,50 +15,17 @@ export default function Logs() {
     { title: "Finish Time", field: "finish", type: "datetime" },
   ];
 
-  const [state, setState] = useState<{
-    columns: any[];
-    loader: boolean;
-    data: roundColumns[];
-  }>({
-    columns,
-    loader: true,
-    data: [],
-  });
-
-  function reloadSetter() {
-    gRPCClients.round.v1.roundServicePromiseClient.getAll(new GetAllRequest(), {}).then(
-      (roundsResponse) => {
-        setState((prevState) => {
-          return {
-            ...prevState,
-            data: roundsResponse.getRoundsList().map((round): roundColumns => {
-              return roundToRoundColumn(round);
-            }),
-            loader: false,
-          };
-        });
-      },
-      (err: any) => {
-        enqueueSnackbar(
-          `Encountered an error while retrieving Rounds: ${err.message}. Error code: ${err.code}`,
-          { variant: Severity.Error, action: SnackbarDismissButton }
-        );
-      }
-    );
-  }
-  useEffect(() => {
-    reloadSetter();
-  }, []); // eslint-disable-line react-hooks/exhaustive-deps
+  const { data: roundData, isLoading: roundIsLoading } = useRoundsQuery()
 
   return (
     <>
-      {!state.loader ? (
+      {roundData && !roundIsLoading ? (
         <Container maxWidth={"xl"}>
           <Box height="100%" width="100%" marginTop={3}>
             <MaterialTable
               title={title}
-              columns={state.columns}
-              data={state.data}
+              columns={columns}
+              data={roundData.map(roundToIRound)}
               options={{
                 pageSizeOptions: [5, 10, 20, 50, 100, 500, 1000],
                 pageSize: 20,
