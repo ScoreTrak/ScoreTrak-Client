@@ -72,7 +72,7 @@ export default function Sign_in() {
     const loginRequest = new LoginRequest();
     loginRequest.setUsername(data.username);
     loginRequest.setPassword(data.password);
-    gRPCClients.auth.v1.authServicePromiseClient.login(loginRequest, {}).then(
+    gRPCClients.auth.v1.authServicePromiseClient.login(loginRequest).then(
       (r) => {
         token.saveToken(r.getAccessToken());
         navigate("/");
