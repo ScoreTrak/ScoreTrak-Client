@@ -24,6 +24,10 @@ import {
 import { SnackbarProvider } from "notistack";
 import { ThemeProvider } from "@material-ui/core/styles";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
+import { useReportSubscription } from "~/lib/queries/reports";
+import { usePolicySubscription } from "~/lib/queries/policies";
+import { PolicyProvider } from "~/contexts/PolicyContext";
+import { ReportProvider } from "~/contexts/ReportContext";
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -52,11 +56,6 @@ function App() {
     [paletteType]
   );
 
-  // @ts-ignore
-  const bruh: (e: MouseEvent<HTMLDivElement, MouseEvent>) => void = (
-    // @ts-ignore
-    e: MouseEvent<HTMLDivElement, MouseEvent>
-  ) => {};
 
   return (
     <>
@@ -72,6 +71,8 @@ function App() {
         >
           <CssBaseline />
           <QueryClientProvider client={queryClient}>
+            {/*<PolicyProvider>*/}
+            {/*  <ReportProvider>*/}
                 <Routes>
                   <Route path={"/"} element={<ScoreboardLayout />}>
                     <Route index element={<Scoreboard />} />
@@ -91,6 +92,8 @@ function App() {
                     <Route index element={<Settings />} />
                   </Route>
                 </Routes>
+              {/*</ReportProvider>*/}
+            {/*</PolicyProvider>*/}
             <ReactQueryDevtools initialIsOpen={true} />
           </QueryClientProvider>
         </SnackbarProvider>
