@@ -661,7 +661,7 @@ export default function CompMenu() {
               startIcon={<SaveIcon />}
               onClick={() => {
                 gRPCClients.competition.v1.competitionServicePromiseClient
-                  .fetchCoreCompetition(new FetchCoreCompetitionRequest(), {})
+                  .fetchCoreCompetition(new FetchCoreCompetitionRequest())
                   .then(
                     (resp) => {
                       saveJSONtoFile(
