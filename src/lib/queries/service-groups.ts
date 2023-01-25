@@ -57,7 +57,7 @@ export function useAddServiceGroupMutation() {
 
   return useMutation(addServiceGroup, {
     onSuccess: () => {
-      return queryClient.invalidateQueries(["serviceGroups"]);
+      return queryClient.invalidateQueries(["service-groups"]);
     },
   });
 }
