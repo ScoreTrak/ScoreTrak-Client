@@ -14,8 +14,7 @@ import { UUID } from "@buf/scoretrak_scoretrakapis.grpc_web/scoretrak/proto/v1/u
 export function useServicesQuery() {
   const fetchServices = async () => {
     const serviceResponse = await gRPCClients.service.v2.serviceServicePromiseClient.getAll(
-      new ServiceServiceGetAllRequest(),
-      {}
+      new ServiceServiceGetAllRequest()
     );
     return serviceResponse.getServicesList();
   };
@@ -30,8 +29,7 @@ export function useServiceQuery(serviceId: string) {
     const request = new ServiceServiceGetByIDRequest();
     request.setId(uuid);
     const serviceResponse = await gRPCClients.service.v2.serviceServicePromiseClient.getByID(
-      request,
-      {}
+      request
     );
     return serviceResponse.getService();
   };
@@ -46,7 +44,7 @@ export function useAddServiceMutation() {
   const queryClient = useQueryClient();
 
   const addService = async (addServiceRequest: ServiceServiceStoreRequest) => {
-    return await gRPCClients.service.v2.serviceServicePromiseClient.store(addServiceRequest, {});
+    return await gRPCClients.service.v2.serviceServicePromiseClient.store(addServiceRequest);
   };
 
   return useMutation(addService, {
@@ -60,7 +58,7 @@ export function useUpdateServiceMutation() {
   const queryClient = useQueryClient();
 
   const updateService = async (updateServiceRequest: ServiceServiceUpdateRequest) => {
-    return await gRPCClients.service.v2.serviceServicePromiseClient.update(updateServiceRequest, {});
+    return await gRPCClients.service.v2.serviceServicePromiseClient.update(updateServiceRequest);
   };
 
   return useMutation(updateService, {
@@ -75,8 +73,7 @@ export function useDeleteServiceMutation() {
 
   const deleteService = async (deleteServiceRequest: ServiceServiceDeleteRequest) => {
     await gRPCClients.service.v2.serviceServicePromiseClient.delete(
-      deleteServiceRequest,
-      {}
+      deleteServiceRequest
     );
     return deleteServiceRequest.getId();
   };

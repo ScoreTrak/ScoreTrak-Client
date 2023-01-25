@@ -14,8 +14,7 @@ import { UUID } from "@buf/scoretrak_scoretrakapis.grpc_web/scoretrak/proto/v1/u
 export function useTeamsQuery() {
   const fetchTeams = async () => {
     const teamsResponse = await gRPCClients.team.v2.teamServicePromiseClient.getAll(
-      new TeamServiceGetAllRequest(),
-      {}
+      new TeamServiceGetAllRequest()
     );
     return teamsResponse.getTeamsList();
   };
@@ -29,7 +28,7 @@ export function useTeamQuery(teamId: string) {
     uuid.setValue(id);
     const request = new TeamServiceGetByIDRequest();
     request.setId(uuid);
-    const teamResponse = await gRPCClients.team.v2.teamServicePromiseClient.getByID(request, {});
+    const teamResponse = await gRPCClients.team.v2.teamServicePromiseClient.getByID(request);
     return teamResponse.getTeam();
   };
 
@@ -42,7 +41,7 @@ export function useAddTeamMutation() {
   const queryClient = useQueryClient();
 
   const addTeam = async (addTeamRequest: TeamServiceStoreRequest) => {
-    return await gRPCClients.team.v2.teamServicePromiseClient.store(addTeamRequest, {});
+    return await gRPCClients.team.v2.teamServicePromiseClient.store(addTeamRequest);
   };
 
   return useMutation(addTeam, {
@@ -56,7 +55,7 @@ export function useUpdateTeamMutation() {
   const queryClient = useQueryClient();
 
   const updateTeam = async (updateTeamRequest: TeamServiceUpdateRequest) => {
-    return await gRPCClients.team.v2.teamServicePromiseClient.update(updateTeamRequest, {});
+    return await gRPCClients.team.v2.teamServicePromiseClient.update(updateTeamRequest);
   };
 
   return useMutation(updateTeam, {
@@ -71,8 +70,7 @@ export function useDeleteTeamMutation() {
 
   const deleteTeam = async (deleteTeamRequest: TeamServiceDeleteRequest) => {
     await gRPCClients.team.v2.teamServicePromiseClient.delete(
-      deleteTeamRequest,
-      {}
+      deleteTeamRequest
     );
     return deleteTeamRequest.getId();
   };

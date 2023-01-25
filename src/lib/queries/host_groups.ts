@@ -14,8 +14,7 @@ import { UUID } from "@buf/scoretrak_scoretrakapis.grpc_web/scoretrak/proto/v1/u
 export function useHostGroupsQuery() {
   const fetchHostGroups = async () => {
     const hostGroupsResponse = await gRPCClients.host_group.v2.hostGroupServicePromiseClient.getAll(
-      new HostGroupServiceGetAllRequest(),
-      {}
+      new HostGroupServiceGetAllRequest()
     );
     return hostGroupsResponse.getHostGroupsList();
   };
@@ -33,8 +32,7 @@ export function useHostGroupQuery(hostGroupId: string) {
     const request = new HostGroupServiceGetByIDRequest();
     request.setId(uuid);
     const hostGroupResponse = await gRPCClients.host_group.v2.hostGroupServicePromiseClient.getByID(
-      request,
-      {}
+      request
     );
     return hostGroupResponse.getHostGroup();
   };
@@ -49,7 +47,7 @@ export function useAddHostGroupMutation() {
   const queryClient = useQueryClient();
 
   const addHostGroup = async (addHostGroupRequest: HostGroupServiceStoreRequest) => {
-    return await gRPCClients.host_group.v2.hostGroupServicePromiseClient.store(addHostGroupRequest, {});
+    return await gRPCClients.host_group.v2.hostGroupServicePromiseClient.store(addHostGroupRequest);
   };
 
   return useMutation(addHostGroup, {
@@ -63,7 +61,7 @@ export function useUpdateHostGroupMutation() {
   const queryClient = useQueryClient();
 
   const updateHostGroup = async (updateHostGroupRequest: HostGroupServiceUpdateRequest) => {
-    return await gRPCClients.host_group.v2.hostGroupServicePromiseClient.update(updateHostGroupRequest, {});
+    return await gRPCClients.host_group.v2.hostGroupServicePromiseClient.update(updateHostGroupRequest);
   };
 
   return useMutation(updateHostGroup, {
@@ -78,8 +76,7 @@ export function useDeleteHostGroupMutation() {
 
   const deleteHostGroup = async (deleteHostGroupRequest: HostGroupServiceDeleteRequest) => {
     await gRPCClients.host_group.v2.hostGroupServicePromiseClient.delete(
-      deleteHostGroupRequest,
-      {}
+      deleteHostGroupRequest
     );
     return deleteHostGroupRequest.getId();
   };

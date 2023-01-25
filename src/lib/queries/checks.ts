@@ -16,5 +16,5 @@ export function useChecksByServiceIDQuery(serviceID: string) {
     return checksResponse.getChecksList();
   };
 
-  return useQuery<Check[], grpcWeb.RpcError, Check[], ["check"]>(["checks", serviceID], () => fetchChecks(serviceID));
+  return useQuery<Check[], grpcWeb.RpcError, Check[], ["checks"]>(["checks", serviceID], () => fetchChecks(serviceID));
 }

@@ -20,15 +20,14 @@ export function usePolicyQuery() {
   const fetchPolicy = async () => {
     const policyResponse =
       await gRPCClients.policy.v2.policyServicePromiseClient.getUnary(
-        new PolicyServiceGetUnaryRequest(),
-        {}
+        new PolicyServiceGetUnaryRequest()
       );
 
     return policyResponse.getPolicy()!.toObject();
   };
 
   // We want to update the policy data with the websocket connection defined below
-  return useQuery<Policy.AsObject, grpcWeb.RpcError>(["policy"], fetchPolicy, {staleTime: Infinity});
+  return useQuery<Policy.AsObject, grpcWeb.RpcError>(["policy"], fetchPolicy, {refetchInterval: 1000});
 }
 
 export function usePolicySubscription() {
@@ -41,14 +40,14 @@ export function usePolicySubscription() {
     const stream =
       gRPCClients.policy.v2.policyServicePromiseClient.get(streamRequest);
 
-    // @ts-ignore
-    stream.on("data", (response: PolicyServiceGetResponse) => {
+    stream.on("data", (response) => {
       if (response.hasPolicy()) {
         queryClient.setQueryData(["policy"], response.getPolicy()!.toObject());
+        queryClient.invalidateQueries(["checks"])
       }
     });
 
-    stream.on("error", (err: grpcWeb.RpcError) => {
+    stream.on("error", (err) => {
       if (err.code === 7 || err.code === 16) {
         enqueueSnackbar(
           `You are not authorized to perform this action. Please Log in`,
@@ -71,7 +70,7 @@ export function usePolicySubscription() {
     });
 
     return () => stream.cancel();
-  }, [queryClient]);
+  }, [queryClient, enqueueSnackbar, navigate]);
 }
 
 export function useUpdatePolicyMutation() {
@@ -80,12 +79,11 @@ export function useUpdatePolicyMutation() {
 
   const updatePolicy = async (policy: Policy) => {
     return await gRPCClients.policy.v2.policyServicePromiseClient.update(
-      new PolicyServiceUpdateRequest().setPolicy(policy),
-      {}
+      new PolicyServiceUpdateRequest().setPolicy(policy)
     );
   };
 
-  return useMutation<UpdateResponse, grpcWeb.RpcError, Policy>(updatePolicy, {
+  return useMutation<PolicyServiceUpdateResponse, grpcWeb.RpcError, Policy>(updatePolicy, {
     onSuccess: () => {
       return queryClient.invalidateQueries(["policy"]);
     },

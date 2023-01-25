@@ -21,7 +21,7 @@ import { SnackbarDismissButton } from "../../components/SnackbarDismissButton";
 
 export function useCoreCompetitionQuery() {
   const fetchCoreCompetition = async () => {
-    return await gRPCClients.competition.v2.competitionServicePromiseClient.fetchCoreCompetition(new CompetitionServiceFetchCoreCompetitionRequest(), {})
+    return await gRPCClients.competition.v2.competitionServicePromiseClient.fetchCoreCompetition(new CompetitionServiceFetchCoreCompetitionRequest())
   }
 
   return useQuery<CompetitionServiceFetchCoreCompetitionResponse, grpcWeb.RpcError, CompetitionServiceFetchCoreCompetitionResponse>(["competition", "core"], fetchCoreCompetition)
@@ -29,7 +29,7 @@ export function useCoreCompetitionQuery() {
 
 export function useEntireCompetitionQuery() {
   const fetchEntireCompetition = async () => {
-    return await gRPCClients.competition.v2.competitionServicePromiseClient.fetchEntireCompetition(new CompetitionServiceFetchEntireCompetitionRequest(), {})
+    return await gRPCClients.competition.v2.competitionServicePromiseClient.fetchEntireCompetition(new CompetitionServiceFetchEntireCompetitionRequest())
   }
 
   return useQuery<CompetitionServiceFetchEntireCompetitionResponse, grpcWeb.RpcError, CompetitionServiceFetchEntireCompetitionResponse>(["competition", "entire"], fetchEntireCompetition)
@@ -40,7 +40,7 @@ export function useLoadCompetitionMutation() {
   const {enqueueSnackbar} = useSnackbar()
 
   const loadCompetition = async (competition: Competition) => {
-    return await gRPCClients.competition.v2.competitionServicePromiseClient.loadCompetition(new CompetitionServiceLoadCompetitionRequest().setCompetition(competition), {})
+    return await gRPCClients.competition.v2.competitionServicePromiseClient.loadCompetition(new CompetitionServiceLoadCompetitionRequest().setCompetition(competition))
   }
 
   return useMutation<CompetitionServiceLoadCompetitionResponse, grpcWeb.RpcError, Competition>(loadCompetition, {
@@ -58,7 +58,7 @@ export function useResetCompetitionMutation() {
   const {enqueueSnackbar} = useSnackbar()
 
   const resetCompetition = async (resetCompetitionRequest: CompetitionServiceResetScoresRequest) => {
-    return await gRPCClients.competition.v2.competitionServicePromiseClient.resetScores(resetCompetitionRequest, {})
+    return await gRPCClients.competition.v2.competitionServicePromiseClient.resetScores(resetCompetitionRequest)
   }
 
   return useMutation<CompetitionServiceResetScoresResponse, grpcWeb.RpcError, CompetitionServiceResetScoresRequest>(resetCompetition, {
@@ -76,7 +76,7 @@ export function useDeleteCompetitionMutation() {
   const {enqueueSnackbar} = useSnackbar()
 
   const deleteCompetition = async (deleteCompetitionRequest: CompetitionServiceDeleteCompetitionRequest) => {
-    return await gRPCClients.competition.v2.competitionServicePromiseClient.deleteCompetition(deleteCompetitionRequest, {})
+    return await gRPCClients.competition.v2.competitionServicePromiseClient.deleteCompetition(deleteCompetitionRequest)
   }
 
   return useMutation<CompetitionServiceDeleteCompetitionResponse, grpcWeb.RpcError, CompetitionServiceDeleteCompetitionRequest>(deleteCompetition, {

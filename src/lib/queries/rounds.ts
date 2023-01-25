@@ -10,8 +10,7 @@ import { gRPCClients } from "../../grpc/gRPCClients";
 export function useRoundsQuery() {
   async function fetchRounds() {
     const roundsResponse = await gRPCClients.round.v2.roundServicePromiseClient.getAll(
-      new RoundServiceGetAllRequest(),
-      {}
+      new RoundServiceGetAllRequest()
     );
     return roundsResponse.getRoundsList();
   }
@@ -22,7 +21,7 @@ export function useRoundsQuery() {
 export function useRoundQuery(roundId: string) {
   async function fetchRoundById(id: string) {
     const request = new RoundServiceGetByIDRequest().setId(parseInt(id));
-    const roundResponse = await gRPCClients.round.v2.roundServicePromiseClient.getAll(request, {});
+    const roundResponse = await gRPCClients.round.v2.roundServicePromiseClient.getAll(request);
     return roundResponse.getRoundsList();
   }
 

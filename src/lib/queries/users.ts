@@ -14,8 +14,7 @@ import { UUID } from "@buf/scoretrak_scoretrakapis.grpc_web/scoretrak/proto/v1/u
 export function useUsersQuery() {
   const fetchUsers = async () => {
     const userResponse = await gRPCClients.user.v2.userServicePromiseClient.getAll(
-      new UserServiceGetAllRequest(),
-      {}
+      new UserServiceGetAllRequest()
     );
     return userResponse.getUsersList();
   };
@@ -29,7 +28,7 @@ export function useUserQuery(userId: string) {
     uuid.setValue(id);
     const request = new UserServiceGetByIDRequest();
     request.setId(uuid);
-    const userResponse = await gRPCClients.user.v2.userServicePromiseClient.getByID(request, {});
+    const userResponse = await gRPCClients.user.v2.userServicePromiseClient.getByID(request);
     return userResponse.getUser();
   };
 
@@ -42,7 +41,7 @@ export function useAddUserMutation() {
   const queryClient = useQueryClient();
 
   const addUser = async (addUserRequest: UserServiceStoreRequest) => {
-    return await gRPCClients.user.v2.userServicePromiseClient.store(addUserRequest, {});
+    return await gRPCClients.user.v2.userServicePromiseClient.store(addUserRequest);
   };
 
   return useMutation<UserServiceStoreResponse, grpcWeb.RpcError, UserServiceStoreRequest, grpcWeb.RpcError>(addUser, {
@@ -56,7 +55,7 @@ export function useUpdateUserMutation() {
   const queryClient = useQueryClient();
 
   const updateUser = async (updateUserRequest: UserServiceUpdateRequest) => {
-    return await gRPCClients.user.v2.userServicePromiseClient.update(updateUserRequest, {});
+    return await gRPCClients.user.v2.userServicePromiseClient.update(updateUserRequest);
   };
 
   return useMutation<UserServiceUpdateResponse, grpcWeb.RpcError, UserServiceUpdateRequest>(updateUser, {
@@ -71,8 +70,7 @@ export function useDeleteUserMutation() {
 
   const deleteUser = async (deleteUserRequest: UserServiceDeleteRequest) => {
     await gRPCClients.user.v2.userServicePromiseClient.delete(
-      deleteUserRequest,
-      {}
+      deleteUserRequest
     );
     return deleteUserRequest.getId();
   };

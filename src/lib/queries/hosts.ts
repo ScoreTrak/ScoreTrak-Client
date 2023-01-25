@@ -14,8 +14,7 @@ import { UUID } from "@buf/scoretrak_scoretrakapis.grpc_web/scoretrak/proto/v1/u
 export function useHostsQuery() {
   const fetchHosts = async () => {
     const hostsResponse = await gRPCClients.host.v2.hostServicePromiseClient.getAll(
-      new HostServiceGetAllRequest(),
-      {}
+      new HostServiceGetAllRequest()
     );
     return hostsResponse.getHostsList();
   };
@@ -29,7 +28,7 @@ export function useHostQuery(hostId: string) {
     uuid.setValue(id);
     const request = new HostServiceGetByIDRequest();
     request.setId(uuid);
-    const hostResponse = await gRPCClients.host.v2.hostServicePromiseClient.getByID(request, {});
+    const hostResponse = await gRPCClients.host.v2.hostServicePromiseClient.getByID(request);
     return hostResponse.getHost();
   };
 
@@ -42,7 +41,7 @@ export function useAddHostMutation() {
   const queryClient = useQueryClient();
 
   const addHost = async (addHostRequest: HostServiceStoreRequest) => {
-    return await gRPCClients.host.v2.hostServicePromiseClient.store(addHostRequest, {});
+    return await gRPCClients.host.v2.hostServicePromiseClient.store(addHostRequest);
   };
 
   return useMutation<HostServiceStoreResponse, grpcWeb.RpcError, HostServiceStoreRequest, grpcWeb.RpcError>(addHost, {
@@ -56,7 +55,7 @@ export function useUpdateHostMutation() {
   const queryClient = useQueryClient();
 
   const updateHost = async (updateHostRequest: HostServiceUpdateRequest) => {
-    return await gRPCClients.host.v2.hostServicePromiseClient.update(updateHostRequest, {});
+    return await gRPCClients.host.v2.hostServicePromiseClient.update(updateHostRequest);
   };
 
   return useMutation<HostServiceUpdateResponse, grpcWeb.RpcError, HostServiceUpdateRequest, grpcWeb.RpcError>(updateHost, {
@@ -71,8 +70,7 @@ export function useDeleteHostMutation() {
 
   const deleteHost = async (deleteHostRequest: HostServiceDeleteRequest) => {
     await gRPCClients.host.v2.hostServicePromiseClient.delete(
-      deleteHostRequest,
-      {}
+      deleteHostRequest
     );
     return deleteHostRequest.getId();
   };

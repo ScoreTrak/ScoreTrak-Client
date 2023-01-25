@@ -1,5 +1,5 @@
 import { gRPCClients } from "../../grpc/gRPCClients";
-import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
+import { useQuery, useQueryClient } from "@tanstack/react-query";
 import grpcWeb from "grpc-web";
 import { Severity, SimpleReport } from "../../types/types";
 import { SnackbarDismissButton } from "../../components/SnackbarDismissButton";
@@ -12,15 +12,13 @@ import {
   ReportServiceGetResponse,
   ReportServiceGetUnaryRequest,
 } from "@buf/scoretrak_scoretrakapis.grpc_web/scoretrak/report/v2/report_pb";
-import { QueryKey } from "@tanstack/react-query-devtools/build/lib/styledComponents";
 
 export function useReportQuery() {
   const queryClient = useQueryClient()
   const fetchReport = async () => {
     const reportResponse =
       await gRPCClients.report.v2.reportServicePromiseClient.getUnary(
-        new ReportServiceGetUnaryRequest(),
-        {}
+        new ReportServiceGetUnaryRequest()
       );
 
     const cache = reportResponse.getReport()?.getCache();
@@ -45,12 +43,10 @@ export function useReportSubscription() {
   useEffect(() => {
     const streamRequest = new ReportServiceGetRequest();
     const stream = gRPCClients.report.v2.reportServicePromiseClient.get(
-      streamRequest,
-      {}
+      streamRequest
     );
 
-    // @ts-ignore
-    stream.on("data", (response: ReportServiceGetResponse) => {
+    stream.on("data", (response) => {
       const cache = (response as ReportServiceGetResponse).getReport()?.getCache();
       if (cache != null) {
         const report = JSON.parse(cache) as SimpleReport;
@@ -58,7 +54,7 @@ export function useReportSubscription() {
       }
     });
 
-    stream.on("error", (err: grpcWeb.RpcError) => {
+    stream.on("error", (err) => {
       if (err.code === 7 || err.code === 16) {
         // May want to export this logic outside the grpc streaming/web socket.
         token.logout();

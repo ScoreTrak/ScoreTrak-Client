@@ -14,8 +14,7 @@ import { UUID } from "@buf/scoretrak_scoretrakapis.grpc_web/scoretrak/proto/v1/u
 export function usePropertiesQuery() {
   const fetchProperties = async () => {
     const propertiesResponse = await gRPCClients.property.v2.propertyServicePromiseClient.getAll(
-      new PropertyServiceGetAllRequest(),
-      {}
+      new PropertyServiceGetAllRequest()
     );
     return propertiesResponse.getPropertiesList();
   };
@@ -33,7 +32,7 @@ export function usePropertiesByServiceIdQuery(serviceId: string) {
     const request = new PropertyServiceGetAllByServiceIDRequest();
     request.setServiceId(uuid);
     const propertiesResponse =
-      await gRPCClients.property.v2.propertyServicePromiseClient.getAllByServiceID(request, {});
+      await gRPCClients.property.v2.propertyServicePromiseClient.getAllByServiceID(request);
     return propertiesResponse.getPropertiesList();
   };
 
@@ -46,7 +45,7 @@ export function useAddPropertyMutation() {
   const queryClient = useQueryClient();
 
   const addProperty = async (addPropertyRequest: PropertyServiceStoreRequest) => {
-    return await gRPCClients.property.v2.propertyServicePromiseClient.store(addPropertyRequest, {});
+    return await gRPCClients.property.v2.propertyServicePromiseClient.store(addPropertyRequest);
   };
 
   return useMutation(addProperty, {
@@ -60,7 +59,7 @@ export function useUpdatePropertyMutation() {
   const queryClient = useQueryClient();
 
   const updateProperty = async (updatePropertyRequest: PropertyServiceUpdateRequest) => {
-    return await gRPCClients.property.v2.propertyServicePromiseClient.update(updatePropertyRequest, {});
+    return await gRPCClients.property.v2.propertyServicePromiseClient.update(updatePropertyRequest);
   };
 
   return useMutation(updateProperty, {
@@ -74,7 +73,7 @@ export function useDeletePropertyMutation() {
   const queryClient = useQueryClient();
 
   const deleteProperty = async (deletePropertyRequest: PropertyServiceDeleteRequest) => {
-    await gRPCClients.property.v2.propertyServicePromiseClient.delete(deletePropertyRequest, {});
+    await gRPCClients.property.v2.propertyServicePromiseClient.delete(deletePropertyRequest);
     return deletePropertyRequest.getServiceId();
   };
 

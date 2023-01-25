@@ -14,8 +14,7 @@ import { UUID } from "@buf/scoretrak_scoretrakapis.grpc_web/scoretrak/proto/v1/u
 export function useServiceGroupsQuery() {
   const fetchServiceGroups = async () => {
     const serviceGroupsResponse = await gRPCClients.service_group.v2.serviceGroupServicePromiseClient.getAll(
-      new ServiceGroupServiceGetAllRequest(),
-      {}
+      new ServiceGroupServiceGetAllRequest()
     );
     return serviceGroupsResponse.getServiceGroupsList();
   };
@@ -33,8 +32,7 @@ export function useServiceGroupQuery(serviceGroupId: string) {
     const request = new ServiceGroupServiceGetByIDRequest();
     request.setId(uuid);
     const serviceGroupResponse = await gRPCClients.service_group.v2.serviceGroupServicePromiseClient.getByID(
-      request,
-      {}
+      request
     );
     return serviceGroupResponse.getServiceGroup();
   };
@@ -50,8 +48,7 @@ export function useAddServiceGroupMutation() {
 
   const addServiceGroup = async (addServiceGroupRequest: ServiceGroupServiceStoreRequest) => {
     return await gRPCClients.service_group.v2.serviceGroupServicePromiseClient.store(
-      addServiceGroupRequest,
-      {}
+      addServiceGroupRequest
     );
   };
 
@@ -70,7 +67,6 @@ export function useUpdateServiceGroupMutation() {
   ) => {
     return await gRPCClients.service_group.v2.serviceGroupServicePromiseClient.update(
       updateServiceGroupRequest,
-      {}
     );
   };
 
@@ -88,8 +84,7 @@ export function useDeleteServiceGroupMutation() {
     deleteServiceGroupRequest: ServiceGroupServiceDeleteRequest
   ) => {
     await gRPCClients.service_group.v2.serviceGroupServicePromiseClient.delete(
-      deleteServiceGroupRequest,
-      {}
+      deleteServiceGroupRequest
     );
     return deleteServiceGroupRequest.getId();
   };

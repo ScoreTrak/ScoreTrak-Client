@@ -16,8 +16,7 @@ export function useDynamicConfigQuery() {
   const fetchDynamicConfig = async () => {
     const dynamicConfigResponse =
       await gRPCClients.config.v2.dynamicConfigServicePromiseClient.get(
-        new DynamicConfigServiceGetRequest(),
-        {}
+        new DynamicConfigServiceGetRequest()
       );
     return dynamicConfigResponse.getDynamicConfig();
   };
@@ -32,8 +31,7 @@ export function useStaticConfigQuery() {
   const fetchStaticConfig = async () => {
     const staticConfigResponse =
       await gRPCClients.config.v2.staticConfigServicePromiseClient.get(
-        new StaticConfigServiceGetRequest(),
-        {}
+        new StaticConfigServiceGetRequest()
       );
     return staticConfigResponse.getStaticConfig();
   };
@@ -50,8 +48,7 @@ export function useDynamicConfigMutation() {
 
   const updateDynamicConfig = async (dynamicConfig: DynamicConfig) => {
     return await gRPCClients.config.v2.dynamicConfigServicePromiseClient.update(
-      new DynamicConfigServiceUpdateRequest().setDynamicConfig(dynamicConfig),
-      {}
+      new DynamicConfigServiceUpdateRequest().setDynamicConfig(dynamicConfig)
     );
   };
 
