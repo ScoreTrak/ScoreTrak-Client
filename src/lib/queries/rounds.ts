@@ -5,7 +5,7 @@ import {
   Round,
 } from "@buf/scoretrak_scoretrakapis.grpc_web/scoretrak/round/v2/round_pb";
 import grpcWeb from "grpc-web";
-import { gRPCClients } from "../../grpc/gRPCClients";
+import { gRPCClients } from "../grpc/gRPCClients";
 
 export function useRoundsQuery() {
   async function fetchRounds() {

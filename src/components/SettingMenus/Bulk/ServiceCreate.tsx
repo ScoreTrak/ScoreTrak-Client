@@ -28,7 +28,7 @@ import {
 import { HostGroup } from "@buf/scoretrak_scoretrakapis.grpc_web/scoretrak/host_group/v1/host_group_pb";
 import { useSnackbar } from "notistack";
 import { SnackbarDismissButton } from "../../SnackbarDismissButton";
-import { gRPCClients } from "../../../grpc/gRPCClients";
+import { gRPCClients } from "../../../lib/grpc/gRPCClients";
 import { IServiceToService } from "../../../lib/material-table/services";
 import { IService } from "../../../types/material_table";
 

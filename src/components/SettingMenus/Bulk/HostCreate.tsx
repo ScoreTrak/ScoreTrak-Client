@@ -21,7 +21,7 @@ import DeleteIcon from "@material-ui/icons/Delete";
 import Grid from "@material-ui/core/Grid";
 import { useSnackbar } from "notistack";
 import { SnackbarDismissButton } from "../../SnackbarDismissButton";
-import { gRPCClients } from "../../../grpc/gRPCClients";
+import { gRPCClients } from "../../../lib/grpc/gRPCClients";
 import { IHost } from "../../../types/material_table";
 import { defaultIHost, IHostToHost } from "../../../lib/material-table/hosts";
 import { teamToITeam } from "../../../lib/material-table/teams";

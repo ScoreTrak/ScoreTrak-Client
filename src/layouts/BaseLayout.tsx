@@ -4,8 +4,8 @@ import { useReportSubscription } from "~/lib/queries/reports";
 
 // @ts-ignore
 export default function BaseLayout({ children }) {
-  // usePolicySubscription()
-  // useReportSubscription()
+  usePolicySubscription()
+  useReportSubscription()
 
   return (
     <>

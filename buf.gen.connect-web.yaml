@@ -1,0 +1,10 @@
+version: v1
+plugins:
+  # This will invoke protoc-gen-es
+  - name: es
+    out: src/lib/scoretrakapis/connect-web
+    opt: target=ts
+  # This will invoke protoc-gen-connect-query
+  - name: connect-query
+    out: src/lib/scoretrakapis/connect-web
+    opt: target=ts

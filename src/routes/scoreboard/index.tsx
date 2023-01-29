@@ -8,7 +8,7 @@ import TableHead from "@material-ui/core/TableHead";
 import TableRow from "@material-ui/core/TableRow";
 import TableCell from "@material-ui/core/TableCell";
 import TableBody from "@material-ui/core/TableBody";
-import { token } from "../../grpc/token/token";
+import { token } from "../../lib/token/token";
 import TableFooter from "@material-ui/core/TableFooter";
 import TablePagination from "@material-ui/core/TablePagination";
 import FormControlLabel from "@material-ui/core/FormControlLabel";
@@ -216,7 +216,7 @@ export default function Scoreboard() {
                             }%`}
                             style={(() => {
                               if (data[name][column]) {
-                                let style = {};
+                                let style: {};
                                 if (theme.palette.type === "dark") {
                                   if (data[name][column].Pause) {
                                     style = { backgroundColor: "#000000" };

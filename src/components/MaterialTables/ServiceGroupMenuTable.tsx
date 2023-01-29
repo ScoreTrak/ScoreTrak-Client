@@ -1,4 +1,4 @@
-import { Severity } from "../../types/types";
+import { Severity } from "~/types/types";
 import {
   DeleteRequest,
   RedeployRequest,
@@ -10,18 +10,18 @@ import MaterialTable, { Column } from "@material-table/core";
 import { CircularProgress } from "@material-ui/core";
 import { useSnackbar } from "notistack";
 import { SnackbarDismissButton } from "../SnackbarDismissButton";
-import { gRPCClients } from "../../grpc/gRPCClients";
+import { gRPCClients } from "../../lib/grpc/gRPCClients";
 import {
   useAddServiceGroupMutation,
   useDeleteServiceGroupMutation,
   useServiceGroupsQuery,
   useUpdateServiceGroupMutation,
-} from "../../lib/queries/service-groups";
-import { IServiceGroup } from "../../types/material_table";
+} from "~/lib/queries/service-groups";
+import { IServiceGroup } from "~/types/material_table";
 import {
   IServiceGroupToServiceGroup,
   serviceGroupToIServiceGroup,
-} from "../../lib/material-table/service-groups";
+} from "~/lib/material-table/service-groups";
 import grpcWeb from "grpc-web";
 
 export default function ServiceGroupMaterialTable() {

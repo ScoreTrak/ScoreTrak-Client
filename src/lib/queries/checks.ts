@@ -1,6 +1,6 @@
 import { useQuery } from "@tanstack/react-query";
 import grpcWeb from "grpc-web";
-import { gRPCClients } from "../../grpc/gRPCClients";
+import { gRPCClients } from "../grpc/gRPCClients";
 import { UUID } from "@buf/scoretrak_scoretrakapis.grpc_web/scoretrak/proto/v1/uuid_pb";
 import { Check, CheckServiceGetAllByServiceIDRequest } from "@buf/scoretrak_scoretrakapis.grpc_web/scoretrak/check/v2/check_pb";
 

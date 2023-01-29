@@ -24,10 +24,6 @@ import {
 import { SnackbarProvider } from "notistack";
 import { ThemeProvider } from "@material-ui/core/styles";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
-import { useReportSubscription } from "~/lib/queries/reports";
-import { usePolicySubscription } from "~/lib/queries/policies";
-import { PolicyProvider } from "~/contexts/PolicyContext";
-import { ReportProvider } from "~/contexts/ReportContext";
 
 const queryClient = new QueryClient({
   defaultOptions: {

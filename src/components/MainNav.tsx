@@ -6,22 +6,15 @@ import { makeStyles } from "@material-ui/core/styles";
 import { Brightness4, Brightness7 } from "@material-ui/icons";
 import { Box, Button, Container, useTheme } from "@material-ui/core";
 import { usePaletteType } from "../contexts/PaletteTypeContext";
-import { Role, token } from "../grpc/token/token";
+import { Role, token } from "../lib/token/token";
 import SettingsIcon from "@material-ui/icons/Settings";
 import DescriptionIcon from "@material-ui/icons/Description";
 import BarChartIcon from "@material-ui/icons/BarChart";
 import DetailsIcon from "@material-ui/icons/Details";
 import CheckCircleOutlineIcon from "@material-ui/icons/CheckCircleOutline";
 import { Link as RouterLink, useNavigate } from "react-router-dom";
-import { useReportQuery, useReportSubscription } from "~/lib/queries/reports";
-import { usePolicyQuery, usePolicySubscription } from "~/lib/queries/policies";
-import { useQueryClient } from "@tanstack/react-query";
-import { useSnackbar } from "notistack";
-import { useEffect, useRef } from "react";
-import { PolicyServiceGetRequest } from "@buf/scoretrak_scoretrakapis.grpc_web/scoretrak/policy/v2/policy_pb";
-import { gRPCClients } from "~/grpc/gRPCClients";
-import { Severity } from "~/types/types";
-import { SnackbarDismissButton } from "~/components/SnackbarDismissButton";
+import { useReportQuery} from "~/lib/queries/reports";
+import { usePolicyQuery} from "~/lib/queries/policies";
 
 const useStyles = makeStyles((_) => ({
   root: {
@@ -37,11 +30,10 @@ const useStyles = makeStyles((_) => ({
 }));
 
 export function MainNav() {
-  usePolicySubscription();
   const theme = useTheme();
   const { togglePaletteType } = usePaletteType();
   const { data: reportData } = useReportQuery()
-  const {data: policyData} = usePolicyQuery()
+  const { data: policyData } = usePolicyQuery()
   const classes = useStyles();
   const navigate = useNavigate();
 
@@ -65,7 +57,7 @@ export function MainNav() {
               >
                 {reportData?.Round === 0
                   ? "Competition has not yet started!"
-                  : `Round: ${reportData?.Round}`}
+                  : `Round: ${reportData?.Round ?? '~'}`}
               </Typography>
             </Box>
 

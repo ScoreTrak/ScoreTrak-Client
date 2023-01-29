@@ -1,32 +1,23 @@
-import { gRPCClients } from "../../grpc/gRPCClients";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
-import grpcWeb from "grpc-web";
-import { Severity, SimpleReport } from "../../types/types";
-import { SnackbarDismissButton } from "../../components/SnackbarDismissButton";
+import { SimpleReport } from "~/types/types";
 import { useSnackbar } from "notistack";
-import { useEffect } from "react";
-import { token } from "~/grpc/token/token";
 import { useNavigate } from "react-router-dom";
-import {
-  ReportServiceGetRequest,
-  ReportServiceGetResponse,
-  ReportServiceGetUnaryRequest,
-} from "@buf/scoretrak_scoretrakapis.grpc_web/scoretrak/report/v2/report_pb";
+import { useGrpcWebCallbackClient, useGrpcWebPromiseClient } from "~/lib/grpc/transport";
+import { ConnectError } from "@bufbuild/connect-web";
+import { ReportService } from "@buf/scoretrak_scoretrakapis.bufbuild_connect-web/scoretrak/report/v2/report_connectweb";
+import { ReportServiceGetResponse } from "@buf/scoretrak_scoretrakapis.bufbuild_es/scoretrak/report/v2/report_pb";
 
 export function useReportQuery() {
   const queryClient = useQueryClient()
+  const reportClient = useGrpcWebPromiseClient(ReportService)
+
   const fetchReport = async () => {
-    const reportResponse =
-      await gRPCClients.report.v2.reportServicePromiseClient.getUnary(
-        new ReportServiceGetUnaryRequest()
-      );
-
-    const cache = reportResponse.getReport()?.getCache();
-
-    return JSON.parse(<string>cache) as SimpleReport;
+    const res = await reportClient.getUnary({})
+    const cache = res.report?.cache
+    return JSON.parse(<string>cache) as SimpleReport
   };
 
-  return useQuery<SimpleReport, grpcWeb.RpcError, SimpleReport, ["report"]>(["report"], fetchReport, {
+  return useQuery<SimpleReport, ConnectError, SimpleReport, ["report"]>(["report"], fetchReport, {
     onSuccess: data => {
       return queryClient.invalidateQueries(["checks"])
     },
@@ -40,38 +31,12 @@ export function useReportSubscription() {
   const { enqueueSnackbar } = useSnackbar();
   const navigate = useNavigate();
 
-  useEffect(() => {
-    const streamRequest = new ReportServiceGetRequest();
-    const stream = gRPCClients.report.v2.reportServicePromiseClient.get(
-      streamRequest
-    );
-
-    stream.on("data", (response) => {
-      const cache = (response as ReportServiceGetResponse).getReport()?.getCache();
-      if (cache != null) {
-        const report = JSON.parse(cache) as SimpleReport;
-        queryClient.setQueryData(["report"], report);
-      }
-    });
-
-    stream.on("error", (err) => {
-      if (err.code === 7 || err.code === 16) {
-        // May want to export this logic outside the grpc streaming/web socket.
-        token.logout();
-        navigate("/auth/sign_in");
-      } else if (err.code === 14) {
-        enqueueSnackbar(`Lost connection to Server`, {
-          variant: Severity.Warning,
-          action: SnackbarDismissButton,
-        });
-      } else {
-        enqueueSnackbar(
-          `Encountered an error while fetching report: ${err.message}. Error code: ${err.code}`,
-          { variant: Severity.Error, action: SnackbarDismissButton }
-        );
-      }
-    });
-
-    return () => stream.cancel();
-  }, [queryClient]);
+  const client = useGrpcWebCallbackClient(ReportService)
+  client.get({}, (res: ReportServiceGetResponse) => {
+    console.log(res.report?.cache);
+    const cache = res.report?.cache
+    queryClient.setQueryData(["report"], JSON.parse(<string>cache) as SimpleReport)
+  }, (err?: ConnectError) => {
+    console.error(err);
+  });
 }

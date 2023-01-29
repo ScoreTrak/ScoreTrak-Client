@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Role } from "../../grpc/token/token";
+import { Role } from "../../lib/token/token";
 import MaterialTable, { Column } from "@material-table/core";
 import {
   DeleteRequest,

@@ -1,4 +1,4 @@
-import { gRPCClients } from "../../grpc/gRPCClients";
+import { gRPCClients } from "../grpc/gRPCClients";
 import {
   DynamicConfig,
   DynamicConfigServiceGetRequest,

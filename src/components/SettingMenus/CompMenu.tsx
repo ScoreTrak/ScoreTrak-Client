@@ -3,14 +3,13 @@ import React, { useEffect, useState } from "react";
 import { useTheme } from "@material-ui/core";
 import { useSnackbar } from "notistack";
 import { DynamicConfig } from "@buf/scoretrak_scoretrakapis.grpc_web/scoretrak/config/v1/config_pb";
-import { Severity } from "../../types/types";
+import { Severity } from "~/types/types";
 import { SnackbarDismissButton } from "../SnackbarDismissButton";
 import {
   BoolValue,
   StringValue,
   UInt64Value,
 } from "google-protobuf/google/protobuf/wrappers_pb";
-import { Policy } from "@buf/scoretrak_scoretrakapis.grpc_web/scoretrak/policy/v1/policy_pb";
 import {
   Competition,
   DeleteCompetitionRequest,
@@ -51,23 +50,25 @@ import DialogContent from "@material-ui/core/DialogContent";
 import DialogContentText from "@material-ui/core/DialogContentText";
 import CloudUploadIcon from "@material-ui/icons/CloudUpload";
 import DialogActions from "@material-ui/core/DialogActions";
-import { gRPCClients } from "../../grpc/gRPCClients";
+import { gRPCClients } from "~/lib/grpc/gRPCClients";
 import {
   useCoreCompetitionQuery,
   useDeleteCompetitionMutation,
   useEntireCompetitionQuery,
   useLoadCompetitionMutation,
   useResetCompetitionMutation,
-} from "../../lib/queries/competition";
+} from "~/lib/queries/competition";
 import {
   useDynamicConfigMutation,
   useDynamicConfigQuery,
   useStaticConfigQuery,
-} from "../../lib/queries/config";
+} from "~/lib/queries/config";
 import {
   usePolicyQuery,
   useUpdatePolicyMutation,
-} from "../../lib/queries/policies";
+} from "~/lib/queries/policies";
+import { Policy } from "@buf/scoretrak_scoretrakapis.bufbuild_es/scoretrak/policy/v2/policy_pb";
+import { Policy as GWPolicy } from "@buf/scoretrak_scoretrakapis.grpc_web/scoretrak/policy/v2/policy_pb"
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -239,7 +240,7 @@ export default function CompMenu() {
             )
         );
         comp.setPolicy(
-          new Policy()
+          new GWPolicy()
             .setAllowChangingUsernamesAndPasswords(
               new BoolValue().setValue(
                 obj.policy?.allowChangingUsernamesAndPasswords?.value as boolean
@@ -499,13 +500,9 @@ export default function CompMenu() {
               <FormControlLabel
                 control={
                   <Switch
-                    checked={policyData.allowUnauthenticatedUsers?.value}
+                    checked={policyData.allowUnauthenticatedUsers}
                     onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
-                      handleSetPolicy(
-                        new Policy().setAllowUnauthenticatedUsers(
-                          new BoolValue().setValue(e.target.checked)
-                        )
-                      );
+                      handleSetPolicy(new Policy({allowUnauthenticatedUsers: e.target.checked}));
                     }}
                     value="allow_unauthenticated_users"
                   />
@@ -517,14 +514,10 @@ export default function CompMenu() {
                 control={
                   <Switch
                     checked={
-                      policyData.allowChangingUsernamesAndPasswords?.value
+                      policyData.allowChangingUsernamesAndPasswords
                     }
                     onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
-                      handleSetPolicy(
-                        new Policy().setAllowChangingUsernamesAndPasswords(
-                          new BoolValue().setValue(e.target.checked)
-                        )
-                      );
+                      handleSetPolicy(new Policy({allowChangingUsernamesAndPasswords: e.target.checked}));
                     }}
                     value="allow_changing_usernames_and_passwords"
                   />
@@ -535,13 +528,9 @@ export default function CompMenu() {
               <FormControlLabel
                 control={
                   <Switch
-                    checked={policyData.showPoints?.value}
+                    checked={policyData.showPoints}
                     onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
-                      handleSetPolicy(
-                        new Policy().setShowPoints(
-                          new BoolValue().setValue(e.target.checked)
-                        )
-                      );
+                      handleSetPolicy(new Policy({showPoints: e.target.checked}));
                     }}
                     value="allow_to_see_points"
                   />
@@ -552,13 +541,9 @@ export default function CompMenu() {
               <FormControlLabel
                 control={
                   <Switch
-                    checked={policyData.showAddresses?.value}
+                    checked={policyData.showAddresses}
                     onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
-                      handleSetPolicy(
-                        new Policy().setShowAddresses(
-                          new BoolValue().setValue(e.target.checked)
-                        )
-                      );
+                      handleSetPolicy(new Policy({showAddresses: e.target.checked}));
                     }}
                     value="show_addresses"
                   />
@@ -571,19 +556,14 @@ export default function CompMenu() {
                   <Switch
                     checked={
                       policyData.allowRedTeamLaunchingServiceTestsManually
-                        ?.value
                     }
                     onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
-                      handleSetPolicy(
-                        new Policy().setAllowRedTeamLaunchingServiceTestsManually(
-                          new BoolValue().setValue(e.target.checked)
-                        )
-                      );
+                      handleSetPolicy(new Policy({allowRedTeamLaunchingServiceTestsManually: e.target.checked}));
                     }}
                     value="allow_red_team_launching_service_tests_manually"
                   />
                 }
-                label="Allow Red Team to manually launch service tests(Only applies to a parrent team)"
+                label="Allow Red Team to manually launch service tests(Only applies to a parent team)"
               />
             </Box>
           </AccordionDetails>

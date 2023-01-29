@@ -8,7 +8,7 @@ import {
   PropertyServiceUpdateRequest,
 } from "@buf/scoretrak_scoretrakapis.grpc_web/scoretrak/property/v2/property_pb";
 import grpcWeb from "grpc-web";
-import { gRPCClients } from "../../grpc/gRPCClients";
+import { gRPCClients } from "../grpc/gRPCClients";
 import { UUID } from "@buf/scoretrak_scoretrakapis.grpc_web/scoretrak/proto/v1/uuid_pb";
 
 export function usePropertiesQuery() {

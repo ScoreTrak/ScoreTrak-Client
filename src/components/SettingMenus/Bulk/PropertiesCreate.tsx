@@ -18,7 +18,7 @@ import { Severity } from "../../../types/types";
 import { StoreRequest } from "@buf/scoretrak_scoretrakapis.grpc_web/scoretrak/property/v1/property_pb";
 import { useSnackbar } from "notistack";
 import { SnackbarDismissButton } from "../../SnackbarDismissButton";
-import { gRPCClients } from "../../../grpc/gRPCClients";
+import { gRPCClients } from "../../../lib/grpc/gRPCClients";
 import { serviceToIService } from "../../../lib/material-table/services";
 import {
   IProperty,

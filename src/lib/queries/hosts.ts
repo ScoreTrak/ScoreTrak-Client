@@ -8,7 +8,7 @@ import {
   HostServiceUpdateRequest, HostServiceUpdateResponse
 } from "@buf/scoretrak_scoretrakapis.grpc_web/scoretrak/host/v2/host_pb";
 import grpcWeb from "grpc-web";
-import { gRPCClients } from "../../grpc/gRPCClients";
+import { gRPCClients } from "../grpc/gRPCClients";
 import { UUID } from "@buf/scoretrak_scoretrakapis.grpc_web/scoretrak/proto/v1/uuid_pb";
 
 export function useHostsQuery() {
