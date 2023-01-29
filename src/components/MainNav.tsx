@@ -5,8 +5,8 @@ import AppBar from "@material-ui/core/AppBar";
 import { makeStyles } from "@material-ui/core/styles";
 import { Brightness4, Brightness7 } from "@material-ui/icons";
 import { Box, Button, Container, useTheme } from "@material-ui/core";
-import { usePaletteType } from "../contexts/PaletteTypeContext";
-import { Role, token } from "../lib/token/token";
+import { usePaletteType } from "~/contexts/PaletteTypeContext";
+import { Role, token } from "~/lib/token/token";
 import SettingsIcon from "@material-ui/icons/Settings";
 import DescriptionIcon from "@material-ui/icons/Description";
 import BarChartIcon from "@material-ui/icons/BarChart";
@@ -64,12 +64,12 @@ export function MainNav() {
             <Box>
               {
                 <>
-                  {/*{((policyData && policyData.showPoints?.value) ||*/}
-                  {/*  token.getCurrentRole() === Role.Black) && (*/}
+                  {((policyData && policyData.showPoints) ||
+                    token.getCurrentRole() === Role.Black) && (
                     <IconButton component={RouterLink} to={"/scoreboard"}>
                       <CheckCircleOutlineIcon />
                     </IconButton>
-                  {/*)}*/}
+                  )}
                   <IconButton component={RouterLink} to={"/scoreboard/ranks"}>
                     <BarChartIcon />
                   </IconButton>

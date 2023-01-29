@@ -5,7 +5,7 @@ import {
   TeamServiceGetByIDRequest,
   Team,
   TeamServiceStoreRequest,
-  TeamServiceUpdateRequest,
+  TeamServiceUpdateRequest, TeamServiceStoreResponse
 } from "@buf/scoretrak_scoretrakapis.grpc_web/scoretrak/team/v2/team_pb";
 import grpcWeb from "grpc-web";
 import { gRPCClients } from "../grpc/gRPCClients";
@@ -44,7 +44,7 @@ export function useAddTeamMutation() {
     return await gRPCClients.team.v2.teamServicePromiseClient.store(addTeamRequest);
   };
 
-  return useMutation(addTeam, {
+  return useMutation<TeamServiceStoreResponse, grpcWeb.RpcError>(addTeam, {
     onSuccess: () => {
       return queryClient.invalidateQueries(["teams"]);
     },

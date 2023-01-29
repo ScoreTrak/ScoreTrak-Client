@@ -640,25 +640,17 @@ export default function CompMenu() {
               className={classes.button}
               startIcon={<SaveIcon />}
               onClick={() => {
-                gRPCClients.competition.v1.competitionServicePromiseClient
-                  .fetchCoreCompetition(new FetchCoreCompetitionRequest())
-                  .then(
-                    (resp) => {
-                      saveJSONtoFile(
-                        resp.getCompetition()?.toObject(),
-                        "core-competition.json"
-                      );
-                    },
-                    (err: any) => {
+                if (coreCompetitionData) {
+                  saveJSONtoFile(coreCompetitionData.getCompetition()?.toObject(), "core-competition.json")
+                } else {
                       enqueueSnackbar(
-                        `Failed to fetch competition: ${err.message}. Error code: ${err.code}`,
+                        `Failed to fetch core competition.`,
                         {
                           variant: Severity.Error,
                           action: SnackbarDismissButton,
                         }
                       );
-                    }
-                  );
+                }
               }}
             >
               Export Core Competition
@@ -721,28 +713,17 @@ export default function CompMenu() {
               className={classes.button}
               startIcon={<SaveIcon />}
               onClick={() => {
-                gRPCClients.competition.v1.competitionServicePromiseClient
-                  .fetchEntireCompetition(
-                    new FetchEntireCompetitionRequest(),
-                    {}
-                  )
-                  .then(
-                    (resp) => {
-                      saveJSONtoFile(
-                        resp.getCompetition()?.toObject(),
-                        "entire-competition.json"
-                      );
-                    },
-                    (err: any) => {
-                      enqueueSnackbar(
-                        `Failed to fetch competition: ${err.message}. Error code: ${err.code}`,
-                        {
-                          variant: Severity.Error,
-                          action: SnackbarDismissButton,
-                        }
-                      );
+                if (entireCompetitionData) {
+                  saveJSONtoFile(entireCompetitionData.getCompetition()?.toObject(), "entire-competition.json")
+                } else {
+                  enqueueSnackbar(
+                    `Failed to fetch entire competition.`,
+                    {
+                      variant: Severity.Error,
+                      action: SnackbarDismissButton,
                     }
-                  );
+                  )
+                }
               }}
             >
               Export Entire Competition

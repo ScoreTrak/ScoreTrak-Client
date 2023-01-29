@@ -14,9 +14,9 @@ import {
   CompetitionServiceResetScoresResponse
 } from "@buf/scoretrak_scoretrakapis.grpc_web/scoretrak/competition/v2/competition_pb";
 import grpcWeb from "grpc-web";
-import { Severity } from "../../types/types";
+import { Severity } from "~/types/types";
 import { useSnackbar } from "notistack";
-import { SnackbarDismissButton } from "../../components/SnackbarDismissButton";
+import { SnackbarDismissButton } from "~/components/SnackbarDismissButton";
 
 
 export function useCoreCompetitionQuery() {
@@ -64,6 +64,7 @@ export function useResetCompetitionMutation() {
   return useMutation<CompetitionServiceResetScoresResponse, grpcWeb.RpcError, CompetitionServiceResetScoresRequest>(resetCompetition, {
     onSuccess: () => {
       enqueueSnackbar("Successfully reset all of the scores!", { variant: Severity.Success, });
+      return queryClient.invalidateQueries(["report"])
     },
     onError: (error) => {
       enqueueSnackbar(`Failed to reset scores: ${error.message}. Error code: ${error.code}`, { variant: Severity.Error, action: SnackbarDismissButton });
