@@ -16,7 +16,7 @@ import { useEffect } from "react";
 export function usePolicyQuery() {
   const policyClient = useGrpcWebPromiseClient(PolicyService)
 
-  return useQuery<Policy, ConnectError, Policy, ['policy']>(["policy"], async () => (await policyClient.getUnary({})).policy, {staleTime: Infinity, refetchInterval: 5000});
+  return useQuery<Policy, ConnectError, Policy, ['policy']>(["policy"], async () => (await policyClient.getUnary({})).policy, {staleTime: Infinity});
 }
 
 export function usePolicySubscription() {
