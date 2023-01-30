@@ -9,12 +9,12 @@ import Button from "@material-ui/core/Button";
 import {
   StoreRequest,
   Team,
-} from "@buf/grpc_web_scoretrak_scoretrakapis/scoretrak/team/v1/team_pb";
+} from "@buf/scoretrak_scoretrakapis.grpc_web/scoretrak/team/v1/team_pb";
 import { Severity } from "../../../types/types";
 import { UInt64Value } from "google-protobuf/google/protobuf/wrappers_pb";
 import { useSnackbar } from "notistack";
 import { SnackbarDismissButton } from "../../SnackbarDismissButton";
-import { gRPCClients } from "../../../grpc/gRPCClients";
+import { gRPCClients } from "../../../lib/grpc/gRPCClients";
 
 function numberRange(start: number, end: number) {
   if (start > end) {
@@ -104,7 +104,7 @@ const TeamCreate = () => {
         0
       );
     });
-    gRPCClients.team.v1.teamServicePromiseClient.store(storeRequest, {}).then(
+    gRPCClients.team.v1.teamServicePromiseClient.store(storeRequest).then(
       (_) => {
         enqueueSnackbar(`Teams Created!`, { variant: Severity.Success });
       },

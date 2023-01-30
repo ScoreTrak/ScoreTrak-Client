@@ -1,11 +1,11 @@
-import { gRPCClients } from "../../grpc/gRPCClients";
+import { gRPCClients } from "../grpc/gRPCClients";
 import {
   DynamicConfig,
-  GetRequest,
-  GetStaticConfigRequest,
-  UpdateRequest,
-  UpdateResponse,
-} from "@buf/grpc_web_scoretrak_scoretrakapis/scoretrak/config/v1/config_pb";
+  DynamicConfigServiceGetRequest,
+  StaticConfigServiceGetRequest,
+  DynamicConfigServiceUpdateRequest,
+  DynamicConfigServiceUpdateResponse,
+} from "@buf/scoretrak_scoretrakapis.grpc_web/scoretrak/config/v2/config_pb";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import grpcWeb from "grpc-web";
 import { Severity } from "../../types/types";
@@ -15,9 +15,8 @@ import { useSnackbar } from "notistack";
 export function useDynamicConfigQuery() {
   const fetchDynamicConfig = async () => {
     const dynamicConfigResponse =
-      await gRPCClients.config.v1.dynamicConfigServicePromiseClient.get(
-        new GetRequest(),
-        {}
+      await gRPCClients.config.v2.dynamicConfigServicePromiseClient.get(
+        new DynamicConfigServiceGetRequest()
       );
     return dynamicConfigResponse.getDynamicConfig();
   };
@@ -31,9 +30,8 @@ export function useDynamicConfigQuery() {
 export function useStaticConfigQuery() {
   const fetchStaticConfig = async () => {
     const staticConfigResponse =
-      await gRPCClients.config.v1.staticConfigServicePromiseClient.get(
-        new GetStaticConfigRequest(),
-        {}
+      await gRPCClients.config.v2.staticConfigServicePromiseClient.get(
+        new StaticConfigServiceGetRequest()
       );
     return staticConfigResponse.getStaticConfig();
   };
@@ -49,13 +47,12 @@ export function useDynamicConfigMutation() {
   const { enqueueSnackbar } = useSnackbar();
 
   const updateDynamicConfig = async (dynamicConfig: DynamicConfig) => {
-    return await gRPCClients.config.v1.dynamicConfigServicePromiseClient.update(
-      new UpdateRequest().setDynamicConfig(dynamicConfig),
-      {}
+    return await gRPCClients.config.v2.dynamicConfigServicePromiseClient.update(
+      new DynamicConfigServiceUpdateRequest().setDynamicConfig(dynamicConfig)
     );
   };
 
-  return useMutation<UpdateResponse, grpcWeb.RpcError, DynamicConfig>(
+  return useMutation<DynamicConfigServiceUpdateResponse, grpcWeb.RpcError, DynamicConfig>(
     updateDynamicConfig,
     {
       onSuccess: () => {

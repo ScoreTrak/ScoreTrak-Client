@@ -28,7 +28,7 @@ import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 const queryClient = new QueryClient({
   defaultOptions: {
     queries: {
-      staleTime: Infinity,
+      staleTime: 500,
     },
   },
 });
@@ -52,11 +52,6 @@ function App() {
     [paletteType]
   );
 
-  // @ts-ignore
-  const bruh: (e: MouseEvent<HTMLDivElement, MouseEvent>) => void = (
-    // @ts-ignore
-    e: MouseEvent<HTMLDivElement, MouseEvent>
-  ) => {};
 
   return (
     <>
@@ -72,25 +67,25 @@ function App() {
         >
           <CssBaseline />
           <QueryClientProvider client={queryClient}>
-                <Routes>
-                  <Route path={"/"} element={<ScoreboardLayout />}>
-                    <Route index element={<Scoreboard />} />
-                  </Route>
-                  <Route path={"/"} element={<DefaultLayout />}>
-                    <Route path={"logs"} element={<Logs />} />
-                  </Route>
-                  <Route path={"scoreboard"} element={<ScoreboardLayout />}>
-                    <Route index element={<Scoreboard />} />
-                    <Route path={"ranks"} element={<Ranks />} />
-                    <Route path={"details"} element={<Details />} />
-                  </Route>
-                  <Route path={"auth"} element={<AuthLayout />}>
-                    <Route path={"sign_in"} element={<SignIn />} />
-                  </Route>
-                  <Route path={"settings"} element={<DefaultLayout />}>
-                    <Route index element={<Settings />} />
-                  </Route>
-                </Routes>
+            <Routes>
+              <Route path={"/"} element={<ScoreboardLayout />}>
+                <Route index element={<Scoreboard />} />
+              </Route>
+              <Route path={"/"} element={<DefaultLayout />}>
+                <Route path={"logs"} element={<Logs />} />
+              </Route>
+              <Route path={"scoreboard"} element={<ScoreboardLayout />}>
+                <Route index element={<Scoreboard />} />
+                <Route path={"ranks"} element={<Ranks />} />
+                <Route path={"details"} element={<Details />} />
+              </Route>
+              <Route path={"auth"} element={<AuthLayout />}>
+                <Route path={"sign_in"} element={<SignIn />} />
+              </Route>
+              <Route path={"settings"} element={<DefaultLayout />}>
+                <Route index element={<Settings />} />
+              </Route>
+            </Routes>
             <ReactQueryDevtools initialIsOpen={true} />
           </QueryClientProvider>
         </SnackbarProvider>

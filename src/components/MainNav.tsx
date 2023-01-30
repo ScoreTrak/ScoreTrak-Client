@@ -5,14 +5,16 @@ import AppBar from "@material-ui/core/AppBar";
 import { makeStyles } from "@material-ui/core/styles";
 import { Brightness4, Brightness7 } from "@material-ui/icons";
 import { Box, Button, Container, useTheme } from "@material-ui/core";
-import { usePaletteType } from "../contexts/PaletteTypeContext";
-import { Role, token } from "../grpc/token/token";
+import { usePaletteType } from "~/contexts/PaletteTypeContext";
+import { Role, token } from "~/lib/token/token";
 import SettingsIcon from "@material-ui/icons/Settings";
 import DescriptionIcon from "@material-ui/icons/Description";
 import BarChartIcon from "@material-ui/icons/BarChart";
 import DetailsIcon from "@material-ui/icons/Details";
+import CheckCircleOutlineIcon from "@material-ui/icons/CheckCircleOutline";
 import { Link as RouterLink, useNavigate } from "react-router-dom";
-import { usePolicySubscription } from "~/lib/queries/policies";
+import { useReportQuery} from "~/lib/queries/reports";
+import { usePolicyQuery} from "~/lib/queries/policies";
 
 const useStyles = makeStyles((_) => ({
   root: {
@@ -28,9 +30,10 @@ const useStyles = makeStyles((_) => ({
 }));
 
 export function MainNav() {
-  usePolicySubscription();
   const theme = useTheme();
   const { togglePaletteType } = usePaletteType();
+  const { data: reportData } = useReportQuery()
+  const { data: policyData } = usePolicyQuery()
   const classes = useStyles();
   const navigate = useNavigate();
 
@@ -52,21 +55,21 @@ export function MainNav() {
                 color="inherit"
                 className={classes.title}
               >
-                {/*{report?.Round === 0*/}
-                {/*  ? "Competition has not yet started!"*/}
-                {/*  : `Round: ${report?.Round}`}*/}
+                {reportData?.Round === 0
+                  ? "Competition has not yet started!"
+                  : `Round: ${reportData?.Round ?? '~'}`}
               </Typography>
             </Box>
 
             <Box>
               {
                 <>
-                  {/*{((policy && policy.showPoints?.value) ||*/}
-                  {/*  token.getCurrentRole() === Role.Black) && (*/}
-                  {/*  <IconButton component={RouterLink} to={"/scoreboard"}>*/}
-                  {/*    <CheckCircleIcon />*/}
-                  {/*  </IconButton>*/}
-                  {/*)}*/}
+                  {((policyData && policyData.showPoints) ||
+                    token.getCurrentRole() === Role.Black) && (
+                    <IconButton component={RouterLink} to={"/scoreboard"}>
+                      <CheckCircleOutlineIcon />
+                    </IconButton>
+                  )}
                   <IconButton component={RouterLink} to={"/scoreboard/ranks"}>
                     <BarChartIcon />
                   </IconButton>

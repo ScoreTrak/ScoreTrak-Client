@@ -1,10 +1,10 @@
 import { SubmitHandler, useForm } from "react-hook-form";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { LoginRequest } from "@buf/grpc_web_scoretrak_scoretrakapis/scoretrak/auth/v1/auth_pb";
-import { gRPCClients } from "../../grpc/gRPCClients";
-import { token } from "../../grpc/token/token";
-import { Severity } from "../../types/types";
+import { LoginRequest } from "@buf/scoretrak_scoretrakapis.grpc_web/scoretrak/auth/v1/auth_pb";
+import { gRPCClients } from "~/lib/grpc/gRPCClients";
+import { token } from "~/lib/token/token";
+import { Severity } from "~/types/types";
 import Container from "@material-ui/core/Container";
 import CssBaseline from "@material-ui/core/CssBaseline";
 import CircularProgress from "@material-ui/core/CircularProgress";
@@ -16,6 +16,7 @@ import Button from "@material-ui/core/Button";
 import { Alert } from "@material-ui/lab";
 import * as React from "react";
 import { makeStyles } from "@material-ui/core/styles";
+import { AuthServiceLoginRequest } from "@buf/scoretrak_scoretrakapis.grpc_web/scoretrak/auth/v2/auth_pb";
 
 const useStyles = makeStyles((theme) => ({
   paper: {
@@ -69,10 +70,10 @@ export default function Sign_in() {
     const { username, password } = data
     setAlert({ severity: undefined, message: "" });
     setLoading(true);
-    const loginRequest = new LoginRequest();
+    const loginRequest = new AuthServiceLoginRequest();
     loginRequest.setUsername(data.username);
     loginRequest.setPassword(data.password);
-    gRPCClients.auth.v1.authServicePromiseClient.login(loginRequest, {}).then(
+    gRPCClients.auth.v2.authServicePromiseClient.login(loginRequest).then(
       (r) => {
         token.saveToken(r.getAccessToken());
         navigate("/");
@@ -134,6 +135,7 @@ export default function Sign_in() {
             fullWidth
             variant="contained"
             className={classes.submit}
+            id={"auth-submit"}
           >
             Sign In
           </Button>

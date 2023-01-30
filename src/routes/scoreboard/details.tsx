@@ -1,5 +1,5 @@
 import { useTitle } from "react-use";
-import { Role, token } from "../../grpc/token/token";
+import { Role, token } from "../../lib/token/token";
 import SingleTeamDetails from "../../components/ScoreBoard/Detail/SingleTeamDetails";
 import BlackTeamPanel from "~/components/ScoreBoard/Detail/BlackTeamPanel";
 

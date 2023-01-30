@@ -1,21 +1,20 @@
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import {
-  DeleteRequest,
-  GetAllRequest,
-  GetByIDRequest,
+  HostServiceDeleteRequest,
+  HostServiceGetAllRequest,
+  HostServiceGetByIDRequest,
   Host,
-  StoreRequest, StoreResponse,
-  UpdateRequest, UpdateResponse
-} from "@buf/grpc_web_scoretrak_scoretrakapis/scoretrak/host/v1/host_pb";
+  HostServiceStoreRequest, HostServiceStoreResponse,
+  HostServiceUpdateRequest, HostServiceUpdateResponse
+} from "@buf/scoretrak_scoretrakapis.grpc_web/scoretrak/host/v2/host_pb";
 import grpcWeb from "grpc-web";
-import { gRPCClients } from "../../grpc/gRPCClients";
-import { UUID } from "@buf/grpc_web_scoretrak_scoretrakapis/scoretrak/proto/v1/uuid_pb";
+import { gRPCClients } from "../grpc/gRPCClients";
+import { UUID } from "@buf/scoretrak_scoretrakapis.grpc_web/scoretrak/proto/v1/uuid_pb";
 
 export function useHostsQuery() {
   const fetchHosts = async () => {
-    const hostsResponse = await gRPCClients.host.v1.hostServicePromiseClient.getAll(
-      new GetAllRequest(),
-      {}
+    const hostsResponse = await gRPCClients.host.v2.hostServicePromiseClient.getAll(
+      new HostServiceGetAllRequest()
     );
     return hostsResponse.getHostsList();
   };
@@ -27,9 +26,9 @@ export function useHostQuery(hostId: string) {
   const fetchHostById = async (id: string) => {
     const uuid = new UUID();
     uuid.setValue(id);
-    const request = new GetByIDRequest();
+    const request = new HostServiceGetByIDRequest();
     request.setId(uuid);
-    const hostResponse = await gRPCClients.host.v1.hostServicePromiseClient.getByID(request, {});
+    const hostResponse = await gRPCClients.host.v2.hostServicePromiseClient.getByID(request);
     return hostResponse.getHost();
   };
 
@@ -41,11 +40,11 @@ export function useHostQuery(hostId: string) {
 export function useAddHostMutation() {
   const queryClient = useQueryClient();
 
-  const addHost = async (addHostRequest: StoreRequest) => {
-    return await gRPCClients.host.v1.hostServicePromiseClient.store(addHostRequest, {});
+  const addHost = async (addHostRequest: HostServiceStoreRequest) => {
+    return await gRPCClients.host.v2.hostServicePromiseClient.store(addHostRequest);
   };
 
-  return useMutation<StoreResponse, grpcWeb.RpcError, StoreRequest, grpcWeb.RpcError>(addHost, {
+  return useMutation<HostServiceStoreResponse, grpcWeb.RpcError, HostServiceStoreRequest, grpcWeb.RpcError>(addHost, {
     onSuccess: () => {
       return queryClient.invalidateQueries(["hosts"]);
     },
@@ -55,11 +54,11 @@ export function useAddHostMutation() {
 export function useUpdateHostMutation() {
   const queryClient = useQueryClient();
 
-  const updateHost = async (updateHostRequest: UpdateRequest) => {
-    return await gRPCClients.host.v1.hostServicePromiseClient.update(updateHostRequest, {});
+  const updateHost = async (updateHostRequest: HostServiceUpdateRequest) => {
+    return await gRPCClients.host.v2.hostServicePromiseClient.update(updateHostRequest);
   };
 
-  return useMutation<UpdateResponse, grpcWeb.RpcError, UpdateRequest, grpcWeb.RpcError>(updateHost, {
+  return useMutation<HostServiceUpdateResponse, grpcWeb.RpcError, HostServiceUpdateRequest, grpcWeb.RpcError>(updateHost, {
     onSuccess: () => {
       return queryClient.invalidateQueries(["hosts"]);
     },
@@ -69,15 +68,14 @@ export function useUpdateHostMutation() {
 export function useDeleteHostMutation() {
   const queryClient = useQueryClient();
 
-  const deleteHost = async (deleteHostRequest: DeleteRequest) => {
-    await gRPCClients.host.v1.hostServicePromiseClient.delete(
-      deleteHostRequest,
-      {}
+  const deleteHost = async (deleteHostRequest: HostServiceDeleteRequest) => {
+    await gRPCClients.host.v2.hostServicePromiseClient.delete(
+      deleteHostRequest
     );
     return deleteHostRequest.getId();
   };
 
-  return useMutation<UUID | undefined, grpcWeb.RpcError, DeleteRequest>(deleteHost, {
+  return useMutation<UUID | undefined, grpcWeb.RpcError, HostServiceDeleteRequest>(deleteHost, {
     onSuccess: () => {
       return queryClient.invalidateQueries(["hosts"]);
     },

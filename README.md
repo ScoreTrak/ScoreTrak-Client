@@ -15,9 +15,11 @@ git clone https://github.com/ScoreTrak/client
 Setup Buf Registry
 
 ```bash
-npm config set @buf:registry https://npm.buf.build
+npm config set @buf:registry https://buf.build/gen/npm/v1
 
 ```
+
+For more information on the buf registry for Scoretrak, go to [scoretrakapis](https://buf.build/scoretrak/scoretrakapis/assets/main).
 
 Install Dependencies
 

@@ -1,33 +1,22 @@
-import { gRPCClients } from "../../grpc/gRPCClients";
-import {
-  GetRequest,
-  GetResponse,
-  GetUnaryRequest,
-  Policy,
-  UpdateRequest,
-  UpdateResponse,
-} from "@buf/grpc_web_scoretrak_scoretrakapis/scoretrak/policy/v1/policy_pb";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import grpcWeb from "grpc-web";
-import { Severity } from "../../types/types";
-import { SnackbarDismissButton } from "../../components/SnackbarDismissButton";
+import { Severity } from "~/types/types";
+import { SnackbarDismissButton } from "~/components/SnackbarDismissButton";
 import { useSnackbar } from "notistack";
-import { useEffect } from "react";
-import { token } from "~/grpc/token/token";
 import { useNavigate } from "react-router-dom";
+import { ConnectError} from "@bufbuild/connect-web";
+import { PolicyService } from "@buf/scoretrak_scoretrakapis.bufbuild_connect-web/scoretrak/policy/v2/policy_connectweb";
+import { useGrpcWebCallbackClient, useGrpcWebPromiseClient } from "~/lib/grpc/transport";
+import {
+  Policy,
+  PolicyServiceGetResponse, PolicyServiceUpdateRequest, PolicyServiceUpdateResponse
+} from "@buf/scoretrak_scoretrakapis.bufbuild_es/scoretrak/policy/v2/policy_pb";
+import { useEffect } from "react";
 
 export function usePolicyQuery() {
-  const fetchPolicy = async () => {
-    const policyResponse =
-      await gRPCClients.policy.v1.policyServicePromiseClient.getUnary(
-        new GetUnaryRequest(),
-        {}
-      );
+  const policyClient = useGrpcWebPromiseClient(PolicyService)
 
-    return policyResponse.getPolicy()!.toObject();
-  };
-
-  return useQuery<Policy.AsObject, grpcWeb.RpcError>(["policy"], fetchPolicy);
+  return useQuery<Policy, ConnectError, Policy, ['policy']>(["policy"], async () => (await policyClient.getUnary({})).policy, {staleTime: Infinity});
 }
 
 export function usePolicySubscription() {
@@ -35,56 +24,31 @@ export function usePolicySubscription() {
   const { enqueueSnackbar } = useSnackbar();
   const navigate = useNavigate();
 
+  const policyClient = useGrpcWebCallbackClient(PolicyService)
   useEffect(() => {
-    const streamRequest = new GetRequest();
-    const stream =
-      gRPCClients.policy.v1.policyServicePromiseClient.get(streamRequest);
+    const cancel = policyClient.get({}, (res: PolicyServiceGetResponse) => {
+      // queryClient.setQueryData(["policy"], res.policy)
+      // the policyclient on the server can get corrupted so we invalidate the can call the get unary data
+      // that calls from the database. Allowing use this websocket connection as a pubsub for policy data change. :)
+      queryClient.invalidateQueries(["policy"])
+    }, (err?: ConnectError) => {
+      console.error(err);
+    })
 
-    // @ts-ignore
-    stream.on("data", (response: GetResponse) => {
-      if (response.hasPolicy()) {
-        queryClient.setQueryData(["policy"], response.getPolicy()!.toObject());
-      }
-    });
-
-    stream.on("error", (err: grpcWeb.RpcError) => {
-      if (err.code === 7 || err.code === 16) {
-        enqueueSnackbar(
-          `You are not authorized to perform this action. Please Log in`,
-          { variant: Severity.Error, action: SnackbarDismissButton }
-        );
-        // May want to export this logic outside of the grpc streaming/web socket.
-        token.logout();
-        navigate("/auth/sign_in");
-      } else if (err.code === 14) {
-        enqueueSnackbar(`Lost connection to Server`, {
-          variant: Severity.Warning,
-          action: SnackbarDismissButton,
-        });
-      } else {
-        enqueueSnackbar(
-          `Encountered an error while fetching policy: ${err.message}. Error code: ${err.code}`,
-          { variant: Severity.Error, action: SnackbarDismissButton }
-        );
-      }
-    });
-
-    return () => stream.cancel();
-  }, [queryClient]);
+    return () => cancel()
+  }, [policyClient])
 }
 
 export function useUpdatePolicyMutation() {
   const queryClient = useQueryClient();
   const { enqueueSnackbar } = useSnackbar();
+  const policyClient = useGrpcWebPromiseClient(PolicyService)
 
   const updatePolicy = async (policy: Policy) => {
-    return await gRPCClients.policy.v1.policyServicePromiseClient.update(
-      new UpdateRequest().setPolicy(policy),
-      {}
-    );
+    return await policyClient.update({ policy: policy });
   };
 
-  return useMutation<UpdateResponse, grpcWeb.RpcError, Policy>(updatePolicy, {
+  return useMutation(updatePolicy, {
     onSuccess: () => {
       return queryClient.invalidateQueries(["policy"]);
     },

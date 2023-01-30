@@ -1,21 +1,20 @@
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import {
-  DeleteRequest,
-  GetAllRequest,
-  GetByIDRequest,
+  HostGroupServiceDeleteRequest,
+  HostGroupServiceGetAllRequest,
+  HostGroupServiceGetByIDRequest,
   HostGroup,
-  StoreRequest,
-  UpdateRequest,
-} from "@buf/grpc_web_scoretrak_scoretrakapis/scoretrak/host_group/v1/host_group_pb";
+  HostGroupServiceStoreRequest,
+  HostGroupServiceUpdateRequest,
+} from "@buf/scoretrak_scoretrakapis.grpc_web/scoretrak/host_group/v2/host_group_pb";
 import grpcWeb from "grpc-web";
-import { gRPCClients } from "../../grpc/gRPCClients";
-import { UUID } from "@buf/grpc_web_scoretrak_scoretrakapis/scoretrak/proto/v1/uuid_pb";
+import { gRPCClients } from "../grpc/gRPCClients";
+import { UUID } from "@buf/scoretrak_scoretrakapis.grpc_web/scoretrak/proto/v1/uuid_pb";
 
 export function useHostGroupsQuery() {
   const fetchHostGroups = async () => {
-    const hostGroupsResponse = await gRPCClients.host_group.v1.hostGroupServicePromiseClient.getAll(
-      new GetAllRequest(),
-      {}
+    const hostGroupsResponse = await gRPCClients.host_group.v2.hostGroupServicePromiseClient.getAll(
+      new HostGroupServiceGetAllRequest()
     );
     return hostGroupsResponse.getHostGroupsList();
   };
@@ -30,11 +29,10 @@ export function useHostGroupQuery(hostGroupId: string) {
   const fetchHostGroupById = async (id: string) => {
     const uuid = new UUID();
     uuid.setValue(id);
-    const request = new GetByIDRequest();
+    const request = new HostGroupServiceGetByIDRequest();
     request.setId(uuid);
-    const hostGroupResponse = await gRPCClients.host_group.v1.hostGroupServicePromiseClient.getByID(
-      request,
-      {}
+    const hostGroupResponse = await gRPCClients.host_group.v2.hostGroupServicePromiseClient.getByID(
+      request
     );
     return hostGroupResponse.getHostGroup();
   };
@@ -48,8 +46,8 @@ export function useHostGroupQuery(hostGroupId: string) {
 export function useAddHostGroupMutation() {
   const queryClient = useQueryClient();
 
-  const addHostGroup = async (addHostGroupRequest: StoreRequest) => {
-    return await gRPCClients.host_group.v1.hostGroupServicePromiseClient.store(addHostGroupRequest, {});
+  const addHostGroup = async (addHostGroupRequest: HostGroupServiceStoreRequest) => {
+    return await gRPCClients.host_group.v2.hostGroupServicePromiseClient.store(addHostGroupRequest);
   };
 
   return useMutation(addHostGroup, {
@@ -62,8 +60,8 @@ export function useAddHostGroupMutation() {
 export function useUpdateHostGroupMutation() {
   const queryClient = useQueryClient();
 
-  const updateHostGroup = async (updateHostGroupRequest: UpdateRequest) => {
-    return await gRPCClients.host_group.v1.hostGroupServicePromiseClient.update(updateHostGroupRequest, {});
+  const updateHostGroup = async (updateHostGroupRequest: HostGroupServiceUpdateRequest) => {
+    return await gRPCClients.host_group.v2.hostGroupServicePromiseClient.update(updateHostGroupRequest);
   };
 
   return useMutation(updateHostGroup, {
@@ -76,10 +74,9 @@ export function useUpdateHostGroupMutation() {
 export function useDeleteHostGroupMutation() {
   const queryClient = useQueryClient();
 
-  const deleteHostGroup = async (deleteHostGroupRequest: DeleteRequest) => {
-    await gRPCClients.host_group.v1.hostGroupServicePromiseClient.delete(
-      deleteHostGroupRequest,
-      {}
+  const deleteHostGroup = async (deleteHostGroupRequest: HostGroupServiceDeleteRequest) => {
+    await gRPCClients.host_group.v2.hostGroupServicePromiseClient.delete(
+      deleteHostGroupRequest
     );
     return deleteHostGroupRequest.getId();
   };

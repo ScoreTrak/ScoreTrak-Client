@@ -1,12 +1,12 @@
 import MaterialTable, { Column } from "@material-table/core";
 import { Severity } from "../../types/types";
 import { CircularProgress } from "@material-ui/core";
-import { UUID } from "@buf/grpc_web_scoretrak_scoretrakapis/scoretrak/proto/v1/uuid_pb";
+import { UUID } from "@buf/scoretrak_scoretrakapis.grpc_web/scoretrak/proto/v1/uuid_pb";
 import {
   DeleteRequest,
   StoreRequest,
   UpdateRequest,
-} from "@buf/grpc_web_scoretrak_scoretrakapis/scoretrak/host_group/v1/host_group_pb";
+} from "@buf/scoretrak_scoretrakapis.grpc_web/scoretrak/host_group/v1/host_group_pb";
 import { useSnackbar } from "notistack";
 import { SnackbarDismissButton } from "../SnackbarDismissButton";
 import {

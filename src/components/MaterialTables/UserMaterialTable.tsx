@@ -1,13 +1,13 @@
 import React, { useEffect, useState } from "react";
-import { Role } from "../../grpc/token/token";
+import { Role } from "../../lib/token/token";
 import MaterialTable, { Column } from "@material-table/core";
 import {
   DeleteRequest,
   StoreRequest,
   UpdateRequest,
-} from "@buf/grpc_web_scoretrak_scoretrakapis/scoretrak/user/v1/user_pb";
+} from "@buf/scoretrak_scoretrakapis.grpc_web/scoretrak/user/v1/user_pb";
 import { Severity } from "../../types/types";
-import { UUID } from "@buf/grpc_web_scoretrak_scoretrakapis/scoretrak/proto/v1/uuid_pb";
+import { UUID } from "@buf/scoretrak_scoretrakapis.grpc_web/scoretrak/proto/v1/uuid_pb";
 import { CircularProgress } from "@material-ui/core";
 import { useSnackbar } from "notistack";
 import { SnackbarDismissButton } from "../SnackbarDismissButton";

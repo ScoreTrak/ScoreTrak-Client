@@ -1,51 +1,15 @@
-import React, { useMemo } from "react";
-import { SnackbarProvider } from "notistack";
-import { createTheme } from "@material-ui/core";
-import { usePaletteType } from "../contexts/PaletteTypeContext";
-import { ThemeProvider } from "@material-ui/core/styles";
-import {
-  deepOrange,
-  deepPurple,
-  lightBlue,
-  orange,
-} from "@material-ui/core/colors";
+import React from "react";
+import { usePolicySubscription } from "~/lib/queries/policies";
+import { useReportSubscription } from "~/lib/queries/reports";
 
 // @ts-ignore
 export default function BaseLayout({ children }) {
-  const { paletteType } = usePaletteType();
-
-  const theme = useMemo(
-    () =>
-      createTheme({
-        palette: {
-          type: paletteType,
-          primary: {
-            main: paletteType === "light" ? lightBlue[500] : orange[500],
-          },
-          secondary: {
-            main: paletteType === "light" ? deepPurple[500] : deepOrange[500],
-          },
-        },
-      }),
-    [paletteType]
-  );
+  usePolicySubscription()
+  useReportSubscription()
 
   return (
     <>
-
-      <ThemeProvider theme={theme}>
-        <SnackbarProvider
-          maxSnack={3}
-          anchorOrigin={{
-            vertical: "bottom",
-            horizontal: "right",
-          }}
-          dense
-          preventDuplicate
-        >
-          {children}
-        </SnackbarProvider>
-      </ThemeProvider>
+      {children}
     </>
   );
 }

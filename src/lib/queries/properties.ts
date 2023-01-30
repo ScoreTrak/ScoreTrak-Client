@@ -1,21 +1,20 @@
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import {
-  DeleteRequest,
-  GetAllByServiceIDRequest,
-  GetAllRequest,
+  PropertyServiceDeleteRequest,
+  PropertyServiceGetAllByServiceIDRequest,
+  PropertyServiceGetAllRequest,
   Property,
-  StoreRequest,
-  UpdateRequest,
-} from "@buf/grpc_web_scoretrak_scoretrakapis/scoretrak/property/v1/property_pb";
+  PropertyServiceStoreRequest,
+  PropertyServiceUpdateRequest,
+} from "@buf/scoretrak_scoretrakapis.grpc_web/scoretrak/property/v2/property_pb";
 import grpcWeb from "grpc-web";
-import { gRPCClients } from "../../grpc/gRPCClients";
-import { UUID } from "@buf/grpc_web_scoretrak_scoretrakapis/scoretrak/proto/v1/uuid_pb";
+import { gRPCClients } from "../grpc/gRPCClients";
+import { UUID } from "@buf/scoretrak_scoretrakapis.grpc_web/scoretrak/proto/v1/uuid_pb";
 
 export function usePropertiesQuery() {
   const fetchProperties = async () => {
-    const propertiesResponse = await gRPCClients.property.v1.propertyServicePromiseClient.getAll(
-      new GetAllRequest(),
-      {}
+    const propertiesResponse = await gRPCClients.property.v2.propertyServicePromiseClient.getAll(
+      new PropertyServiceGetAllRequest()
     );
     return propertiesResponse.getPropertiesList();
   };
@@ -30,10 +29,10 @@ export function usePropertiesByServiceIdQuery(serviceId: string) {
   const fetchPropertiesByServiceId = async (id: string) => {
     const uuid = new UUID();
     uuid.setValue(id);
-    const request = new GetAllByServiceIDRequest();
+    const request = new PropertyServiceGetAllByServiceIDRequest();
     request.setServiceId(uuid);
     const propertiesResponse =
-      await gRPCClients.property.v1.propertyServicePromiseClient.getAllByServiceID(request, {});
+      await gRPCClients.property.v2.propertyServicePromiseClient.getAllByServiceID(request);
     return propertiesResponse.getPropertiesList();
   };
 
@@ -45,8 +44,8 @@ export function usePropertiesByServiceIdQuery(serviceId: string) {
 export function useAddPropertyMutation() {
   const queryClient = useQueryClient();
 
-  const addProperty = async (addPropertyRequest: StoreRequest) => {
-    return await gRPCClients.property.v1.propertyServicePromiseClient.store(addPropertyRequest, {});
+  const addProperty = async (addPropertyRequest: PropertyServiceStoreRequest) => {
+    return await gRPCClients.property.v2.propertyServicePromiseClient.store(addPropertyRequest);
   };
 
   return useMutation(addProperty, {
@@ -59,8 +58,8 @@ export function useAddPropertyMutation() {
 export function useUpdatePropertyMutation() {
   const queryClient = useQueryClient();
 
-  const updateProperty = async (updatePropertyRequest: UpdateRequest) => {
-    return await gRPCClients.property.v1.propertyServicePromiseClient.update(updatePropertyRequest, {});
+  const updateProperty = async (updatePropertyRequest: PropertyServiceUpdateRequest) => {
+    return await gRPCClients.property.v2.propertyServicePromiseClient.update(updatePropertyRequest);
   };
 
   return useMutation(updateProperty, {
@@ -73,8 +72,8 @@ export function useUpdatePropertyMutation() {
 export function useDeletePropertyMutation() {
   const queryClient = useQueryClient();
 
-  const deleteProperty = async (deletePropertyRequest: DeleteRequest) => {
-    await gRPCClients.property.v1.propertyServicePromiseClient.delete(deletePropertyRequest, {});
+  const deleteProperty = async (deletePropertyRequest: PropertyServiceDeleteRequest) => {
+    await gRPCClients.property.v2.propertyServicePromiseClient.delete(deletePropertyRequest);
     return deletePropertyRequest.getServiceId();
   };
 

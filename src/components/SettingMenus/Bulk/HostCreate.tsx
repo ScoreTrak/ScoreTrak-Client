@@ -8,12 +8,12 @@ import TextField from "@material-ui/core/TextField";
 import Box from "@material-ui/core/Box";
 import CircularProgress from "@material-ui/core/CircularProgress";
 import Button from "@material-ui/core/Button";
-import { Team } from "@buf/grpc_web_scoretrak_scoretrakapis/scoretrak/team/v1/team_pb";
-import { HostGroup } from "@buf/grpc_web_scoretrak_scoretrakapis/scoretrak/host_group/v1/host_group_pb";
-import { GetAllRequest as GetAllRequestHostGroup } from "@buf/grpc_web_scoretrak_scoretrakapis/scoretrak/host_group/v1/host_group_pb";
-import { GetAllRequest as GetAllRequestTeam } from "@buf/grpc_web_scoretrak_scoretrakapis/scoretrak/team/v1/team_pb";
+import { Team } from "@buf/scoretrak_scoretrakapis.grpc_web/scoretrak/team/v1/team_pb";
+import { HostGroup } from "@buf/scoretrak_scoretrakapis.grpc_web/scoretrak/host_group/v1/host_group_pb";
+import { GetAllRequest as GetAllRequestHostGroup } from "@buf/scoretrak_scoretrakapis.grpc_web/scoretrak/host_group/v1/host_group_pb";
+import { GetAllRequest as GetAllRequestTeam } from "@buf/scoretrak_scoretrakapis.grpc_web/scoretrak/team/v1/team_pb";
 import { Severity } from "../../../types/types";
-import { StoreRequest } from "@buf/grpc_web_scoretrak_scoretrakapis/scoretrak/host/v1/host_pb";
+import { StoreRequest } from "@buf/scoretrak_scoretrakapis.grpc_web/scoretrak/host/v1/host_pb";
 import Switch from "@material-ui/core/Switch";
 import FormControlLabel from "@material-ui/core/FormControlLabel";
 import IconButton from "@material-ui/core/IconButton";
@@ -21,7 +21,7 @@ import DeleteIcon from "@material-ui/icons/Delete";
 import Grid from "@material-ui/core/Grid";
 import { useSnackbar } from "notistack";
 import { SnackbarDismissButton } from "../../SnackbarDismissButton";
-import { gRPCClients } from "../../../grpc/gRPCClients";
+import { gRPCClients } from "../../../lib/grpc/gRPCClients";
 import { IHost } from "../../../types/material_table";
 import { defaultIHost, IHostToHost } from "../../../lib/material-table/hosts";
 import { teamToITeam } from "../../../lib/material-table/teams";
@@ -55,7 +55,7 @@ const HostCreate = () => {
   });
   const [rowsData, setRowData] = useState<Record<string, IHost>>({});
   useEffect(() => {
-    gRPCClients.team.v1.teamServicePromiseClient.getAll(new GetAllRequestTeam(), {}).then(
+    gRPCClients.team.v1.teamServicePromiseClient.getAll(new GetAllRequestTeam()).then(
       (respTeam) => {
         setData((prevState) => {
           return {
@@ -82,7 +82,7 @@ const HostCreate = () => {
         );
       }
     );
-    gRPCClients.host_group.v1.hostGroupServicePromiseClient.getAll(new GetAllRequestHostGroup(), {}).then(
+    gRPCClients.host_group.v1.hostGroupServicePromiseClient.getAll(new GetAllRequestHostGroup()).then(
       (respHostGroup) => {
         setData((prevState) => {
           const hostGroupsTemplateState: templateState[] = [];
@@ -202,7 +202,7 @@ const HostCreate = () => {
       });
     }
 
-    gRPCClients.host.v1.hostServicePromiseClient.store(storeRequest, {}).then(
+    gRPCClients.host.v1.hostServicePromiseClient.store(storeRequest).then(
       (_) => {
         enqueueSnackbar("Success!", {
           variant: Severity.Success,

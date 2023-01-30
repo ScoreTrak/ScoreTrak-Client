@@ -5,16 +5,16 @@ import CheckCircleOutlineIcon from "@material-ui/icons/CheckCircleOutline";
 import ErrorIcon from "@material-ui/icons/Error";
 import {
   Check,
-} from "@buf/grpc_web_scoretrak_scoretrakapis/scoretrak/check/v1/check_pb";
-import { UUID } from "@buf/grpc_web_scoretrak_scoretrakapis/scoretrak/proto/v1/uuid_pb";
+} from "@buf/scoretrak_scoretrakapis.grpc_web/scoretrak/check/v1/check_pb";
+import { UUID } from "@buf/scoretrak_scoretrakapis.grpc_web/scoretrak/proto/v1/uuid_pb";
 import {
   Property,
   Status, UpdateRequest
-} from "@buf/grpc_web_scoretrak_scoretrakapis/scoretrak/property/v1/property_pb";
+} from "@buf/scoretrak_scoretrakapis.grpc_web/scoretrak/property/v1/property_pb";
 import {
   Host,
   UpdateRequest as UpdateRequestHost
-} from "@buf/grpc_web_scoretrak_scoretrakapis/scoretrak/host/v1/host_pb";
+} from "@buf/scoretrak_scoretrakapis.grpc_web/scoretrak/host/v1/host_pb";
 import { Severity } from "~/types/types";
 import { SnackbarDismissButton } from "~/components/SnackbarDismissButton";
 import * as React from "react";

@@ -15,20 +15,20 @@ import Button from "@material-ui/core/Button";
 import {
   GetAllRequest as GetAllRequestServiceGroup,
   ServiceGroup,
-} from "@buf/grpc_web_scoretrak_scoretrakapis/scoretrak/service_group/v1/service_group_pb";
+} from "@buf/scoretrak_scoretrakapis.grpc_web/scoretrak/service_group/v1/service_group_pb";
 import { Severity } from "../../../types/types";
 import {
   GetAllRequest as GetAllRequestService,
   StoreRequest,
-} from "@buf/grpc_web_scoretrak_scoretrakapis/scoretrak/service/v1/service_pb";
+} from "@buf/scoretrak_scoretrakapis.grpc_web/scoretrak/service/v1/service_pb";
 import {
   GetAllRequest as GetAllRequestHost,
   Host,
-} from "@buf/grpc_web_scoretrak_scoretrakapis/scoretrak/host/v1/host_pb";
-import { HostGroup } from "@buf/grpc_web_scoretrak_scoretrakapis/scoretrak/host_group/v1/host_group_pb";
+} from "@buf/scoretrak_scoretrakapis.grpc_web/scoretrak/host/v1/host_pb";
+import { HostGroup } from "@buf/scoretrak_scoretrakapis.grpc_web/scoretrak/host_group/v1/host_group_pb";
 import { useSnackbar } from "notistack";
 import { SnackbarDismissButton } from "../../SnackbarDismissButton";
-import { gRPCClients } from "../../../grpc/gRPCClients";
+import { gRPCClients } from "../../../lib/grpc/gRPCClients";
 import { IServiceToService } from "../../../lib/material-table/services";
 import { IService } from "../../../types/material_table";
 
@@ -77,7 +77,7 @@ const ServiceCreate = () => {
   };
 
   useEffect(() => {
-    gRPCClients.service_group.v1.serviceGroupServicePromiseClient.getAll(new GetAllRequestService(), {}).then(
+    gRPCClients.service_group.v1.serviceGroupServicePromiseClient.getAll(new GetAllRequestService()).then(
       (respServiceGrp) => {
         setData((prevState) => {
           return {
@@ -95,7 +95,7 @@ const ServiceCreate = () => {
       }
     );
     gRPCClients.host_group.v1.hostGroupServicePromiseClient
-      .getAll(new GetAllRequestServiceGroup(), {})
+      .getAll(new GetAllRequestServiceGroup())
       .then(
         (respHostGroup) => {
           const counter: Record<string, number> = {};
@@ -122,7 +122,7 @@ const ServiceCreate = () => {
         }
       );
 
-    gRPCClients.host.v1.hostServicePromiseClient.getAll(new GetAllRequestHost(), {}).then(
+    gRPCClients.host.v1.hostServicePromiseClient.getAll(new GetAllRequestHost()).then(
       (respHost) => {
         setData((prevState) => {
           return {
@@ -181,7 +181,7 @@ const ServiceCreate = () => {
       storeRequest.addServices(IServiceToService(servVals));
     });
 
-    gRPCClients.service.v1.serviceServicePromiseClient.store(storeRequest, {}).then(
+    gRPCClients.service.v1.serviceServicePromiseClient.store(storeRequest).then(
       (_) => {
         enqueueSnackbar("Success!", {
           variant: Severity.Success,
