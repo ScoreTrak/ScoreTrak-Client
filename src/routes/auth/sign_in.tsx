@@ -70,10 +70,10 @@ export default function Sign_in() {
     const { username, password } = data
     setAlert({ severity: undefined, message: "" });
     setLoading(true);
-    const loginRequest = new LoginRequest();
+    const loginRequest = new AuthServiceLoginRequest();
     loginRequest.setUsername(data.username);
     loginRequest.setPassword(data.password);
-    gRPCClients.auth.v1.authServicePromiseClient.login(loginRequest).then(
+    gRPCClients.auth.v2.authServicePromiseClient.login(loginRequest).then(
       (r) => {
         token.saveToken(r.getAccessToken());
         navigate("/");

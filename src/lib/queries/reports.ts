@@ -6,6 +6,7 @@ import { useGrpcWebCallbackClient, useGrpcWebPromiseClient } from "~/lib/grpc/tr
 import { ConnectError } from "@bufbuild/connect-web";
 import { ReportService } from "@buf/scoretrak_scoretrakapis.bufbuild_connect-web/scoretrak/report/v2/report_connectweb";
 import { ReportServiceGetResponse } from "@buf/scoretrak_scoretrakapis.bufbuild_es/scoretrak/report/v2/report_pb";
+import { useEffect } from "react";
 
 export function useReportQuery() {
   const queryClient = useQueryClient()
@@ -22,7 +23,8 @@ export function useReportQuery() {
       return queryClient.invalidateQueries(["checks"])
     },
     // We want to update the report data with the websocket connection defined below
-    staleTime: Infinity
+    staleTime: Infinity,
+    retry: false,
   });
 }
 
@@ -31,12 +33,16 @@ export function useReportSubscription() {
   const { enqueueSnackbar } = useSnackbar();
   const navigate = useNavigate();
 
-  const client = useGrpcWebCallbackClient(ReportService)
-  client.get({}, (res: ReportServiceGetResponse) => {
-    console.log(res.report?.cache);
-    const cache = res.report?.cache
-    queryClient.setQueryData(["report"], JSON.parse(<string>cache) as SimpleReport)
-  }, (err?: ConnectError) => {
-    console.error(err);
-  });
+  const reportClient = useGrpcWebCallbackClient(ReportService)
+
+  useEffect(() => {
+    const cancel = reportClient.get({}, (res: ReportServiceGetResponse) => {
+      const cache = res.report?.cache
+      queryClient.setQueryData(["report"], JSON.parse(<string>cache) as SimpleReport)
+    }, (err?: ConnectError) => {
+      console.error(err);
+    });
+
+    return () => cancel()
+  }, [reportClient])
 }

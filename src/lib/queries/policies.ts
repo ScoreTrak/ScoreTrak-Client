@@ -11,6 +11,7 @@ import {
   Policy,
   PolicyServiceGetResponse, PolicyServiceUpdateRequest, PolicyServiceUpdateResponse
 } from "@buf/scoretrak_scoretrakapis.bufbuild_es/scoretrak/policy/v2/policy_pb";
+import { useEffect } from "react";
 
 export function usePolicyQuery() {
   const policyClient = useGrpcWebPromiseClient(PolicyService)
@@ -24,14 +25,18 @@ export function usePolicySubscription() {
   const navigate = useNavigate();
 
   const policyClient = useGrpcWebCallbackClient(PolicyService)
-  policyClient.get({}, (res: PolicyServiceGetResponse) => {
-    // queryClient.setQueryData(["policy"], res.policy)
-    // the policyclient on the server can get corrupted so we invalidate the can call the get unary data
-    // that calls from the database. Allowing use this websocket connection as a pubsub for policy data change. :)
-    queryClient.invalidateQueries(["policy"])
-  }, (err?: ConnectError) => {
-    console.error(err);
-  })
+  useEffect(() => {
+    const cancel = policyClient.get({}, (res: PolicyServiceGetResponse) => {
+      // queryClient.setQueryData(["policy"], res.policy)
+      // the policyclient on the server can get corrupted so we invalidate the can call the get unary data
+      // that calls from the database. Allowing use this websocket connection as a pubsub for policy data change. :)
+      queryClient.invalidateQueries(["policy"])
+    }, (err?: ConnectError) => {
+      console.error(err);
+    })
+
+    return () => cancel()
+  }, [policyClient])
 }
 
 export function useUpdatePolicyMutation() {
@@ -40,8 +45,6 @@ export function useUpdatePolicyMutation() {
   const policyClient = useGrpcWebPromiseClient(PolicyService)
 
   const updatePolicy = async (policy: Policy) => {
-    console.log('update');
-    console.log(policy);
     return await policyClient.update({ policy: policy });
   };
 
