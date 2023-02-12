@@ -466,7 +466,6 @@ export default function CompMenu() {
                   id="round_duration"
                   aria-describedby="my-helper-text"
                   type="number"
-                  inputProps={{ min: "20" }}
                 />
                 <FormHelperText id="my-helper-text">
                   Number of seconds it takes for one round to elapse.
