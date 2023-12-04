@@ -224,10 +224,10 @@ export default function Scoreboard() {
                                     data[name][column].Check != null &&
                                     data[name][column].Check?.Passed
                                   ) {
-                                    style = { backgroundColor: "#259B0B" };
+                                    style = { backgroundColor: "#5E9DAD" };
                                   } else {
                                     style = {
-                                      backgroundColor: "#d20c23",
+                                      backgroundColor: "#C24444",
                                       color: "white",
                                     };
                                   }
@@ -238,10 +238,10 @@ export default function Scoreboard() {
                                     data[name][column].Check != null &&
                                     data[name][column].Check?.Passed
                                   ) {
-                                    style = { backgroundColor: "green" };
+                                    style = { backgroundColor: "#5E9DAD" };
                                   } else {
                                     style = {
-                                      backgroundColor: "red",
+                                      backgroundColor: "#C24444",
                                       color: "white",
                                     };
                                   }
